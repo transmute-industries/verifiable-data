@@ -4,5 +4,8 @@
   "description": "",
   "main": "index.js",
   "author": "Orie Steele",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  }
 }
