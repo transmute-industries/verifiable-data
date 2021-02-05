@@ -2,6 +2,10 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "install:ci": "npm install --ignore-scripts && lerna link && lerna bootstrap --since origin/main --include-dependencies",
+    "lint": "lerna run lint --stream",
+    "test": "lerna run test --stream",
+    "build": "lerna run build --stream",
     "release": "lerna publish"
   },
   "devDependencies": {
