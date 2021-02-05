@@ -2,7 +2,17 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "release": "lerna publish"
+    "install:ci": "npm install --ignore-scripts && lerna link && lerna bootstrap --since origin/main --include-dependencies",
+    "lint": "lerna run lint --stream",
+    "test": "lerna run test --stream",
+    "build": "lerna run build --stream",
+    "postinstall": "npm run bootstrap",
+    "publish:stable:major": "lerna publish major",
+    "publish:stable:minor": "lerna publish minor",
+    "publish:stable:patch": "lerna publish patch",
+    "publish:unstable": "lerna publish prerelease --preid unstable --yes",
+    "release": "lerna publish",
+    "release:canary": "lerna publish --canary"
   },
   "devDependencies": {
     "lerna": "^3.22.1"

@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "Person": {
+      "@id": "https://schema.org/Person"
+    },
+    "firstName": {
+      "@id": "https://schema.org/givenName"
+    },
+    "lastName": {
+      "@id": "https://schema.org/familyName"
+    },
+    "email": {
+      "@id": "https://schema.org/email"
+    },
+    "phoneNumber": {
+      "@id": "https://schema.org/telephone"
+    },
+    "jobTitle": {
+      "@id": "https://schema.org/jobTitle"
+    },
+    "worksFor": {
+      "@id": "https://schema.org/worksFor"
+    }
+  },
+  "type": "Person",
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john@example.com",
+  "phoneNumber": "555-555-5555",
+  "jobTitle": "Director of Quality",
+  "worksFor": ["https://example.com/organizations/123"]
+}

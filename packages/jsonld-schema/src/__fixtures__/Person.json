@@ -1,0 +1,59 @@
+{
+  "$id": "https://w3id.org/traceability/schemas/Person.json",
+  "$comment": "{\"term\": \"Person\", \"@id\": \"https://schema.org/Person\"}",
+  "title": "Person",
+  "description": "A person",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "array"
+    },
+    "type": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array"
+        }
+      ]
+    },
+    "firstName": {
+      "$comment": "{\"term\": \"firstName\", \"@id\": \"https://schema.org/givenName\"}",
+      "title": "First Name",
+      "description": "Person's first name.",
+      "type": "string"
+    },
+    "lastName": {
+      "$comment": "{\"term\": \"lastName\", \"@id\": \"https://schema.org/familyName\"}",
+      "title": "Last Name",
+      "description": "Person's last name.",
+      "type": "string"
+    },
+    "email": {
+      "$comment": "{\"term\": \"email\", \"@id\": \"https://schema.org/email\"}",
+      "title": "Person's Email Address",
+      "description": "Person's email address.",
+      "type": "string"
+    },
+    "phoneNumber": {
+      "$comment": "{\"term\": \"phoneNumber\", \"@id\": \"https://schema.org/telephone\"}",
+      "title": "Phone Number",
+      "description": "Person's contact phone number.",
+      "type": "string"
+    },
+    "worksFor": {
+      "$comment": "{\"term\": \"worksFor\", \"@id\": \"https://schema.org/worksFor\"}",
+      "title": "Works For",
+      "description": "Company which employs the person.",
+      "$ref": "https://w3id.org/traceability/schemas/Organization.json"
+    },
+    "jobTitle": {
+      "$comment": "{\"term\": \"jobTitle\", \"@id\": \"https://schema.org/jobTitle\"}",
+      "title": "Job Title",
+      "description": "Person's job title.",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
