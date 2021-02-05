@@ -6,6 +6,9 @@
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist",
     "src"
@@ -58,5 +61,6 @@
     "borc": "^2.1.2",
     "bs58": "^4.0.1",
     "isomorphic-webcrypto": "^2.3.6"
-  }
+  },
+  "gitHead": "f7517b0fe6e8ab46eab7afc36e368f35880d2daf"
 }
