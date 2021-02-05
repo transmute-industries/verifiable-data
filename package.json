@@ -6,7 +6,13 @@
     "lint": "lerna run lint --stream",
     "test": "lerna run test --stream",
     "build": "lerna run build --stream",
-    "release": "lerna publish"
+    "postinstall": "npm run bootstrap",
+    "publish:stable:major": "lerna publish major",
+    "publish:stable:minor": "lerna publish minor",
+    "publish:stable:patch": "lerna publish patch",
+    "publish:unstable": "lerna publish prerelease --preid unstable --yes",
+    "release": "lerna publish",
+    "release:canary": "lerna publish --canary"
   },
   "devDependencies": {
     "lerna": "^3.22.1"
