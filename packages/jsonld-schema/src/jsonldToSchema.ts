@@ -14,7 +14,7 @@ export const jsonldToSchema = (document: any, options: any) => {
   });
   schema.title = '';
   schema.description = '';
-  Object.keys(schema.properties).map((key: any) => {
+  Object.keys(schema.properties).forEach((key: any) => {
     if (key === 'type') {
       return;
     }
