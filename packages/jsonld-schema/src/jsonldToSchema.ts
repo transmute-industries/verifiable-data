@@ -28,6 +28,7 @@ export const jsonldToSchema = (document: any, options: any) => {
       description: '',
       ...prop,
     };
+    return;
   });
 
   return {
