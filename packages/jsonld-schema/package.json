@@ -2,7 +2,7 @@
   "name": "@transmute/jsonld-schema",
   "author": "Orie Steele",
   "module": "dist/jsonld-schema.esm.js",
-  "version": "0.1.0",
+  "version": "0.0.4-unstable.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -25,7 +25,6 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "peerDependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint"
