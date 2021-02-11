@@ -8,5 +8,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "f7517b0fe6e8ab46eab7afc36e368f35880d2daf"
+  "gitHead": "f7517b0fe6e8ab46eab7afc36e368f35880d2daf",
+  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/security-context",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/linked-data.git",
+    "directory": "packages/security-context"
+  }
 }
