@@ -62,5 +62,11 @@
     "bs58": "^4.0.1",
     "isomorphic-webcrypto": "^2.3.6"
   },
-  "gitHead": "f7517b0fe6e8ab46eab7afc36e368f35880d2daf"
+  "gitHead": "f7517b0fe6e8ab46eab7afc36e368f35880d2daf",
+  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/hl",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/linked-data.git",
+    "directory": "packages/hl"
+  }
 }

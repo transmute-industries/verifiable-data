@@ -6,5 +6,11 @@
   "license": "Apache-2.0",
   "publishConfig": {
     "access": "public"
+  },
+  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/credentials-context",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/linked-data.git",
+    "directory": "packages/credentials-context"
   }
 }
