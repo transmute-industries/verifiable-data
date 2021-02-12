@@ -2,7 +2,7 @@
   "name": "@transmute/jsonld-schema",
   "author": "Orie Steele",
   "module": "dist/jsonld-schema.esm.js",
-  "version": "0.0.4-unstable.3",
+  "version": "0.0.4-unstable.4",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
