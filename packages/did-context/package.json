@@ -3,16 +3,17 @@
   "version": "0.0.4-unstable.4",
   "description": "",
   "main": "index.js",
+  "types": "typings.d.ts",
   "author": "Orie Steele",
   "license": "Apache-2.0",
-  "publishConfig": {
-    "access": "public"
-  },
-  "gitHead": "f7517b0fe6e8ab46eab7afc36e368f35880d2daf",
   "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/did-context",
   "repository": {
     "type": "git",
     "url": "https://github.com/transmute-industries/linked-data.git",
     "directory": "packages/did-context"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "f7517b0fe6e8ab46eab7afc36e368f35880d2daf"
 }
