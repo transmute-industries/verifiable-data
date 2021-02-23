@@ -3,6 +3,7 @@
   "version": "0.0.4-unstable.4",
   "description": "",
   "main": "index.js",
+  "types": "typings.d.ts",
   "author": "Orie Steele",
   "license": "Apache-2.0",
   "publishConfig": {
