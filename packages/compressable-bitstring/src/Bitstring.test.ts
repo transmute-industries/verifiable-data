@@ -61,7 +61,7 @@ describe('Bitstring', () => {
     bitstring.set(4, true);
 
     for (let i = 0; i < bitstring.length; i++) {
-      if (i != 4) {
+      if (i !== 4) {
         expect(bitstring.get(i)).toBe(false);
       } else {
         expect(bitstring.get(i)).toBe(true);
@@ -86,7 +86,7 @@ describe('Bitstring', () => {
     expect(bitstring.bits[0]).toBe(239);
 
     for (let i = 0; i < bitstring.length; i++) {
-      if (i != 4) {
+      if (i !== 4) {
         expect(bitstring.get(i)).toBe(true);
       } else {
         expect(bitstring.get(i)).toBe(false);
