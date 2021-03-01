@@ -1,12 +1,13 @@
-import { CONTEXTS } from '../constants';
-import rev_v1 from './rev-v1.json';
-
 import secContexts from '@transmute/security-context';
 import credContexts from '@transmute/credentials-context';
 import didContexts from '@transmute/did-context';
+import revContexts from '@transmute/revocation-list-context';
 
 export const contexts = {
-  [CONTEXTS.RL_V1]: rev_v1,
+  [revContexts.constants
+    .REVOCATION_LIST_CONTEXT_V1_URL]: revContexts.contexts.get(
+    revContexts.constants.REVOCATION_LIST_CONTEXT_V1_URL
+  ),
   [credContexts.constants
     .CREDENTIALS_CONTEXT_V1_URL]: credContexts.contexts.get(
     credContexts.constants.CREDENTIALS_CONTEXT_V1_URL
