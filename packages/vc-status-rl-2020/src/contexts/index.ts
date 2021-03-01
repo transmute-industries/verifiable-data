@@ -3,7 +3,7 @@ import credContexts from '@transmute/credentials-context';
 import didContexts from '@transmute/did-context';
 import revContexts from '@transmute/revocation-list-context';
 
-export const contexts = {
+export const contexts: any = {
   [revContexts.constants
     .REVOCATION_LIST_CONTEXT_V1_URL]: revContexts.contexts.get(
     revContexts.constants.REVOCATION_LIST_CONTEXT_V1_URL
