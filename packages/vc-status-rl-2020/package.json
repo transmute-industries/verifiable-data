@@ -1,0 +1,73 @@
+{
+  "name": "@transmute/vc-status-rl-2020",
+  "author": "Orie Steele",
+  "module": "dist/vc-status-rl-2020.esm.js",
+  "version": "0.0.4-unstable.5",
+  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/vc-status-rl-2020",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/linked-data.git",
+    "directory": "packages/vc-status-rl-2020"
+  },
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "TS_JEST_DISABLE_VER_CHECKER=true tsdx test",
+    "lint": "tsdx lint src --fix",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "size-limit": [
+    {
+      "path": "dist/vc-status-rl-2020.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/vc-status-rl-2020.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^4.9.2",
+    "@transmute/ed25519-signature-2018": "^0.2.1-unstable.8",
+    "husky": "^4.3.8",
+    "size-limit": "^4.9.2",
+    "ts-jest": "^26.5.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "@transmute/compressable-bitstring": "0.0.4-unstable.5",
+    "@transmute/credentials-context": "0.0.4-unstable.5",
+    "@transmute/did-context": "0.0.4-unstable.5",
+    "@transmute/did-key-ed25519": "^0.2.1-unstable.35",
+    "@transmute/security-context": "0.0.4-unstable.5",
+    "@transmute/vc.js": "^0.2.1-unstable.8"
+  }
+}
