@@ -87,7 +87,7 @@ async function _checkStatus({
     ));
   } catch (e) {
     const err: any = new Error(
-      'Could not load "RevocationList2020Credential"; ' + `reason: ${e.message}`
+      `Could not load "RevocationList2020Credential"; reason: ${e.message}`
     );
     err.cause = e;
     throw err;
