@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@transmute/did-key-ed25519": "^0.2.1-unstable.35",
-    "@transmute/security-context": "0.0.4-unstable.2",
+    "@transmute/security-context": "^0.0.4-unstable.6",
     "jsonld": "^3.1.1"
   }
 }
