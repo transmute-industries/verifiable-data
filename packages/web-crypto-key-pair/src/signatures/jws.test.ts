@@ -1,14 +1,14 @@
 import { keys } from '../__fixtures__';
-import { getCryptoKeyPairFromJsonWebKey2020 } from './raw';
-import { getJwaAlgFromJwk, getSigner, getVerifier } from './jws';
+import { getCryptoKeyPairFromJsonWebKey2020 } from '../key';
+import {
+  getJwaAlgFromJwk,
+  getJwsSigner,
+  getJwsVerifier,
+  getDetachedJwsSigner,
+  getDetachedJwsVerifier,
+} from './jws';
 import base64url from 'base64url';
 import * as jose from 'jose';
-import {
-  DetachedJwsSigner,
-  DetachedJwsVerifier,
-  JwsSigner,
-  JwsVerifier,
-} from '../types';
 
 for (let c in keys) {
   let k = keys[c];
@@ -19,16 +19,16 @@ for (let c in keys) {
         publicKey,
         privateKey,
       } = await getCryptoKeyPairFromJsonWebKey2020(k);
-      const signer = await getSigner(privateKey as CryptoKey);
-      const verifier = await getVerifier(publicKey as CryptoKey);
+      const signer = await getJwsSigner(privateKey as CryptoKey);
+      const verifier = await getJwsVerifier(publicKey as CryptoKey);
       const message = 'hello';
-      const signature = await (signer as JwsSigner).sign({ data: message });
+      const signature = await signer.sign({ data: message });
       const verifiedWithJose = await jose.JWS.verify(
         signature,
         await jose.JWK.asKey(k.publicKeyJwk)
       );
       expect(verifiedWithJose.toString()).toBe(message);
-      const verifiedByUs = await (verifier as JwsVerifier).verify({
+      const verifiedByUs = await verifier.verify({
         signature,
       });
       expect(verifiedByUs).toBe(true);
@@ -36,7 +36,7 @@ for (let c in keys) {
         message,
         await jose.JWK.asKey(k.privateKeyJwk)
       );
-      const verifiedByUs2 = await (verifier as JwsVerifier).verify({
+      const verifiedByUs2 = await verifier.verify({
         signature: signature2,
       });
       expect(verifiedByUs2).toBe(true);
@@ -47,10 +47,10 @@ for (let c in keys) {
         publicKey,
         privateKey,
       } = await getCryptoKeyPairFromJsonWebKey2020(k);
-      const signer = await getSigner(privateKey as CryptoKey, true);
-      const verifier = await getVerifier(publicKey as CryptoKey, true);
+      const signer = await getDetachedJwsSigner(privateKey as CryptoKey);
+      const verifier = await getDetachedJwsVerifier(publicKey as CryptoKey);
       const message = 'hello';
-      const signature = await (signer as DetachedJwsSigner).sign({
+      const signature = await signer.sign({
         data: Buffer.from(message),
       });
 
@@ -68,7 +68,7 @@ for (let c in keys) {
         { crit: ['b64'] }
       );
       expect(verifiedWithJose.toString()).toBe(message);
-      const verifiedByUs = await (verifier as DetachedJwsVerifier).verify({
+      const verifiedByUs = await verifier.verify({
         data: Buffer.from(message),
         signature,
       });
@@ -82,7 +82,7 @@ for (let c in keys) {
         signature2.split('.')[0],
         signature2.split('.')[2],
       ].join('..');
-      const verifiedByUs2 = await (verifier as DetachedJwsVerifier).verify({
+      const verifiedByUs2 = await verifier.verify({
         data: Buffer.from(message),
         signature: detachedSignature2,
       });

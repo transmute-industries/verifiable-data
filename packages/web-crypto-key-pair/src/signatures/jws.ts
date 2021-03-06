@@ -98,12 +98,9 @@ export const verifyDetachedJws = async (
   return verified;
 };
 
-export const getSigner = async (
-  cryptoKey: CryptoKey,
-  detached = false
-): Promise<JwsSigner | DetachedJwsSigner> => {
+const getAlg = async (cryptoKey: CryptoKey) => {
   const rawSignatureOptions: any = getSignaturOptionsFromCryptoKey(cryptoKey);
-  const signer = await getRawSigner(cryptoKey);
+
   let alg = 'none';
 
   if (rawSignatureOptions === 'RSASSA-PKCS1-v1_5') {
@@ -133,15 +130,28 @@ export const getSigner = async (
 
   if (alg === 'none') {
     throw new Error(`Unsupported signature alg: ${alg}`);
+  } else {
+    return alg;
   }
+};
 
-  if (!detached) {
-    return {
-      sign: async ({ data }: JwsSignerOptions) => {
-        return createJws(signer, data, { alg });
-      },
-    };
-  }
+export const getJwsSigner = async (
+  cryptoKey: CryptoKey
+): Promise<JwsSigner> => {
+  const signer = await getRawSigner(cryptoKey);
+  const alg = await getAlg(cryptoKey);
+  return {
+    sign: async ({ data }: JwsSignerOptions) => {
+      return createJws(signer, data, { alg });
+    },
+  };
+};
+
+export const getDetachedJwsSigner = async (
+  cryptoKey: CryptoKey
+): Promise<DetachedJwsSigner> => {
+  const signer = await getRawSigner(cryptoKey);
+  const alg = await getAlg(cryptoKey);
   return {
     sign: async ({ data }: DetachedJwsSignerOptions) => {
       return createDetachedJws(signer, data, { alg });
@@ -149,29 +159,24 @@ export const getSigner = async (
   };
 };
 
-export const getVerifier = async (
-  cryptoKey: CryptoKey,
-  detached = false
-): Promise<JwsVerifier | DetachedJwsVerifier> => {
-  const rawSignatureOptions: any = getSignaturOptionsFromCryptoKey(cryptoKey);
+export const getJwsVerifier = async (
+  cryptoKey: CryptoKey
+): Promise<JwsVerifier> => {
   const verifier = await getRawVerifier(cryptoKey);
-  try {
-    if (!detached) {
-      return {
-        verify: async ({ signature }: JwsVerifierOptions) => {
-          return verifyJws(verifier, signature);
-        },
-      };
-    }
-    return {
-      verify: async ({ data, signature }: DetachedJwsVerifierOptions) => {
-        return verifyDetachedJws(verifier, data, signature);
-      },
-    };
-  } catch (e) {
-    console.warn(e);
-  }
-  throw new Error(
-    'Unsupported verification crypto key ' + JSON.stringify(rawSignatureOptions)
-  );
+  return {
+    verify: async ({ signature }: JwsVerifierOptions) => {
+      return verifyJws(verifier, signature);
+    },
+  };
+};
+
+export const getDetachedJwsVerifier = async (
+  cryptoKey: CryptoKey
+): Promise<DetachedJwsVerifier> => {
+  const verifier = await getRawVerifier(cryptoKey);
+  return {
+    verify: async ({ data, signature }: DetachedJwsVerifierOptions) => {
+      return verifyDetachedJws(verifier, data, signature);
+    },
+  };
 };

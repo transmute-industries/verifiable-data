@@ -1,7 +1,7 @@
 import { subtle } from '../crypto';
 import { JsonWebKey2020, Verifier, VerifierOptions } from '../types';
 
-import { getCryptoKeyFromJsonWebKey2020 } from './getCryptoKeyFromJsonWebKey2020';
+import { getCryptoKeyFromJsonWebKey2020 } from '../key/getCryptoKeyFromJsonWebKey2020';
 
 import { getSignaturOptionsFromCryptoKey } from './getSignaturOptionsFromCryptoKey';
 

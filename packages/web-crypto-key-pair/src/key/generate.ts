@@ -1,6 +1,8 @@
-import { subtle } from '../../crypto';
-
-const generateKey = async (options: any) => {
+import { subtle } from '../crypto';
+import { JsonWebKey2020 } from '../types';
+const generateKey = async (
+  options: any
+): Promise<{ publicKeyJwk: any; privateKeyJwk: any }> => {
   const k = await subtle.generateKey(options, true, ['sign', 'verify']);
   let kp = {
     publicKeyJwk: await subtle.exportKey('jwk', k.publicKey),
@@ -39,7 +41,10 @@ let allowedMap: any = {
   },
 };
 
-export const generate = async (opts: { kty: string; crvOrSize: string }) => {
+export const generate = async (opts: {
+  kty: string;
+  crvOrSize: string;
+}): Promise<JsonWebKey2020> => {
   try {
     let options = allowedMap[`${opts.kty} ${opts.crvOrSize}`];
     const kp = await generateKey(options);

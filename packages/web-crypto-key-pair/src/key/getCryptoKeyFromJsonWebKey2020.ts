@@ -43,7 +43,7 @@ const getImportKeyOptsFromJwk = (jwk: any, derive = false) => {
 };
 
 export const getCryptoKeyFromJsonWebKey2020 = async (
-  keypair: JsonWebKey2020,
+  keypair: JsonWebKey2020 | { publicKeyJwk: any; privateKeyJwk?: any },
   derive = false
 ) => {
   if (!keypair.privateKeyJwk) {

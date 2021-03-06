@@ -1,9 +1,6 @@
 import { keys } from '../__fixtures__';
-import {
-  getCryptoKeyPairFromJsonWebKey2020,
-  getSigner,
-  getVerifier,
-} from './raw';
+import { getSigner, getVerifier } from './raw';
+import { getCryptoKeyPairFromJsonWebKey2020 } from '../key';
 
 for (let c in keys) {
   let k = keys[c];

@@ -1,7 +1,7 @@
 import { subtle } from '../crypto';
 import { JsonWebKey2020 } from '../types';
 
-import { getCryptoKeyFromJsonWebKey2020 } from '../signatures/getCryptoKeyFromJsonWebKey2020';
+import { getCryptoKeyFromJsonWebKey2020 } from '../key/getCryptoKeyFromJsonWebKey2020';
 
 export const deriveBits = async (
   localPrivateKey: JsonWebKey2020,
