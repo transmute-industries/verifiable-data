@@ -1,8 +1,8 @@
-import { documentLoader } from './documentLoader';
+import { documentLoader } from "./documentLoader";
 
-import credential_fixtures from './credential.json';
-import keypair_fixtures from './keypair.json';
-import issuer_fixtures from './issuer.json';
+import credential_fixtures from "./credential.json";
+import keypair_fixtures from "./keypair.json";
+import issuer_fixtures from "./issuer.json";
 
 const vc_template_0 = credential_fixtures.vc_template_0 as any;
 const vc_0 = credential_fixtures.vc_0 as any;

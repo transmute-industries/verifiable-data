@@ -13,14 +13,14 @@ it("should issue and verify with JsonWebKey2020", async () => {
     publicKeyJwk: {
       crv: "Ed25519",
       x: "04lCXD05RnZQD2JBsgcu23YmTeiQHoMgyRtpenSCwBk",
-      kty: "OKP",
+      kty: "OKP"
     },
     privateKeyJwk: {
       crv: "Ed25519",
       d: "xyaCV-He8UnZI-BWIfz2R98tlu_LbM0C08WxAXbjoG8",
       x: "04lCXD05RnZQD2JBsgcu23YmTeiQHoMgyRtpenSCwBk",
-      kty: "OKP",
-    },
+      kty: "OKP"
+    }
   });
   const vc = await vcjs.issue({
     credential: {
@@ -30,13 +30,13 @@ it("should issue and verify with JsonWebKey2020", async () => {
       issuer: "did:key:z6Mkth1TmxaUcDLj9FrgNejhojR8k32HMSFJNCESGZ14DJrC",
       issuanceDate: "2019-12-03T12:19:52Z",
       credentialSubject: {
-        id: "did:key:z6Mkth1TmxaUcDLj9FrgNejhojR8k32HMSFJNCESGZ14DJrC",
-      },
+        id: "did:key:z6Mkth1TmxaUcDLj9FrgNejhojR8k32HMSFJNCESGZ14DJrC"
+      }
     },
     suite: new Ed25519Signature2018({
-      key,
+      key
     }),
-    documentLoader,
+    documentLoader
   });
 
   expect(vc.proof.type).toBe("Ed25519Signature2018");
@@ -60,15 +60,15 @@ it("should issue and verify with JsonWebKey2020", async () => {
                 publicKeyJwk: {
                   crv: "Ed25519",
                   x: "04lCXD05RnZQD2JBsgcu23YmTeiQHoMgyRtpenSCwBk",
-                  kty: "OKP",
-                },
-              },
-            ],
-          },
+                  kty: "OKP"
+                }
+              }
+            ]
+          }
         };
       }
       return documentLoader(iri);
-    },
+    }
   });
 
   expect(verification.verified).toBe(true);

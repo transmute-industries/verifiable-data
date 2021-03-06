@@ -37,13 +37,13 @@ export class Ed25519Signature2018 {
           const header = {
             alg: "EdDSA",
             b64: false,
-            crit: ["b64"],
+            crit: ["b64"]
           };
           const payload = Buffer.from(data);
           const { privateKeyJwk } = await this.key.toJsonWebKeyPair(true);
           const _jws = await EdDSA.signDetached(payload, privateKeyJwk, header);
           return _jws;
-        },
+        }
       };
 
       this.verifier = {
@@ -59,7 +59,7 @@ export class Ed25519Signature2018 {
             console.error("An error occurred when verifying signature: ", e);
           }
           return verified;
-        },
+        }
       };
     }
   }
@@ -74,7 +74,7 @@ export class Ed25519Signature2018 {
       documentLoader,
       expansionMap,
       skipExpansion,
-      useNative: this.useNativeCanonize,
+      useNative: this.useNativeCanonize
     });
   }
 
@@ -86,7 +86,7 @@ export class Ed25519Signature2018 {
     return this.canonize(proof, {
       documentLoader,
       expansionMap,
-      skipExpansion: false,
+      skipExpansion: false
     });
   }
 
@@ -94,16 +94,16 @@ export class Ed25519Signature2018 {
     document,
     proof,
     documentLoader,
-    expansionMap,
+    expansionMap
   }: any) {
     // concatenate hash of c14n proof options and hash of c14n document
     const c14nProofOptions = await this.canonizeProof(proof, {
       documentLoader,
-      expansionMap,
+      expansionMap
     });
     const c14nDocument = await this.canonize(document, {
       documentLoader,
-      expansionMap,
+      expansionMap
     });
     return Buffer.concat([sha256(c14nProofOptions), sha256(c14nDocument)]);
   }
@@ -132,7 +132,7 @@ export class Ed25519Signature2018 {
     purpose,
     documentLoader,
     expansionMap,
-    compactProof,
+    compactProof
   }: any) {
     // build proof (currently known as `signature options` in spec)
     let proof;
@@ -141,7 +141,7 @@ export class Ed25519Signature2018 {
       proof = await jsonld.compact(this.proof, constants.SECURITY_CONTEXT_URL, {
         documentLoader,
         expansionMap,
-        compactToRelative: false,
+        compactToRelative: false
       });
     } else {
       // create proof JSON-LD document
@@ -178,7 +178,7 @@ export class Ed25519Signature2018 {
       purpose,
       documentLoader,
       expansionMap,
-      compactProof,
+      compactProof
     });
 
     // allow purpose to update the proof; the `proof` is in the
@@ -188,7 +188,7 @@ export class Ed25519Signature2018 {
       document,
       suite: this,
       documentLoader,
-      expansionMap,
+      expansionMap
     });
 
     // create data to sign
@@ -197,7 +197,7 @@ export class Ed25519Signature2018 {
       proof,
       documentLoader,
       expansionMap,
-      compactProof,
+      compactProof
     });
 
     // sign data
@@ -206,7 +206,7 @@ export class Ed25519Signature2018 {
       document,
       proof,
       documentLoader,
-      expansionMap,
+      expansionMap
     });
 
     return proof;
@@ -230,7 +230,7 @@ export class Ed25519Signature2018 {
       {
         "@context": constants.SECURITY_CONTEXT_URL,
         "@embed": "@always",
-        id: verificationMethod,
+        id: verificationMethod
       },
       { documentLoader, compactToRelative: false }
     );
@@ -274,7 +274,7 @@ export class Ed25519Signature2018 {
             console.error("An error occurred when verifying signature: ", e);
           }
           return verified;
-        },
+        }
       };
     }
     return verifier.verify({ data: verifyData, signature: proof.jws });
@@ -286,7 +286,7 @@ export class Ed25519Signature2018 {
     purpose,
     documentLoader,
     expansionMap,
-    compactProof,
+    compactProof
   }: any) {
     try {
       // create data to verify
@@ -295,7 +295,7 @@ export class Ed25519Signature2018 {
         proof,
         documentLoader,
         expansionMap,
-        compactProof,
+        compactProof
       });
 
       // fetch verification method
@@ -303,7 +303,7 @@ export class Ed25519Signature2018 {
         proof,
         document,
         documentLoader,
-        expansionMap,
+        expansionMap
       });
 
       // verify signature on data
@@ -313,7 +313,7 @@ export class Ed25519Signature2018 {
         document,
         proof,
         documentLoader,
-        expansionMap,
+        expansionMap
       });
       if (!verified) {
         throw new Error("Invalid signature.");
@@ -325,7 +325,7 @@ export class Ed25519Signature2018 {
         suite: this,
         verificationMethod,
         documentLoader,
-        expansionMap,
+        expansionMap
       });
 
       if (!purposeResult.valid) {
