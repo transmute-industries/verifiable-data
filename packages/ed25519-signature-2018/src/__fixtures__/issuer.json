@@ -1,0 +1,21 @@
+{
+  "issuer_0": {
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      {
+        "@base": "https://example.com/issuer/123"
+      }
+    ],
+    "id": "https://example.com/issuer/123",
+    "publicKey": [
+      {
+        "id": "#key-0",
+        "type": "Ed25519VerificationKey2018",
+        "controller": "https://example.com/issuer/123",
+        "publicKeyBase58": "dbDmZLTWuEYYZNHFLKLoRkEX4sZykkSLNQLXvMUyMB1"
+      }
+    ],
+    "assertionMethod": ["#key-0"],
+    "authentication": ["#key-0"]
+  }
+}
