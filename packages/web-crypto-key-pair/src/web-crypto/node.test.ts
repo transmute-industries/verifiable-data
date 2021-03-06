@@ -1,5 +1,8 @@
 import * as node from './node';
 
+//  KEEP: use to dump fixtures
+//  console.log(JSON.stringify(kp, null, 2));
+
 describe('generate', () => {
   it('can generate P-256', async () => {
     const opts = { kty: 'EC', crvOrSize: 'P-256' };

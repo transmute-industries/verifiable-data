@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "type": "JsonWebKey2020",
+  "controller": "",
+  "publicKeyJwk": {
+    "kty": "RSA",
+    "n": "n2CLsZA3YtrK8NZ5Wgf4LahN03IYDstxKRZpwN6wwNX49fDq6P-uv6Y2Ht1IYVQtkH_GHI8bZTKJ4u9emoVDHfinlyj-LMlXm5LsqmIz7KLkH46Lvl-K-StP6B_yiIByM6QjCSYpGCMv1Hmn5ApO7fSO2LrWT12jvTFIqA6LYRIhvZB5SoCiwNJWaHeuhN1tUQXeIYCFW8CQWhJR3FrNlXPWdEOCa_zvmkC-LgilxPlLdjtb5ovsYnelHdVRqeZBUpD5JRmOmxp7zDy5Vc7achTJfM6aHq87i_9CCtHfSlp51dkzGqKhLuYXNMXcNEabWiLh428RpKeq1wvFB5zzCQ",
+    "e": "AQAB",
+    "alg": "RS256"
+  },
+  "privateKeyJwk": {
+    "kty": "RSA",
+    "n": "n2CLsZA3YtrK8NZ5Wgf4LahN03IYDstxKRZpwN6wwNX49fDq6P-uv6Y2Ht1IYVQtkH_GHI8bZTKJ4u9emoVDHfinlyj-LMlXm5LsqmIz7KLkH46Lvl-K-StP6B_yiIByM6QjCSYpGCMv1Hmn5ApO7fSO2LrWT12jvTFIqA6LYRIhvZB5SoCiwNJWaHeuhN1tUQXeIYCFW8CQWhJR3FrNlXPWdEOCa_zvmkC-LgilxPlLdjtb5ovsYnelHdVRqeZBUpD5JRmOmxp7zDy5Vc7achTJfM6aHq87i_9CCtHfSlp51dkzGqKhLuYXNMXcNEabWiLh428RpKeq1wvFB5zzCQ",
+    "e": "AQAB",
+    "d": "OXolBvVetBz5wV9nxktHepfO8WmdOYCvH8VAgFkPX4wLTA8FeN_00pMLw5fEKa2k_Q7HkLcfhyBxz9DJymoy6VUqg346JEa8fJPBHDVsSnP4V1UeGpr0UKYJHEqhOg8woGUaaYtEmLrf3f29yaTaEED5XzoKXfcEPQ_QByOvqmLAy9TyUS-BI_X_jS5ljHB3Wc1JoDwVKTTAswbxH8yJYqwBmocPEDz59Jc7Q-yiaV27r_uJpLVbcRD8FU2IjWRJ4tzVmKhbL3ZkNond3JOkB6oF2VdmLxv9k6218_LzkECi1se1wwBHmfbRS7TpZeIt6WPakKZ7qEnZo3zS4vXagQ",
+    "p": "0q3NFQFJ0HqxnraD3c_NjpeaAd49C8taXvv_00AjOCJUgPmtQJRZOSZlNPD5eOVaXte2GtQLiUxydMcSNqVmQhqhc_6_YseK3l10wqhvLqyV8R3q8rvJVsdWxJXCXUoUYi9uVUaAyX9VRgfBnzUYJg_v00GTrmr_BiA3pw819vk",
+    "q": "wamHTCyDTF8HFb3_WocX6MBTKQIjNvVsro8hqu9iXaTjbu1F_XtxNvM4zok80K07SSThq_QscS8UWeVXBUeftVBzOZLnrJpSWGTpsC6FlcqQYvGN8z5wCmZpPRyUd-z4V_kkRb-HyrqToWSUUPuiI8F6L_oGJYg2n0MntbAgkJE",
+    "dp": "Iy5i0N8mNGpIvvg7jQ7mhKlMToOOLioHLVVnox9Swkz5T5BiHianv6Npwy16e3XRYYUkI9bFFmhttJKJuBZmvSM1Uul3jEdGKVvx44-9AU5Qu7MDSQWS2arwEmPv0SRNwxeolRTw7LUWyFsDOlLjdXez1NNelgHIFH3MzVj86gE",
+    "dq": "OzilWCTwjcUtfHeag8t2A0X06EBwFllcv9CjQgtsMCjBJ-XFFmvORjiAcaBECag_zfFKVXQYtw_nkEnyn3m0nBSa98s1r3GNptxNHgRL8297UdZ-SxkX2AZTPk3kFPxRQU29ytp0IwmFJcCFHnKktXxv6gXyJT4PPgqiNQxEGRE",
+    "qi": "Yvw7tbpNjGzTVM8J2Em2iwrZY6TLkTk0cAlBy1kYkqj48O3a9f_jBrfIuQVtdLUvq9Lw-0wDdsiCUpTe9mJHL4uiPLpRmybNjqzqZN40WrQyf7ZvuxkGaohRvIeGOi40P3dmNYYt1_qRHPKZLRsYYdAQSJkoKV-cF28-CZIpcg0",
+    "alg": "RS256"
+  }
+}

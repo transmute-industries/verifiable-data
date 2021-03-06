@@ -1,0 +1,18 @@
+{
+  "id": "",
+  "type": "JsonWebKey2020",
+  "controller": "",
+  "publicKeyJwk": {
+    "kty": "EC",
+    "crv": "P-521",
+    "x": "AfqZkMlMxbXzhiU9H0yLkn0nYm2XM_6nelCPvNIhMKK48lmk-1GtSTzHTIUq3OuN1ye_oOvXc1bY280-PtJT4Qd5",
+    "y": "AYrXrqJcyo4vSqoF3bpJ2EMHliPd0A8lK9TnD0-hL6cIFtgvH0iZpoo-eCzmjjJUhJAWx8Gpqwhh9CC0qUMgEw1q"
+  },
+  "privateKeyJwk": {
+    "kty": "EC",
+    "crv": "P-521",
+    "x": "AfqZkMlMxbXzhiU9H0yLkn0nYm2XM_6nelCPvNIhMKK48lmk-1GtSTzHTIUq3OuN1ye_oOvXc1bY280-PtJT4Qd5",
+    "y": "AYrXrqJcyo4vSqoF3bpJ2EMHliPd0A8lK9TnD0-hL6cIFtgvH0iZpoo-eCzmjjJUhJAWx8Gpqwhh9CC0qUMgEw1q",
+    "d": "Aa8s6AAU47vUnfgmLTFtIW-cUuvrBAGRDi7XuktzKxzy0iOER9mLZZE3Z6JKmAIcwra0qoBuk08LexFqvXjPKuF3"
+  }
+}

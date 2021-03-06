@@ -1,7 +1,4 @@
-let subtle =
-  typeof window !== 'undefined' && typeof jest === 'undefined'
-    ? window.crypto.subtle
-    : require('crypto').webcrypto.subtle;
+import { subtle } from '../../crypto';
 
 const generateKey = async (options: any) => {
   const k = await subtle.generateKey(options, true, ['sign', 'verify']);
