@@ -1,4 +1,4 @@
-import base64url from 'base64url';
+import { base64url } from '../encoding';
 import canonicalize from 'canonicalize';
 
 import {
@@ -48,7 +48,7 @@ export const verifyJws = async (verifier: any, jws: string) => {
   const toBeVerified = `${header}.${payload}`;
   const verified = await verifier.verify({
     data: Buffer.from(toBeVerified),
-    signature: base64url.toBuffer(signature),
+    signature: Buffer.from(signature, 'base64'),
   });
 
   return verified;
@@ -92,7 +92,7 @@ export const verifyDetachedJws = async (
 
   const verified = await verifier.verify({
     data: toBeVerified,
-    signature: base64url.toBuffer(encodedSignature),
+    signature: Buffer.from(encodedSignature, 'base64'),
   });
 
   return verified;

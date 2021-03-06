@@ -7,7 +7,7 @@ import {
   getDetachedJwsSigner,
   getDetachedJwsVerifier,
 } from './jws';
-import base64url from 'base64url';
+import { base64url } from '../encoding';
 import * as jose from 'jose';
 
 for (let c in keys) {
@@ -76,7 +76,7 @@ for (let c in keys) {
       const signature2 = await jose.JWS.sign(
         message,
         await jose.JWK.asKey(k.privateKeyJwk),
-        { ...JSON.parse(base64url.toBuffer(parts[0]).toString()) }
+        { ...JSON.parse(base64url.decode(parts[0])) }
       );
       const detachedSignature2 = [
         signature2.split('.')[0],
