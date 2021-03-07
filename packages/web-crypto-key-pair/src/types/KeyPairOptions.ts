@@ -3,5 +3,5 @@ export interface KeyPairOptions {
   type: string;
   controller: string;
   publicKey: CryptoKey;
-  privateKey: CryptoKey;
+  privateKey?: CryptoKey;
 }

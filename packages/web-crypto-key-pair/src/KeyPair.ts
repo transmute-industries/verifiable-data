@@ -29,7 +29,21 @@ export class KeyPair {
       type: 'JsonWebKey2020',
       controller: `did:key:${id}`,
       publicKey,
-      privateKey: privateKey as CryptoKey,
+      privateKey,
+    });
+  };
+
+  static from = async (k: JsonWebKey2020) => {
+    const {
+      publicKey,
+      privateKey,
+    } = await key.getCryptoKeyPairFromJsonWebKey2020(k);
+    return new KeyPair({
+      id: k.id,
+      type: 'JsonWebKey2020',
+      controller: k.controller,
+      publicKey,
+      privateKey,
     });
   };
 
@@ -77,7 +91,7 @@ export class KeyPair {
     throw new Error('No private key to sign with.');
   }
   verifier() {
-    if (this.privateKey) {
+    if (this.publicKey) {
       return getDetachedJwsVerifier(this.publicKey);
     }
     throw new Error('No public key to verify with.');
