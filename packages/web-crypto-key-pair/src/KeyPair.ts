@@ -6,7 +6,8 @@ import {
 import { getDetachedJwsSigner, getDetachedJwsVerifier } from './signatures/jws';
 import { GenerateKeyOpts, JsonWebKey2020, KeyPairOptions } from './types';
 
-import { getMulticodec } from './key/identifiers';
+import { getMulticodec, getKid } from './key/identifiers';
+import { getJwkFromCryptoKey } from './key';
 
 export class KeyPair {
   public id: string;
@@ -25,7 +26,7 @@ export class KeyPair {
       privateKey,
     } = await key.getCryptoKeyPairFromJsonWebKey2020(kp);
     return new KeyPair({
-      id: `#${id}`,
+      id: `#${await KeyPair.fingerprintFromPublicKey(kp.publicKeyJwk)}`,
       type: 'JsonWebKey2020',
       controller: `did:key:${id}`,
       publicKey,
@@ -47,6 +48,10 @@ export class KeyPair {
     });
   };
 
+  static async fingerprintFromPublicKey(publicKeyJwk: any) {
+    return getKid(publicKeyJwk);
+  }
+
   constructor(opts: KeyPairOptions) {
     this.id = opts.id;
     this.type = opts.type || 'JsonWebKey2020';
@@ -54,6 +59,11 @@ export class KeyPair {
     this.publicKey = opts.publicKey;
     this.privateKey = opts.privateKey;
   }
+
+  async fingerprint() {
+    return getKid(await getJwkFromCryptoKey(this.publicKey));
+  }
+
   async toJsonWebKeyPair(exportPrivateKey = false) {
     const kp: JsonWebKey2020 = {
       id: this.id,
