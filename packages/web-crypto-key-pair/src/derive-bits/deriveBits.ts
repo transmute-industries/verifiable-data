@@ -3,7 +3,23 @@ import { JsonWebKey2020 } from '../types';
 
 import { getCryptoKeyFromJsonWebKey2020 } from '../key/getCryptoKeyFromJsonWebKey2020';
 
-export const deriveBits = async (
+export const deriveBitsFromCryptoKey = async (
+  privateKey: CryptoKey,
+  publicKey: CryptoKey
+): Promise<Uint8Array> => {
+  return new Uint8Array(
+    await subtle.deriveBits(
+      {
+        name: 'ECDH',
+        public: publicKey,
+      },
+      privateKey,
+      256
+    )
+  );
+};
+
+export const deriveBitsFromJsonWebKey2020 = async (
   localPrivateKey: JsonWebKey2020,
   remotePublicKey: JsonWebKey2020
 ): Promise<Uint8Array> => {
@@ -12,8 +28,13 @@ export const deriveBits = async (
   }
   const privateKey = await getCryptoKeyFromJsonWebKey2020(
     {
-      privateKeyJwk: localPrivateKey.privateKeyJwk,
-      publicKeyJwk: localPrivateKey.publicKeyJwk,
+      publicKeyJwk: {
+        ...localPrivateKey.publicKeyJwk,
+      },
+      privateKeyJwk: {
+        ...localPrivateKey.privateKeyJwk,
+        usages: ['deriveKey', 'deriveBits'],
+      },
     } as any,
     true
   );

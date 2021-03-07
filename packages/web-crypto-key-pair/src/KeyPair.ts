@@ -1,4 +1,8 @@
 import * as key from './key';
+import {
+  deriveBitsFromJsonWebKey2020,
+  deriveBitsFromCryptoKey,
+} from './derive-bits';
 import { getDetachedJwsSigner, getDetachedJwsVerifier } from './signatures/jws';
 import { GenerateKeyOpts, JsonWebKey2020, KeyPairOptions } from './types';
 
@@ -33,6 +37,35 @@ export class KeyPair {
     this.publicKey = opts.publicKey;
     this.privateKey = opts.privateKey;
   }
+  async toJsonWebKeyPair(exportPrivate = false) {
+    const kp: JsonWebKey2020 = {
+      id: this.id,
+      type: 'JsonWebKey2020',
+      controller: this.controller,
+      publicKeyJwk: await key.getJwkFromCryptoKey(this.publicKey),
+    };
+    if (exportPrivate) {
+      try {
+        kp.privateKeyJwk = await key.getJwkFromCryptoKey(
+          this.privateKey as CryptoKey
+        );
+      } catch (e) {
+        throw new Error('Cannot export private key');
+      }
+    }
+    return kp;
+  }
+  async deriveBits(remote: JsonWebKey2020) {
+    if (this.privateKey?.extractable) {
+      return deriveBitsFromJsonWebKey2020(
+        await this.toJsonWebKeyPair(true),
+        remote
+      );
+    } else {
+      const publicKey = await key.getCryptoKeyFromJsonWebKey2020(remote, true);
+      return deriveBitsFromCryptoKey(this.privateKey as CryptoKey, publicKey);
+    }
+  }
   signer() {
     if (this.privateKey) {
       return getDetachedJwsSigner(this.privateKey);
@@ -44,20 +77,5 @@ export class KeyPair {
       return getDetachedJwsVerifier(this.publicKey);
     }
     throw new Error('No public key to verify with.');
-  }
-  async toJsonWebKeyPair(exportPrivate = false) {
-    const kp: JsonWebKey2020 = {
-      id: this.id,
-      type: 'JsonWebKey2020',
-      controller: this.controller,
-      publicKeyJwk: await key.getJwkFromCryptoKey(this.publicKey),
-    };
-    if (exportPrivate && this.privateKey) {
-      kp.privateKeyJwk = await key.getJwkFromCryptoKey(this.privateKey);
-    } else {
-      throw new Error('Cannot export private key');
-    }
-
-    return kp;
   }
 }

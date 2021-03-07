@@ -1,6 +1,6 @@
 import { keys } from '../__fixtures__';
 
-import { deriveBits } from './deriveBits';
+import { deriveBitsFromJsonWebKey2020 } from './deriveBits';
 for (let c in keys) {
   let k = keys[c];
   describe(`${k.type} ${k.publicKeyJwk.kty} ${k.publicKeyJwk.crv ||
@@ -8,7 +8,7 @@ for (let c in keys) {
     if (k.publicKeyJwk.kty === 'RSA') {
       it('can NOT derive bits', async () => {
         try {
-          await deriveBits(k, k);
+          await deriveBitsFromJsonWebKey2020(k, k);
         } catch (e) {
           expect(e.message).toBe(
             'deriveBits is not supported on this key type'
@@ -17,7 +17,7 @@ for (let c in keys) {
       });
     } else {
       it('can derive bits', async () => {
-        const bits = await deriveBits(k, k);
+        const bits = await deriveBitsFromJsonWebKey2020(k, k);
         expect(bits.length).toBe(32);
       });
     }

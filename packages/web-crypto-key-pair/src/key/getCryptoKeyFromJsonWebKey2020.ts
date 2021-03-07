@@ -52,7 +52,7 @@ export const getCryptoKeyFromJsonWebKey2020 = async (
       keypair.publicKeyJwk,
       getImportKeyOptsFromJwk(keypair.publicKeyJwk, derive),
       true,
-      derive ? ['deriveBits'] : ['verify']
+      derive ? [] : ['verify']
     );
   }
   if (keypair.privateKeyJwk) {

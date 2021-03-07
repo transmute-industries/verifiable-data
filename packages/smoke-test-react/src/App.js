@@ -1,6 +1,7 @@
 import React from "react";
 
 import * as web from "@transmute/web-crypto-key-pair";
+
 function App() {
   const [state, setState] = React.useState({ kp: {} });
   React.useEffect(() => {
@@ -15,10 +16,14 @@ function App() {
         data: Buffer.from("hello"),
         signature,
       });
+      const local = await key.toJsonWebKeyPair(true);
+      const remote = await key.toJsonWebKeyPair();
+      const bits = await key.deriveBits(remote);
       setState({
-        key: await key.toJsonWebKeyPair(true),
+        key: local,
         signature,
         verified,
+        bits: Buffer.from(bits).toString("base64"),
       });
     })();
   }, []);
