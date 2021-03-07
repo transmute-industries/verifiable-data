@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "install:clean": "npx lerna clean -y && rm -rf node_modules && npm i",
     "install:ci": "npm install --ignore-scripts && lerna link && lerna bootstrap --since origin/main --include-dependencies",
     "bootstrap": "lerna bootstrap",
     "lint": "lerna run lint --stream",
@@ -16,8 +17,8 @@
     "release:canary": "lerna publish --canary"
   },
   "devDependencies": {
-    "lerna": "^3.22.1",
-    "husky": "^4.3.8"
+    "husky": "^4.3.8",
+    "lerna": "^3.22.1"
   },
   "husky": {
     "hooks": {
