@@ -13,6 +13,19 @@ it('p-256', async () => {
   expect(calc).toBe(id);
 });
 
+it('p-256 2', async () => {
+  const jwk = {
+    kty: 'EC',
+    crv: 'P-256',
+    x: 'fyNYMN0976ci7xqiSdag3buk-ZCwgXU4kz9XNkBlNUI',
+    y: 'hW2ojTNfH7Jbi8--CJUo3OCbH3y5n91g-IMA9MLMbTU',
+  };
+  const calc = await getMulticodec(jwk);
+  const id =
+    'zrurwcJZss4ruepVNu1H3xmSirvNbzgBk9qrCktB6kaewXnJAhYWwtP3bxACqBpzjZdN7TyHNzzGGSSH5qvZsSDir9z';
+  expect(calc).toBe(id);
+});
+
 it('p-384', async () => {
   const jwk = {
     kty: 'EC',
