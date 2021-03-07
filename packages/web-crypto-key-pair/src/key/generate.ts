@@ -1,35 +1,7 @@
 import { subtle } from '../crypto';
 import { JsonWebKey2020 } from '../types';
-const generateKey = async (
-  options: any
-): Promise<{ publicKeyJwk: any; privateKeyJwk: any }> => {
-  const k = await subtle.generateKey(options, true, ['sign', 'verify']);
-  let kp = {
-    publicKeyJwk: await subtle.exportKey('jwk', k.publicKey),
-    privateKeyJwk: await subtle.exportKey('jwk', k.privateKey),
-  };
-  delete kp.privateKeyJwk.ext;
-  delete kp.privateKeyJwk.key_ops;
 
-  delete kp.publicKeyJwk.ext;
-  delete kp.publicKeyJwk.key_ops;
-
-  kp = {
-    publicKeyJwk: {
-      kty: kp.publicKeyJwk.kty,
-      crv: kp.publicKeyJwk.crv,
-      ...kp.publicKeyJwk,
-    },
-    privateKeyJwk: {
-      kty: kp.privateKeyJwk.kty,
-      crv: kp.privateKeyJwk.crv,
-      ...kp.privateKeyJwk,
-    },
-  };
-  return kp;
-};
-
-let allowedMap: any = {
+const allowedMap: any = {
   'EC P-256': { name: 'ECDSA', namedCurve: 'P-256' },
   'EC P-384': { name: 'ECDSA', namedCurve: 'P-384' },
   'EC P-521': { name: 'ECDSA', namedCurve: 'P-521' },
@@ -39,6 +11,37 @@ let allowedMap: any = {
     hash: 'SHA-256',
     publicExponent: new Uint8Array([1, 0, 1]),
   },
+};
+
+export const getJwkFromCryptoKey = async (cryptoKey: CryptoKey) => {
+  let jwk = await subtle.exportKey('jwk', cryptoKey);
+  delete jwk.ext;
+  delete jwk.key_ops;
+  return {
+    kty: jwk.kty,
+    crv: jwk.crv,
+    ...jwk,
+  };
+};
+
+export const getCleanJwksFromCryptoKeyPair = async ({
+  publicKey,
+  privateKey,
+}: {
+  publicKey: CryptoKey;
+  privateKey: CryptoKey;
+}) => {
+  return {
+    publicKeyJwk: await getJwkFromCryptoKey(publicKey),
+    privateKeyJwk: await getJwkFromCryptoKey(privateKey),
+  };
+};
+
+const generateKey = async (
+  options: any
+): Promise<{ publicKeyJwk: any; privateKeyJwk: any }> => {
+  const k: any = await subtle.generateKey(options, true, ['sign', 'verify']);
+  return getCleanJwksFromCryptoKeyPair(k);
 };
 
 export const generate = async (opts: {

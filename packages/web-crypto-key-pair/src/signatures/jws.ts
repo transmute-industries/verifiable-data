@@ -1,6 +1,6 @@
 import { base64url } from '../encoding';
-import canonicalize from 'canonicalize';
-
+// beware of ordering.
+const canonicalize = JSON.stringify;
 import {
   JwsSigner,
   JwsSignerOptions,

@@ -1,13 +1,24 @@
 import React from "react";
 
-import { generate } from "@transmute/web-crypto-key-pair";
+import * as web from "@transmute/web-crypto-key-pair";
 function App() {
   const [state, setState] = React.useState({ kp: {} });
   React.useEffect(() => {
     (async () => {
-      const kp = await generate({ kty: "EC", crvOrSize: "P-384" });
+      const key = await web.KeyPair.generate({ kty: "EC", crvOrSize: "P-384" });
+      const signer = await key.signer();
+      const verifier = await key.verifier();
+      const signature = await signer.sign({
+        data: Buffer.from("hello"),
+      });
+      const verified = await verifier.verify({
+        data: Buffer.from("hello"),
+        signature,
+      });
       setState({
-        kp,
+        key: await key.toJsonWebKeyPair(true),
+        signature,
+        verified,
       });
     })();
   }, []);
