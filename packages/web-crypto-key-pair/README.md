@@ -4,6 +4,8 @@
 npm i @transmute/web-crypto-key-pair@latest --save
 ```
 
+Zero dependency Linked Data Key Pair support for Web Crypto.
+
 ```ts
 import * as web from '@transmute/web-crypto-key-pair';
 const key = await web.KeyPair.generate({ kty: 'EC', crvOrSize: 'P-384' });
