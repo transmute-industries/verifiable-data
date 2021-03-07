@@ -1,0 +1,18 @@
+{
+  "id": "",
+  "type": "JsonWebKey2020",
+  "controller": "",
+  "publicKeyJwk": {
+    "kty": "EC",
+    "crv": "P-256",
+    "x": "T1YJoNMk2RaSoE2Lm9avMqpGUELNxhwxtCJuG-FlVTo",
+    "y": "MZ8SAqEUGZt8SCLwQ2Di-_AG7NNZ__siFthUWDK9_Tk"
+  },
+  "privateKeyJwk": {
+    "kty": "EC",
+    "crv": "P-256",
+    "x": "T1YJoNMk2RaSoE2Lm9avMqpGUELNxhwxtCJuG-FlVTo",
+    "y": "MZ8SAqEUGZt8SCLwQ2Di-_AG7NNZ__siFthUWDK9_Tk",
+    "d": "hvWs1RccvOkz5HSOTgp0B4mawfJpnS61yMHkecglHU8"
+  }
+}
