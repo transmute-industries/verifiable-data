@@ -49,8 +49,6 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.2",
-    "base64url": "^3.0.1",
-    "bs58": "^4.0.1",
     "jose": "^2.0.3",
     "size-limit": "^4.9.2",
     "ts-jest": "^26.5.0",

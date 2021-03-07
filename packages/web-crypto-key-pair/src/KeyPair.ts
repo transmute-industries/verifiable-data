@@ -6,6 +6,8 @@ import {
 import { getDetachedJwsSigner, getDetachedJwsVerifier } from './signatures/jws';
 import { GenerateKeyOpts, JsonWebKey2020, KeyPairOptions } from './types';
 
+import { getMulticodec } from './key/identifiers';
+
 export class KeyPair {
   public id: string;
   public type: string = 'JsonWebKey2020';
@@ -17,14 +19,15 @@ export class KeyPair {
     opts: GenerateKeyOpts = { kty: 'EC', crvOrSize: 'P-384' }
   ) => {
     const kp = await key.generate(opts);
+    const id = await getMulticodec(kp.publicKeyJwk);
     const {
       publicKey,
       privateKey,
     } = await key.getCryptoKeyPairFromJsonWebKey2020(kp);
     return new KeyPair({
-      id: '',
+      id: `#${id}`,
       type: 'JsonWebKey2020',
-      controller: '',
+      controller: `did:key:${id}`,
       publicKey,
       privateKey: privateKey as CryptoKey,
     });
@@ -37,14 +40,14 @@ export class KeyPair {
     this.publicKey = opts.publicKey;
     this.privateKey = opts.privateKey;
   }
-  async toJsonWebKeyPair(exportPrivate = false) {
+  async toJsonWebKeyPair(exportPrivateKey = false) {
     const kp: JsonWebKey2020 = {
       id: this.id,
       type: 'JsonWebKey2020',
       controller: this.controller,
       publicKeyJwk: await key.getJwkFromCryptoKey(this.publicKey),
     };
-    if (exportPrivate) {
+    if (exportPrivateKey) {
       try {
         kp.privateKeyJwk = await key.getJwkFromCryptoKey(
           this.privateKey as CryptoKey
@@ -55,6 +58,7 @@ export class KeyPair {
     }
     return kp;
   }
+
   async deriveBits(remote: JsonWebKey2020) {
     if (this.privateKey?.extractable) {
       return deriveBitsFromJsonWebKey2020(
