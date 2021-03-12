@@ -51,6 +51,20 @@ export const documentLoader: DocumentLoader = async (iri: string) => {
     };
   }
 
+  if (iri.startsWith('https://w3id.org/vaccination/v1')) {
+    return {
+      documentUrl: iri,
+      document: require('./contexts/vax-v1.json'),
+    };
+  }
+
+  if (iri.startsWith('https://issuer.sandbox.trustbloc.dev/status/1')) {
+    return {
+      documentUrl: iri,
+      document: require('./docs/trustbloc-status-1.json'),
+    };
+  }
+
   if (iri.startsWith('did:key:zUC')) {
     const { didDocument } = await bls12381.driver.resolve(iri, {
       accept: 'application/did+ld+json',
