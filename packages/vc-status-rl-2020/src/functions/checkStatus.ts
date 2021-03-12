@@ -9,10 +9,12 @@ export const checkStatus = async (
     credential,
     documentLoader,
     suite,
+    suiteMap,
     verifyRevocationListCredential = true,
   }: {
     credential: any;
     documentLoader: DocumentLoader;
+    suiteMap?: any;
     suite: LinkedDataProofSuite;
     verifyRevocationListCredential?: boolean;
   } = {} as any
@@ -29,6 +31,7 @@ export const checkStatus = async (
       credential,
       documentLoader,
       suite,
+      suiteMap,
       verifyRevocationListCredential,
     });
   } catch (error) {
@@ -44,11 +47,13 @@ async function _checkStatus({
   credential,
   documentLoader,
   suite,
+  suiteMap,
   verifyRevocationListCredential,
 }: {
   credential: any;
   documentLoader: any;
   suite: any;
+  suiteMap: any;
   verifyRevocationListCredential: boolean;
 }) {
   if (!(credential && typeof credential === 'object')) {
@@ -93,12 +98,19 @@ async function _checkStatus({
     throw err;
   }
 
+  let agilityOpts = {};
+
+  if (!suiteMap) {
+    agilityOpts = { suite };
+  } else {
+    agilityOpts = { suite: new suiteMap[rlCredential.proof.type]() };
+  }
   // verify RL VC
   if (verifyRevocationListCredential) {
     const verifyResult = await vc.verifyCredential({
       credential: rlCredential,
-      suite,
       documentLoader,
+      ...agilityOpts,
     });
     if (!verifyResult.verified) {
       const { error: e } = verifyResult;

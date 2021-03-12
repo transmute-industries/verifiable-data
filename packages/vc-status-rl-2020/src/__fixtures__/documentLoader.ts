@@ -5,6 +5,8 @@ import { contexts } from '../contexts';
 import { revocationListCredential } from './revocationListCredential';
 import signedRevocationListt2020 from './signed-revocation-list-2020.json';
 import didDocument from './didDocument.json';
+import * as bls12381 from '@transmute/did-key-bls12381';
+
 export const documentLoader: DocumentLoader = async (iri: string) => {
   if (contexts[iri]) {
     return {
@@ -29,6 +31,30 @@ export const documentLoader: DocumentLoader = async (iri: string) => {
   if (
     iri.startsWith('did:key:z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4')
   ) {
+    return {
+      documentUrl: iri,
+      document: didDocument,
+    };
+  }
+
+  if (iri.startsWith('https://w3id.org/security/v3-unstable')) {
+    return {
+      documentUrl: iri,
+      document: require('./contexts/sec-v3.json'),
+    };
+  }
+
+  if (iri.startsWith('https://w3id.org/security/bbs/v1')) {
+    return {
+      documentUrl: iri,
+      document: require('./contexts/bbs-v1.json'),
+    };
+  }
+
+  if (iri.startsWith('did:key:zUC')) {
+    const { didDocument } = await bls12381.driver.resolve(iri, {
+      accept: 'application/did+ld+json',
+    });
     return {
       documentUrl: iri,
       document: didDocument,
