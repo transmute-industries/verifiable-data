@@ -1,17 +1,3 @@
-//  const $propertyComment = JSON.parse(prop.$comment);
-//  const $propertyId = $propertyComment['@id'];
-//  let entity =
-//    intermediate[$classComment['@id']].classProperties[$propertyId];
-//  if (entity) {
-//    console.log('collision!', prop);
-//  } else {
-//  }
-
-//  entity = {
-//    $comment: $propertyComment,
-//    title: prop.title,
-//    description: prop.description,
-//  };
 const defineClassPropertiesFromComment = (
   classProperties: any,
   comment: any,
@@ -19,7 +5,6 @@ const defineClassPropertiesFromComment = (
   description: string
 ) => {
   if (classProperties[comment['@id']]) {
-    console.warn('collission');
     if (Array.isArray(classProperties[comment['@id']])) {
       classProperties[comment['@id']] = [
         ...classProperties[comment['@id']],
@@ -130,8 +115,9 @@ const getContextFromIntermediate = (intermediate: any) => {
   };
 };
 
+export const schemasToIntermediate = getIntermediateFromDirectory;
+
 export const schemasToContext = (schemas: any[]) => {
   const intermediate = getIntermediateFromDirectory(schemas);
-  console.log(JSON.stringify(intermediate, null, 2));
   return getContextFromIntermediate(intermediate);
 };
