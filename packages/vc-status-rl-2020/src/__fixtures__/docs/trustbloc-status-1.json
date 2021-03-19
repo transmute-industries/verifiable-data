@@ -1,0 +1,22 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/vc-revocation-list-2020/v1"
+  ],
+  "credentialSubject": {
+    "encodedList": "H4sIAAAAAAAA_-zAgQAAAACAoP2pF6kAAAAAAAAAAAAAAAAAAACgOgAA__-N53xXgD4AAA",
+    "id": "https://issuer.sandbox.trustbloc.dev/status/1#list",
+    "type": "RevocationList2020"
+  },
+  "id": "https://issuer.sandbox.trustbloc.dev/status/1",
+  "issuanceDate": "2021-03-12T01:10:15.068248371Z",
+  "issuer": "did:trustbloc:testnet.trustbloc.dev:EiA93NYbmVnRB0vdlwYMijSoHDQL21QRo8bWCJ_h7rglGA",
+  "proof": {
+    "created": "2021-03-12T01:10:15.339389925Z",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..xdR63EXKQFoVvMmDRFIyD20-5pQGuSCQYDWgS-tgbnsNhI-aA1DCjrS665e_R9nOo2pXvdzZrZcQsRVOmWORAQ",
+    "proofPurpose": "assertionMethod",
+    "type": "Ed25519Signature2018",
+    "verificationMethod": "did:trustbloc:testnet.trustbloc.dev:EiA93NYbmVnRB0vdlwYMijSoHDQL21QRo8bWCJ_h7rglGA#9b0aeZejuz3IFsDekhICFlGCBuN1HPsvYAVc-Yytw1s"
+  },
+  "type": ["VerifiableCredential", "RevocationList2020Credential"]
+}
