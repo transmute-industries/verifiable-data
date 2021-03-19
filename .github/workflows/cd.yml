@@ -14,10 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Use Node 15
+      - name: Use Node 14
         uses: actions/setup-node@v1
         with:
-          node-version: 15.x
+          node-version: 14.x
 
       - name: Install
         run: npm install
