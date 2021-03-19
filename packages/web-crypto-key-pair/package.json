@@ -2,7 +2,7 @@
   "name": "@transmute/web-crypto-key-pair",
   "author": "Orie Steele",
   "module": "dist/web-crypto-key-pair.esm.js",
-  "version": "0.6.1-unstable.0",
+  "version": "0.6.1-unstable.1",
   "private": true,
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/web-crypto-key-pair",
