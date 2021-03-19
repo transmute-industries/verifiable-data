@@ -2,6 +2,7 @@
   "name": "smoke-test-react",
   "version": "0.0.4-unstable.16",
   "private": true,
+  "homepage": "https://transmute-industries.github.io/linked-data/smoke-test-react/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
@@ -13,6 +14,7 @@
     "@transmute/universal-wallet-did-web-plugin": "0.1.0",
     "@transmute/universal-wallet-test-vectors": "0.5.0",
     "@transmute/universal-wallet-vc-plugin": "0.5.0",
+    "@transmute/universal-wallet-edv-plugin": "0.5.0",
     "@transmute/web-crypto-key-pair": "^0.0.4-unstable.16",
     "factory.ts": "^0.5.1",
     "react": "^17.0.1",
@@ -22,7 +24,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build:smoke-test-react": "CI=false react-scripts build --max_old_space_size=4096",
+    "postbuild:smoke-test-react": "cp ./build/index.html ./build/404.html && mv ./build ../../docs/smoke-test-react",
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject"
   },

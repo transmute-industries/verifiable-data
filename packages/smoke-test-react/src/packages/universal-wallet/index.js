@@ -18,6 +18,14 @@ const testDidWeb = async (wallet) => {
   await wallet.generate("https://example.com/organizations/123/did.json");
 };
 
+const testEdv = async (wallet) => {
+  const client = await wallet.vaultClientFromPassord(
+    "https://staging.data-vault.transmute.industries/edvs",
+    "123"
+  );
+  wallet.vault = { endpoint: client.vault_endpoint };
+};
+
 const testVc = async (wallet) => {
   // issue credential from generated keys
   const c1 = await issue(wallet);
@@ -43,6 +51,7 @@ function App() {
       await testDidKey(wallet);
       await testDidWeb(wallet);
       await testVc(wallet);
+      await testEdv(wallet);
 
       setState({
         wallet,

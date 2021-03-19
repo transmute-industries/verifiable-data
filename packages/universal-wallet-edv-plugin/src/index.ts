@@ -1,7 +1,7 @@
-import * as Factory from 'factory.ts';
+import * as Factory from "factory.ts";
 
-import { VaultClientConfig } from './types';
-import { VaultClient } from './vault-client';
+import { VaultClientConfig } from "./types";
+import { VaultClient } from "./vault-client";
 
 interface EdvPlugin {
   vaultClientFromDerivedContents: (
