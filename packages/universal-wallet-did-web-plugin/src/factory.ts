@@ -8,9 +8,14 @@ import { DidDocumentIndex, VerificationMethodIndex } from "./types";
 
 import { generate } from "./generate";
 
+import { convertEndpointToDid } from "./convertEndpointToDid";
+import { convertDidToEndpoint } from "./convertDidToEndpoint";
+
 export interface DidWebPlugin {
   didDocuments: DidDocumentIndex;
   verificationMethods: VerificationMethodIndex;
+  convertEndpointToDid: (endpoint: string) => string;
+  convertDidToEndpoint: (did: string) => string;
   generate: (endpoint: string) => Promise<DidWebPlugin>;
   addVerificationMethod: (keypair: any) => DidWebPlugin;
   addDidDocument: (didDocument: DidDocument) => DidWebPlugin;
@@ -19,6 +24,8 @@ export interface DidWebPlugin {
 export const factoryDefaults: DidWebPlugin = {
   didDocuments: {},
   verificationMethods: {},
+  convertEndpointToDid,
+  convertDidToEndpoint,
   generate: async function(endpoint: string): Promise<DidWebPlugin> {
     const { keys, didDocument } = await generate(endpoint);
     keys.forEach((k) => {
@@ -45,4 +52,6 @@ export const factoryDefaults: DidWebPlugin = {
   },
 };
 
-export const factory = Factory.Sync.makeFactory<DidWebPlugin>(factoryDefaults);
+export const pluginFactory = Factory.Sync.makeFactory<DidWebPlugin>(
+  factoryDefaults
+);
