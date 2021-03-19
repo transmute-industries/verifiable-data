@@ -26,7 +26,6 @@
     "start": "react-scripts start",
     "build:smoke-test-react": "CI=false react-scripts build --max_old_space_size=4096",
     "postbuild:smoke-test-react": "cp ./build/index.html ./build/404.html && mv ./build ../../docs/smoke-test-react",
-    "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
