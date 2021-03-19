@@ -2,7 +2,7 @@
   "name": "@transmute/universal-wallet-did-web-plugin",
   "author": "Orie Steele",
   "module": "dist/universal-wallet-did-web-plugin.esm.js",
-  "version": "0.0.4-unstable.19",
+  "version": "0.6.0",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -10,6 +10,9 @@
     "dist",
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/universal-wallet-did-web-plugin",
   "repository": {
     "type": "git",
@@ -55,5 +58,6 @@
     "@transmute/did-key-web-crypto": "^0.2.1-unstable.35",
     "@transmute/did-key-x25519": "^0.2.1-unstable.35",
     "factory.ts": "^0.5.1"
-  }
+  },
+  "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
 }

@@ -2,7 +2,7 @@
   "name": "@transmute/universal-wallet",
   "author": "Orie Steele",
   "module": "dist/universal-wallet.esm.js",
-  "version": "0.0.4-unstable.19",
+  "version": "0.6.0",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -12,6 +12,9 @@
   ],
   "engines": {
     "node": ">=14"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "start": "tsdx watch",
@@ -50,8 +53,9 @@
     "@peculiar/webcrypto": "^1.1.4",
     "@transmute/did-key-cipher": "^0.2.1-unstable.31",
     "@transmute/did-key-x25519": "^0.2.1-unstable.31",
-    "@transmute/universal-wallet-test-vectors": "^0.0.4-unstable.19",
+    "@transmute/universal-wallet-test-vectors": "^0.6.0",
     "core-js": "^3.8.3",
     "factory.ts": "^0.5.1"
-  }
+  },
+  "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
 }

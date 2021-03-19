@@ -1,6 +1,6 @@
 {
   "name": "@transmute/security-context",
-  "version": "0.0.4-unstable.19",
+  "version": "0.6.0",
   "description": "",
   "main": "index.js",
   "types": "typings.d.ts",
@@ -9,7 +9,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "f7517b0fe6e8ab46eab7afc36e368f35880d2daf",
+  "gitHead": "37f52c102233963d1369862e104df87dd4c5d063",
   "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/security-context",
   "repository": {
     "type": "git",

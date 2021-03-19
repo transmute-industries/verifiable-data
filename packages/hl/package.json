@@ -2,7 +2,7 @@
   "name": "@transmute/hl",
   "author": "Orie Steele",
   "module": "dist/hl.esm.js",
-  "version": "0.0.4-unstable.19",
+  "version": "0.6.0",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -62,7 +62,7 @@
     "bs58": "^4.0.1",
     "isomorphic-webcrypto": "^2.3.6"
   },
-  "gitHead": "f7517b0fe6e8ab46eab7afc36e368f35880d2daf",
+  "gitHead": "37f52c102233963d1369862e104df87dd4c5d063",
   "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/hl",
   "repository": {
     "type": "git",
