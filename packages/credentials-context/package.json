@@ -1,6 +1,6 @@
 {
   "name": "@transmute/credentials-context",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "",
   "main": "index.js",
   "types": "typings.d.ts",
