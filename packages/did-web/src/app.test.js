@@ -1,6 +1,8 @@
 const supertest = require("supertest");
 const app = require("./app");
 
+console.log = () => {};
+
 describe("demo test", () => {
   beforeAll(() => {
     request = supertest(app);

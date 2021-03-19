@@ -1,0 +1,54 @@
+{
+  "issuers": {
+    "http://example.com/issuer/123": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        { "@base": "http://example.com/issuer/123" }
+      ],
+      "id": "http://example.com/issuer/123",
+      "publicKey": [
+        {
+          "id": "#key-1",
+          "type": "Ed25519VerificationKey2018",
+          "controller": "http://example.com/issuer/123",
+          "publicKeyBase58": "HrBXe7XnjMbscM1roSDTSMCcLNraetDQM9wSVjnzDxn3"
+        }
+      ],
+      "assertionMethod": ["#key-1"],
+      "authentication": ["#key-1"]
+    },
+
+    "did:key:z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        { "@base": "did:key:z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR" }
+      ],
+      "id": "did:key:z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR",
+      "verificationMethod": [
+        {
+          "id": "#z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR",
+          "type": "Ed25519VerificationKey2018",
+          "controller": "did:key:z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR",
+          "publicKeyBase58": "HrBXe7XnjMbscM1roSDTSMCcLNraetDQM9wSVjnzDxn3"
+        },
+        {
+          "id": "#z6LSnHCakA8zvH61bCXv7goaT2MyVf8PjfW7XjeKTEGCgG9N",
+          "type": "X25519KeyAgreementKey2019",
+          "controller": "did:key:z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR",
+          "publicKeyBase58": "Bc2RDrL8ppNGVpA9b3Hd8S9VeWbH34KxekvdxmcfxtNc"
+        }
+      ],
+      "authentication": ["#z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR"],
+      "assertionMethod": ["#z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR"],
+      "capabilityDelegation": [
+        "#z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR"
+      ],
+      "capabilityInvocation": [
+        "#z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR"
+      ],
+      "keyAgreement": [
+        "#z6LSnHCakA8zvH61bCXv7goaT2MyVf8PjfW7XjeKTEGCgG9N"
+      ]
+    }
+  }
+}
