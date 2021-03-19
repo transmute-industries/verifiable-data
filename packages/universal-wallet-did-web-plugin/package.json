@@ -1,0 +1,59 @@
+{
+  "name": "@transmute/universal-wallet-did-web-plugin",
+  "author": "Orie Steele",
+  "module": "dist/universal-wallet-did-web-plugin.esm.js",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/universal-wallet-did-web-plugin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/linked-data.git",
+    "directory": "packages/universal-wallet-did-web-plugin"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "TS_JEST_DISABLE_VER_CHECKER=true  tsdx test",
+    "lint": "tsdx lint src --fix",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "size-limit": [
+    {
+      "path": "dist/universal-wallet-did-web-plugin.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/universal-wallet-did-web-plugin.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^4.9.2",
+    "size-limit": "^4.9.2",
+    "ts-jest": "^26.5.4",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "@did-core/data-model": "^0.1.1-unstable.1",
+    "@did-core/did-ld-json": "^0.1.1-unstable.1",
+    "@transmute/did-key-bls12381": "^0.2.1-unstable.35",
+    "@transmute/did-key-ed25519": "^0.2.1-unstable.35",
+    "@transmute/did-key-secp256k1": "^0.2.1-unstable.35",
+    "@transmute/did-key-web-crypto": "^0.2.1-unstable.35",
+    "@transmute/did-key-x25519": "^0.2.1-unstable.35",
+    "factory.ts": "^0.5.1"
+  }
+}
