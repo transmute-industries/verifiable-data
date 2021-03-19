@@ -1,0 +1,21 @@
+{
+  "name": "did-web",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/run.js",
+    "test": "jest --env node"
+  },
+  "author": "Orie Steele",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "express-htaccess-middleware": "^0.1.0",
+    "htaccess-parser": "^0.1.0",
+    "jest": "^26.6.3",
+    "supertest": "^6.1.3"
+  }
+}
