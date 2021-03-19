@@ -10,6 +10,9 @@
     "dist",
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/universal-wallet-did-web-plugin",
   "repository": {
     "type": "git",

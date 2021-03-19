@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build:smoke-test-react": "CI=false react-scripts build --max_old_space_size=4096",
+    "build:smoke-test-react": "CI=false react-scripts build --max_old_space_size=8192",
     "postbuild:smoke-test-react": "cp ./build/index.html ./build/404.html && mv ./build ../../docs/smoke-test-react",
     "eject": "react-scripts eject"
   },

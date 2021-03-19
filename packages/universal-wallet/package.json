@@ -13,6 +13,9 @@
   "engines": {
     "node": ">=14"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
