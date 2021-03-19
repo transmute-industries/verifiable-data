@@ -8,7 +8,7 @@ npm i @transmute/universal-wallet-did-key-plugin --save
 
 ```
 git clone git@github.com:transmute-industries/linked-data.git
-npm packages/did-key-plugin; // note that this is a mono repo
+npm packages/universal-wallet-did-key-plugin; // note that this is a mono repo
 npm i
 npm run lint
 npm run test

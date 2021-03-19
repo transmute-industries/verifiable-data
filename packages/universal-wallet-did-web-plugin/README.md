@@ -10,16 +10,16 @@ npm i @transmute/universal-wallet-did-web-plugin --save
 import {
   factory,
   DidWebWallet,
-} from '@transmute/universal-wallet-did-web-plugin';
-import { representation } from '@did-core/did-ld-json';
+} from "@transmute/universal-wallet-did-web-plugin";
+import { representation } from "@did-core/did-ld-json";
 
 const wallet: DidWebWallet = await factory
   .build()
-  .generate('https://example.com/organizations/123/did.json');
+  .generate("https://example.com/organizations/123/did.json");
 
 const didDocument: Buffer = await wallet.didDocuments[
-  'did:web:example.com:organizations:123'
-].produce('application/did+ld+json');
+  "did:web:example.com:organizations:123"
+].produce("application/did+ld+json");
 
 // JSON.parse(didDocument.toString())
 // JSON.stringify(
@@ -121,8 +121,8 @@ const didDocument: Buffer = await wallet.didDocuments[
 ## Getting Started
 
 ```
-git clone git@github.com:w3c-ccg/universal-wallet-interop-spec.git
-npm packages/did-web-plugin; // note that this is a mono repo
+git clone git@github.com:transmute-industries/linked-data.git
+npm packages/universal-wallt-did-web-plugin; // note that this is a mono repo
 npm i
 npm run lint
 npm run test
