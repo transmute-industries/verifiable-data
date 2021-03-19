@@ -36,5 +36,6 @@
   },
   "dependencies": {
     "@transmute/jsonld-document-loader": "^0.2.0"
-  }
+  },
+  "gitHead": "cae95ebe0729c3b3fbe180ebf04aaea1c48652cc"
 }

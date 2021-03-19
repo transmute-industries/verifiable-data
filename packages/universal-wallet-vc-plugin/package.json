@@ -41,5 +41,6 @@
   "dependencies": {
     "@transmute/vc.js": "^0.2.1-unstable.10",
     "factory.ts": "^0.5.1"
-  }
+  },
+  "gitHead": "cae95ebe0729c3b3fbe180ebf04aaea1c48652cc"
 }

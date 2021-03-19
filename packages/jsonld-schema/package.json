@@ -59,5 +59,6 @@
   "dependencies": {
     "ajv": "^7.0.4",
     "genson-js": "0.0.5"
-  }
+  },
+  "gitHead": "cae95ebe0729c3b3fbe180ebf04aaea1c48652cc"
 }

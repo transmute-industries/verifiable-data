@@ -66,5 +66,6 @@
     "@transmute/revocation-list-context": "^0.1.0",
     "@transmute/security-context": "^0.1.0",
     "@transmute/vc.js": "^0.2.1-unstable.8"
-  }
+  },
+  "gitHead": "cae95ebe0729c3b3fbe180ebf04aaea1c48652cc"
 }
