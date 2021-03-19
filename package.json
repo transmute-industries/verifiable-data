@@ -6,7 +6,7 @@
     "install:ci": "npm install --ignore-scripts && lerna link && lerna bootstrap --since origin/main --include-dependencies",
     "bootstrap": "lerna bootstrap",
     "lint": "lerna run lint --stream",
-    "test": "lerna run test --stream",
+    "test": "lerna run test --stream --ignore @transmute/web-crypto-key-pair --ignore @transmute/json-web-signature",
     "build": "lerna run build --stream",
     "postinstall": "npm run bootstrap",
     "publish:stable:major": "lerna publish major",
@@ -14,7 +14,8 @@
     "publish:stable:patch": "lerna publish patch",
     "publish:unstable": "lerna publish prerelease --preid unstable --yes",
     "release": "lerna publish",
-    "release:canary": "lerna publish --canary"
+    "release:canary": "lerna publish --canary",
+    "build:pages": "rm -rf ./docs/smoke-test-react && lerna run build:smoke-test-react"
   },
   "devDependencies": {
     "husky": "^4.3.8",
