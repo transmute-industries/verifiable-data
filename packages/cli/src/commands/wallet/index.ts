@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { customWalletFactory } from './factory';
+import { customWalletFactory } from './customWalletFactory';
 
 export const generate = async (args: any) => {
   const { password, debug } = args;
