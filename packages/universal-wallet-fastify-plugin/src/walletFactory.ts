@@ -6,7 +6,13 @@ import * as DidWeb from '@transmute/universal-wallet-did-web-plugin';
 import * as Vc from '@transmute/universal-wallet-vc-plugin';
 // import * as Edv from '@transmute/universal-wallet-edv-plugin';
 
-const walletFactory = Factory.Sync.makeFactory({
+export interface FastifyWalletFactory
+  extends Wallet.Wallet,
+    DidKey.DidKeyPlugin,
+    DidWeb.DidWebPlugin,
+    Vc.VcPlugin {}
+
+export const walletFactory = Factory.Sync.makeFactory<FastifyWalletFactory>({
   ...Wallet.walletDefaults,
   ...DidKey.factoryDefaults,
   ...DidWeb.factoryDefaults,
@@ -18,5 +24,3 @@ const walletFactory = Factory.Sync.makeFactory({
   .combine(DidWeb.pluginFactory)
   .combine(Vc.pluginFactory);
 //   .combine(Edv.pluginFactory);
-
-export { walletFactory };
