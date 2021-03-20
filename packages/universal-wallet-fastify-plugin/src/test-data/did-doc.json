@@ -1,0 +1,31 @@
+{
+  "@context": "https://www.w3.org/ns/did/v1",
+  "id": "did:web:platform.example:accounts:123",
+  "verificationMethod": [
+    {
+      "id": "did:web:platform.example:accounts:123#key-0",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:platform.example:accounts:123",
+      "publicKeyJwk": {
+        "crv": "Ed25519",
+        "x": "Cbt14tXtdodI00aBKip3PokrO5bX-yaxawO8mHjIZvo",
+        "kty": "OKP"
+      }
+    },
+    {
+      "id": "did:web:platform.example:accounts:123#key-1",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:platform.example:accounts:123",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "X25519",
+        "x": "ws7iLQ51Q-WthFo6GmXogAXIjoxMIkpJZnAI7l1kw2s"
+      }
+    }
+  ],
+  "authentication": ["did:web:platform.example:accounts:123#key-0"],
+  "assertionMethod": ["did:web:platform.example:accounts:123#key-0"],
+  "capabilityInvocation": ["did:web:platform.example:accounts:123#key-0"],
+  "capabilityDelegation": ["did:web:platform.example:accounts:123#key-0"],
+  "keyAgreement": ["did:web:platform.example:accounts:123#key-1"]
+}

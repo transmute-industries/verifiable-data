@@ -10,12 +10,14 @@ import { generate } from "./generate";
 
 import { convertEndpointToDid } from "./convertEndpointToDid";
 import { convertDidToEndpoint } from "./convertDidToEndpoint";
+import { keysToDidDocument } from "./keysToDidDocument";
 
 export interface DidWebPlugin {
   didDocuments: DidDocumentIndex;
   verificationMethods: VerificationMethodIndex;
   convertEndpointToDid: (endpoint: string) => string;
   convertDidToEndpoint: (did: string) => string;
+  keysToDidDocument: (did: string, keys: any[]) => any; // really json did document.
   generate: (endpoint: string) => Promise<DidWebPlugin>;
   addVerificationMethod: (keypair: any) => DidWebPlugin;
   addDidDocument: (didDocument: DidDocument) => DidWebPlugin;
@@ -26,6 +28,7 @@ export const factoryDefaults: DidWebPlugin = {
   verificationMethods: {},
   convertEndpointToDid,
   convertDidToEndpoint,
+  keysToDidDocument,
   generate: async function(endpoint: string): Promise<DidWebPlugin> {
     const { keys, didDocument } = await generate(endpoint);
     keys.forEach((k) => {
