@@ -18,7 +18,7 @@ interface GoogleSecretPlugin {
 
 const factoryDefaults = {
   readSecret,
-  writeSecret,
+  writeSecret
 };
 
 const pluginFactory = Factory.Sync.makeFactory<GoogleSecretPlugin>(

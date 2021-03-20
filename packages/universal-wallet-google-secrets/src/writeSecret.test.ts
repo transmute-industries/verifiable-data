@@ -9,7 +9,7 @@ wallet.writeSecret = jest.fn(
       id: `urn:google:projects/${projectId}/secrets/${secretId}/versions/1`,
       type: "GoogleCloudSecret",
       tags: ["google"],
-      value,
+      value
     });
   }
 );

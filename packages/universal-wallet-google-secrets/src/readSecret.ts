@@ -8,13 +8,13 @@ export const readSecret = async (
 ) => {
   const name = `projects/${projectId}/secrets/${secretId}/versions/${version}`;
   let [secret] = await client.accessSecretVersion({
-    name,
+    name
   });
   return {
     "@context": ["https://w3id.org/wallet/v1"],
     id: "urn:google:" + name,
     type: "GoogleCloudSecret",
     tags: ["google"],
-    value: secret.payload.data.toString("utf8"),
+    value: secret.payload.data.toString("utf8")
   };
 };

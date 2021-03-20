@@ -11,24 +11,22 @@ export const writeSecret = async (
     secret: {
       name: secretId,
       replication: {
-        automatic: {},
-      },
+        automatic: {}
+      }
     },
-    secretId,
+    secretId
   });
-
   const [version] = await client.addSecretVersion({
     parent: secret.name,
     payload: {
-      data: Buffer.from(value, "utf8"),
-    },
+      data: Buffer.from(value, "utf8")
+    }
   });
-  console.log(version);
   return {
     "@context": ["https://w3id.org/wallet/v1"],
-    id: "urn:google:" + name,
+    id: `urn:google:${version.name}`,
     type: "GoogleCloudSecret",
     tags: ["google"],
-    value,
+    value
   };
 };

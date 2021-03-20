@@ -8,7 +8,7 @@ wallet.readSecret = jest.fn((projectId: string, secretId) => {
     id: `urn:google:projects/${projectId}/secrets/${secretId}/versions/1`,
     type: "GoogleCloudSecret",
     tags: ["google"],
-    value: "7052adea8f9823817065456ecad5bf24dcd31a698f7bc9a0b5fc170849af4226",
+    value: "7052adea8f9823817065456ecad5bf24dcd31a698f7bc9a0b5fc170849af4226"
   });
 });
 
