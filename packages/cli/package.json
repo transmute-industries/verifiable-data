@@ -1,0 +1,71 @@
+{
+  "name": "@transmute/cli",
+  "author": "Orie Steele",
+  "module": "dist/cli.esm.js",
+  "version": "0.6.1-unstable.1",
+  "private": true,
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/linked-data.git",
+    "directory": "packages/cli"
+  },
+  "bin": {
+    "transmute": "node main.js"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "pretransmute": "npm run build",
+    "transmute": "node main.js",
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "TS_JEST_DISABLE_VER_CHECKER=true tsdx test --passWithNoTests",
+    "lint": "tsdx lint src --fix",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "size-limit": [
+    {
+      "path": "dist/cli.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/cli.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^4.9.2",
+    "jose": "^2.0.3",
+    "size-limit": "^4.9.2",
+    "ts-jest": "^26.5.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "@transmute/universal-wallet": "^0.6.1-unstable.1",
+    "@transmute/universal-wallet-did-key-plugin": "^0.6.1-unstable.1",
+    "factory.ts": "^0.5.1",
+    "yargs": "^16.2.0"
+  }
+}

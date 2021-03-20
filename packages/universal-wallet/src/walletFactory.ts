@@ -1,17 +1,21 @@
-import * as Factory from 'factory.ts';
+import * as Factory from "factory.ts";
 
-import { WalletStatus } from './types';
+import { WalletStatus } from "./types";
 
 import {
   lockContents,
   unlockContents,
   exportContentsAsCredential,
   contentsFromEncryptedWalletCredential,
-} from './functions';
+  seedToId,
+  passwordToKey,
+} from "./functions";
 
 interface Wallet {
   status: WalletStatus;
   contents: any[];
+  seedToId: (seed: Uint8Array) => Promise<string>;
+  passwordToKey: (password: string) => Promise<Uint8Array>;
   add: (content: any) => Wallet;
   remove: (contentId: string) => Wallet;
   lock: (password: string) => Promise<Wallet>;
@@ -23,6 +27,8 @@ interface Wallet {
 const walletDefaults = {
   status: WalletStatus.Unlocked,
   contents: [],
+  seedToId,
+  passwordToKey,
   add: function(content: any): Wallet {
     (this as Wallet).contents.push(content);
     return this;
@@ -63,7 +69,7 @@ const walletDefaults = {
     password: string
   ): Promise<any> {
     if (this.contents.length) {
-      throw new Error('Cannot import over existing wallet content.');
+      throw new Error("Cannot import over existing wallet content.");
     }
     this.contents = await contentsFromEncryptedWalletCredential(
       password,

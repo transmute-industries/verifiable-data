@@ -1,0 +1,75 @@
+{
+  "status": "UNLOCKED",
+  "contents": [
+    {
+      "@context": [
+        "http://w3id.org/wallet/v1"
+      ],
+      "id": "urn:digest:f16748310900bbfb35d1acdb414f08129a65782215443c088b31ecbfaa0e5000",
+      "name": "DID Key Secret",
+      "image": "https://via.placeholder.com/150",
+      "description": "Used to generate a DID with a signing and encryption key.",
+      "tags": [
+        "inception"
+      ],
+      "type": "Entropy",
+      "value": "7fab057add1a4e43ad5e973f644f0f005b9016aa075e6a460f756a21312ad22d"
+    },
+    {
+      "id": "did:key:z6Mkp8Z78qqQoQy6oHCNN9f6YbPYvUcU7j5TkU4i5ReR5fFZ#z6Mkp8Z78qqQoQy6oHCNN9f6YbPYvUcU7j5TkU4i5ReR5fFZ",
+      "type": "JsonWebKey2020",
+      "controller": "did:key:z6Mkp8Z78qqQoQy6oHCNN9f6YbPYvUcU7j5TkU4i5ReR5fFZ",
+      "publicKeyJwk": {
+        "crv": "Ed25519",
+        "x": "j8of_TFDPL22bDSxPdauTiUTrIZmk3Khpe_IpEOS8-Q",
+        "kty": "OKP"
+      },
+      "privateKeyJwk": {
+        "crv": "Ed25519",
+        "d": "f6sFet0aTkOtXpc_ZE8PAFuQFqoHXmpGD3VqITEq0i0",
+        "x": "j8of_TFDPL22bDSxPdauTiUTrIZmk3Khpe_IpEOS8-Q",
+        "kty": "OKP"
+      },
+      "@context": [
+        "http://w3id.org/wallet/v1"
+      ],
+      "name": "Signing Key",
+      "image": "https://via.placeholder.com/150",
+      "description": "Used to produce digital signatures.",
+      "tags": [
+        "inception"
+      ],
+      "generatedFrom": [
+        "urn:digest:f16748310900bbfb35d1acdb414f08129a65782215443c088b31ecbfaa0e5000"
+      ]
+    },
+    {
+      "id": "did:key:z6Mkp8Z78qqQoQy6oHCNN9f6YbPYvUcU7j5TkU4i5ReR5fFZ#z6LSqDqfXgsJBVoiPbsn5qGeEb3e59vy1hKBmDcPhFqhKzvq",
+      "type": "JsonWebKey2020",
+      "controller": "did:key:z6Mkp8Z78qqQoQy6oHCNN9f6YbPYvUcU7j5TkU4i5ReR5fFZ",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "X25519",
+        "x": "yUR3o6DzYdMFBqaKpcVyL_cU045nGATPbaQXBsTXWAY"
+      },
+      "privateKeyJwk": {
+        "kty": "OKP",
+        "crv": "X25519",
+        "d": "IMovnq47aC7sFcLEamDqK6EC5xGdNwsce6eF1gdl4k0",
+        "x": "yUR3o6DzYdMFBqaKpcVyL_cU045nGATPbaQXBsTXWAY"
+      },
+      "@context": [
+        "http://w3id.org/wallet/v1"
+      ],
+      "name": "Encryption Key",
+      "image": "https://via.placeholder.com/150",
+      "description": "Used to derive symmetric keys for encryption.",
+      "tags": [
+        "inception"
+      ],
+      "generatedFrom": [
+        "urn:digest:f16748310900bbfb35d1acdb414f08129a65782215443c088b31ecbfaa0e5000"
+      ]
+    }
+  ]
+}
