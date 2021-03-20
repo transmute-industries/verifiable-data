@@ -1,14 +1,25 @@
-import { ld } from '@transmute/vc.js';
+import { ld } from "@transmute/vc.js";
 
-import { VerifyPresentation } from './types';
+import { VerifyPresentation } from "./types";
 
 const vcjs = ld;
 
 const verifyPresentation = ({ presentation, options }: VerifyPresentation) => {
-  return vcjs.verify({
-    presentation,
+  let opts = {
     ...options,
-  });
+  };
+  if (presentation.proof) {
+    opts = {
+      presentation,
+      ...opts,
+    };
+  } else {
+    opts = {
+      unsignedPresentation: presentation,
+      ...opts,
+    };
+  }
+  return vcjs.verify(opts);
 };
 
 export { verifyPresentation };
