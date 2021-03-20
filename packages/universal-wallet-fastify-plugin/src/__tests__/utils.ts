@@ -1,6 +1,6 @@
 import walletPlugin from '../walletPlugin';
 import walletRoutes from '../walletRoutes';
-import { customWalletFactory } from '../customWalletFactory';
+import { walletFactory } from '../walletFactory';
 
 const Fastify = require('fastify');
 const fastify = Fastify();
@@ -8,7 +8,7 @@ const fastify = Fastify();
 // normally this would be a get or create operation
 // that probably already happened
 const getAccountEncryptedWallet = async (accountId: string) => {
-  const wallet = customWalletFactory.build();
+  const wallet = walletFactory.build();
   const seed = await wallet.passwordToKey(accountId);
   const contents = await wallet.generateContentFromSeed(seed);
   const did = wallet.convertEndpointToDid(
@@ -42,7 +42,7 @@ const getAccountEncryptedWalletPassword = (_accountId: string) => {
 };
 
 const get = async (accountId: string) => {
-  const wallet = customWalletFactory.build();
+  const wallet = walletFactory.build();
   const accountEncryptedWallet = await getAccountEncryptedWallet(accountId);
   const password = await getAccountEncryptedWalletPassword(accountId);
   return wallet.import(accountEncryptedWallet, password);
