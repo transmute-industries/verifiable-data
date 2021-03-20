@@ -7,7 +7,7 @@ export const generate = async (args: any) => {
   const wallet = customWalletFactory.build({ contents: [] });
   const seed = await wallet.passwordToKey(password);
   const contents = await wallet.generateContentFromSeed(seed);
-  contents.forEach(c => {
+  contents.forEach((c: any) => {
     wallet.add(c);
   });
   const exported = await wallet.export(password);
