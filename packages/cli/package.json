@@ -31,7 +31,7 @@
     "transmute": "node main.js",
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "TS_JEST_DISABLE_VER_CHECKER=true tsdx test",
+    "test": "TS_JEST_DISABLE_VER_CHECKER=true tsdx test --passWithNoTests",
     "lint": "tsdx lint src --fix",
     "prepare": "tsdx build",
     "size": "size-limit",
@@ -65,6 +65,7 @@
   "dependencies": {
     "@transmute/universal-wallet": "^0.6.1-unstable.1",
     "@transmute/universal-wallet-did-key-plugin": "^0.6.1-unstable.1",
+    "factory.ts": "^0.5.1",
     "yargs": "^16.2.0"
   }
 }
