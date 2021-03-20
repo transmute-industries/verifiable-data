@@ -1,5 +1,5 @@
-const supertest = require('supertest');
 import { fastify } from './utils';
+const supertest = require('supertest');
 
 let api: any;
 
