@@ -62,6 +62,58 @@ export default (options: any) => {
         }
       }
     );
+
+    fastify.post(
+      `/:${options.walletId}/presentations/verify`,
+      {
+        preValidation: options.hooks ? options.hooks.preValidation : [],
+        // schema: {
+        //   tags: ['Verifier'],
+        //   summary: 'verifyPresentation',
+        //   description: 'Verify a Verifiable Presentation',
+        //   response: {
+        //     200: VerificationChecks,
+        //   },
+        // },
+      },
+      async (request: any, reply: any) => {
+        const wallet = await fastify.wallet.get(
+          request.params[options.walletId]
+        );
+
+        try {
+          const suiteMap = await getSuiteMap();
+
+          const verification = await wallet.verifyPresentation({
+            presentation: request.body.verifiablePresentation,
+            options: {
+              domain: request.body.options.domain,
+              challenge: request.body.options.challenge,
+              suiteMap,
+              documentLoader,
+            },
+          });
+
+          // console.warn(JSON.stringify(verification, null, 2));
+
+          const res: any = {
+            checks: ['proof'],
+            warnings: [],
+            errors: [],
+          };
+
+          if (!verification.verified) {
+            res.errors.push('proof');
+            reply.status(400);
+          }
+
+          reply.status(200).send(res);
+        } catch (e) {
+          console.error(e);
+          throw e;
+        }
+      }
+    );
     return Promise.resolve(true);
   };
 };

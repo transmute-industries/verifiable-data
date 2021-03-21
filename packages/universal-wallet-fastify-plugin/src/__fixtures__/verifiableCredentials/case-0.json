@@ -1,0 +1,19 @@
+{
+  "@context": ["https://www.w3.org/2018/credentials/v1"],
+  "id": "http://example.gov/credentials/3732",
+  "type": ["VerifiableCredential"],
+  "issuer": {
+    "id": "did:web:platform.example:accounts:123"
+  },
+  "issuanceDate": "2010-03-10T04:24:12.164Z",
+  "credentialSubject": {
+    "id": "did:web:platform.example:accounts:123"
+  },
+  "proof": {
+    "type": "Ed25519Signature2018",
+    "created": "2021-03-21T16:45:02.812Z",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..mdV9JCIM4A5B3IGvzEUDX7AoeE2CGkHLRPHwb7q0BClvdZQEu2tzYN0ccTaQpFvpgYwqvDq8r7ZJ3ZxYg5h2Ag",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "did:web:platform.example:accounts:123#key-0"
+  }
+}
