@@ -2,6 +2,17 @@ export default (options: any) => {
   return (fastify: any) => {
     fastify.get(
       `/:${options.walletId}/did.json`,
+      {
+        preValidation: options.hooks ? options.hooks.preValidation : [],
+        // schema: {
+        //   tags: ['DID Web'],
+        //   summary: 'getDidWebDocument',
+        //   description: 'Get a DID Document',
+        //   response: {
+        //     200: DidDocument,
+        //   },
+        // },
+      },
       async (request: any, reply: any) => {
         const wallet = await fastify.wallet.get(
           request.params[options.walletId]
