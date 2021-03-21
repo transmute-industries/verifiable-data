@@ -1,8 +1,8 @@
 import { fastify } from './utils';
-const supertest = require('supertest');
 
 import { case0 as vc } from '../__fixtures__/verifiableCredentials';
 import { case0 as vp } from '../__fixtures__/verifiablePresentations';
+const supertest = require('supertest');
 
 let api: any;
 

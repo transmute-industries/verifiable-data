@@ -1,9 +1,9 @@
-const supertest = require('supertest');
-const Fastify = require('fastify');
-
 import walletPlugin from '../walletPlugin';
 import walletRoutes from '../walletRoutes';
 import { walletFactory } from '../walletFactory';
+
+const supertest = require('supertest');
+const Fastify = require('fastify');
 
 const fastify = Fastify();
 

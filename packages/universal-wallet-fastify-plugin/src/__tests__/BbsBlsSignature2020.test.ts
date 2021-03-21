@@ -1,7 +1,7 @@
 import { fastify } from './utils';
-const supertest = require('supertest');
 
 import { case2 as vc } from '../__fixtures__/verifiableCredentials';
+const supertest = require('supertest');
 
 let api: any;
 
