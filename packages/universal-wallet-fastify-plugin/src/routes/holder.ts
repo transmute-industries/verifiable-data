@@ -2,6 +2,11 @@ import { getSuite } from '../getSuite';
 
 import customDocumentLoader from '../customDocumentLoader';
 
+import {
+  BbsBlsSignatureProof2020,
+  deriveProof,
+} from '@mattrglobal/jsonld-signatures-bbs';
+
 export default (options: any) => {
   return (fastify: any) => {
     const documentLoader = customDocumentLoader(options);
@@ -41,6 +46,37 @@ export default (options: any) => {
         });
 
         reply.status(201).send(vp);
+      }
+    );
+
+    fastify.post(
+      `/:${options.walletId}/credentials/derive`,
+      {
+        preValidation: options.hooks ? options.hooks.preValidation : [],
+        // schema: {
+        //   tags: ['Holder'],
+        //   summary: 'deriveCredential',
+        //   description: 'Derive a Verifiable Credential',
+        //   response: {
+        //     201: VerifiableCredential,
+        //   },
+        // },
+      },
+      async (request: any, reply: any) => {
+        const wallet = await fastify.wallet.get(
+          request.params[options.walletId]
+        );
+        const suite = new BbsBlsSignatureProof2020();
+        const vc = await wallet.deriveCredential({
+          verifiableCredential: request.body.verifiableCredential,
+          frame: request.body.frame,
+          options: {
+            suite,
+            deriveProof,
+            documentLoader,
+          },
+        });
+        reply.status(201).send(vc);
       }
     );
     return Promise.resolve(true);

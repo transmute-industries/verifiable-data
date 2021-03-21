@@ -2,6 +2,8 @@ import { fastify } from './utils';
 const supertest = require('supertest');
 
 import { case0 } from '../__fixtures__/verifiableCredentials';
+import { case2 } from '../__fixtures__/verifiableCredentials';
+import { case0 as frame } from '../__fixtures__/frames';
 
 let api: any;
 
@@ -38,4 +40,19 @@ test('POST `/accounts/123/presentations/prove`', async () => {
     .expect('Content-Type', 'application/json; charset=utf-8');
   expect(response.body.type.includes('VerifiablePresentation')).toBe(true);
   expect(response.body.proof.type).toBe('Ed25519Signature2018');
+});
+
+test('POST `/accounts/123/credentials/derive`', async () => {
+  const response = await api
+    .post('/accounts/123/credentials/derive')
+    .send({
+      verifiableCredential: case2,
+      frame: frame,
+      options: {},
+    })
+    .expect(201)
+    .expect('Content-Type', 'application/json; charset=utf-8');
+
+  expect(response.body.type.includes('VerifiableCredential')).toBe(true);
+  expect(response.body.proof.type).toBe('BbsBlsSignatureProof2020');
 });

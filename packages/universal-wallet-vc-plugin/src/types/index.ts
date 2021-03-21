@@ -17,3 +17,9 @@ export interface VerifyPresentation {
   presentation: any;
   options: any;
 }
+
+export interface DeriveCredential {
+  verifiableCredential: any;
+  frame: any;
+  options: any;
+}
