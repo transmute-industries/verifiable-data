@@ -39,6 +39,7 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
+    "@transmute/vc-status-rl-2020": "^0.6.1-unstable.4",
     "@transmute/vc.js": "^0.2.1-unstable.10",
     "factory.ts": "^0.5.1"
   },
