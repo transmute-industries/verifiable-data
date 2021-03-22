@@ -2,7 +2,9 @@ import walletPlugin from '../walletPlugin';
 import walletRoutes from '../walletRoutes';
 import { walletFactory } from '../walletFactory';
 
+const supertest = require('supertest');
 const Fastify = require('fastify');
+
 const fastify = Fastify();
 
 // normally this would be a get or create operation
@@ -48,27 +50,34 @@ const get = async (accountId: string) => {
   return wallet.import(accountEncryptedWallet, password);
 };
 
-const walletOptions = {
-  walletId: 'accountId',
-  origin: 'https://platform.example',
-  discovery: ['did:web'],
-  apis: ['issuer', 'holder', 'verifier'],
-  documentLoader: {
-    allowNetwork: true,
-  },
-  get,
-};
+test('should support preValidation hook', async () => {
+  expect.assertions(3);
+  const walletOptions = {
+    walletId: 'accountId',
+    origin: 'https://platform.example',
+    discovery: ['did:web'],
+    hooks: {
+      preValidation: [
+        (request: any, reply: any, done: any) => {
+          // here is where you might add OIDC / OAuth Token Validation
+          // Or other AuthN / AuthZ middlewares.
+          expect(request.url).toBe('/accounts/123/did.json');
+          expect(reply).toBeDefined();
+          done();
+        },
+      ],
+    },
+    get,
+  };
 
-// service
-fastify.register(walletPlugin(walletOptions));
-// routes that use service
-fastify.register(walletRoutes(walletOptions), { prefix: '/accounts' });
+  fastify.register(walletPlugin(walletOptions));
+  fastify.register(walletRoutes(walletOptions), { prefix: '/accounts' });
 
-fastify.setErrorHandler((error: any, _request: any, reply: any) => {
-  // Send error response
-  console.error(error);
+  await fastify.ready();
+  const api = supertest(fastify.server);
 
-  reply.send({ message: error.message });
+  const response = await api.get('/accounts/123/did.json');
+  expect(response.body['@context']).toBe('https://www.w3.org/ns/did/v1');
+
+  fastify.close();
 });
-
-export { fastify };

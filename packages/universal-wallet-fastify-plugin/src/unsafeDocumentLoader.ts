@@ -18,6 +18,16 @@ export const unsafeDocumentLoader = async (iri: string) => {
     };
   }
 
+  try {
+    const resp = await axios.get(iri);
+    return {
+      documentUrl: iri,
+      document: resp.data,
+    };
+  } catch (e) {
+    console.warn('Could not resolve unsafe IRI ' + iri);
+  }
+
   console.error('unsafeDocumentLoader: ', iri);
   throw new Error('Unsupported iri ' + iri);
 };

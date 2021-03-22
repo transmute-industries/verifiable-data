@@ -7,6 +7,17 @@ export default (options: any) => {
     const documentLoader = customDocumentLoader(options);
     fastify.post(
       `/:${options.walletId}/credentials/issue`,
+      {
+        preValidation: options.hooks ? options.hooks.preValidation : [],
+        // schema: {
+        //   tags: ['Issuer'],
+        //   summary: 'issueCredential',
+        //   description: 'Issue a Verifiable Credential',
+        //   response: {
+        //     202: VerifiableCredential,
+        //   },
+        // },
+      },
       async (request: any, reply: any) => {
         const wallet = await fastify.wallet.get(
           request.params[options.walletId]
