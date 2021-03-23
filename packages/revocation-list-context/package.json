@@ -6,10 +6,10 @@
   "types": "typings.d.ts",
   "author": "Orie Steele",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/revocation-list-context",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/revocation-list-context",
   "repository": {
     "type": "git",
-    "url": "https://github.com/transmute-industries/linked-data.git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
     "directory": "packages/revocation-list-context"
   },
   "publishConfig": {

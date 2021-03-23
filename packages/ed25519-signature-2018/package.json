@@ -4,10 +4,10 @@
   "module": "dist/ed25519-signature-2018.esm.js",
   "version": "0.6.1-unstable.5",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/ed25519-signature-2018",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/ed25519-signature-2018",
   "repository": {
     "type": "git",
-    "url": "https://github.com/transmute-industries/linked-data.git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
     "directory": "packages/ed25519-signature-2018"
   },
   "main": "dist/index.js",

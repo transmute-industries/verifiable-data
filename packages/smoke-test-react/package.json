@@ -2,7 +2,7 @@
   "name": "smoke-test-react",
   "version": "0.6.1-unstable.5",
   "private": true,
-  "homepage": "https://transmute-industries.github.io/linked-data/smoke-test-react/",
+  "homepage": "https://transmute-industries.github.io/verifiable-data/smoke-test-react/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",

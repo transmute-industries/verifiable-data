@@ -5,10 +5,10 @@
   "version": "0.6.1-unstable.5",
   "private": true,
   "license": "Apache-2.0",
-  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/web-crypto-key-pair",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/web-crypto-key-pair",
   "repository": {
     "type": "git",
-    "url": "https://github.com/transmute-industries/linked-data.git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
     "directory": "packages/web-crypto-key-pair"
   },
   "main": "dist/index.js",

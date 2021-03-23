@@ -63,10 +63,10 @@
     "isomorphic-webcrypto": "^2.3.6"
   },
   "gitHead": "37f52c102233963d1369862e104df87dd4c5d063",
-  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/hl",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/hl",
   "repository": {
     "type": "git",
-    "url": "https://github.com/transmute-industries/linked-data.git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
     "directory": "packages/hl"
   }
 }
