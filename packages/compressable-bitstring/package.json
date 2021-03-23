@@ -59,10 +59,10 @@
     "base64url": "^3.0.1",
     "pako": "^2.0.3"
   },
-  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/compressable-bitstring",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/compressable-bitstring",
   "repository": {
     "type": "git",
-    "url": "https://github.com/transmute-industries/linked-data.git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
     "directory": "packages/compressable-bitstring"
   },
   "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"

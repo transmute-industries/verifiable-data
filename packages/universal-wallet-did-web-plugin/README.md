@@ -121,7 +121,7 @@ const didDocument: Buffer = await wallet.didDocuments[
 ## Getting Started
 
 ```
-git clone git@github.com:transmute-industries/linked-data.git
+git clone git@github.com:transmute-industries/verifiable-data.git
 npm packages/universal-wallt-did-web-plugin; // note that this is a mono repo
 npm i
 npm run lint

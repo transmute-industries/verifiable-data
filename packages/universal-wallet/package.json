@@ -25,10 +25,10 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/universal-wallet",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/universal-wallet",
   "repository": {
     "type": "git",
-    "url": "https://github.com/transmute-industries/linked-data.git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
     "directory": "packages/universal-wallet"
   },
   "size-limit": [

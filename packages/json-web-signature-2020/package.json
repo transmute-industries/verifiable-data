@@ -4,10 +4,10 @@
   "module": "dist/json-web-signature.esm.js",
   "version": "0.6.1-unstable.5",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/json-web-signature",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/json-web-signature",
   "repository": {
     "type": "git",
-    "url": "https://github.com/transmute-industries/linked-data.git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
     "directory": "packages/json-web-signature"
   },
   "main": "dist/index.js",

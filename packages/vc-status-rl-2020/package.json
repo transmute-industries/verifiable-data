@@ -3,10 +3,10 @@
   "author": "Orie Steele",
   "module": "dist/vc-status-rl-2020.esm.js",
   "version": "0.6.1-unstable.5",
-  "homepage": "https://github.com/transmute-industries/linked-data/tree/main/packages/vc-status-rl-2020",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/vc-status-rl-2020",
   "repository": {
     "type": "git",
-    "url": "https://github.com/transmute-industries/linked-data.git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
     "directory": "packages/vc-status-rl-2020"
   },
   "license": "Apache-2.0",
