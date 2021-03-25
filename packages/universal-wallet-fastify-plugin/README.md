@@ -25,7 +25,7 @@ const walletOptions = {
   walletId: 'accountId',
   origin: 'https://platform.example',
   discovery: ['did:web'],
-  apis: ['issuer', 'verifier'],
+  apis: ['issuer', 'holder', 'verifier'],
   documentLoader: {
     allowNetwork: true,
   },
