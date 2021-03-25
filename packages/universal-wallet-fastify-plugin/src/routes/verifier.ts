@@ -1,4 +1,4 @@
-import { getSuiteMap } from '../getSuite';
+import { getSuiteMap } from '../getSuiteMap';
 
 import customDocumentLoader from '../customDocumentLoader';
 
@@ -41,8 +41,6 @@ export default (options: any) => {
               documentLoader,
             },
           });
-
-          // console.warn(JSON.stringify(verification, null, 2));
 
           const res: any = {
             checks: ['proof'],
@@ -93,8 +91,6 @@ export default (options: any) => {
               documentLoader,
             },
           });
-
-          // console.warn(JSON.stringify(verification, null, 2));
 
           const res: any = {
             checks: ['proof'],
