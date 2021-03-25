@@ -1,4 +1,4 @@
-import { getSuite } from '../getSuite';
+import { getSuiteForKey } from '../getSuiteForKey';
 
 import customDocumentLoader from '../customDocumentLoader';
 
@@ -33,7 +33,7 @@ export default (options: any) => {
         if (!k) {
           throw new Error('verificationMethod not found.');
         }
-        const suite = await getSuite(k);
+        const suite = await getSuiteForKey(k);
         const vp = await wallet.createVerifiablePresentation({
           verifiableCredential: request.body.presentation.verifiableCredential,
           options: {
@@ -66,7 +66,11 @@ export default (options: any) => {
         const wallet = await fastify.wallet.get(
           request.params[options.walletId]
         );
-        const suite = new BbsBlsSignatureProof2020();
+        let deriveProofSuiteMap: any = {
+          BbsBlsSignature2020: new BbsBlsSignatureProof2020(),
+        };
+        const suite =
+          deriveProofSuiteMap[request.body.verifiableCredential.proof.type];
         const vc = await wallet.deriveCredential({
           verifiableCredential: request.body.verifiableCredential,
           frame: request.body.frame,
