@@ -1,6 +1,5 @@
-import { getSuite } from '../getSuite';
-
 import customDocumentLoader from '../customDocumentLoader';
+import { getSuiteForKey } from '../getSuiteForKey';
 
 export default (options: any) => {
   return (fastify: any) => {
@@ -22,17 +21,22 @@ export default (options: any) => {
         const wallet = await fastify.wallet.get(
           request.params[options.walletId]
         );
+        // console.log(JSON.stringify(wallet.contents, null, 2));
         const k = wallet.contents.find((k: any) => {
           return k.id === request.body.options.verificationMethod;
         });
         if (!k) {
           throw new Error('verificationMethod not found.');
         }
-        const suite = await getSuite(k);
+
+        const suite = await getSuiteForKey(k);
+
         const vc = await wallet.issue({
-          credential: request.body.credential,
+          credential: {
+            ...request.body.credential,
+          },
           options: {
-            suite,
+            suite: suite,
             documentLoader,
           },
         });
