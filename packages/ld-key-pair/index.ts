@@ -1,3 +1,3 @@
-import { KeyPair, KeyPairDouble, KeyPairs, Signer, Verifier } from './KeyPair';
+import { KeyNode, PublicNode, PrivateNode, KeyPair, KeyPairDouble, KeyPairs, Signer, Verifier } from './KeyPair';
 
-export { KeyPair, KeyPairDouble, KeyPairs, Signer, Verifier };
+export { KeyNode, PublicNode, PrivateNode, KeyPair, KeyPairDouble, KeyPairs, Signer, Verifier };

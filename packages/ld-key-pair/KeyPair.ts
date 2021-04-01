@@ -123,4 +123,4 @@ interface KeyPairDouble {
     }): any;
 }
 
-export { KeyPair, KeyPairDouble, KeyPairs, Signer, Verifier };
+export { KeyNode, PublicNode, PrivateNode, KeyPair, KeyPairDouble, KeyPairs, Signer, Verifier };
