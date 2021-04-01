@@ -81,7 +81,7 @@ interface KeyPair {
 }
 
 /**
- * allows forthe general grouping of a list of key pairs that are
+ * allows for the general grouping of a list of key pairs that are
  * related in some fashion
  */
 interface KeyPairs {
