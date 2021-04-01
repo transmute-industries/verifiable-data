@@ -1,13 +1,14 @@
 /**
  * defines the ability to sign based on a KeyPair or only
- * from a private key
+ * from a private key and get results in a default or specified encoding
  */
 interface Signer {
     privateKey: any;
     keyPair?: KeyPair;
     sign(options: {
         data: any;
-    }): string;
+        encoding?: string;
+    }): any;
 }
 
 /**
@@ -59,7 +60,7 @@ interface KeyPair {
      */
     export(options: {
         exportPrivate: boolean;
-        keyType?: string;
+        keyEncoding?: string;
     }): any;
 
     generate(options: any): KeyPair;
@@ -73,7 +74,7 @@ interface KeyPair {
     }): KeyPair;
     fingerprintFromPublicKey(options: {
         publicKey: any;
-        publicKeyType: string;
+        publicKeyEncoding: string;
     }): string;
     
     signer(): Signer;
@@ -97,6 +98,7 @@ interface KeyPairs {
     generate(options: any): KeyPairDouble;
     export(options: {
         exportPrivate: boolean;
+        keyEncoding?: string;
     }): any;
 }
 
@@ -117,10 +119,12 @@ interface KeyPairDouble {
     generate(options: any): KeyPairDouble;
     fingerprint(): string;
     fromFingerprint(options: {
-        fingerprint: string
+        fingerprint: string;
+        keyEncoding?: string;
     }): KeyPair;
     export(options: {
         exportPrivate: boolean;
+        keyEncoding?: string;
     }): any;
 }
 
