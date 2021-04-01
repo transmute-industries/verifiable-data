@@ -3,7 +3,7 @@
  * from a private key
  */
 interface Signer {
-    privateKey: string;
+    privateKey: any;
     keyPair?: KeyPair;
     sign(options: {
         data: any;
@@ -15,7 +15,7 @@ interface Signer {
  * or a public key
  */
 interface Verifier {
-    publicKey: string;
+    publicKey: any;
     keyPair?: KeyPair;
     verify(options: {
         data: any;
@@ -30,18 +30,16 @@ interface PublicNode {
     id: string;
     type: any;
     controller?: any;
-    publicKey?: string;
-    publicKeyBase58?: string;
+    publicKey: any;
 }
 /**
- * public key side of a key pair
+ * private key side of a key pair
  */
  interface PrivateNode {
     id: string;
     type: any;
     controller?: any;
-    privateKey?: string;
-    privateKeyBase58?: string;
+    privateKey: any;
 }
 
 /**
@@ -52,12 +50,20 @@ interface KeyPair {
     id: string;
     type: any;
     controller?: any;
-    publicKey?: string;
-    privateKey?: string;
-    publicKeyBase58?: string;
-    privateKeyBase58?: string;
-    publicNode(): PublicNode;
+    publicKey: any;
+    privateKey: any;
+    
+    /**
+     * exports a key, with or without private key material, in specified or default format
+     * @param options 
+     */
+    export(options: {
+        exportPrivate: boolean;
+        keyType?: string;
+    }): any;
+
     generate(options: any): KeyPair;
+
     fingerprint(): string;
     verifyFingerprint(options: {
         fingerprint: string
@@ -66,8 +72,10 @@ interface KeyPair {
         fingerprint: string
     }): KeyPair;
     fingerprintFromPublicKey(options: {
-        publicKeyBase58: string
+        publicKey: any;
+        publicKeyType: string;
     }): string;
+    
     signer(): Signer;
     verifier(): Verifier;
 }
@@ -80,7 +88,16 @@ interface KeyPairs {
     id: string;
     type: any;
     controller?: any;
-    pairs?: KeyPair[];
+    pairs: KeyPair[];
+    
+    /**
+     * should call generate for each key pair based on type and len of pairs[]
+     * @param options 
+     */
+    generate(options: any): KeyPairDouble;
+    export(options: {
+        exportPrivate: boolean;
+    }): any;
 }
 
 /**
@@ -91,13 +108,20 @@ interface KeyPairDouble {
     id: string;
     type: any;
     controller?: any;
-    keyOne?: KeyPair;
-    keyTwo?: KeyPair;
+    keyOne: KeyPair;
+    keyTwo: KeyPair;
     /**
      * should call generate for each key pair based on type
      * @param options 
      */
     generate(options: any): KeyPairDouble;
+    fingerprint(): string;
+    fromFingerprint(options: {
+        fingerprint: string
+    }): KeyPair;
+    export(options: {
+        exportPrivate: boolean;
+    }): any;
 }
 
 export { KeyPair, KeyPairDouble, KeyPairs, Signer, Verifier };
