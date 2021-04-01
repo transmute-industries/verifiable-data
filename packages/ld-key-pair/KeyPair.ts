@@ -24,22 +24,23 @@ interface Verifier {
     }): boolean;
 }
 
-/**
- * public key side of a key pair
- */
-interface PublicNode {
+interface KeyNode {
     id: string;
     type: any;
     controller?: any;
+    encoding: string;
+}
+
+/**
+ * public key side of a key pair
+ */
+interface PublicNode extends KeyNode {
     publicKey: any;
 }
 /**
  * private key side of a key pair
  */
- interface PrivateNode {
-    id: string;
-    type: any;
-    controller?: any;
+ interface PrivateNode extends KeyNode {
     privateKey: any;
 }
 
@@ -47,20 +48,14 @@ interface PublicNode {
  * defines the common properties and methoods in use by 
  * key pairs in the LD realm based on existing implementations
  */
-interface KeyPair {
-    id: string;
-    type: any;
-    controller?: any;
-    publicKey: any;
-    privateKey: any;
-    
+interface KeyPair extends PublicNode, PrivateNode {    
     /**
      * exports a key, with or without private key material, in specified or default format
      * @param options 
      */
     export(options: {
         exportPrivate: boolean;
-        keyEncoding?: string;
+        encoding?: string;
     }): any;
 
     generate(options: any): KeyPair;
@@ -98,7 +93,7 @@ interface KeyPairs {
     generate(options: any): KeyPairDouble;
     export(options: {
         exportPrivate: boolean;
-        keyEncoding?: string;
+        encoding?: string;
     }): any;
 }
 
@@ -120,11 +115,11 @@ interface KeyPairDouble {
     fingerprint(): string;
     fromFingerprint(options: {
         fingerprint: string;
-        keyEncoding?: string;
+        encoding?: string;
     }): KeyPair;
     export(options: {
         exportPrivate: boolean;
-        keyEncoding?: string;
+        encoding?: string;
     }): any;
 }
 
