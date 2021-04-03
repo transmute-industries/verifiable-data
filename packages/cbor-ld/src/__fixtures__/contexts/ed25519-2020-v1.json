@@ -1,0 +1,53 @@
+{
+  "@context": {
+    "@protected": true,
+    "id": "@id",
+    "type": "@type",
+    "Ed25519VerificationKey2020": {
+      "@id": "https://w3id.org/security#Ed25519VerificationKey2020",
+      "@context": {
+        "controller": "https://w3id.org/security#controller",
+        "publicKeyMultibase": "https://w3id.org/security#publicKeyMultibase"
+      }
+    },
+    "Ed25519Signature2020": {
+      "@id": "https://w3id.org/security#Ed25519Signature2020",
+      "@context": {
+        "verificationMethod": {
+          "@id": "https://w3id.org/security#verificationMethod",
+          "@type": "@id"
+        },
+        "proofPurpose": {
+          "@id": "https://w3id.org/security#proofPurpose",
+          "@type": "@vocab",
+          "@context": {
+            "assertionMethod": {
+              "@id": "https://w3id.org/security#assertionMethod",
+              "@type": "@id",
+              "@container": "@set"
+            },
+            "authentication": {
+              "@id": "https://w3id.org/security#authenticationMethod",
+              "@type": "@id",
+              "@container": "@set"
+            }
+          }
+        },
+        "domain": "https://w3id.org/security#domain",
+        "challenge": "https://w3id.org/security#challenge",
+        "nonce": "https://w3id.org/security#nonce",
+        "created": {
+          "@id": "http://purl.org/dc/terms/created",
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+        },
+        "signature": {
+          "@id": "https://w3id.org/security#proofValue"
+        },
+        "proofValue": {
+          "@id": "https://w3id.org/security#proofValue",
+          "@type": "https://w3id.org/security#multibase"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "type": "Note",
+  "summary": "CBOR-LD",
+  "content": "CBOR-LD is awesome!"
+}
