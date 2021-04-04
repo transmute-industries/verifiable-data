@@ -1,7 +1,7 @@
-import { passwordToKey } from './passwordToKey';
+import { passwordToKey } from "./passwordToKey";
 
-import { X25519KeyPair } from '@transmute/did-key-x25519';
-import { Cipher } from '@transmute/did-key-cipher';
+import { X25519KeyPair } from "@transmute/did-key-x25519";
+import { Cipher } from "@transmute/did-key-cipher";
 
 export const lockContents = async (
   password: string,
@@ -12,14 +12,14 @@ export const lockContents = async (
   const kp = await X25519KeyPair.generate({
     secureRandom: () => {
       return derivedKey;
-    },
+    }
   });
   kp.id = kp.controller + kp.id;
   const recipient = {
     header: {
       kid: kp.id,
-      alg: 'ECDH-ES+A256KW',
-    },
+      alg: "ECDH-ES+A256KW"
+    }
   };
   const recipients = [recipient];
 
@@ -38,7 +38,7 @@ export const lockContents = async (
       const jwe = await cipher.encryptObject({
         obj: { ...content },
         recipients: [...recipients],
-        keyResolver,
+        keyResolver
       });
       return jwe;
     })

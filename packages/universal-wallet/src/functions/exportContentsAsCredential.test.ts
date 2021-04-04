@@ -1,7 +1,7 @@
-import * as fixtures from '@transmute/universal-wallet-test-vectors';
-import { exportContentsAsCredential } from './exportContentsAsCredential';
+import * as fixtures from "@transmute/universal-wallet-test-vectors";
+import { exportContentsAsCredential } from "./exportContentsAsCredential";
 
-it('exportContentsAsCredential', async () => {
+it("exportContentsAsCredential", async () => {
   const contents = [{ foo: 1 }, { bar: 1 }];
   const encryptedWalletCredential = await exportContentsAsCredential(
     fixtures.password,
@@ -9,7 +9,7 @@ it('exportContentsAsCredential', async () => {
   );
 
   expect(encryptedWalletCredential.type).toEqual([
-    'VerifiableCredential',
-    'EncryptedWallet',
+    "VerifiableCredential",
+    "EncryptedWallet"
   ]);
 });

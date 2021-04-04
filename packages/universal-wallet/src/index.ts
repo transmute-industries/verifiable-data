@@ -1,2 +1,2 @@
-export * from './functions';
-export * from './walletFactory';
+export * from "./functions";
+export * from "./walletFactory";

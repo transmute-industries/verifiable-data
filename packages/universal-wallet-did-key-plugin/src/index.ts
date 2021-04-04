@@ -1,13 +1,13 @@
-import * as Factory from 'factory.ts';
+import * as Factory from "factory.ts";
 
-import { generateContentFromSeed } from './generateContentFromSeed';
+import { generateContentFromSeed } from "./generateContentFromSeed";
 
 interface DidKeyPlugin {
   generateContentFromSeed: (seed: Uint8Array) => Promise<any[]>;
 }
 
 const factoryDefaults = {
-  generateContentFromSeed,
+  generateContentFromSeed
 };
 
 const pluginFactory = Factory.Sync.makeFactory<DidKeyPlugin>(factoryDefaults);

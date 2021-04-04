@@ -1,6 +1,6 @@
-import { ld } from '@transmute/vc.js';
+import { ld } from "@transmute/vc.js";
 
-import { VerifyCredential } from './types';
+import { VerifyCredential } from "./types";
 
 const vcjs = ld;
 
@@ -8,7 +8,7 @@ const verifyCredential = ({ credential, options }: VerifyCredential) => {
   return vcjs.verifyCredential({
     credential,
     suite: options.suite,
-    documentLoader: options.documentLoader,
+    documentLoader: options.documentLoader
   });
 };
 

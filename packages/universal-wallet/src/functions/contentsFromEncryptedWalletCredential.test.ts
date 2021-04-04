@@ -1,8 +1,8 @@
-import * as fixtures from '@transmute/universal-wallet-test-vectors';
-import { exportContentsAsCredential } from './exportContentsAsCredential';
-import { contentsFromEncryptedWalletCredential } from './contentsFromEncryptedWalletCredential';
+import * as fixtures from "@transmute/universal-wallet-test-vectors";
+import { exportContentsAsCredential } from "./exportContentsAsCredential";
+import { contentsFromEncryptedWalletCredential } from "./contentsFromEncryptedWalletCredential";
 
-it('contentsFromEncryptedWalletCredential', async () => {
+it("contentsFromEncryptedWalletCredential", async () => {
   const contents = [{ foo: 1 }, { bar: 1 }];
   const encryptedWalletCredential = await exportContentsAsCredential(
     fixtures.password,

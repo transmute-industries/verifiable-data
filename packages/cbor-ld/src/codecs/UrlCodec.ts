@@ -5,8 +5,8 @@ import * as b58 from 'base58-universal';
 import { parse, stringify } from 'uuid';
 
 const urlHeaders = new Map();
-const urlEncoders = new Array();
-const urlDecoders = new Array();
+const urlEncoders = [];
+const urlDecoders = [];
 
 export class UrlCodec {
   constructor() {}

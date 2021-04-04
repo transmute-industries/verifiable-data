@@ -1,9 +1,9 @@
-import crypto from 'isomorphic-webcrypto';
-import base64url from 'base64url-universal';
+import crypto from "isomorphic-webcrypto";
+import base64url from "base64url-universal";
 
 const seedToId = async (seed: Uint8Array) => {
-  const buffer = await crypto.subtle.digest('SHA-256', seed);
-  return `urn:digest:${Buffer.from(new Int8Array(buffer)).toString('hex')}`;
+  const buffer = await crypto.subtle.digest("SHA-256", seed);
+  return `urn:digest:${Buffer.from(new Int8Array(buffer)).toString("hex")}`;
 };
 
 export default class Hmac {
@@ -21,15 +21,15 @@ export default class Hmac {
 
   static async create(data: Buffer) {
     const id = await seedToId(new Uint8Array(data));
-    const type = 'Sha256HmacKey2019';
-    const algorithm = 'HS256';
+    const type = "Sha256HmacKey2019";
+    const algorithm = "HS256";
     const extractable = true;
     const key = await crypto.subtle.importKey(
-      'raw',
+      "raw",
       data,
-      { name: 'HMAC', hash: { name: 'SHA-256' } },
+      { name: "HMAC", hash: { name: "SHA-256" } },
       extractable,
-      ['sign', 'verify']
+      ["sign", "verify"]
     );
     const hmac = new Hmac({ id, type, algorithm, key });
     return hmac;

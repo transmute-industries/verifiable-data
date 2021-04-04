@@ -1,13 +1,13 @@
-import { Ed25519KeyPair } from '@transmute/did-key-ed25519';
-import { X25519KeyPair } from '@transmute/did-key-x25519';
+import { Ed25519KeyPair } from "@transmute/did-key-ed25519";
+import { X25519KeyPair } from "@transmute/did-key-x25519";
 
-import Hmac from './Hmac';
-import KeyAgreementKey from './KeyAgreementKey';
-import Invoker from './Invoker';
+import Hmac from "./Hmac";
+import KeyAgreementKey from "./KeyAgreementKey";
+import Invoker from "./Invoker";
 
-import { EdvClient } from 'edv-client';
+import { EdvClient } from "edv-client";
 
-import { passwordToKey } from '../functions/passwordToKey';
+import { passwordToKey } from "../functions/passwordToKey";
 
 export interface IEdvVendorConfig {
   account_seed: string;
@@ -16,7 +16,7 @@ export interface IEdvVendorConfig {
 }
 
 export class VaultClient {
-  public vault_endpoint: string = '';
+  public vault_endpoint: string = "";
   public keys: any;
   public invocationSigner: any;
   public keyResolver: any;
@@ -48,7 +48,7 @@ export class VaultClient {
     const ed25519KeyPair = await Ed25519KeyPair.generate({
       secureRandom: () => {
         return Buffer.from(seed);
-      },
+      }
     });
 
     const k0: any = ed25519KeyPair.toKeyPair(true);
@@ -96,20 +96,20 @@ export class VaultClient {
       sequence: 0,
       controller: controller || this.invocationSigner.id,
       keyAgreementKey: { id: keyAgreementKey.id, type: keyAgreementKey.type },
-      hmac: { id: hmac.id, type: hmac.type },
+      hmac: { id: hmac.id, type: hmac.type }
     };
     if (referenceId) {
       config.referenceId = referenceId;
     }
     config = await EdvClient.createEdv({
       url: this.vault_endpoint,
-      config,
+      config
     });
 
     return new EdvClient({
-      id: this.vault_endpoint + '/' + config.id,
+      id: this.vault_endpoint + "/" + config.id,
       keyAgreementKey,
-      hmac,
+      hmac
     });
   }
 
@@ -119,38 +119,38 @@ export class VaultClient {
     let _config = await EdvClient.findConfig({
       url: this.vault_endpoint,
       controller: this.invocationSigner.controller,
-      referenceId: this.invocationSigner.controller + '#primary',
+      referenceId: this.invocationSigner.controller + "#primary"
     });
 
     if (_config) {
       this.vault = new EdvClient({
-        id: this.vault_endpoint + '/' + _config.id,
+        id: this.vault_endpoint + "/" + _config.id,
         keyAgreementKey,
-        hmac,
+        hmac
       });
       return this.vault;
     }
     this.vault = await this.createEdv({
       controller: this.invocationSigner.controller,
-      referenceId: this.invocationSigner.controller + '#primary',
+      referenceId: this.invocationSigner.controller + "#primary"
     });
     return this.vault;
   }
 
   async addWalletContent(doc: any) {
-    this.vault.ensureIndex({ attribute: 'content.schema' });
-    this.vault.ensureIndex({ attribute: 'content.data.id', unique: true });
+    this.vault.ensureIndex({ attribute: "content.schema" });
+    this.vault.ensureIndex({ attribute: "content.data.id", unique: true });
     return await this.vault.update({
       keyResolver: this.keyResolver,
       invocationSigner: this.invocationSigner,
-      doc,
+      doc
     });
   }
 
   async getWalletContents() {
     const { documents } = await this.vault.find({
       invocationSigner: this.invocationSigner,
-      equals: { 'content.schema': 'https://schema.org/UniversalWallet' },
+      equals: { "content.schema": "https://schema.org/UniversalWallet" }
     });
     return documents.map((d: any) => {
       return d.content.data;
@@ -171,7 +171,7 @@ export class VaultClient {
     try {
       contents = await this.getWalletContents();
     } catch (e) {
-      if (e.message === 'Request failed with status code 404') {
+      if (e.message === "Request failed with status code 404") {
         // no-op we will add content that does not exist anyway..
       }
     }
@@ -185,9 +185,9 @@ export class VaultClient {
           const doc = {
             id: await EdvClient.generateId(),
             content: {
-              schema: 'https://schema.org/UniversalWallet',
-              data,
-            },
+              schema: "https://schema.org/UniversalWallet",
+              data
+            }
           };
           await this.addWalletContent(doc);
         }

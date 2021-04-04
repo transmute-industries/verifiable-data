@@ -1,3 +1,3 @@
-import didDocument from './didDocument.json';
+import didDocument from "./didDocument.json";
 
 export { didDocument };

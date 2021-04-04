@@ -1,6 +1,6 @@
-import { ld } from '@transmute/vc.js';
+import { ld } from "@transmute/vc.js";
 
-import { IssueCredential } from './types';
+import { IssueCredential } from "./types";
 
 const vcjs = ld;
 
@@ -8,7 +8,7 @@ const issue = async ({ credential, options }: IssueCredential) => {
   const signedVC = await vcjs.issue({
     credential,
     suite: options.suite,
-    documentLoader: options.documentLoader,
+    documentLoader: options.documentLoader
   });
   return signedVC;
 };
