@@ -19,6 +19,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build:fixtures": "node ./scripts/generate-fixtures/from-db.js",
+    "confirm:fixtures": "node ./scripts/confirm-fixtures/from-ts.js",
     "build": "tsdx build",
     "test": "TS_JEST_DISABLE_VER_CHECKER=true tsdx test",
     "lint": "tsdx lint src --fix",
@@ -48,6 +49,7 @@
     }
   ],
   "devDependencies": {
+    "@digitalbazaar/cbor": "^1.1.0",
     "@digitalbazaar/cborld": "^3.1.1",
     "@size-limit/preset-small-lib": "^4.9.2",
     "base58-universal": "^1.0.0",
@@ -56,12 +58,15 @@
     "js-base64": "^3.6.0",
     "require-all": "^3.0.0",
     "size-limit": "^4.9.2",
-    "ts-jest": "^26.5.0",
+    "ts-jest": "^26.5.4",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
     "typescript": "^4.1.3"
   },
   "dependencies": {
+    "bignumber.js": "^9.0.1",
+    "bs58": "^4.0.1",
+    "cbor": "^7.0.5",
     "cbor-web": "^7.0.5",
     "uuid": "^8.3.2"
   },

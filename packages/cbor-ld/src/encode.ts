@@ -10,6 +10,9 @@ import { CompressedCborldCodec } from './codecs/CompressedCborldCodec';
 import { UncompressedCborldCodec } from './codecs/UncompressedCborldCodec';
 
 import * as CBOR from 'cbor-web';
+// import * as CBOR from '@digitalbazaar/cbor';
+
+// const CBOR = require('cbor');
 
 export const encode = async (
   document: object,
@@ -29,10 +32,12 @@ export const encode = async (
     // appTermMap,
     termEncodingMap,
   });
+  // console.log(encodingMap);
   // determine the appropriate codec
   const cborldObject = termEncodingMap
     ? new CompressedCborldCodec()
     : new UncompressedCborldCodec();
+
   cborldObject.set({ value: encodingMap });
 
   if (options.diagnose) {
@@ -44,5 +49,10 @@ export const encode = async (
   // encode as CBOR
   const cborldBytes = Uint8Array.from(encoded);
 
-  return cborldBytes;
+  // See https://github.com/digitalbazaar/cborld/issues/32
+  const hackAroundBug = Buffer.from(cborldBytes)
+    .toString('hex')
+    .replace(/d840/g, '');
+
+  return Uint8Array.from(Buffer.from(hackAroundBug, 'hex'));
 };
