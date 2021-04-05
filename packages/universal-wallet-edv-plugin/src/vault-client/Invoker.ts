@@ -1,8 +1,8 @@
-import forge from 'node-forge';
-import { decode } from './Base58Btc';
+import forge from "node-forge";
+import { decode } from "./Base58Btc";
 
 const {
-  pki: { ed25519 },
+  pki: { ed25519 }
 } = forge;
 
 export interface IEd25519VerificationKey2018 {

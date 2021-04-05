@@ -1,6 +1,4 @@
 import { base64url } from '../encoding';
-// beware of ordering.
-const canonicalize = JSON.stringify;
 import {
   JwsSigner,
   JwsSignerOptions,
@@ -16,6 +14,8 @@ import { getSignaturOptionsFromCryptoKey } from './getSignaturOptionsFromCryptoK
 
 import { getSigner as getRawSigner } from './getSigner';
 import { getVerifier as getRawVerifier } from './getVerifier';
+// beware of ordering.
+const canonicalize = JSON.stringify;
 
 export const getJwaAlgFromJwk = (jwk: any) => {
   if (jwk.kty === 'EC' && jwk.crv === 'P-256') {

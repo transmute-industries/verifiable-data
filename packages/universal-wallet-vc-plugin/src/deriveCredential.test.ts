@@ -5,7 +5,7 @@ import { case0 as frame } from "./__fixtures__/frames";
 
 import {
   BbsBlsSignatureProof2020,
-  deriveProof,
+  deriveProof
 } from "@mattrglobal/jsonld-signatures-bbs";
 
 import { pluginFactory } from "./index";
@@ -21,8 +21,8 @@ it("should deriveCredential", async () => {
       deriveProof,
       documentLoader: (iri: string) => {
         return fixtures.documentLoader(iri);
-      },
-    },
+      }
+    }
   });
   expect(vc2.proof.type).toBe("BbsBlsSignatureProof2020");
 });

@@ -1,10 +1,10 @@
-import * as fixtures from '@transmute/universal-wallet-test-vectors';
+import * as fixtures from "@transmute/universal-wallet-test-vectors";
 
-import { plugin } from './index';
+import { plugin } from "./index";
 
-it('should generate content from seed', async () => {
+it("should generate content from seed", async () => {
   const content = await plugin.generateContentFromSeed(
-    new Uint8Array(Buffer.from(fixtures.seed, 'hex'))
+    new Uint8Array(Buffer.from(fixtures.seed, "hex"))
   );
 
   expect(content).toEqual(fixtures.content);

@@ -1,6 +1,6 @@
-import { decode } from './Base58Btc';
+import { decode } from "./Base58Btc";
 
-import nacl from 'tweetnacl';
+import nacl from "tweetnacl";
 
 export interface IX25519KeyAgreementKey2019 {
   id: string;

@@ -1,6 +1,6 @@
 import {
   documentLoaderFactory,
-  contexts,
+  contexts
 } from "@transmute/jsonld-document-loader";
 
 import { issuers } from "./data/issuers.json";
@@ -18,19 +18,19 @@ let golem = documentLoaderFactory.pluginFactory.build({
     "http://w3id.org/wallet/v1": wallet_v1,
     "https://w3id.org/security/bbs/v1": bbs_v1,
     "https://w3id.org/citizenship/v1": citizenship_v1,
-    "https://w3id.org/security/v3-unstable": sec_v3,
-  } as any,
+    "https://w3id.org/security/v3-unstable": sec_v3
+  } as any
 });
 
 // add a resolver to each issuer... and no others.
-Object.keys(issuers).forEach((issuer) => {
+Object.keys(issuers).forEach(issuer => {
   golem.addResolver({
     [issuer]: {
       resolve: (uri: string) => {
         const document = (issuers as any)[uri.split("#")[0]];
         return Promise.resolve(document);
-      },
-    },
+      }
+    }
   });
 });
 

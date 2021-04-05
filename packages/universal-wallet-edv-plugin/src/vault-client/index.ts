@@ -1,1 +1,1 @@
-export * from './VaultClient';
+export * from "./VaultClient";

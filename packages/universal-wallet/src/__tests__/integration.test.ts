@@ -1,9 +1,9 @@
-import { walletFactory } from '../index';
+import { walletFactory } from "../index";
 
-it('can use factory to build new wallet', () => {
+it("can use factory to build new wallet", () => {
   const wallet = walletFactory.build({
-    contents: [],
+    contents: []
   });
 
-  expect(wallet.status).toBe('UNLOCKED');
+  expect(wallet.status).toBe("UNLOCKED");
 });

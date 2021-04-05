@@ -8,7 +8,7 @@ import {
   exportContentsAsCredential,
   contentsFromEncryptedWalletCredential,
   seedToId,
-  passwordToKey,
+  passwordToKey
 } from "./functions";
 
 interface Wallet {
@@ -77,7 +77,7 @@ const walletDefaults = {
     );
     this.status = WalletStatus.Unlocked;
     return this;
-  },
+  }
 };
 
 const walletFactory = Factory.Sync.makeFactory<Wallet>(walletDefaults);

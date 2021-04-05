@@ -8,7 +8,7 @@ const getKeys = async (did: string) => {
     ...(await generateKeys("x25519")),
     ...(await generateKeys("bls12381")),
     ...(await generateKeys("p-256")),
-    ...(await generateKeys("secp256k1")),
+    ...(await generateKeys("secp256k1"))
   ].map((k: any, i: number) => {
     let k1 = k.toJsonWebKeyPair(true);
     k1.id = `${did}#key-${i}`;

@@ -1,7 +1,7 @@
 import * as Factory from "factory.ts";
 import {
   factory as didDocumentFactory,
-  DidDocument,
+  DidDocument
 } from "@did-core/data-model";
 import { representation } from "@did-core/did-ld-json";
 import { DidDocumentIndex, VerificationMethodIndex } from "./types";
@@ -31,7 +31,7 @@ export const factoryDefaults: DidWebPlugin = {
   keysToDidDocument,
   generate: async function(endpoint: string): Promise<DidWebPlugin> {
     const { keys, didDocument } = await generate(endpoint);
-    keys.forEach((k) => {
+    keys.forEach(k => {
       this.addVerificationMethod(k);
     });
     this.addDidDocument(
@@ -52,7 +52,7 @@ export const factoryDefaults: DidWebPlugin = {
   addVerificationMethod: function(keypair: any): DidWebPlugin {
     this.verificationMethods[keypair.id] = keypair;
     return this;
-  },
+  }
 };
 
 export const pluginFactory = Factory.Sync.makeFactory<DidWebPlugin>(

@@ -31,7 +31,7 @@ const factoryDefaults = {
   ): Promise<VaultClient> => {
     const client = VaultClient.fromPassword(edvEndpoint, password);
     return client;
-  },
+  }
 };
 
 const pluginFactory = Factory.Sync.makeFactory<EdvPlugin>(factoryDefaults);

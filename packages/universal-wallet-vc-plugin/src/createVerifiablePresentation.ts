@@ -1,18 +1,18 @@
-import { ld } from '@transmute/vc.js';
+import { ld } from "@transmute/vc.js";
 
-import { PresentCredentials } from './types';
+import { PresentCredentials } from "./types";
 
 const vcjs = ld;
 
 const createVerifiablePresentation = ({
   verifiableCredential,
-  options,
+  options
 }: PresentCredentials) => {
   const presentation = {
-    '@context': ['https://www.w3.org/2018/credentials/v1'],
-    type: ['VerifiablePresentation'],
+    "@context": ["https://www.w3.org/2018/credentials/v1"],
+    type: ["VerifiablePresentation"],
     holder: options.holder,
-    verifiableCredential,
+    verifiableCredential
   };
 
   return vcjs.signPresentation({
@@ -20,7 +20,7 @@ const createVerifiablePresentation = ({
     suite: options.suite,
     challenge: options.challenge,
     domain: options.domain,
-    documentLoader: options.documentLoader,
+    documentLoader: options.documentLoader
   });
 };
 

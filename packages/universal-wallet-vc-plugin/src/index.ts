@@ -5,7 +5,7 @@ import {
   VerifyCredential,
   PresentCredentials,
   VerifyPresentation,
-  DeriveCredential,
+  DeriveCredential
 } from "./types";
 
 import { issue } from "./issue";
@@ -36,7 +36,7 @@ const factoryDefaults = {
 
   // verifier
   verifyCredential,
-  verifyPresentation,
+  verifyPresentation
 };
 
 const pluginFactory = Factory.Sync.makeFactory<VcPlugin>(factoryDefaults);

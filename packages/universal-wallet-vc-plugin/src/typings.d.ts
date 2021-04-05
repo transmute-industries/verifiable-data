@@ -1,1 +1,1 @@
-declare module 'isomorphic-webcrypto';
+declare module "isomorphic-webcrypto";

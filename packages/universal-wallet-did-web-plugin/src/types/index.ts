@@ -1,2 +1,2 @@
-export * from './DidDocumentIndex';
-export * from './VerificationMethodIndex';
+export * from "./DidDocumentIndex";
+export * from "./VerificationMethodIndex";

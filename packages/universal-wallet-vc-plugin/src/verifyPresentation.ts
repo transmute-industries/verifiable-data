@@ -7,17 +7,17 @@ const vcjs = ld;
 const verifyPresentation = ({ presentation, options }: VerifyPresentation) => {
   let opts = {
     ...options,
-    checkStatus,
+    checkStatus
   };
   if (presentation.proof) {
     opts = {
       presentation,
-      ...opts,
+      ...opts
     };
   } else {
     opts = {
       unsignedPresentation: presentation,
-      ...opts,
+      ...opts
     };
   }
   return vcjs.verify(opts);
