@@ -1,5 +1,15 @@
 ### @transmute/cbor-ld
 
+🚧 This module is currently under heavy constuction.
+
+Assume it is non functional for now, and use [digitalbazaar/cborld](https://github.com/digitalbazaar/cborld) instead.
+
+We're working through their implementation to extract some interoperabiity tooling for the codecs and contexts and associated test vectors, as well as trying to reduce dependencies and ensure support for typescript and jest / tsdx.
+
+Currently things are non function.
+
+🚧 Seriously, just use this library instead [digitalbazaar/cborld](https://github.com/digitalbazaar/cborld)
+
 ```
 npm i @transmute/cbor-ld@latest --save
 ```
