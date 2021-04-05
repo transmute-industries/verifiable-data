@@ -2,7 +2,17 @@
   "name": "@transmute/ld-key-pair",
   "version": "0.6.1-unstable.9",
   "description": "Linked Data Key Pair Interfaces, common methods, and tests",
-  "main": "index.js",
+  "author": "mprorock@mesur.io",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -17,8 +27,6 @@
     "data",
     "pairing"
   ],
-  "author": "mprorock@mesur.io",
-  "license": "Apache-2.0",
   "devDependencies": {
     "tsdx": "^0.14.1",
     "tslint": "^6.1.3",
