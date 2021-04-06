@@ -33,6 +33,7 @@
     "@mattrglobal/jsonld-signatures-bbs": "^0.8.0",
     "@transmute/did-key-ed25519": "^0.2.1-unstable.35",
     "@transmute/ed25519-signature-2018": "^0.6.1-unstable.10",
+    "@transmute/universal-wallet": "^0.6.1-unstable.10",
     "@transmute/universal-wallet-test-vectors": "^0.6.1-unstable.10",
     "ts-jest": "^26.5.4",
     "tsdx": "^0.14.1",
@@ -42,7 +43,8 @@
   "dependencies": {
     "@transmute/vc-status-rl-2020": "^0.6.1-unstable.10",
     "@transmute/vc.js": "^0.2.1-unstable.10",
-    "factory.ts": "^0.5.1"
+    "factory.ts": "^0.5.1",
+    "uuid": "^8.3.2"
   },
   "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
 }
