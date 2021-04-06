@@ -1,4 +1,3 @@
-export * from "./vc";
-export * from "./chapi";
+export * from "./Interfaces";
 export * from "./Plugin";
 export * from "./Wallet";
