@@ -5,7 +5,7 @@ export const createFlowRequirements = (
   return {
     type: flowType,
     authorized: {
-      IntentToSellProductCategory: credentialTypes,
-    },
+      IntentToSellProductCategory: credentialTypes
+    }
   };
 };

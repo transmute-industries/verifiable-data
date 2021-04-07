@@ -5,7 +5,7 @@ it("can create a authorized flow requirements", () => {
     "IntentToSell",
     "ProductCertificate",
     "InvoiceCertificate",
-    "ShippingCertificate",
+    "ShippingCertificate"
   ]);
   expect(payload).toEqual({
     type: "IntentToSellProductCategory",
@@ -14,8 +14,8 @@ it("can create a authorized flow requirements", () => {
         "IntentToSell",
         "ProductCertificate",
         "InvoiceCertificate",
-        "ShippingCertificate",
-      ],
-    },
+        "ShippingCertificate"
+      ]
+    }
   });
 });

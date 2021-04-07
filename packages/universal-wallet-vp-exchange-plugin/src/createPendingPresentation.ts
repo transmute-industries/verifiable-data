@@ -6,7 +6,7 @@ export const createPendingPresentation = (
   return {
     type: verifyPresentationChallengesObjectName,
     pending: {
-      [presentationIndex]: query,
-    },
+      [presentationIndex]: query
+    }
   };
 };

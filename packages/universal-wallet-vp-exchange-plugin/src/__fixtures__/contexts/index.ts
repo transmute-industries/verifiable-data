@@ -14,5 +14,5 @@ export const contexts: any = {
   ),
   [did.constants.DID_CONTEXT_V1_URL]: did.contexts.get(
     did.constants.DID_CONTEXT_V1_URL
-  ),
+  )
 };

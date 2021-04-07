@@ -73,8 +73,8 @@ export const verifyAndAddPresentation = async (
     options: {
       ...options,
       challenge,
-      domain,
-    },
+      domain
+    }
   });
 
   if (verification.verified) {
@@ -86,7 +86,7 @@ export const verifyAndAddPresentation = async (
     // this object stores things a human needs to review.
     const flaggedForHumanReview: any = {
       type: verifiedPresentationsInboxName,
-      presentations: [],
+      presentations: []
     };
     flaggedForHumanReview.presentations.push(presentation);
     wallet.add(flaggedForHumanReview);

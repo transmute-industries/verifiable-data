@@ -5,7 +5,7 @@ export const createAuthorizedFlows = (
   return {
     type: "AuthorizedFlows",
     authorized: {
-      [controller]: authorizedFlows,
-    },
+      [controller]: authorizedFlows
+    }
   };
 };

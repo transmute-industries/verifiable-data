@@ -18,12 +18,12 @@ export const createNotificationQueryResponse = (
           reason: `${domain} is requesting credentials, in response to ${flow.query[0].type}`,
           example: {
             "@context": ["https://www.w3.org/2018/credentials/v1"],
-            type: flowTypes,
-          },
-        },
-      },
+            type: flowTypes
+          }
+        }
+      }
     ],
     challenge: uuidv4(),
-    domain: domain,
+    domain: domain
   };
 };

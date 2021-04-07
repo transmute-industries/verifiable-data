@@ -9,7 +9,7 @@ it("can create a notification response", () => {
       "IntentToSell",
       "ProductCertificate",
       "InvoiceCertificate",
-      "ShippingCertificate",
+      "ShippingCertificate"
     ]
   );
 
@@ -31,11 +31,11 @@ it("can create a notification response", () => {
             "IntentToSell",
             "ProductCertificate",
             "InvoiceCertificate",
-            "ShippingCertificate",
-          ],
-        },
-      },
-    },
+            "ShippingCertificate"
+          ]
+        }
+      }
+    }
   ]);
   expect(payload.domain).toBe("example.com");
   expect(payload.challenge).toBeDefined();

@@ -5,9 +5,9 @@ export const createNotificationQueryRequest = (
   const payload: any = {
     query: [
       {
-        type: flowType,
-      },
-    ],
+        type: flowType
+      }
+    ]
   };
   if (flowRecipients !== undefined) {
     payload.recipients = flowRecipients;

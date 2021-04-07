@@ -11,7 +11,7 @@ export interface FixtureWalletFactory
 export const walletFactory = Factory.Sync.makeFactory<FixtureWalletFactory>({
   ...VcPlugin.factoryDefaults,
   ...VpxPlugin.factoryDefaults,
-  ...Wallet.walletDefaults,
+  ...Wallet.walletDefaults
 })
   .combine(VcPlugin.pluginFactory)
   .combine(VpxPlugin.pluginFactory)

@@ -10,7 +10,7 @@ it("can create a notification response", () => {
       "IntentToSell",
       "ProductCertificate",
       "InvoiceCertificate",
-      "ShippingCertificate",
+      "ShippingCertificate"
     ]
   );
   const flow = createNotificationQueryRequest("IntentToSellProductCategory");
