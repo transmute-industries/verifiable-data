@@ -4,7 +4,7 @@ const assertionMethodCurveTypes = [
   "secp256k1",
   "BLS12381_G1",
   "BLS12381_G2",
-  "P-256"
+  "P-256",
 ];
 const capabilityInvocationCurveTypes = ["Ed25519", "P-256"];
 const capabilityDelegationCurveTypes = [...capabilityInvocationCurveTypes];
@@ -16,7 +16,7 @@ const allVerificationMethodCurveTypes = Array.from(
     ...assertionMethodCurveTypes,
     ...capabilityInvocationCurveTypes,
     ...capabilityDelegationCurveTypes,
-    ...keyAgreementCurveTypes
+    ...keyAgreementCurveTypes,
   ])
 );
 
@@ -26,10 +26,10 @@ export const getVerificationRelationship = (
   idOnly = true
 ) => {
   return collection
-    .filter(k => {
+    .filter((k) => {
       return types.includes(k.publicKeyJwk.crv);
     })
-    .map(k => {
+    .map((k) => {
       if (idOnly) {
         return k.id;
       }
@@ -41,7 +41,10 @@ export const getVerificationRelationship = (
 
 export const keysToDidDocument = (did: string, keys: any[]) => {
   const didDocument = {
-    "@context": "https://www.w3.org/ns/did/v1",
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      "https://ns.did.ai/transmute/v1",
+    ],
     id: did,
     verificationMethod: getVerificationRelationship(
       allVerificationMethodCurveTypes,
@@ -64,7 +67,7 @@ export const keysToDidDocument = (did: string, keys: any[]) => {
       capabilityDelegationCurveTypes,
       keys
     ),
-    keyAgreement: getVerificationRelationship(keyAgreementCurveTypes, keys)
+    keyAgreement: getVerificationRelationship(keyAgreementCurveTypes, keys),
   };
   return didDocument;
 };
