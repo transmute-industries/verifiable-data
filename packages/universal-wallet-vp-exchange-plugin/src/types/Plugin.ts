@@ -19,4 +19,8 @@ export interface VpxPlugin {
     domain: string,
     flow: CredentialHandlerRequest
   ) => CredentialHandlerResponse;
+  verifyAndAddPresentation: (
+    presentation: any,
+    options: any
+  ) => Promise<VpxPlugin>;
 }

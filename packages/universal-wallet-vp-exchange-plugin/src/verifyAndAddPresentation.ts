@@ -67,12 +67,13 @@ export const verifyAndAddPresentation = async (
   );
 
   const { domain, challenge } = pending[presentationIndex];
+
   const verification = await wallet.verifyPresentation({
     presentation,
     options: {
+      ...options,
       challenge,
       domain,
-      ...options,
     },
   });
 

@@ -6,6 +6,8 @@ import { createFlowRequirements } from "./createFlowRequirements";
 import { createAuthorizedFlows } from "./createAuthorizedFlows";
 import { createNotificationQueryRequest } from "./createNotificationQueryRequest";
 import { createNotificationQueryResponse } from "./createNotificationQueryResponse";
+import { createPendingPresentation } from "./createPendingPresentation";
+import { verifyAndAddPresentation } from "./verifyAndAddPresentation";
 
 const factoryDefaults = {
   authorizeCredentialFlow: async function(
@@ -86,7 +88,18 @@ const factoryDefaults = {
     if (!flowRequirements) {
       throw new Error("Wallet does not contain FlowRequirements");
     }
-    return createNotificationQueryResponse(flowRequirements, domain, flow);
+    const responseFlow = createNotificationQueryResponse(
+      flowRequirements,
+      domain,
+      flow
+    );
+    const presentationIndex = `urn:${responseFlow.domain}:${responseFlow.challenge}`;
+    const pending = createPendingPresentation(presentationIndex, responseFlow);
+    ((this as unknown) as VpxWalletFactory).add(pending);
+    return responseFlow;
+  },
+  verifyAndAddPresentation: async function(presentation: any, options: any) {
+    return verifyAndAddPresentation(this, presentation, options);
   },
 };
 
