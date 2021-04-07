@@ -94,8 +94,36 @@ const factoryDefaults = {
       flow
     );
     const presentationIndex = `urn:${responseFlow.domain}:${responseFlow.challenge}`;
-    const pending = createPendingPresentation(presentationIndex, responseFlow);
-    ((this as unknown) as VpxWalletFactory).add(pending);
+
+    let createPending = false;
+
+    let presentationChallenges = ((this as unknown) as VpxWalletFactory).contents.find(
+      (c: any) => {
+        return c.type === "PresentationChallenges";
+      }
+    );
+    if (!presentationChallenges) {
+      createPending = true;
+      presentationChallenges = {
+        type: "PresentationChallenges",
+        pending: {},
+      };
+    }
+
+    const newPendingPresentation = createPendingPresentation(
+      presentationIndex,
+      responseFlow
+    );
+
+    presentationChallenges.pending = {
+      ...presentationChallenges.pending,
+      ...newPendingPresentation.pending,
+    };
+
+    if (createPending) {
+      ((this as unknown) as VpxWalletFactory).add(presentationChallenges);
+    }
+
     return responseFlow;
   },
   verifyAndAddPresentation: async function(presentation: any, options: any) {

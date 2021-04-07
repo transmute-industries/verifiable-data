@@ -79,17 +79,30 @@ it("bob configures his wallet to accept a flow from alice", async () => {
   expect(bobWallet.contents[2].type).toBe("AuthorizedFlows");
 });
 
+let m0: any;
+let m1: any;
+let m2: any;
+
 it("alice notifies bob of intent to present", async () => {
-  const m0 = aliceWallet.createNotificationQueryRequest(
+  // request
+  m0 = aliceWallet.createNotificationQueryRequest(
     "IntentToSellProductCategory"
   );
   // alice.send(m0, bob)
-  const m1 = bobWallet.createNotificationQueryResponse("bob.example.com", m0);
+
+  // response
+  m1 = bobWallet.createNotificationQueryResponse("bob.example.com", m0);
   // bob.send(m1, alice)
+});
+
+it("alice responds to bobs challenge and query with a vp", async () => {
   // normally alice might have this vc, in this case
   // for testing here, we create it on the fly
-  const m2 = await getVp(m1);
+  m2 = await getVp(m1);
   // alice.send(m2, bob)
+});
+
+it("bob verifies and stores alice's vp", async () => {
   await bobWallet.verifyAndAddPresentation(m2, {
     suite: new Ed25519Signature2018(),
     documentLoader: documentLoader,
