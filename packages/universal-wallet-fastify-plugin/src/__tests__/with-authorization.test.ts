@@ -77,7 +77,10 @@ test('should support preValidation hook', async () => {
   const api = supertest(fastify.server);
 
   const response = await api.get('/accounts/123/did.json');
-  expect(response.body['@context']).toBe('https://www.w3.org/ns/did/v1');
+  expect(response.body['@context']).toEqual([
+    'https://www.w3.org/ns/did/v1',
+    'https://ns.did.ai/transmute/v1',
+  ]);
 
   fastify.close();
 });
