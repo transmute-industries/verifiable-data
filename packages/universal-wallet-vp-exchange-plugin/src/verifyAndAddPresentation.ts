@@ -93,6 +93,9 @@ export const verifyAndAddPresentation = async (
     };
     flaggedForHumanReview.presentations.push(presentation);
     wallet.add(flaggedForHumanReview);
+  } else {
+    console.error(verification);
+    throw new Error("Presentation could not be verified");
   }
   // after storing credentials, bob purges expects presentations map
   delete pending[presentationIndex];
