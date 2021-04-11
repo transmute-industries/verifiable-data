@@ -24,7 +24,7 @@ const factoryDefaults = {
       create = true;
       authorizedFlowRequirements = {
         type: "FlowRequirements",
-        authorized: {}
+        authorized: {},
       };
     }
     const { authorized } = createFlowRequirements(
@@ -34,7 +34,7 @@ const factoryDefaults = {
     // stateful mutation of content :(
     authorizedFlowRequirements.authorized = {
       ...authorizedFlowRequirements.authorized,
-      ...authorized
+      ...authorized,
     };
     if (create) {
       ((this as unknown) as VpxWalletFactory).add(authorizedFlowRequirements);
@@ -55,14 +55,14 @@ const factoryDefaults = {
       create = true;
       authorizedPresenters = {
         type: "AuthorizedFlows",
-        authorized: {}
+        authorized: {},
       };
     }
     const { authorized } = createAuthorizedFlows(controller, authorizedFlows);
     // stateful mutation of content :(
     authorizedPresenters.authorized = {
       ...authorizedPresenters.authorized,
-      ...authorized
+      ...authorized,
     };
     if (create) {
       ((this as unknown) as VpxWalletFactory).add(authorizedPresenters);
@@ -75,21 +75,32 @@ const factoryDefaults = {
   ) {
     return createNotificationQueryRequest(flowType, flowRecipients);
   },
-  // these stateful operations appear to need a loe
   createNotificationQueryResponse: function(
     domain: string,
     flow: CredentialHandlerRequest
   ) {
-    const flowRequirements = ((this as unknown) as VpxWalletFactory).contents.find(
-      (c: any) => {
-        return c.type === "FlowRequirements";
+    let flowTypes: string[] = [];
+    try {
+      let flowRequirements = ((this as unknown) as VpxWalletFactory).contents.find(
+        (c: any) => {
+          return c.type === "FlowRequirements";
+        }
+      );
+      if (!flowRequirements) {
+        throw new Error("Wallet does not contain FlowRequirements");
       }
-    );
-    if (!flowRequirements) {
-      throw new Error("Wallet does not contain FlowRequirements");
+      flowTypes = flowRequirements.authorized[flow.query[0].type];
+      if (!flowTypes) {
+        throw new Error(
+          `Flow Requirements does not contain ${flow.query[0].type}`
+        );
+      }
+    } catch (e) {
+      // if no flow requirementss accept anything or now.
     }
+
     const responseFlow = createNotificationQueryResponse(
-      flowRequirements,
+      flowTypes,
       domain,
       flow
     );
@@ -106,7 +117,7 @@ const factoryDefaults = {
       createPending = true;
       presentationChallenges = {
         type: "PresentationChallenges",
-        pending: {}
+        pending: {},
       };
     }
 
@@ -117,7 +128,7 @@ const factoryDefaults = {
 
     presentationChallenges.pending = {
       ...presentationChallenges.pending,
-      ...newPendingPresentation.pending
+      ...newPendingPresentation.pending,
     };
 
     if (createPending) {
@@ -128,7 +139,7 @@ const factoryDefaults = {
   },
   verifyAndAddPresentation: async function(presentation: any, options: any) {
     return verifyAndAddPresentation(this, presentation, options);
-  }
+  },
 };
 
 const pluginFactory = Factory.Sync.makeFactory<VpxPlugin>(factoryDefaults);

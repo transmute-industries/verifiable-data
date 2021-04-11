@@ -42,7 +42,8 @@ test('POST `/accounts/123/presentations/prove`', async () => {
   expect(response.body.proof.type).toBe('Ed25519Signature2018');
 });
 
-test('POST `/accounts/123/credentials/derive`', async () => {
+// blocked by https://github.com/mattrglobal/jsonld-signatures-bbs/issues/102
+test.skip('POST `/accounts/123/credentials/derive`', async () => {
   const response = await api
     .post('/accounts/123/credentials/derive')
     .send({

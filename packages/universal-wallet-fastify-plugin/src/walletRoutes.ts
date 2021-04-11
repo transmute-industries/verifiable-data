@@ -1,6 +1,7 @@
 import didWeb from './routes/did-web';
 import issuer from './routes/issuer';
 import holder from './routes/holder';
+import exchange from './routes/exchange';
 import verifier from './routes/verifier';
 export default (options: any) => {
   return (fastify: any) => {
@@ -12,6 +13,7 @@ export default (options: any) => {
     }
     if (options.apis && options.apis.includes('holder')) {
       fastify.register(holder(options));
+      fastify.register(exchange(options));
     }
     if (options.apis && options.apis.includes('verifier')) {
       fastify.register(verifier(options));

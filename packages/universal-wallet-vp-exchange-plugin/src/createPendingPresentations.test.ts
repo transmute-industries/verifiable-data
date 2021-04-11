@@ -1,21 +1,16 @@
 import { createPendingPresentation } from "./createPendingPresentation";
-import { createFlowRequirements } from "./createFlowRequirements";
 import { createNotificationQueryResponse } from "./createNotificationQueryResponse";
 import { createNotificationQueryRequest } from "./createNotificationQueryRequest";
 
 it("can create a notification response", () => {
-  const flowRequirements = createFlowRequirements(
-    "IntentToSellProductCategory",
+  const flow = createNotificationQueryRequest("IntentToSellProductCategory");
+  const query = createNotificationQueryResponse(
     [
       "IntentToSell",
       "ProductCertificate",
       "InvoiceCertificate",
-      "ShippingCertificate"
-    ]
-  );
-  const flow = createNotificationQueryRequest("IntentToSellProductCategory");
-  const query = createNotificationQueryResponse(
-    flowRequirements,
+      "ShippingCertificate",
+    ],
     "example.com",
     flow
   );

@@ -8,10 +8,13 @@ export default (options: any) => {
   const customDocumentLoader = async (iri: string) => {
     try {
       const res = await documentLoader(iri);
+      // console.log(res);
       return res;
     } catch (e) {
+      // console.log(e);
       if (options.documentLoader.allowNetwork) {
         const res = await unsafeDocumentLoader(iri);
+        // console.log(res);
         return res;
       }
       throw e;

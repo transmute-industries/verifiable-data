@@ -1,13 +1,16 @@
 import { walletFactory } from '../walletFactory';
-import { getFastifyWithWalletOptions } from './getFastifyWithWalletOptions';
-// normally this would be a get or create operation
-// that probably already happened
+
+let wallets: any = {};
+
 const getAccountEncryptedWallet = async (accountId: string) => {
+  if (wallets[accountId]) {
+    return wallets[accountId];
+  }
   const wallet = walletFactory.build();
   const seed = await wallet.passwordToKey(accountId);
   const contents = await wallet.generateContentFromSeed(seed);
   const did = wallet.convertEndpointToDid(
-    'https://platform.example/accounts/123/did.json'
+    `https://platform.example/accounts/${accountId}/did.json`
   );
   const keys = contents
     .filter((k: any) => {
@@ -28,12 +31,13 @@ const getAccountEncryptedWallet = async (accountId: string) => {
   keys.forEach((c: any) => {
     wallet.add(c);
   });
-  const encryptedWallet = await wallet.export('elephant');
+  const encryptedWallet = await wallet.export(accountId);
+  wallets[accountId] = encryptedWallet;
   return encryptedWallet;
 };
 
 const getAccountEncryptedWalletPassword = (_accountId: string) => {
-  return 'elephant';
+  return _accountId;
 };
 
 const get = async (accountId: string) => {
@@ -41,6 +45,11 @@ const get = async (accountId: string) => {
   const accountEncryptedWallet = await getAccountEncryptedWallet(accountId);
   const password = await getAccountEncryptedWalletPassword(accountId);
   return wallet.import(accountEncryptedWallet, password);
+};
+
+const set = async (accountId: string, wallet: any) => {
+  const encryptedWallet = await wallet.export(accountId);
+  wallets[accountId] = encryptedWallet;
 };
 
 const walletOptions = {
@@ -52,6 +61,7 @@ const walletOptions = {
     allowNetwork: true,
   },
   get,
+  set,
 };
 
-export const fastify = getFastifyWithWalletOptions(walletOptions);
+export { walletOptions };

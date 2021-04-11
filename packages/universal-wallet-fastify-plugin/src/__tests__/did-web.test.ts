@@ -18,5 +18,8 @@ test('GET `/accounts/123/did.json` route', async () => {
     .expect(200)
     .expect('Content-Type', 'application/json; charset=utf-8');
   // console.log(JSON.stringify(response.body, null, 2));
-  expect(response.body['@context']).toBe('https://www.w3.org/ns/did/v1');
+  expect(response.body['@context']).toEqual([
+    'https://www.w3.org/ns/did/v1',
+    'https://ns.did.ai/transmute/v1',
+  ]);
 });

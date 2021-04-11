@@ -58,7 +58,8 @@ export const assertPresentationIsAuthorized = (wallet: any, vp: any) => {
 export const verifyAndAddPresentation = async (
   wallet: any,
   presentation: any,
-  options: any
+  options: any,
+  requireAuthorization = false
 ) => {
   const presentationIndex = `urn:${presentation.proof.domain}:${presentation.proof.challenge}`;
   const { pending } = getChallengeForPresentation(
@@ -73,23 +74,28 @@ export const verifyAndAddPresentation = async (
     options: {
       ...options,
       challenge,
-      domain
-    }
+      domain,
+    },
   });
 
   if (verification.verified) {
     // now that alice is authenticated, bob checks to see if she
     // presented anything she is not allowed to
-    await assertPresentationIsAuthorized(wallet, presentation);
+    if (requireAuthorization) {
+      await assertPresentationIsAuthorized(wallet, presentation);
+    }
     // wallet may forward the verified presentation to other systems
     // OR wallet may decide that a human still needs to review
     // this object stores things a human needs to review.
     const flaggedForHumanReview: any = {
       type: verifiedPresentationsInboxName,
-      presentations: []
+      presentations: [],
     };
     flaggedForHumanReview.presentations.push(presentation);
     wallet.add(flaggedForHumanReview);
+  } else {
+    console.error(verification);
+    throw new Error("Presentation could not be verified");
   }
   // after storing credentials, bob purges expects presentations map
   delete pending[presentationIndex];
