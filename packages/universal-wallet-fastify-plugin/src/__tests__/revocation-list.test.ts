@@ -1,5 +1,4 @@
 import { fastify } from './utils';
-
 import { case1 as vc } from '../__fixtures__/verifiableCredentials';
 const supertest = require('supertest');
 

@@ -50,7 +50,10 @@ const vc = await vcjs.issue({
 });
 
 const didDoc = {
-  '@context': ['https://www.w3.org/ns/did/v1'],
+  '@context': [
+    'https://www.w3.org/ns/did/v1',
+    'https://ns.did.ai/transmute/v1'
+  ],
   id: 'did:example:123',
   assertionMethod: [
     {
@@ -76,6 +79,7 @@ const verification = await vcjs.verifyCredential({
   //   (LINKED DATA PROOFS) https://w3id.org/security/v2
   //   (VC DATA MODEL) https://www.w3.org/2018/credentials/v1
   //   (DID CORE) https://www.w3.org/ns/did/v1
+  //   (DID CORE TRANSMUTE) https://ns.did.ai/transmute/v1
   documentLoader: async (iri: string) => {
     if (iri.startsWith(key.controller)) {
       return {

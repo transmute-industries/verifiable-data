@@ -21,4 +21,7 @@ export const contexts: any = {
   [didContexts.constants.DID_CONTEXT_V1_URL]: didContexts.contexts.get(
     didContexts.constants.DID_CONTEXT_V1_URL
   ),
+  [didContexts.constants.DID_CONTEXT_TRANSMUTE_V1_URL]: didContexts.contexts.get(
+    didContexts.constants.DID_CONTEXT_TRANSMUTE_V1_URL
+  ),
 };

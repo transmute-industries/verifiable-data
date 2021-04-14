@@ -1,9 +1,7 @@
 import { ld as vc } from '@transmute/vc.js';
-
 import { Ed25519Signature2018 } from '@transmute/ed25519-signature-2018';
 import { BbsBlsSignature2020 } from '@mattrglobal/jsonld-signatures-bbs';
 import { checkStatus } from '..';
-
 import { documentLoader } from '../__fixtures__';
 
 it('can verify trustbloc vc', async () => {
@@ -89,7 +87,10 @@ it('can verify trustbloc vc', async () => {
         return {
           documentUrl: iri,
           document: {
-            '@context': ['https://www.w3.org/ns/did/v1'],
+            '@context': [
+              'https://www.w3.org/ns/did/v1',
+              'https://ns.did.ai/transmute/v1',
+            ],
             id:
               'did:trustbloc:testnet.trustbloc.dev:EiA93NYbmVnRB0vdlwYMijSoHDQL21QRo8bWCJ_h7rglGA',
             verificationMethod: [

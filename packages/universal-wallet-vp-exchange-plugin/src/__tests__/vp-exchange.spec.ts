@@ -4,9 +4,7 @@ import {
   walletFactory,
   FixtureWalletFactory
 } from "../__fixtures__/walletFactory";
-
 import { makeVc } from "../__fixtures__/makeVc";
-
 import { documentLoader } from "../__fixtures__/documentLoader";
 
 let aliceWallet: FixtureWalletFactory;

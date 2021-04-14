@@ -24,7 +24,10 @@ const didDocument: Buffer = await wallet.didDocuments[
 // JSON.parse(didDocument.toString())
 // JSON.stringify(
 //   {
-//     '@context': 'https://www.w3.org/ns/did/v1',
+//     '@context': [
+//       'https://www.w3.org/ns/did/v1',
+//       'https://ns.did.ai/transmute/v1'
+//     ],
 //     id: 'did:web:example.com:organizations:123',
 //     verificationMethod: [
 //       {

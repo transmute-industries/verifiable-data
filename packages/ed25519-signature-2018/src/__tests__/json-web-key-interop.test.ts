@@ -49,7 +49,10 @@ it("should issue and verify with JsonWebKey2020", async () => {
         return {
           documentUrl: iri,
           document: {
-            "@context": ["https://www.w3.org/ns/did/v1"],
+            "@context": [
+              "https://www.w3.org/ns/did/v1",
+              "https://ns.did.ai/transmute/v1"
+            ],
             id: "did:key:z6Mkth1TmxaUcDLj9FrgNejhojR8k32HMSFJNCESGZ14DJrC",
             assertionMethod: [
               {
