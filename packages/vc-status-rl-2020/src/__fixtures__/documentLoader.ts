@@ -1,7 +1,5 @@
 import { DocumentLoader } from '../types/DocumentLoader';
-
 import { contexts } from '../contexts';
-
 import { revocationListCredential } from './revocationListCredential';
 import signedRevocationListt2020 from './signed-revocation-list-2020.json';
 import didDocument from './didDocument.json';
