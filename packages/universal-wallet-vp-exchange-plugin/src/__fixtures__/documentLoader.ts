@@ -1,5 +1,4 @@
 import { contexts } from "./contexts";
-
 import * as ed25519 from "@transmute/did-key-ed25519";
 
 export const documentLoader = async (iri: string) => {
