@@ -52,11 +52,11 @@
   "dependencies": {
     "@did-core/data-model": "^0.1.1-unstable.1",
     "@did-core/did-ld-json": "^0.1.1-unstable.1",
-    "@transmute/did-key-bls12381": "^0.2.1-unstable.35",
-    "@transmute/did-key-ed25519": "^0.2.1-unstable.35",
-    "@transmute/did-key-secp256k1": "^0.2.1-unstable.35",
-    "@transmute/did-key-web-crypto": "^0.2.1-unstable.35",
-    "@transmute/did-key-x25519": "^0.2.1-unstable.35",
+    "@transmute/did-key-bls12381": "^0.2.1-unstable.37",
+    "@transmute/did-key-ed25519": "^0.2.1-unstable.37",
+    "@transmute/did-key-secp256k1": "^0.2.1-unstable.37",
+    "@transmute/did-key-web-crypto": "^0.2.1-unstable.37",
+    "@transmute/did-key-x25519": "^0.2.1-unstable.37",
     "factory.ts": "^0.5.1"
   },
   "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
