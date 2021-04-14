@@ -3,7 +3,7 @@ import issuer from './routes/issuer';
 import holder from './routes/holder';
 import exchange from './routes/exchange';
 import verifier from './routes/verifier';
-export default (options: any) => {
+export const walletRoutes = (options: any) => {
   return (fastify: any) => {
     if (options.discovery && options.discovery.includes('did:web')) {
       fastify.register(didWeb(options));
@@ -21,3 +21,5 @@ export default (options: any) => {
     return Promise.resolve(true);
   };
 };
+
+export default walletRoutes;
