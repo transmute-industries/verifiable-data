@@ -30,6 +30,7 @@
     "prepare": "tsdx build"
   },
   "devDependencies": {
+    "@transmute/did-context": "^0.6.1-unstable.12",
     "@transmute/jsonld-document-loader": "^0.2.0",
     "crypto-ld": "^3.7.0",
     "jsonld-signatures": "^5.1.0",
