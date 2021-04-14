@@ -2,7 +2,7 @@
   "name": "@transmute/universal-wallet-did-web-plugin",
   "author": "Orie Steele",
   "module": "dist/universal-wallet-did-web-plugin.esm.js",
-  "version": "0.6.1-unstable.13",
+  "version": "0.6.1-unstable.14",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
