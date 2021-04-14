@@ -1,0 +1,12 @@
+0 silly argv {
+0 silly argv   _: [ 'clean' ],
+0 silly argv   y: true,
+0 silly argv   yes: true,
+0 silly argv   lernaVersion: '3.22.1',
+0 silly argv   '$0': 'node_modules/.bin/lerna'
+0 silly argv }
+1 notice cli v3.22.1
+2 verbose rootPath /Users/gjgd/workspace/verifiable-data
+3 error JSONError: Unexpected token < in JSON at position 1618 while parsing near '...  "dependencies": {<<<<<<< HEAD    "@t...' in packages/vc-status-rl-2020/package.json
+3 error     at module.exports (/Users/gjgd/workspace/verifiable-data/node_modules/parse-json/index.js:26:19)
+3 error     at parse (/Users/gjgd/workspace/verifiable-data/node_modules/load-json-file/index.js:15:9)
