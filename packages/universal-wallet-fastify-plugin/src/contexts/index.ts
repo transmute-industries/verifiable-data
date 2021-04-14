@@ -2,7 +2,6 @@ import securityContexts from '@transmute/security-context';
 import credentialsContexts from '@transmute/credentials-context';
 import didContexts from '@transmute/did-context';
 import rlContexts from '@transmute/revocation-list-context';
-
 import walletV1 from './wallet-v1.json';
 import didConfigV1 from './did-config-v1.json';
 import secV3 from './sec-v3.json';
@@ -23,6 +22,9 @@ export const contexts: any = {
   ),
   [didContexts.constants.DID_CONTEXT_V1_URL]: didContexts.contexts.get(
     didContexts.constants.DID_CONTEXT_V1_URL
+  ),
+  [didContexts.constants.DID_CONTEXT_TRANSMUTE_V1_URL]: didContexts.contexts.get(
+    didContexts.constants.DID_CONTEXT_TRANSMUTE_V1_URL
   ),
   [rlContexts.constants
     .REVOCATION_LIST_CONTEXT_V1_URL]: rlContexts.contexts.get(
