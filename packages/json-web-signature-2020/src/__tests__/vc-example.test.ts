@@ -44,7 +44,10 @@ it('can sign and verify', async () => {
   });
 
   const didDoc = {
-    '@context': ['https://www.w3.org/ns/did/v1'],
+    '@context': [
+      'https://www.w3.org/ns/did/v1',
+      'https://ns.did.ai/transmute/v1',
+    ],
     id: 'did:example:123',
     assertionMethod: [
       {

@@ -3,6 +3,7 @@
     "did:key:zUC724vuGvHpnCGFG1qqpXb81SiBLu3KLSqVzenwEZNPoY35i2Bscb8DLaVwHvRFs6F2NkNNXRcPWvqnPDUd9ukdjLkjZd3u9zzL4wDZDUpkPAatLDGLEYVo8kkAzuAKJQMr7N2": {
       "@context": [
         "https://www.w3.org/ns/did/v1",
+        "https://ns.did.ai/transmute/v1",
         {
           "@base": "did:key:zUC724vuGvHpnCGFG1qqpXb81SiBLu3KLSqVzenwEZNPoY35i2Bscb8DLaVwHvRFs6F2NkNNXRcPWvqnPDUd9ukdjLkjZd3u9zzL4wDZDUpkPAatLDGLEYVo8kkAzuAKJQMr7N2"
         }
@@ -32,6 +33,7 @@
     "http://example.com/issuer/123": {
       "@context": [
         "https://www.w3.org/ns/did/v1",
+        "https://ns.did.ai/transmute/v1",
         { "@base": "http://example.com/issuer/123" }
       ],
       "id": "http://example.com/issuer/123",
@@ -50,6 +52,7 @@
     "did:key:z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR": {
       "@context": [
         "https://www.w3.org/ns/did/v1",
+        "https://ns.did.ai/transmute/v1",
         { "@base": "did:key:z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR" }
       ],
       "id": "did:key:z6MkwJSaEMnE4u6LiqrZV1BJHSkc9x8S4mTm3ArNL1m19BZR",
