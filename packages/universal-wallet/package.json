@@ -51,8 +51,8 @@
   },
   "dependencies": {
     "@peculiar/webcrypto": "^1.1.4",
-    "@transmute/did-key-cipher": "^0.2.1-unstable.31",
-    "@transmute/did-key-x25519": "^0.2.1-unstable.31",
+    "@transmute/did-key-cipher": "^0.2.1-unstable.37",
+    "@transmute/did-key-x25519": "^0.2.1-unstable.37",
     "@transmute/universal-wallet-test-vectors": "^0.6.1-unstable.13",
     "core-js": "^3.8.3",
     "factory.ts": "^0.5.1"
