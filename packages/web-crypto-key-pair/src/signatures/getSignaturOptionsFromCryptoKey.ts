@@ -19,7 +19,7 @@ export const getSignaturOptionsFromCryptoKey = (cryptoKey: CryptoKey) => {
     return { name: 'ECDSA', hash: 'SHA-512' };
   }
 
-  if ((cryptoKey as any).algorithm.name === 'RSASSA-PKCS1-V1_5') {
+  if ((cryptoKey as any).algorithm.name === 'RSASSA-PKCS1-v1_5') {
     return 'RSASSA-PKCS1-v1_5';
   }
 
