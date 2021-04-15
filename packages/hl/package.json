@@ -19,7 +19,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "TS_JEST_DISABLE_VER_CHECKER=true tsdx test",
+    "test": "tsdx test",
     "lint": "tsdx lint src --fix",
     "prepare": "tsdx build",
     "size": "size-limit",

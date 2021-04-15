@@ -31,7 +31,7 @@
     "transmute": "node main.js",
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "TS_JEST_DISABLE_VER_CHECKER=true tsdx test --passWithNoTests",
+    "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint src --fix",
     "prepare": "tsdx build",
     "size": "size-limit",

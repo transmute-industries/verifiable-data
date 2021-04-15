@@ -21,7 +21,7 @@
     "build:fixtures": "node ./scripts/generate-fixtures/from-db.js",
     "confirm:fixtures": "node ./scripts/confirm-fixtures/from-ts.js",
     "build": "tsdx build",
-    "test": "TS_JEST_DISABLE_VER_CHECKER=true tsdx test",
+    "test": "tsdx test",
     "lint": "tsdx lint src --fix",
     "prepare": "tsdx build",
     "size": "size-limit",
