@@ -37,7 +37,7 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "@transmute/did-key-ed25519": "^0.2.1-unstable.31",
+    "@transmute/did-key-ed25519": "^0.2.1-unstable.37",
     "core-js": "^3.8.3",
     "factory.ts": "^0.5.1",
     "isomorphic-webcrypto": "^2.3.8"

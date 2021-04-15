@@ -37,8 +37,8 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "@transmute/did-key-ed25519": "^0.2.1-unstable.31",
-    "@transmute/did-key-x25519": "^0.2.1-unstable.31",
+    "@transmute/did-key-ed25519": "^0.2.1-unstable.37",
+    "@transmute/did-key-x25519": "^0.2.1-unstable.37",
     "base64url-universal": "^1.1.0",
     "bs58": "^4.0.1",
     "core-js": "^3.8.3",

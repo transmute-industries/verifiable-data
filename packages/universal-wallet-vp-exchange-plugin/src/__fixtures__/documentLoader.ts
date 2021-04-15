@@ -13,8 +13,6 @@ export const documentLoader = async (iri: string) => {
     const { didDocument } = await ed25519.driver.resolve(iri, {
       accept: "application/did+ld+json"
     });
-    // FIXME: this wont be necessary once we update the ed25519 did key driver
-    didDocument['@context'].push('https://ns.did.ai/transmute/v1');
     return {
       documentUrl: iri,
       document: didDocument
