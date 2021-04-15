@@ -2,7 +2,7 @@ import {
   documentLoaderFactory,
   contexts
 } from "@transmute/jsonld-document-loader";
-import didContexts from '@transmute/did-context';
+import didContexts from "@transmute/did-context";
 import { issuer_0 } from "./issuer.json";
 
 const golem = documentLoaderFactory.pluginFactory.build({
@@ -12,9 +12,9 @@ const golem = documentLoaderFactory.pluginFactory.build({
     ...contexts.W3ID_Security_Vocabulary,
     [didContexts.constants
       .DID_CONTEXT_TRANSMUTE_V1_URL]: didContexts.contexts.get(
-      didContexts.constants.DID_CONTEXT_TRANSMUTE_V1_URL,
-    ),
-  },
+      didContexts.constants.DID_CONTEXT_TRANSMUTE_V1_URL
+    )
+  }
 });
 
 golem.addResolver({

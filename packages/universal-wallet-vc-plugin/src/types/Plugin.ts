@@ -3,7 +3,7 @@ import {
   VerifyCredential,
   VerifyPresentation,
   PresentCredentials,
-  DeriveCredential,
+  DeriveCredential
 } from "./Interfaces";
 
 export interface VcPlugin {

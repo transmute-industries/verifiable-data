@@ -24,7 +24,7 @@ const factoryDefaults = {
       create = true;
       authorizedFlowRequirements = {
         type: "FlowRequirements",
-        authorized: {},
+        authorized: {}
       };
     }
     const { authorized } = createFlowRequirements(
@@ -34,7 +34,7 @@ const factoryDefaults = {
     // stateful mutation of content :(
     authorizedFlowRequirements.authorized = {
       ...authorizedFlowRequirements.authorized,
-      ...authorized,
+      ...authorized
     };
     if (create) {
       ((this as unknown) as VpxWalletFactory).add(authorizedFlowRequirements);
@@ -55,14 +55,14 @@ const factoryDefaults = {
       create = true;
       authorizedPresenters = {
         type: "AuthorizedFlows",
-        authorized: {},
+        authorized: {}
       };
     }
     const { authorized } = createAuthorizedFlows(controller, authorizedFlows);
     // stateful mutation of content :(
     authorizedPresenters.authorized = {
       ...authorizedPresenters.authorized,
-      ...authorized,
+      ...authorized
     };
     if (create) {
       ((this as unknown) as VpxWalletFactory).add(authorizedPresenters);
@@ -117,7 +117,7 @@ const factoryDefaults = {
       createPending = true;
       presentationChallenges = {
         type: "PresentationChallenges",
-        pending: {},
+        pending: {}
       };
     }
 
@@ -128,7 +128,7 @@ const factoryDefaults = {
 
     presentationChallenges.pending = {
       ...presentationChallenges.pending,
-      ...newPendingPresentation.pending,
+      ...newPendingPresentation.pending
     };
 
     if (createPending) {
@@ -139,7 +139,7 @@ const factoryDefaults = {
   },
   verifyAndAddPresentation: async function(presentation: any, options: any) {
     return verifyAndAddPresentation(this, presentation, options);
-  },
+  }
 };
 
 const pluginFactory = Factory.Sync.makeFactory<VpxPlugin>(factoryDefaults);
