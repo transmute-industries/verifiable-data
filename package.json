@@ -15,6 +15,7 @@
     "publish:unstable": "lerna publish prerelease --preid unstable --yes",
     "release": "lerna publish",
     "release:canary": "lerna publish --canary",
+    "install:pages": "lerna bootstrap --scope smoke-test-react --include-dependencies",
     "build:pages": "rm -rf ./docs/smoke-test-react && lerna run build:smoke-test-react"
   },
   "devDependencies": {
