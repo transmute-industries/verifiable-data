@@ -9,7 +9,7 @@ it("can create a notification response", () => {
       "IntentToSell",
       "ProductCertificate",
       "InvoiceCertificate",
-      "ShippingCertificate",
+      "ShippingCertificate"
     ],
     "example.com",
     flow

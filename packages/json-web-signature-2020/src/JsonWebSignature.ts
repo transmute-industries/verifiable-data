@@ -1,8 +1,6 @@
 import jsonld from 'jsonld';
 import constants from './constants';
-import { subtle } from './crypto';
-
-import { KeyPair } from '@transmute/web-crypto-key-pair';
+import { KeyPair, subtle } from '@transmute/web-crypto-key-pair';
 
 import jwsV1 from './contexts/jws-v1.json';
 
@@ -12,7 +10,7 @@ export const SUITE_CONTEXT = {
 };
 
 const sha256 = async (data: any) => {
-  return Buffer.from(await subtle.digest('SHA-256', data));
+  return Buffer.from(await subtle.digest('SHA-256', Buffer.from(data)));
 };
 
 export interface JsonWebSignatureOptions {

@@ -6,7 +6,7 @@
     "install:ci": "npm install --ignore-scripts && lerna link && lerna bootstrap --since origin/main --include-dependencies",
     "bootstrap": "lerna bootstrap",
     "lint": "lerna run lint --stream",
-    "test": "lerna run test --stream --ignore @transmute/web-crypto-key-pair --ignore @transmute/json-web-signature",
+    "test": "lerna run test --stream",
     "build": "lerna run build --stream",
     "postinstall": "npm run bootstrap",
     "publish:stable:major": "lerna publish major",

@@ -18,7 +18,7 @@ export const getSigner = async (
       const signature = await subtle.sign(
         getSignaturOptionsFromCryptoKey(cryptoKey),
         cryptoKey,
-        data
+        Buffer.from(data)
       );
       return new Uint8Array(signature);
     },

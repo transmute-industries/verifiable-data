@@ -18,7 +18,7 @@ const factoryDefaults = {
 
   // holder
   createVerifiablePresentation,
-  deriveCredential,
+  deriveCredential
 };
 
 const pluginFactory = Factory.Sync.makeFactory<VcPlugin>(factoryDefaults);

@@ -6,7 +6,7 @@ export interface WalletFactory extends Wallet.Wallet, Vc.VcPlugin {}
 
 export const walletFactory = Factory.Sync.makeFactory<WalletFactory>({
   ...Wallet.walletDefaults,
-  ...Vc.factoryDefaults,
+  ...Vc.factoryDefaults
 })
   .combine(Wallet.walletFactory)
   .combine(Vc.pluginFactory);
