@@ -1,14 +1,14 @@
 import { preValidationHookHandler } from 'fastify';
 
 export interface WalletOptions {
-  walletId: string;
-  origin: string | undefined;
-  discovery: DiscoveryEnum[] | string[];
-  hooks: WalletOptionHooks;
-  apis: APIEnum[] | string[];
-  documentLoader: object;
-  get: (walletId: string) => Promise<any>;
-  set: (walletId: string, wallet: any) => Promise<void>;
+  walletId?: string;
+  origin?: string | undefined;
+  discovery?: DiscoveryEnum[] | string[];
+  hooks?: WalletOptionHooks;
+  apis?: APIEnum[] | string[];
+  documentLoader?: DocumentLoaderOptions;
+  get: (walletId: string) => Promise<any> | any;
+  set?: (walletId: string, wallet: any) => Promise<void> | void;
 }
 
 export interface DocumentLoaderOptions {
