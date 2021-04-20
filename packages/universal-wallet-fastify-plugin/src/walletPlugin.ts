@@ -1,7 +1,10 @@
-const fastifyPlugin = require('fastify-plugin');
+import { FastifyInstance, FastifyPluginAsync } from 'fastify';
+import fastifyPlugin from 'fastify-plugin';
 
-export const walletPlugin = (options: any) => {
-  async function walletPlugin(fastify: any) {
+import { WalletOptions } from './types';
+
+export const walletPlugin = (options: WalletOptions): FastifyPluginAsync => {
+  async function walletPlugin(fastify: FastifyInstance) {
     fastify.decorate('wallet', options);
   }
   return fastifyPlugin(walletPlugin);

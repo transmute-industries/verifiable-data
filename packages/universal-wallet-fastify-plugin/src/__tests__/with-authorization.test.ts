@@ -1,6 +1,7 @@
 import walletPlugin from '../walletPlugin';
 import walletRoutes from '../walletRoutes';
 import { walletFactory } from '../walletFactory';
+import { WalletOptions } from '../types';
 
 const supertest = require('supertest');
 const Fastify = require('fastify');
@@ -52,7 +53,7 @@ const get = async (accountId: string) => {
 
 test('should support preValidation hook', async () => {
   expect.assertions(3);
-  const walletOptions = {
+  const walletOptions: WalletOptions = {
     walletId: 'accountId',
     origin: 'https://platform.example',
     discovery: ['did:web'],
