@@ -1,6 +1,6 @@
 {
   "name": "@transmute/revocation-list-context",
-  "version": "0.6.1-unstable.19",
+  "version": "0.6.1-unstable.20",
   "description": "",
   "main": "index.js",
   "types": "typings.d.ts",
