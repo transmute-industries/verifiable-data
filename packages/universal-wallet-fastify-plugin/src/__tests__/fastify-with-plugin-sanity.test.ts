@@ -7,7 +7,7 @@ function buildFastify() {
   const fastify = Fastify();
 
   const walletOptions: WalletOptions = {
-    get: (accountId: string) => ({ accountId })
+    get: (accountId: string) => ({ accountId }) as any
   }
 
   fastify.register(walletPlugin(walletOptions));

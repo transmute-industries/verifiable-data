@@ -1,3 +1,4 @@
+import { Wallet } from '@transmute/universal-wallet';
 import { preValidationHookHandler } from 'fastify';
 
 export interface WalletOptions {
@@ -7,8 +8,8 @@ export interface WalletOptions {
   hooks?: WalletOptionHooks;
   apis?: APIEnum[] | string[];
   documentLoader?: DocumentLoaderOptions;
-  get: (walletId: string) => Promise<any> | any;
-  set?: (walletId: string, wallet: any) => Promise<void> | void;
+  get: (walletId: string) => Promise<Wallet> | Wallet;
+  set?: (walletId: string, wallet: Wallet) => Promise<void> | void;
 }
 
 export interface DocumentLoaderOptions {

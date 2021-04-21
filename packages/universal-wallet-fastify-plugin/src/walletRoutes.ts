@@ -15,7 +15,7 @@ export const walletRoutes = (options: WalletOptions) => (
   if (options.apis && options.apis.includes(APIEnum.ISSUER)) {
     fastify.register(issuer(options));
   }
-  if (options.apis && options.apis.includes(APIEnum.ISSUER)) {
+  if (options.apis && options.apis.includes(APIEnum.HOLDER)) {
     fastify.register(holder(options));
     fastify.register(exchange(options));
   }
