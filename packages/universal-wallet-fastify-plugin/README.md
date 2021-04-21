@@ -20,7 +20,36 @@ verifier
 /accounts/:walletId/credentials/verify
 /accounts/:walletId/presentations/verify
 ```
-In general you will need a wallet factory and to build the wallet whenever a new wallet is created and stored in order to use these api calls.  In this below example it references `customWalletFactory.build()` but you could do something similar to https://github.com/transmute-industries/verifiable-data/blob/main/packages/universal-wallet-fastify-plugin/src/walletFactory.ts
+In general you will need a wallet factory and to build the wallet whenever a new wallet is created and stored in order to use these api calls.  In this below example it references `customWalletFactory.build()` but you could do something similar to 
+```ts
+import * as Factory from 'factory.ts';
+
+import * as Wallet from '@transmute/universal-wallet';
+import * as DidKey from '@transmute/universal-wallet-did-key-plugin';
+import * as DidWeb from '@transmute/universal-wallet-did-web-plugin';
+import * as Vc from '@transmute/universal-wallet-vc-plugin';
+import * as Vp from '@transmute/universal-wallet-vp-exchange-plugin';
+
+export interface FastifyWalletFactory
+  extends Wallet.Wallet,
+    DidKey.DidKeyPlugin,
+    DidWeb.DidWebPlugin,
+    Vc.VcPlugin,
+    Vp.VpxPlugin {}
+
+export const walletFactory = Factory.Sync.makeFactory<FastifyWalletFactory>({
+  ...Wallet.walletDefaults,
+  ...DidKey.factoryDefaults,
+  ...DidWeb.factoryDefaults,
+  ...Vc.factoryDefaults,
+  ...Vp.factoryDefaults,
+})
+  .combine(Wallet.walletFactory)
+  .combine(DidKey.pluginFactory)
+  .combine(DidWeb.pluginFactory)
+  .combine(Vc.pluginFactory)
+  .combine(Vp.pluginFactory);
+```
 If you are supporting holder.presentation the api is dependant on `@transmute/universal-wallet-vp-exchange-plugin`.  You'll need a wallet that is stored already and has this plugin as part of the wallet factory, around where the wallet factory is referencing `import * as Vp from '@transmute/universal-wallet-vp-exchange-plugin';`
 ```
 npm i @transmute/universal-wallet-fastify-plugin@latest --save
