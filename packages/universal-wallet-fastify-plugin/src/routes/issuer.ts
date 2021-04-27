@@ -40,7 +40,10 @@ export default (options: any) => {
             documentLoader,
           },
         });
-
+        wallet.add(request.body.credential);
+        if (fastify.wallet.set) {
+          await fastify.wallet.set(request.params[options.walletId], wallet);
+        }
         reply.status(201).send(vc);
       }
     );
