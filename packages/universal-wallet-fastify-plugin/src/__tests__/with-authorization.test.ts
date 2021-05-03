@@ -7,6 +7,13 @@ const supertest = require('supertest');
 const Fastify = require('fastify');
 
 const fastify = Fastify();
+import { documentLoader } from '../__fixtures__/documentLoader';
+
+const customDocumentLoader = (iri: string) => {
+  //  You may intercept requests here...
+
+  return documentLoader(iri);
+};
 
 // normally this would be a get or create operation
 // that probably already happened
@@ -57,6 +64,8 @@ test('should support preValidation hook', async () => {
     walletId: 'accountId',
     origin: 'https://platform.example',
     discovery: ['did:web'],
+    apis: ['verifier'],
+    documentLoader: customDocumentLoader,
     hooks: {
       preValidation: [
         (request: any, reply: any, done: any) => {
