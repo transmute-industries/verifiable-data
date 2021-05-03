@@ -1,7 +1,5 @@
 import { getSuiteForKey } from '../getSuiteForKey';
 
-import customDocumentLoader from '../customDocumentLoader';
-
 import {
   BbsBlsSignatureProof2020,
   deriveProof,
@@ -9,7 +7,6 @@ import {
 
 export default (options: any) => {
   return (fastify: any) => {
-    const documentLoader = customDocumentLoader(options);
     fastify.post(
       `/:${options.walletId}/presentations/prove`,
       {
@@ -41,7 +38,7 @@ export default (options: any) => {
             domain: request.body.options.domain,
             challenge: request.body.options.challenge,
             suite,
-            documentLoader,
+            documentLoader: fastify.wallet.documentLoader,
           },
         });
 
@@ -77,7 +74,7 @@ export default (options: any) => {
           options: {
             suite,
             deriveProof,
-            documentLoader,
+            documentLoader: fastify.wallet.documentLoader,
           },
         });
         reply.status(201).send(vc);

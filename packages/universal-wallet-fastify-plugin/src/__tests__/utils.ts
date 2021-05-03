@@ -1,5 +1,6 @@
 import { walletFactory } from '../walletFactory';
 import { getFastifyWithWalletOptions } from './getFastifyWithWalletOptions';
+import { documentLoader } from '../__fixtures__/documentLoader';
 // normally this would be a get or create operation
 // that probably already happened
 const getAccountEncryptedWallet = async (accountId: string) => {
@@ -48,10 +49,8 @@ export const walletOptions = {
   origin: 'https://platform.example',
   discovery: ['did:web'],
   apis: ['issuer', 'holder', 'verifier'],
-  documentLoader: {
-    allowNetwork: true,
-  },
   get,
+  documentLoader,
 };
 
 export { getFastifyWithWalletOptions };

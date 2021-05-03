@@ -1,10 +1,7 @@
 import { getSuiteMap } from '../getSuiteMap';
 
-import customDocumentLoader from '../customDocumentLoader';
-
 export default (options: any) => {
   return (fastify: any) => {
-    const documentLoader = customDocumentLoader(options);
     fastify.post(
       `/:${options.walletId}/credentials/verify`,
       {
@@ -38,7 +35,7 @@ export default (options: any) => {
             presentation: wrapInVp(request.body.verifiableCredential),
             options: {
               suiteMap,
-              documentLoader,
+              documentLoader: fastify.wallet.documentLoader,
             },
           });
 
@@ -88,7 +85,7 @@ export default (options: any) => {
               domain: request.body.options.domain,
               challenge: request.body.options.challenge,
               suiteMap,
-              documentLoader,
+              documentLoader: fastify.wallet.documentLoader,
             },
           });
 

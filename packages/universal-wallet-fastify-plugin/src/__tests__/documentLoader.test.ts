@@ -1,19 +1,24 @@
 import { getFastifyWithWalletOptions, get } from './utils';
 
 import { case0 as vp } from '../__fixtures__/verifiablePresentations';
+import { documentLoader } from '../__fixtures__/documentLoader';
 const supertest = require('supertest');
 
 let fastify: any;
 let api: any;
+
+const customDocumentLoader = (iri: string) => {
+  //  You may intercept requests here...
+
+  return documentLoader(iri);
+};
 
 beforeAll(async () => {
   const walletOptions = {
     walletId: 'accountId',
     origin: 'https://platform.example',
     apis: ['verifier'],
-    documentLoader: {
-      allowNetwork: true,
-    },
+    documentLoader: customDocumentLoader,
     get,
   };
   fastify = getFastifyWithWalletOptions(walletOptions);

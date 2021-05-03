@@ -1,12 +1,8 @@
-// import { getSuiteForKey } from '../getSuiteForKey';
-// import customDocumentLoader from '../customDocumentLoader';
-import { getSuiteMap } from '../getSuiteMap';
 
-import customDocumentLoader from '../customDocumentLoader';
+import { getSuiteMap } from '../getSuiteMap';
 
 export default (options: any) => {
   return (fastify: any) => {
-    const documentLoader = customDocumentLoader(options);
     fastify.post(
       `/:${options.walletId}/presentations/available`,
       {
@@ -54,9 +50,10 @@ export default (options: any) => {
         const presentation = request.body;
         // will throw if verification fails
         // need to catch and handle negative cases.
-        wallet.verifyAndAddPresentation(presentation, {
+        // console.log(JSON.stringify(presentation, null, 2));
+        await wallet.verifyAndAddPresentation(presentation, {
           suiteMap,
-          documentLoader,
+          documentLoader: fastify.wallet.documentLoader,
         });
         await fastify.wallet.set(request.params[options.walletId], wallet);
         reply.status(200).send({ verified: true });

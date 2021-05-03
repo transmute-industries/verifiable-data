@@ -6,6 +6,7 @@ import walletV1 from './wallet-v1.json';
 import didConfigV1 from './did-config-v1.json';
 import secV3 from './sec-v3.json';
 import bbsV1 from './bbs-v1.json';
+import citV1 from './citizenship-v1.json';
 
 export const contexts: any = {
   [securityContexts.constants
@@ -35,4 +36,5 @@ export const contexts: any = {
   'https://identity.foundation/.well-known/contexts/did-configuration-v0.2.jsonld': didConfigV1,
   'https://w3id.org/security/v3-unstable': secV3,
   'https://w3id.org/security/bbs/v1': bbsV1,
+  'https://w3id.org/citizenship/v1': citV1,
 };
