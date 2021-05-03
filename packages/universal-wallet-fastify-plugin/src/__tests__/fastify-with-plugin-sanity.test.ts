@@ -7,11 +7,10 @@ function buildFastify() {
   const fastify = Fastify();
 
   const walletOptions: WalletOptions = {
-    get: (accountId: string) => ({ accountId }) as any
-  }
+    get: (accountId: string) => ({ accountId } as any),
+  };
 
   fastify.register(walletPlugin(walletOptions));
-
   fastify.get('/accounts/:accountId', async (request: any, reply: any) => {
     const wallet = await fastify.wallet.get(request.params.accountId);
     reply.send({ hello: 'world', wallet });

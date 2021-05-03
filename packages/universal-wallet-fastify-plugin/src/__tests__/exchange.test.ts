@@ -1,14 +1,15 @@
 import { walletOptions } from './memory-wallet';
-import { getFastifyWithWalletOptions } from './getFastifyWithWalletOptions';
+import { getFastifyWithWalletOptions } from './utils';
 import { makeVc } from './makeVc';
 import { makeVp } from './makeVp';
 
-const fastify = getFastifyWithWalletOptions(walletOptions);
 const supertest = require('supertest');
 
 let api: any;
+let fastify: any;
 
 beforeAll(async () => {
+  fastify = getFastifyWithWalletOptions(walletOptions);
   await fastify.ready();
   api = supertest(fastify.server);
 });

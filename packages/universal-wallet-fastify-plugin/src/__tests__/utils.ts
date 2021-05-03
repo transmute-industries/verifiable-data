@@ -36,14 +36,14 @@ const getAccountEncryptedWalletPassword = (_accountId: string) => {
   return 'elephant';
 };
 
-const get = async (accountId: string) => {
+export const get = async (accountId: string) => {
   const wallet = walletFactory.build();
   const accountEncryptedWallet = await getAccountEncryptedWallet(accountId);
   const password = await getAccountEncryptedWalletPassword(accountId);
   return wallet.import(accountEncryptedWallet, password);
 };
 
-const walletOptions = {
+export const walletOptions = {
   walletId: 'accountId',
   origin: 'https://platform.example',
   discovery: ['did:web'],
@@ -54,4 +54,4 @@ const walletOptions = {
   get,
 };
 
-export const fastify = getFastifyWithWalletOptions(walletOptions);
+export { getFastifyWithWalletOptions };
