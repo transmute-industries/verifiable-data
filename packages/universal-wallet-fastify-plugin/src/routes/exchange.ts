@@ -1,4 +1,3 @@
-
 import { getSuiteMap } from '../getSuiteMap';
 
 export default (options: any) => {

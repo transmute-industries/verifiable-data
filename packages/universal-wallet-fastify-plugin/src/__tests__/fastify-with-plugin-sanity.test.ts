@@ -1,12 +1,15 @@
 import { WalletOptions } from '../types';
 import walletPlugin from '../walletPlugin';
+
+import { documentLoader } from '../__fixtures__/documentLoader';
 const supertest = require('supertest');
 const Fastify = require('fastify');
-
 function buildFastify() {
   const fastify = Fastify();
 
   const walletOptions: WalletOptions = {
+    walletId: 'accountId',
+    documentLoader,
     get: (accountId: string) => ({ accountId } as any),
   };
 
