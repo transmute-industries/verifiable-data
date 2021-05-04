@@ -1,7 +1,7 @@
 import { Ed25519Signature2018 } from '@transmute/ed25519-signature-2018';
 import * as ed25519 from '@transmute/did-key-ed25519';
 
-import { documentLoader } from '../documentLoader';
+import { documentLoader } from '../__fixtures__/documentLoader';
 
 export const makeVc = async (wallet: any, type: string) => {
   const signingKey = wallet.contents[0];

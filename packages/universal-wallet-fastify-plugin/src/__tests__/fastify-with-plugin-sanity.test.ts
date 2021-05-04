@@ -1,17 +1,19 @@
 import { WalletOptions } from '../types';
 import walletPlugin from '../walletPlugin';
+
+import { documentLoader } from '../__fixtures__/documentLoader';
 const supertest = require('supertest');
 const Fastify = require('fastify');
-
 function buildFastify() {
   const fastify = Fastify();
 
   const walletOptions: WalletOptions = {
-    get: (accountId: string) => ({ accountId }) as any
-  }
+    walletId: 'accountId',
+    documentLoader,
+    get: (accountId: string) => ({ accountId } as any),
+  };
 
   fastify.register(walletPlugin(walletOptions));
-
   fastify.get('/accounts/:accountId', async (request: any, reply: any) => {
     const wallet = await fastify.wallet.get(request.params.accountId);
     reply.send({ hello: 'world', wallet });

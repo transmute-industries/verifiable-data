@@ -1,14 +1,25 @@
 import { walletOptions } from './memory-wallet';
-import { getFastifyWithWalletOptions } from './getFastifyWithWalletOptions';
+import { getFastifyWithWalletOptions } from './utils';
+import { documentLoader } from '../__fixtures__/documentLoader';
 import { makeVc } from './makeVc';
 import { makeVp } from './makeVp';
 
-const fastify = getFastifyWithWalletOptions(walletOptions);
 const supertest = require('supertest');
 
 let api: any;
+let fastify: any;
+
+const customDocumentLoader = (iri: string) => {
+  //  You may intercept requests here...
+  // console.log(iri);
+  return documentLoader(iri);
+};
 
 beforeAll(async () => {
+  fastify = getFastifyWithWalletOptions({
+    ...walletOptions,
+    documentLoader: customDocumentLoader,
+  });
   await fastify.ready();
   api = supertest(fastify.server);
 });

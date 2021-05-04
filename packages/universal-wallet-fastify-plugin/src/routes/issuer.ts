@@ -1,9 +1,7 @@
-import customDocumentLoader from '../customDocumentLoader';
 import { getSuiteForKey } from '../getSuiteForKey';
 
 export default (options: any) => {
   return (fastify: any) => {
-    const documentLoader = customDocumentLoader(options);
     fastify.post(
       `/:${options.walletId}/credentials/issue`,
       {
@@ -37,7 +35,7 @@ export default (options: any) => {
           },
           options: {
             suite: suite,
-            documentLoader,
+            documentLoader: fastify.wallet.documentLoader,
           },
         });
         wallet.add(request.body.credential);

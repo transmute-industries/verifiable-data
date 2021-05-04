@@ -1,29 +1,27 @@
-import { getFastifyWithWalletOptions, walletOptions } from './utils';
-import { case1 as vc } from '../__fixtures__/verifiableCredentials';
+import { getFastifyWithWalletOptions, get } from './utils';
+
+import { case0 as vp } from '../__fixtures__/verifiablePresentations';
 import { documentLoader } from '../__fixtures__/documentLoader';
 const supertest = require('supertest');
 
-let api: any;
 let fastify: any;
+let api: any;
 
 const customDocumentLoader = (iri: string) => {
   //  You may intercept requests here...
-  if (
-    iri === 'https://w3c-ccg.github.io/vc-http-api/fixtures/revocationList.json'
-  ) {
-    return {
-      documentUrl: iri,
-      document: require('../test-data/rl-vc.json'),
-    };
-  }
+
   return documentLoader(iri);
 };
 
 beforeAll(async () => {
-  fastify = getFastifyWithWalletOptions({
-    ...walletOptions,
+  const walletOptions = {
+    walletId: 'accountId',
+    origin: 'https://platform.example',
+    apis: ['verifier'],
     documentLoader: customDocumentLoader,
-  });
+    get,
+  };
+  fastify = getFastifyWithWalletOptions(walletOptions);
   await fastify.ready();
   api = supertest(fastify.server);
 });
@@ -32,13 +30,15 @@ afterAll(() => {
   fastify.close();
 });
 
-test('POST `/accounts/123/credentials/verify`', async () => {
+test('POST `/accounts/123/presentations/verify`', async () => {
   const response = await api
-    .post('/accounts/123/credentials/verify')
+    .post('/accounts/123/presentations/verify')
     .send({
-      verifiableCredential: vc,
+      verifiablePresentation: vp,
       options: {
         checks: ['proof'],
+        domain: vp.proof.domain,
+        challenge: vp.proof.challenge,
       },
     })
     .expect(200)

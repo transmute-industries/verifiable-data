@@ -1,4 +1,4 @@
-import { fastify } from './utils';
+import { getFastifyWithWalletOptions, walletOptions } from './utils';
 
 import { case0 } from '../__fixtures__/verifiableCredentials';
 import { case2 } from '../__fixtures__/verifiableCredentials';
@@ -6,8 +6,10 @@ import { case0 as frame } from '../__fixtures__/frames';
 const supertest = require('supertest');
 
 let api: any;
+let fastify: any;
 
 beforeAll(async () => {
+  fastify = getFastifyWithWalletOptions(walletOptions);
   await fastify.ready();
   api = supertest(fastify.server);
 });

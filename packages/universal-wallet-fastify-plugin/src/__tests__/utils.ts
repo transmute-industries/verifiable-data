@@ -1,5 +1,6 @@
 import { walletFactory } from '../walletFactory';
 import { getFastifyWithWalletOptions } from './getFastifyWithWalletOptions';
+import { documentLoader } from '../__fixtures__/documentLoader';
 // normally this would be a get or create operation
 // that probably already happened
 const getAccountEncryptedWallet = async (accountId: string) => {
@@ -36,22 +37,20 @@ const getAccountEncryptedWalletPassword = (_accountId: string) => {
   return 'elephant';
 };
 
-const get = async (accountId: string) => {
+export const get = async (accountId: string) => {
   const wallet = walletFactory.build();
   const accountEncryptedWallet = await getAccountEncryptedWallet(accountId);
   const password = await getAccountEncryptedWalletPassword(accountId);
   return wallet.import(accountEncryptedWallet, password);
 };
 
-const walletOptions = {
+export const walletOptions = {
   walletId: 'accountId',
   origin: 'https://platform.example',
   discovery: ['did:web'],
   apis: ['issuer', 'holder', 'verifier'],
-  documentLoader: {
-    allowNetwork: true,
-  },
   get,
+  documentLoader,
 };
 
-export const fastify = getFastifyWithWalletOptions(walletOptions);
+export { getFastifyWithWalletOptions };
