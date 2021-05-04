@@ -4,11 +4,14 @@ import issuer from './routes/issuer';
 import holder from './routes/holder';
 import exchange from './routes/exchange';
 import verifier from './routes/verifier';
+import base from './routes/base';
 import { APIEnum, DiscoveryEnum, WalletOptions } from './types/WalletOptions';
 
 export const walletRoutes = (options: WalletOptions) => (
   fastify: FastifyInstance
 ) => {
+  fastify.register(base(options));
+
   if (options.discovery && options.discovery.includes(DiscoveryEnum.DID_WEB)) {
     fastify.register(didWeb(options));
   }

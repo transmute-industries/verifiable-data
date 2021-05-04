@@ -1,0 +1,69 @@
+export default (options: any) => {
+  return (fastify: any) => {
+    fastify.post(
+      `/:${options.walletId}/wallet/add`,
+      {
+        preValidation: options.hooks ? options.hooks.preValidation : [],
+      },
+      async (request: any, reply: any) => {
+        const wallet = await fastify.wallet.get(
+          request.params[options.walletId]
+        );
+        const content = request.body.content;
+        wallet.add(content);
+        await fastify.wallet.set(request.params[options.walletId], wallet);
+        reply.status(200).send({});
+      }
+    );
+    fastify.post(
+      `/:${options.walletId}/wallet/remove`,
+      {
+        preValidation: options.hooks ? options.hooks.preValidation : [],
+      },
+      async (request: any, reply: any) => {
+        const wallet = await fastify.wallet.get(
+          request.params[options.walletId]
+        );
+        const content = request.body.content;
+        const removed = wallet.remove(content);
+        await fastify.wallet.set(request.params[options.walletId], wallet);
+        reply.status(200).send(removed);
+      }
+    );
+
+    fastify.get(
+      `/:${options.walletId}/wallet/contents`,
+      {
+        preValidation: options.hooks ? options.hooks.preValidation : [],
+      },
+      async (request: any, reply: any) => {
+        const wallet = await fastify.wallet.get(
+          request.params[options.walletId]
+        );
+        const contents = JSON.parse(JSON.stringify(wallet.contents));
+        const filtered = contents
+          .filter((item: any) => {
+            if (request.query.type) {
+              return Array.isArray(item.type)
+                ? item.type.includes(request.query.type)
+                : item.type === request.query.type;
+            }
+          })
+          .map((item: any) => {
+            if (item.privateKeyJwk) {
+              delete item.privateKeyJwk;
+            }
+            if (item.privateKeyBase58) {
+              delete item.privateKeyBase58;
+            }
+            return item;
+          });
+
+        reply.status(200).send({
+          contents: filtered,
+        });
+      }
+    );
+    return Promise.resolve(true);
+  };
+};
