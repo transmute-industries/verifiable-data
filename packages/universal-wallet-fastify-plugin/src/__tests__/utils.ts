@@ -58,7 +58,16 @@ export const walletOptions = {
   walletId: 'accountId',
   origin: 'https://platform.example',
   discovery: ['did:web'],
-  apis: ['issuer', 'holder', 'verifier', 'add', 'remove', 'contents'],
+  apis: [
+    // vc-http-api
+    'issuer',
+    'holder',
+    'verifier',
+    // universal wallet
+    'add',
+    'remove',
+    'contents',
+  ],
   get,
   set,
   documentLoader,
