@@ -1,7 +1,7 @@
 export default (options: any) => {
   return (fastify: any) => {
     fastify.post(
-      `/:${options.walletId}/wallet/add`,
+      `/:${options.walletId}/wallet/contents`,
       {
         preValidation: options.hooks ? options.hooks.preValidation : [],
       },

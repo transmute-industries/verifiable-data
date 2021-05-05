@@ -17,8 +17,8 @@ afterAll(() => {
   fastify.close();
 });
 
-test('POST `/accounts/123/wallet/add`', async () => {
-  const response = await api.post('/accounts/123/wallet/add').send({
+test('POST `/accounts/123/wallet/contents`', async () => {
+  const response = await api.post('/accounts/123/wallet/contents').send({
     content: case0,
   });
   expect(response.status).toBe(200);
@@ -26,11 +26,11 @@ test('POST `/accounts/123/wallet/add`', async () => {
   expect((await fastify.wallet.get('123')).contents[2]).toEqual(case0);
 });
 
-test('POST `/accounts/123/wallet/remove`', async () => {
+test('DELETE `/accounts/123/wallet/contents`', async () => {
   expect((await fastify.wallet.get('123')).contents.length).toBe(3);
-  const response = await api.post('/accounts/123/wallet/remove').send({
-    content: case0.id,
-  });
+  const response = await api.delete(
+    '/accounts/123/wallet/contents?content=' + case0.id
+  );
   expect(response.status).toBe(200);
   expect(response.body).toEqual(case0);
   expect((await fastify.wallet.get('123')).contents.length).toBe(2);
