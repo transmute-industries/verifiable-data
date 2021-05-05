@@ -58,7 +58,7 @@ export const walletOptions = {
   walletId: 'accountId',
   origin: 'https://platform.example',
   discovery: ['did:web'],
-  apis: ['issuer', 'holder', 'verifier'],
+  apis: ['issuer', 'holder', 'verifier', 'add', 'remove', 'contents'],
   get,
   set,
   documentLoader,
