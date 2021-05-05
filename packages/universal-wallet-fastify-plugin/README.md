@@ -86,6 +86,13 @@ const walletOptions = {
   discovery: ['did:web'],
   apis: ['issuer', 'holder', 'verifier'],
   documentLoader,
+  hooks: {
+      preValidation: [
+        // YOU MUST REVIEW https://www.fastify.io/docs/latest/Hooks/#prevalidation
+        // Make certain you understand how to secure fastify endpoints before using this plugin.
+        },
+      ],
+    },
   get,
 };
 
