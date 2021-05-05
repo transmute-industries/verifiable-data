@@ -27,6 +27,9 @@ export enum APIEnum {
   ISSUER = 'issuer',
   HOLDER = 'holder',
   VERIFIER = 'verifier',
+  ADD = 'add',
+  REMOVE = 'remove',
+  CONTENTS = 'contents',
 }
 
 export enum DiscoveryEnum {
