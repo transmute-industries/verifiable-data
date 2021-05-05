@@ -1,3 +1,5 @@
+import { onlyPlaintextExportable } from '../onlyPlaintextExportable';
+
 export default (options: any) => {
   return (fastify: any) => {
     fastify.post(
@@ -49,15 +51,7 @@ export default (options: any) => {
                 : item.type === request.query.type;
             }
           })
-          .map((item: any) => {
-            if (item.privateKeyJwk) {
-              delete item.privateKeyJwk;
-            }
-            if (item.privateKeyBase58) {
-              delete item.privateKeyBase58;
-            }
-            return item;
-          });
+          .map(onlyPlaintextExportable);
 
         reply.status(200).send({
           contents: filtered,

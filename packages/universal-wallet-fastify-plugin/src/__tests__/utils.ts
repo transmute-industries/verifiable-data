@@ -51,7 +51,6 @@ export const get = async (accountId: string) => {
 };
 
 const set = async (accountId: string, wallet: any) => {
-  // const encryptedWallet = await wallet.export(accountId);
   wallets[accountId] = wallet;
 };
 
