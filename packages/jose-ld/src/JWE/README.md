@@ -1,4 +1,4 @@
-This is a work in progress rector of
+This is a work in progress refactor of
 
 - https://github.com/digitalbazaar/minimal-cipher
 - https://github.com/transmute-industries/did-key.js/tree/master/packages/did-key-cipher
