@@ -40,7 +40,10 @@ it('export', async () => {
     x: 'lVdVtPzTGXvkWLaSuxk-WFvOSxnVThxrEoRPJLrkCko',
   });
 
-  const k2 = await k.export({ type: 'JsonWebKey2020', privateKey: true });
+  const k2 = (await k.export({
+    type: 'JsonWebKey2020',
+    privateKey: true,
+  })) as JsonWebKey2020;
 
   expect(k2.publicKeyJwk).toEqual({
     kty: 'OKP',
@@ -72,7 +75,10 @@ it('import', async () => {
       x: 'lVdVtPzTGXvkWLaSuxk-WFvOSxnVThxrEoRPJLrkCko',
     },
   });
-  const k1 = await kn.export({ type: 'JsonWebKey2020', privateKey: true });
+  const k1 = (await kn.export({
+    type: 'JsonWebKey2020',
+    privateKey: true,
+  })) as JsonWebKey2020;
   expect(k1.privateKeyJwk).toEqual({
     kty: 'OKP',
     crv: 'X25519',
