@@ -1,0 +1,67 @@
+{
+  "name": "@transmute/jose-ld",
+  "author": "Orie Steele",
+  "module": "dist/jose-ld.esm.js",
+  "version": "0.6.1-unstable.25",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/jose-ld",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
+    "directory": "packages/jose-ld"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint src --fix",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "size-limit": [
+    {
+      "path": "dist/jose-ld.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/jose-ld.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^4.9.2",
+    "jose": "^2.0.3",
+    "size-limit": "^4.9.2",
+    "ts-jest": "^26.5.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.3",
+    "@transmute/secp256k1-key-pair": "0.6.1-unstable.25"
+  },
+  "dependencies": {
+    "@peculiar/webcrypto": "^1.1.6",
+    "@stablelib/aes-kw": "^1.0.0",
+    "@stablelib/xchacha20poly1305": "^1.0.0",
+    "base64url": "^3.0.1",
+    "web-streams-polyfill": "^3.0.3"
+  }
+}
