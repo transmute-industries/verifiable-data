@@ -74,7 +74,7 @@ export class DecryptTransformer {
     }
     const cipher = CIPHER_ALGORITHMS[header.enc];
     if (!cipher) {
-      throw new Error('Unsupported encryption algorithm "${header.enc}".');
+      throw new Error(`Unsupported encryption algorithm "${header.enc}".`);
     }
     if (!Array.isArray(jwe.recipients)) {
       throw new TypeError('"jwe.recipients" must be an array.');

@@ -13,9 +13,7 @@ import { crypto } from '../crypto';
 import { kekFromStaticPeer } from './kekFromStaticPeer';
 
 export class Cipher {
-  constructor(public KeyPairClass: any) {
-    cipher;
-  }
+  constructor(public KeyPairClass: any) {}
 
   async createEncryptStream({ recipients, publicKeyResolver, chunkSize }: any) {
     const transformer = await this.createEncryptTransformer({
