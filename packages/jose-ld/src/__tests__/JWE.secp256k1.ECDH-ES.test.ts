@@ -12,7 +12,7 @@ let ks: JsonWebKey2020;
 
 beforeAll(async () => {
   k = await Secp256k1KeyPair.generate({
-    secureRandom: async () => {
+    secureRandom: () => {
       return crypto.getRandomValues(new Uint8Array(32));
     },
   });
