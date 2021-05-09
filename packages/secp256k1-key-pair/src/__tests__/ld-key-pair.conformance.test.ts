@@ -6,12 +6,10 @@ let k: Secp256k1KeyPair;
 beforeAll(async () => {
   k = await Secp256k1KeyPair.generate({
     secureRandom: () => {
-      return Promise.resolve(
-        Uint8Array.from(
-          Buffer.from(
-            '4e61bc1918ea6a47ae3307331be7798196a1a8e7cfe4b6e8f7c9a5f36017d929',
-            'hex'
-          )
+      return Uint8Array.from(
+        Buffer.from(
+          '4e61bc1918ea6a47ae3307331be7798196a1a8e7cfe4b6e8f7c9a5f36017d929',
+          'hex'
         )
       );
     },
@@ -21,7 +19,7 @@ beforeAll(async () => {
 it('generate', async () => {
   const kn = await Secp256k1KeyPair.generate({
     secureRandom: () => {
-      return Promise.resolve(crypto.randomBytes(32));
+      return crypto.randomBytes(32);
     },
   });
   expect(kn.id.startsWith('did:key:'));

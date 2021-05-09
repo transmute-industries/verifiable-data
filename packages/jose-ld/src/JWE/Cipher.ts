@@ -93,7 +93,7 @@ export class Cipher {
     // derive ephemeral ECDH key pair to use with all recipients
     const epk = (
       await this.KeyPairClass.generate({
-        secureRandom: async () => {
+        secureRandom: () => {
           return crypto.getRandomValues(new Uint8Array(32));
         },
       })

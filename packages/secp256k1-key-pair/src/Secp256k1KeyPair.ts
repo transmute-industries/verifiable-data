@@ -12,10 +12,10 @@ import { exportableTypes } from './exportAs';
 
 import { suiteTypes } from './suites';
 
-const _generate = async (secureRandom: () => Promise<Uint8Array>) => {
+const _generate = async (secureRandom: () => Uint8Array) => {
   let privateKey;
   do {
-    privateKey = await secureRandom();
+    privateKey = secureRandom();
   } while (!secp256k1.privateKeyVerify(privateKey));
 
   const publicKey = secp256k1.publicKeyCreate(privateKey);
@@ -32,7 +32,7 @@ export class Secp256k1KeyPair {
   static generate = async ({
     secureRandom,
   }: {
-    secureRandom: () => Promise<Uint8Array>;
+    secureRandom: () => Uint8Array;
   }) => {
     const { publicKey, privateKey } = await _generate(secureRandom);
     const fingerprint = getMultibaseFingerprintFromPublicKeyBytes(publicKey);
