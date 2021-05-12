@@ -1,7 +1,9 @@
+import Fastify from 'fastify';
+import { UniversalWalletFastifyInstance } from '../types';
+
 import walletPlugin from '../walletPlugin';
 import walletRoutes from '../walletRoutes';
 
-const Fastify = require('fastify');
 const fastify = Fastify();
 
 export const getFastifyWithWalletOptions = (walletOptions: any) => {
@@ -17,5 +19,6 @@ export const getFastifyWithWalletOptions = (walletOptions: any) => {
     reply.send({ message: error.message });
   });
 
-  return fastify;
+  const universalWallerFastifyInstance: UniversalWalletFastifyInstance = fastify as any;
+  return universalWallerFastifyInstance;
 };
