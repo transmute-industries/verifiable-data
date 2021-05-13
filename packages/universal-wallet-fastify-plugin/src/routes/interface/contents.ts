@@ -12,12 +12,17 @@ export default (options: any) => {
           request.params[options.walletId]
         );
         const contents = JSON.parse(JSON.stringify(wallet.contents));
+        console.log(JSON.stringify(request.query, null, 2));
         const filtered = contents
           .filter((item: any) => {
             if (request.query.type) {
-              return Array.isArray(item.type)
-                ? item.type.includes(request.query.type)
-                : item.type === request.query.type;
+              request.query.type = Array.isArray(request.query.type)
+                ? request.query.type
+                : [request.query.type];
+              item.type = Array.isArray(item.type) ? item.type : [item.type];
+              return item.type.some((item: any) =>
+                request.query.type.includes(item)
+              );
             }
           })
           .filter((item: any) =>

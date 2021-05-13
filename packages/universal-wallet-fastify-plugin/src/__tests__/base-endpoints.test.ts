@@ -44,7 +44,7 @@ test('GET `/accounts/123/wallet/contents/query?type=JsonWebKey2020`', async () =
   expect(response.body.contents.length).toBe(2);
   expect(response.body.contents[0]).toEqual({
     id: 'did:web:platform.example:accounts:123#key-0',
-    type: 'JsonWebKey2020',
+    type: ['JsonWebKey2020'],
     controller: 'did:web:platform.example:accounts:123',
     publicKeyJwk: {
       crv: 'Ed25519',

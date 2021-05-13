@@ -80,12 +80,21 @@ describe('content endpoint', () => {
       );
       expect(response.status).toBe(200);
       expect(response.body.contents).toHaveLength(1);
-      expect(response.body.contents[0].type).toBe('Submission');
+      expect(response.body.contents[0].type).toEqual(['Submission']);
       expect(response.body.contents[0].id).toBeDefined();
       expect(response.body.contents[0].sender).toBeDefined();
       expect(response.body.contents[0].receiver).toBeDefined();
       expect(response.body.contents[0].status).toBeDefined();
       expect(response.body.contents[0].verifiablePresentation).toBeDefined();
+    });
+  });
+  describe('multiple types', () => {
+    it('can get content by 2 different types', async () => {
+      const response = await api.get(
+        '/accounts/123/wallet/contents/query?type=Submission&type=VerifiableCredential'
+      );
+      expect(response.status).toBe(200);
+      expect(response.body.contents).toHaveLength(2);
     });
   });
 });
