@@ -1,12 +1,12 @@
+import supertest, { SuperTest, Test } from 'supertest';
+
 import { walletOptions } from './memory-wallet';
 import { getFastifyWithWalletOptions } from './utils';
 import { documentLoader } from '../__fixtures__/documentLoader';
 import { makeVc } from './makeVc';
 import { makeVp } from './makeVp';
 
-const supertest = require('supertest');
-
-let api: any;
+let api: SuperTest<Test>;
 let fastify: any;
 
 const customDocumentLoader = (iri: string) => {
@@ -52,11 +52,12 @@ test(`POST '/accounts/${aliceId}/presentations/submissions'`, async () => {
   let alice = await fastify.wallet.get(aliceId);
   const vc = await makeVc(alice, 'IntentToSell');
   const vp = await makeVp(alice, [vc], domain, challenge);
+  const presentationSubmission = { verifiablePresentation: vp };
   const response = await api
     .post(`/accounts/${aliceId}/presentations/submissions`)
-    .send(vp);
+    .send(presentationSubmission);
   expect(response.status).toBe(200);
   expect(response.body.verified).toBe(true);
   alice = await fastify.wallet.get(aliceId);
-  expect(alice.contents[3].type).toBe('FlaggedForReview');
+  expect(alice.contents[3].type).toBe('Submission');
 });

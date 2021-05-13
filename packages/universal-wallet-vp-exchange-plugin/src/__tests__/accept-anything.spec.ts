@@ -20,16 +20,18 @@ const getVp = async (m1: any) => {
     key,
     date: "2020-03-10T04:24:12.164Z"
   });
-  const m2 = await aliceWallet.createVerifiablePresentation({
-    verifiableCredential: [vc],
-    options: {
-      holder: aliceWallet.contents[0].controller,
-      challenge: m1.challenge,
-      domain: m1.domain,
-      suite,
-      documentLoader: documentLoader
-    }
-  });
+  const m2 = {
+    verifiablePresentation: await aliceWallet.createVerifiablePresentation({
+      verifiableCredential: [vc],
+      options: {
+        holder: aliceWallet.contents[0].controller,
+        challenge: m1.challenge,
+        domain: m1.domain,
+        suite,
+        documentLoader: documentLoader
+      }
+    })
+  };
   return m2;
 };
 
@@ -93,5 +95,5 @@ it("bob verifies and stores alice's vp", async () => {
     suite: new Ed25519Signature2018(),
     documentLoader: documentLoader
   });
-  expect(bobWallet.contents[2].type).toBe("FlaggedForReview");
+  expect(bobWallet.contents[2].type).toBe("Submission");
 });

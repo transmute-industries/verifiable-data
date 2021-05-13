@@ -137,8 +137,11 @@ const factoryDefaults = {
 
     return responseFlow;
   },
-  verifyAndAddPresentation: async function(presentation: any, options: any) {
-    return verifyAndAddPresentation(this, presentation, options);
+  verifyAndAddPresentation: async function(
+    presentationSubmission: any,
+    options: any
+  ) {
+    return verifyAndAddPresentation(this, presentationSubmission, options);
   }
 };
 

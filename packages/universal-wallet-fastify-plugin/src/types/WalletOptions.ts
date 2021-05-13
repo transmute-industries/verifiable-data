@@ -1,5 +1,9 @@
 import { Wallet } from '@transmute/universal-wallet';
-import { preValidationHookHandler } from 'fastify';
+import { FastifyInstance, preValidationHookHandler } from 'fastify';
+
+export interface UniversalWalletFastifyInstance extends FastifyInstance {
+  wallet: WalletOptions;
+}
 
 export type DocumentLoader = (
   iri: string

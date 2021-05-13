@@ -1,4 +1,4 @@
-const verifiedPresentationsInboxName = "FlaggedForReview";
+const verifiedPresentationsInboxName = "Submission";
 const verifyPresentationChallengesObjectName = "PresentationChallenges";
 
 export const getChallengeForPresentation = (contents: any[], vp: any) => {
@@ -57,10 +57,11 @@ export const assertPresentationIsAuthorized = (wallet: any, vp: any) => {
 
 export const verifyAndAddPresentation = async (
   wallet: any,
-  presentation: any,
+  presentationSubmission: any,
   options: any,
   requireAuthorization = false
 ) => {
+  const presentation = presentationSubmission.verifiablePresentation;
   const presentationIndex = `urn:${presentation.proof.domain}:${presentation.proof.challenge}`;
   const { pending } = getChallengeForPresentation(
     wallet.contents,
@@ -88,10 +89,9 @@ export const verifyAndAddPresentation = async (
     // OR wallet may decide that a human still needs to review
     // this object stores things a human needs to review.
     const flaggedForHumanReview: any = {
-      type: verifiedPresentationsInboxName,
-      presentations: []
+      ...presentationSubmission,
+      type: verifiedPresentationsInboxName
     };
-    flaggedForHumanReview.presentations.push(presentation);
     wallet.add(flaggedForHumanReview);
   } else {
     console.error(verification);
