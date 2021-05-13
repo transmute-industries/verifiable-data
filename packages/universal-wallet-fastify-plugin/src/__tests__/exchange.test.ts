@@ -5,7 +5,6 @@ import { getFastifyWithWalletOptions } from './utils';
 import { documentLoader } from '../__fixtures__/documentLoader';
 import { makeVc } from './makeVc';
 import { makeVp } from './makeVp';
-import { UniversalWalletFastifyInstance } from '../types';
 
 let api: SuperTest<Test>;
 let fastify: any;
