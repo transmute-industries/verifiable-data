@@ -8,7 +8,7 @@ import { makeVp } from './makeVp';
 import { UniversalWalletFastifyInstance } from '../types';
 
 let api: SuperTest<Test>;
-let fastify: UniversalWalletFastifyInstance;
+let fastify: any;
 
 const customDocumentLoader = (iri: string) => {
   //  You may intercept requests here...

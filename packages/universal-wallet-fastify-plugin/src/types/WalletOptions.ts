@@ -1,5 +1,4 @@
 import { Wallet } from '@transmute/universal-wallet';
-import { VpxPlugin } from '@transmute/universal-wallet-vp-exchange-plugin';
 import { FastifyInstance, preValidationHookHandler } from 'fastify';
 
 export interface UniversalWalletFastifyInstance extends FastifyInstance {
@@ -20,8 +19,8 @@ export interface WalletOptions {
   hooks?: WalletOptionHooks;
   apis?: APIEnum[] | string[];
   documentLoader: DocumentLoader;
-  get: (walletId: string) => Promise<Wallet & VpxPlugin> | (Wallet & VpxPlugin);
-  set?: (walletId: string, wallet: Wallet & VpxPlugin) => Promise<void> | void;
+  get: (walletId: string) => Promise<Wallet> | Wallet;
+  set?: (walletId: string, wallet: Wallet) => Promise<void> | void;
 }
 
 export interface WalletOptionHooks {
