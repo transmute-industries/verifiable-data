@@ -46,11 +46,11 @@ export default (options: any) => {
           request.params[options.walletId]
         );
         const suiteMap = getSuiteMap();
-        const presentation = request.body;
+        const presentationSubmission = request.body;
         // will throw if verification fails
         // need to catch and handle negative cases.
         // console.log(JSON.stringify(presentation, null, 2));
-        await wallet.verifyAndAddPresentation(presentation, {
+        await wallet.verifyAndAddPresentation(presentationSubmission, {
           suiteMap,
           documentLoader: fastify.wallet.documentLoader,
         });

@@ -3,7 +3,7 @@ import { onlyPlaintextExportable } from '../../onlyPlaintextExportable';
 export default (options: any) => {
   return (fastify: any) => {
     fastify.get(
-      `/:${options.walletId}/wallet/contents`,
+      `/:${options.walletId}/wallet/contents/query`,
       {
         preValidation: options.hooks ? options.hooks.preValidation : [],
       },
@@ -20,6 +20,9 @@ export default (options: any) => {
                 : item.type === request.query.type;
             }
           })
+          .filter((item: any) =>
+            request.query.id ? item.id === request.query.id : item
+          )
           .map(onlyPlaintextExportable);
 
         reply.status(200).send({

@@ -7,6 +7,18 @@ const allowed = [
   'image',
   'publicKeyJwk',
   'publicKeyBase58',
+  '@context', // credential
+  'proof',
+  'issuanceDate',
+  'issuer',
+  'relatedLink',
+  'credentialStatus',
+  'credentialSubject',
+  'expirationDate',
+  'receiver', // presentation submission
+  'sender',
+  'status',
+  'verifiablePresentation',
 ];
 
 export const onlyPlaintextExportable = (item: any) => {

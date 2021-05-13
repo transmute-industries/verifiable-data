@@ -36,9 +36,9 @@ test('DELETE `/accounts/123/wallet/contents`', async () => {
   expect((await fastify.wallet.get('123')).contents.length).toBe(2);
 });
 
-test('GET `/accounts/123/wallet/contents?type=JsonWebKey2020`', async () => {
+test('GET `/accounts/123/wallet/contents/query?type=JsonWebKey2020`', async () => {
   const response = await api.get(
-    '/accounts/123/wallet/contents?type=JsonWebKey2020'
+    '/accounts/123/wallet/contents/query?type=JsonWebKey2020'
   );
   expect(response.status).toBe(200);
   expect(response.body.contents.length).toBe(2);

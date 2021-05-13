@@ -2,12 +2,12 @@ import walletPlugin from '../walletPlugin';
 import walletRoutes from '../walletRoutes';
 import { walletFactory } from '../walletFactory';
 import { WalletOptions } from '../types';
+import { documentLoader } from '../__fixtures__/documentLoader';
 
 const supertest = require('supertest');
 const Fastify = require('fastify');
 
 const fastify = Fastify();
-import { documentLoader } from '../__fixtures__/documentLoader';
 
 const customDocumentLoader = (iri: string) => {
   //  You may intercept requests here...

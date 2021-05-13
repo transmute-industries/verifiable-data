@@ -1,0 +1,8 @@
+{
+  "type": "Submission",
+  "id": "123",
+  "sender": {},
+  "receiver": {},
+  "status":"pending",
+  "verifiablePresentation": {}
+}
