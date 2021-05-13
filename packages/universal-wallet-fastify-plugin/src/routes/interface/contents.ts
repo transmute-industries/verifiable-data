@@ -12,7 +12,6 @@ export default (options: any) => {
           request.params[options.walletId]
         );
         const contents = JSON.parse(JSON.stringify(wallet.contents));
-        console.log(JSON.stringify(request.query, null, 2));
         const filtered = contents
           .filter((item: any) => {
             if (request.query.type) {
