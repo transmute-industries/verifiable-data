@@ -5,7 +5,11 @@ import { JsonWebKey2020, X25519KeyAgreementKey2019 } from './types';
 
 import { importableTypes } from './importFrom';
 import { exportableTypes } from './exportAs';
-
+import { base58 } from './encoding';
+import {
+  X25519_MULTICODEC_IDENTIFIER,
+  VARIABLE_INTEGER_TRAILING_BYTE,
+} from './constants';
 export class X25519KeyPair {
   public id: string;
   public type: string = 'JsonWebKey2020';
@@ -55,6 +59,26 @@ export class X25519KeyPair {
     });
   };
 
+  static async fromFingerprint({ fingerprint }: { fingerprint: string }) {
+    const buffer = base58.decode(fingerprint.substring(1));
+
+    if (
+      buffer[0] === X25519_MULTICODEC_IDENTIFIER &&
+      buffer[1] === VARIABLE_INTEGER_TRAILING_BYTE
+    ) {
+      let kp = await X25519KeyPair.from({
+        id: '',
+        controller: '',
+        type: 'X25519KeyAgreementKey2019',
+        publicKeyBase58: base58.encode(buffer.slice(2)),
+      });
+      const f = await kp.fingerprint();
+      kp.id = `did:key:${f}#${f}`;
+      kp.controller = `did:key:${f}`;
+      return kp;
+    }
+    throw new Error('Unsupported fingerprint type: ' + fingerprint);
+  }
   constructor(opts: {
     id: string;
     type: string;

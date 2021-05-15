@@ -1,6 +1,6 @@
-export interface X25519KeyAgreementKey2020 {
+export interface Ed25519VerificationKey2020 {
   id: string;
-  type: 'X25519KeyAgreementKey2020';
+  type: 'Ed25519VerificationKey2020';
   controller: string;
   publicKeyMultibase: string;
   privateKeyMultibase?: string;

@@ -1,7 +1,6 @@
 import { base58, base64url } from './encoding';
-
 import {
-  SECP256K1_MULTICODEC_IDENTIFIER,
+  ED25519_MULTICODEC_IDENTIFIER,
   VARIABLE_INTEGER_TRAILING_BYTE,
 } from './constants';
 export const getMultibaseFingerprintFromPublicKeyBytes = (
@@ -9,7 +8,7 @@ export const getMultibaseFingerprintFromPublicKeyBytes = (
   encoding = 'base58btc'
 ): string => {
   const buffer = new Uint8Array(2 + publicKey.length);
-  buffer[0] = SECP256K1_MULTICODEC_IDENTIFIER;
+  buffer[0] = ED25519_MULTICODEC_IDENTIFIER;
   buffer[1] = VARIABLE_INTEGER_TRAILING_BYTE;
   buffer.set(publicKey, 2);
   if (encoding === 'base58btc') {

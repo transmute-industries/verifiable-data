@@ -30,7 +30,10 @@ it('generate', async () => {
 });
 
 it('export', async () => {
-  const k1 = await k.toJsonWebKeyPair(true);
+  const k1 = (await k.export({
+    type: 'JsonWebKey2020',
+    privateKey: true,
+  })) as JsonWebKey2020;
   expect(k1.controller).toBe(
     'did:key:zQ3shU9mxTYfMTLceuppoNM5siowHvw3xBk21r855kwgNHNAX'
   );
@@ -105,4 +108,24 @@ it('deriveSecret', async () => {
     publicKey: await k.export({ type: 'JsonWebKey2020', privateKey: false }),
   });
   expect(s.length).toBe(32);
+});
+
+it('fromFingerprint', async () => {
+  const kn = await Secp256k1KeyPair.fromFingerprint({
+    fingerprint: 'zQ3shU9mxTYfMTLceuppoNM5siowHvw3xBk21r855kwgNHNAX',
+  });
+  const kx = await kn.export({ type: 'JsonWebKey2020', privateKey: true });
+
+  expect(kx).toEqual({
+    id:
+      'did:key:zQ3shU9mxTYfMTLceuppoNM5siowHvw3xBk21r855kwgNHNAX#zQ3shU9mxTYfMTLceuppoNM5siowHvw3xBk21r855kwgNHNAX',
+    type: 'JsonWebKey2020',
+    controller: 'did:key:zQ3shU9mxTYfMTLceuppoNM5siowHvw3xBk21r855kwgNHNAX',
+    publicKeyJwk: {
+      kty: 'EC',
+      crv: 'secp256k1',
+      x: 'ZCkxL14Ix2EDzwOIOJ5D_kNG7lAzIAkO7aFQ82Kru0w',
+      y: 'dvzo1xuPbe7pTelHPEjP_BCF-S-n34NBxU3qC57PdgQ',
+    },
+  });
 });
