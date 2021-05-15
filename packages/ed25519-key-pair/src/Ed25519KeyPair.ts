@@ -13,6 +13,8 @@ import {
 
 import { suiteTypes } from './suites';
 
+import { X25519KeyPair } from '@transmute/x25519-key-pair';
+
 export class Ed25519KeyPair {
   public id: string;
   public type: string = 'JsonWebKey2020';
@@ -23,6 +25,23 @@ export class Ed25519KeyPair {
   static async fingerprintFromPublicKey(importableType: JsonWebKey2020) {
     const { publicKey } = await Ed25519KeyPair.from(importableType);
     return getMultibaseFingerprintFromPublicKeyBytes(publicKey);
+  }
+
+  static async toX25519KeyPair(kp: Ed25519KeyPair) {
+    const publicKey = ed25519.convertPublicKeyToX25519(kp.publicKey);
+    let privateKey = undefined;
+    if (kp.privateKey) {
+      privateKey = ed25519.convertSecretKeyToX25519(kp.privateKey);
+    }
+    const nk = new X25519KeyPair({
+      id: '',
+      type: 'X25519KeyAgreementKey2018',
+      controller: kp.controller,
+      publicKey,
+      privateKey,
+    });
+    nk.id = kp.controller + '#' + (await nk.fingerprint());
+    return nk;
   }
 
   static generate = async ({
