@@ -1,4 +1,10 @@
 import secp256k1 from 'secp256k1';
+import { base58 } from './encoding';
+
+import {
+  SECP256K1_MULTICODEC_IDENTIFIER,
+  VARIABLE_INTEGER_TRAILING_BYTE,
+} from './constants';
 
 import {
   JsonWebKey2020,
@@ -63,6 +69,27 @@ export class Secp256k1KeyPair {
       privateKey,
     });
   };
+
+  static async fromFingerprint({ fingerprint }: { fingerprint: string }) {
+    const buffer = base58.decode(fingerprint.substring(1));
+
+    if (
+      buffer[0] === SECP256K1_MULTICODEC_IDENTIFIER &&
+      buffer[1] === VARIABLE_INTEGER_TRAILING_BYTE
+    ) {
+      let kp = await Secp256k1KeyPair.from({
+        id: '',
+        controller: '',
+        type: 'EcdsaSecp256k1VerificationKey2019',
+        publicKeyBase58: base58.encode(buffer.slice(2)),
+      });
+      const f = await kp.fingerprint();
+      kp.id = `did:key:${f}#${f}`;
+      kp.controller = `did:key:${f}`;
+      return kp;
+    }
+    throw new Error('Unsupported fingerprint type: ' + fingerprint);
+  }
 
   static async fingerprintFromPublicKey(
     importableType: JsonWebKey2020 | EcdsaSecp256k1VerificationKey2019

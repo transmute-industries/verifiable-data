@@ -67,7 +67,7 @@ export class Bls12381G2KeyPair {
     });
   };
 
-  static async fromFingerprint({ fingerprint }: any) {
+  static async fromFingerprint({ fingerprint }: { fingerprint: string }) {
     const { bls12381G2KeyPair } = fingerprintToJsonWebKey2020(fingerprint);
     return Bls12381G2KeyPair.from(bls12381G2KeyPair);
   }
