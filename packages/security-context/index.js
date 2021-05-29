@@ -9,6 +9,13 @@ contexts.set(SECURITY_CONTEXT_V2_URL, require("./contexts/sec-v2.json"));
 const PGP_2021_V1_URL = "https://w3id.org/security/suites/pgp-2021/v1";
 contexts.set(PGP_2021_V1_URL, require("./contexts/suites/pgp-2021-v1.json"));
 
+const MULTIKEY_2021_V1_URL =
+  "https://w3id.org/security/suites/multikey-2021/v1";
+contexts.set(
+  MULTIKEY_2021_V1_URL,
+  require("./contexts/suites/multikey-2021-v1.json")
+);
+
 const JSON_WEB_SIGNATURE_2020_V1_URL =
   "https://w3id.org/security/suites/jws-2020/v1";
 contexts.set(
@@ -64,6 +71,7 @@ contexts.set(
 const constants = {
   SECURITY_CONTEXT_V1_URL,
   SECURITY_CONTEXT_V2_URL,
+  MULTIKEY_2021_V1_URL,
   PGP_2021_V1_URL,
   JSON_WEB_SIGNATURE_2020_V1_URL,
   ED25519_2020_V1_URL,

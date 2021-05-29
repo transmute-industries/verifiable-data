@@ -3,6 +3,7 @@ import { constants, contexts } from "./index.js";
 export const constants: {
   SECURITY_CONTEXT_V1_URL: "https://w3id.org/security/v1";
   SECURITY_CONTEXT_V2_URL: "https://w3id.org/security/v2";
+  MULTIKEY_2021_V1_URL: "https://w3id.org/security/suites/multikey-2021/v1";
   PGP_2021_V1_URL: "https://w3id.org/security/suites/pgp-2021/v1";
   JSON_WEB_SIGNATURE_2020_V1_URL: "https://w3id.org/security/suites/jws-2020/v1";
   ED25519_2020_V1_URL: "https://w3id.org/security/suites/ed25519-2020/v1";
