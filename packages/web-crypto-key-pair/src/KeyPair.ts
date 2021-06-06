@@ -4,11 +4,18 @@ import {
   deriveBitsFromCryptoKey,
 } from './derive-bits';
 import { getDetachedJwsSigner, getDetachedJwsVerifier } from './signatures/jws';
-import { GenerateKeyOpts, JsonWebKey2020, KeyPairOptions } from './types';
+import {
+  GenerateKeyOpts,
+  JsonWebKey2020,
+  KeyPairOptions,
+  P256Key2021,
+  P384Key2021,
+  P521Key2021,
+} from './types';
 
-import { getMulticodec, getKid } from './key/identifiers';
+import { getMulticodec, getJwkFromMulticodec } from './key/identifiers';
 import { getJwkFromCryptoKey } from './key';
-
+import { exportableTypes } from './exportAs';
 export class KeyPair {
   public id: string;
   public type: string = 'JsonWebKey2020';
@@ -49,7 +56,22 @@ export class KeyPair {
   };
 
   static async fingerprintFromPublicKey(publicKeyJwk: any) {
-    return getKid(publicKeyJwk);
+    return getMulticodec(publicKeyJwk);
+  }
+
+  static async fromFingerprint({ fingerprint }: { fingerprint: string }) {
+    try {
+      const publicKeyJwk = getJwkFromMulticodec(fingerprint);
+
+      return KeyPair.from({
+        id: `did:key:${fingerprint}#${fingerprint}`,
+        type: 'JsonWebKey2020',
+        controller: `did:key:${fingerprint}`,
+        publicKeyJwk,
+      });
+    } catch (e) {
+      throw new Error('Unsupported fingerprint type: ' + fingerprint);
+    }
   }
 
   constructor(opts: KeyPairOptions) {
@@ -61,26 +83,37 @@ export class KeyPair {
   }
 
   async fingerprint() {
-    return getKid(await getJwkFromCryptoKey(this.publicKey));
+    return getMulticodec(await getJwkFromCryptoKey(this.publicKey));
+  }
+
+  async export(
+    options: {
+      privateKey?: boolean;
+      type: 'JsonWebKey2020' | 'P521Key2021' | 'P384Key2021' | 'P256Key2021';
+    } = {
+      privateKey: false,
+      type: 'JsonWebKey2020',
+    }
+  ): Promise<JsonWebKey2020 | P521Key2021 | P384Key2021 | P256Key2021> {
+    if (exportableTypes[options.type]) {
+      return exportableTypes[options.type](
+        this.id,
+        this.controller,
+        this.publicKey,
+        options.privateKey ? this.privateKey : undefined
+      );
+    }
+    throw new Error('Unsupported export options: ' + JSON.stringify(options));
   }
 
   async toJsonWebKeyPair(exportPrivateKey = false) {
-    const kp: JsonWebKey2020 = {
-      id: this.id,
+    console.warn(
+      "DEPRECATION WARNING: .toJsonWebKeyPair should be replaced with .export({type:'JsonWebKey2020'})."
+    );
+    return this.export({
       type: 'JsonWebKey2020',
-      controller: this.controller,
-      publicKeyJwk: await key.getJwkFromCryptoKey(this.publicKey),
-    };
-    if (exportPrivateKey) {
-      try {
-        kp.privateKeyJwk = await key.getJwkFromCryptoKey(
-          this.privateKey as CryptoKey
-        );
-      } catch (e) {
-        throw new Error('Cannot export private key');
-      }
-    }
-    return kp;
+      privateKey: exportPrivateKey,
+    }) as Promise<JsonWebKey2020>;
   }
 
   async deriveBits(remote: JsonWebKey2020) {

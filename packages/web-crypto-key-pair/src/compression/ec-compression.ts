@@ -41,6 +41,7 @@ const curveToPointLength: any = {
 export const expand = (publicKey: Uint8Array, curve: string): Uint8Array => {
   const publicKeyComponent = Buffer.from(publicKey).toString('hex');
   const { prime, b, pIdent } = getConstantsForCurve(curve);
+  // eslint-disable-next-line
   var signY: any = (new Number(publicKeyComponent[1]) as any) - 2;
   var x = new bigInt(publicKeyComponent.substring(2), 16);
   // y^2 = x^3 - 3x + b
