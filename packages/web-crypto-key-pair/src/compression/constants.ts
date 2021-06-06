@@ -11,10 +11,13 @@ export const getConstantsForCurve = (curve: string) => {
       .add(two.pow(192))
       .add(two.pow(96))
       .subtract(1);
-    b = new bigInt(
-      '41058363725152142129326129780047268409114441015993725554835256314039467401291'
-    );
+
     pIdent = prime.add(1).divide(4);
+
+    b = new bigInt(
+      '5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b',
+      16
+    );
   }
 
   if (curve === 'P-384') {
@@ -25,8 +28,20 @@ export const getConstantsForCurve = (curve: string) => {
       .subtract(two.pow(96))
       .add(two.pow(32))
       .subtract(1);
+
+    pIdent = prime.add(1).divide(4);
     b = new bigInt(
-      '27580193559959705877849011840389048093056905856361568521428707301988689241309860865136260764883745107765439761230575'
+      'b3312fa7e23ee7e4988e056be3f82d19181d9c6efe8141120314088f5013875ac656398d8a2ed19d2a85c8edd3ec2aef',
+      16
+    );
+  }
+
+  if (curve === 'P-521') {
+    two = new bigInt(2);
+    prime = two.pow(521).subtract(1);
+    b = new bigInt(
+      '00000051953eb9618e1c9a1f929a21a0b68540eea2da725b99b315f3b8b489918ef109e156193951ec7e937b1652c0bd3bb1bf073573df883d2c34f1ef451fd46b503f00',
+      16
     );
     pIdent = prime.add(1).divide(4);
   }

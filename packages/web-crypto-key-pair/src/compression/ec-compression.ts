@@ -35,6 +35,7 @@ export const compress = (publicKey: Uint8Array): Uint8Array => {
 const curveToPointLength: any = {
   'P-256': 64,
   'P-384': 96,
+  'P-521': 132,
 };
 
 export const expand = (publicKey: Uint8Array, curve: string): Uint8Array => {
@@ -43,11 +44,14 @@ export const expand = (publicKey: Uint8Array, curve: string): Uint8Array => {
   var signY: any = (new Number(publicKeyComponent[1]) as any) - 2;
   var x = new bigInt(publicKeyComponent.substring(2), 16);
   // y^2 = x^3 - 3x + b
-  var y = x
+  let y;
+
+  y = x
     .pow(3)
     .subtract(x.multiply(3))
     .add(b)
     .modPow(pIdent, prime);
+
   // If the parity doesn't match it's the *other* root
   if (y.mod(2).toJSNumber() !== signY) {
     // y = prime - y

@@ -49,6 +49,7 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.2",
+    "elliptic": "^6.5.4",
     "jose": "^2.0.3",
     "size-limit": "^4.9.2",
     "ts-jest": "^26.5.0",
