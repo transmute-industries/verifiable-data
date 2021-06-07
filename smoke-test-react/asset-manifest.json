@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/verifiable-data/smoke-test-react/static/css/main.309772dc.chunk.css",
-    "main.js": "/verifiable-data/smoke-test-react/static/js/main.b3854d54.chunk.js",
-    "main.js.map": "/verifiable-data/smoke-test-react/static/js/main.b3854d54.chunk.js.map",
-    "runtime-main.js": "/verifiable-data/smoke-test-react/static/js/runtime-main.b4fcf1e3.js",
-    "runtime-main.js.map": "/verifiable-data/smoke-test-react/static/js/runtime-main.b4fcf1e3.js.map",
-    "static/js/2.7c575d94.chunk.js": "/verifiable-data/smoke-test-react/static/js/2.7c575d94.chunk.js",
-    "static/js/2.7c575d94.chunk.js.map": "/verifiable-data/smoke-test-react/static/js/2.7c575d94.chunk.js.map",
-    "static/js/3.7aed8af6.chunk.js": "/verifiable-data/smoke-test-react/static/js/3.7aed8af6.chunk.js",
-    "static/js/3.7aed8af6.chunk.js.map": "/verifiable-data/smoke-test-react/static/js/3.7aed8af6.chunk.js.map",
+    "main.js": "/verifiable-data/smoke-test-react/static/js/main.557dcb2b.chunk.js",
+    "main.js.map": "/verifiable-data/smoke-test-react/static/js/main.557dcb2b.chunk.js.map",
+    "runtime-main.js": "/verifiable-data/smoke-test-react/static/js/runtime-main.5b3e3f84.js",
+    "runtime-main.js.map": "/verifiable-data/smoke-test-react/static/js/runtime-main.5b3e3f84.js.map",
+    "static/js/2.32099600.chunk.js": "/verifiable-data/smoke-test-react/static/js/2.32099600.chunk.js",
+    "static/js/2.32099600.chunk.js.map": "/verifiable-data/smoke-test-react/static/js/2.32099600.chunk.js.map",
+    "static/js/3.e121a262.chunk.js": "/verifiable-data/smoke-test-react/static/js/3.e121a262.chunk.js",
+    "static/js/3.e121a262.chunk.js.map": "/verifiable-data/smoke-test-react/static/js/3.e121a262.chunk.js.map",
     "index.html": "/verifiable-data/smoke-test-react/index.html",
     "static/css/main.309772dc.chunk.css.map": "/verifiable-data/smoke-test-react/static/css/main.309772dc.chunk.css.map",
-    "static/js/2.7c575d94.chunk.js.LICENSE.txt": "/verifiable-data/smoke-test-react/static/js/2.7c575d94.chunk.js.LICENSE.txt",
-    "static/js/main.b3854d54.chunk.js.LICENSE.txt": "/verifiable-data/smoke-test-react/static/js/main.b3854d54.chunk.js.LICENSE.txt"
+    "static/js/2.32099600.chunk.js.LICENSE.txt": "/verifiable-data/smoke-test-react/static/js/2.32099600.chunk.js.LICENSE.txt",
+    "static/js/main.557dcb2b.chunk.js.LICENSE.txt": "/verifiable-data/smoke-test-react/static/js/main.557dcb2b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.b4fcf1e3.js",
-    "static/js/2.7c575d94.chunk.js",
+    "static/js/runtime-main.5b3e3f84.js",
+    "static/js/2.32099600.chunk.js",
     "static/css/main.309772dc.chunk.css",
-    "static/js/main.b3854d54.chunk.js"
+    "static/js/main.557dcb2b.chunk.js"
   ]
 }
