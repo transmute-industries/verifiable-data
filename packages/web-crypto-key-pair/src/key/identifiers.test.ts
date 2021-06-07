@@ -8,8 +8,7 @@ it('p-256', async () => {
     y: 'efsX5b10x8yjyrj4ny3pGfLcY7Xby1KzgqOdqnsrJIM',
   };
   const calc = await getMulticodec(jwk);
-  const id =
-    'zrusAFgBbf84b8mBz8Cmy8UoFWKV52EaeRnK86vnLo4Z5QoRypE6hXVPN2urevZMAMtcTaCDFLWBaE1Q3jmdb1FHgve';
+  const id = 'z5bDBRqwwHdvUZ7bd8v8NVbj9VzSitbaS2EePrn3PwBr8nR';
   expect(calc).toBe(id);
 });
 
@@ -21,8 +20,7 @@ it('p-256 2', async () => {
     y: 'hW2ojTNfH7Jbi8--CJUo3OCbH3y5n91g-IMA9MLMbTU',
   };
   const calc = await getMulticodec(jwk);
-  const id =
-    'zrurwcJZss4ruepVNu1H3xmSirvNbzgBk9qrCktB6kaewXnJAhYWwtP3bxACqBpzjZdN7TyHNzzGGSSH5qvZsSDir9z';
+  const id = 'z5bDBGCcz7d4ueXQqjNauwY8VjE3mkGaEfvTVxRXgQsChxg';
   expect(calc).toBe(id);
 });
 
@@ -35,7 +33,7 @@ it('p-384', async () => {
   };
   const calc = await getMulticodec(jwk);
   const id =
-    'zFwfeyrSyWdksRYykTGGtagWazFB5zS4CjQcxDMQSNmCTQB5QMqokx2VJz4vBB2hN1nUrYDTuYq3kd1BM5cUCfFD4awiNuzEBuoy6rZZTMCsZsdvWkDXY6832qcAnzE7YGw43KU';
+    'z3WFpGi5KxG376emVsW1yELgwp7zAYHNJUnr9qL13fE4xiwvTSqfKPP3KiMh6boCyf3j1';
   expect(calc).toBe(id);
 });
 
@@ -50,6 +48,6 @@ it('p-521', async () => {
   };
   const calc = await getMulticodec(jwk);
   const id =
-    'zWGhj2NTyCiehTPioanYSuSrfB7RJKwZj6bBUDNojfGEA21nr5NcBsHme7hcVSbptpWKarJpTcw814J3X8gVU9gZmeKM27JpGA5wNMzt8JZwjDyf8EzCJg5ve5GR2Xfm7d9Djp73V7s35KPeKe7VHMzmL8aPw4XBniNej5sXapPFoBs5R8m195HK';
+    'zL2wxdRRkLgCFfATzuBHzzxkRuHZFKhsSEWHfVWkftHunRdDURFVBGKacPiXykrgmNKSfKo4ynjG3Sr7PRUGfCLaVgu8F';
   expect(calc).toBe(id);
 });

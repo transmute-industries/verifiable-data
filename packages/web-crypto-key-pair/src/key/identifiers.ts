@@ -1,5 +1,6 @@
 import { subtle } from '../crypto';
 import { base64url, base58 } from '../encoding';
+import { compress, expand } from '../compression/ec-compression';
 
 const canonicalize = JSON.stringify;
 
@@ -7,6 +8,33 @@ const crvToUvarint: any = {
   'P-256': '8024',
   'P-384': '8124',
   'P-521': '8224',
+};
+
+const uvarintToCrv: any = {
+  '8024': 'P-256',
+  '8124': 'P-384',
+  '8224': 'P-521',
+};
+
+export const getJwkFromMulticodec = (fingerprint: string) => {
+  const decoders: any = {
+    z: base58,
+    u: base64url,
+  };
+  const encoding = fingerprint[0];
+  const decoded = decoders[encoding].decode(fingerprint.substring(1));
+  const prefix = decoded.slice(0, 2);
+  const publicKey = decoded.slice(2);
+  const crv = uvarintToCrv[prefix.toString('hex')];
+  const expanded = expand(publicKey, crv);
+  const x = expanded.slice(0, expanded.length / 2);
+  const y = expanded.slice(expanded.length / 2);
+  return {
+    kty: 'EC',
+    crv,
+    x: base64url.encode(x),
+    y: base64url.encode(y),
+  };
 };
 
 export const getKid = async (jwk: any) => {
@@ -30,5 +58,7 @@ export const getMulticodec = async (jwk: any) => {
     list.push(Buffer.from(jwk.y, 'base64'));
   }
   const buffer = Buffer.concat(list);
-  return 'z' + base58.encode(buffer);
+
+  const compressed = compress(Uint8Array.from(buffer));
+  return 'z' + base58.encode(compressed);
 };
