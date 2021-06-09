@@ -2,7 +2,7 @@
   "name": "@transmute/compressable-bitstring",
   "author": "Orie Steele",
   "module": "dist/compressable-bitstring.esm.js",
-  "version": "0.6.1-unstable.31",
+  "version": "0.6.1-unstable.32",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
