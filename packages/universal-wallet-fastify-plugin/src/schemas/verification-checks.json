@@ -1,0 +1,20 @@
+{
+  "title": "Verification Checks",
+  "description": "The checks made on a verifiable credential",
+  "type": "object",
+  "properties": {
+    "checks": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "errors": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["checks", "warnings", "errors"]
+}

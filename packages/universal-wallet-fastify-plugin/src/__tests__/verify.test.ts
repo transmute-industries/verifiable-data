@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 import { getFastifyWithWalletOptions, walletOptions } from './utils';
 
 import { case0 as vc } from '../__fixtures__/verifiableCredentials';
@@ -34,6 +36,34 @@ test('POST `/accounts/123/credentials/verify`', async () => {
     warnings: [],
     errors: [],
   });
+});
+
+test('POST `/accounts/123/credentials/verify` with missing required field', async () => {
+  const vc2: any = _.cloneDeep(vc);
+  delete vc2.proof.created;
+  await api
+    .post('/accounts/123/credentials/verify')
+    .send({
+      verifiableCredential: vc2,
+      options: {
+        checks: ['proof'],
+      },
+    })
+    .expect(400);
+});
+
+test('should 400 with additional field not in context', async () => {
+  const vc2: any = _.cloneDeep(vc);
+  vc2.newProp = 'foo';
+  await api
+  .post('/accounts/123/credentials/verify')
+  .send({
+    verifiableCredential: vc2,
+    options: {
+      checks: ['proof'],
+    },
+  })
+  .expect(400);
 });
 
 test('POST `/accounts/123/presentations/verify`', async () => {

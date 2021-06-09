@@ -1,4 +1,6 @@
 import { getSuiteMap } from '../getSuiteMap';
+import vcSchema from '../schemas/verifiable-credential.json';
+import verificationChecksSchema from '../schemas/verification-checks.json';
 
 export default (options: any) => {
   return (fastify: any) => {
@@ -6,14 +8,22 @@ export default (options: any) => {
       `/:${options.walletId}/credentials/verify`,
       {
         preValidation: options.hooks ? options.hooks.preValidation : [],
-        // schema: {
-        //   tags: ['Verifier'],
-        //   summary: 'verifyCredential',
-        //   description: 'Verify a Verifiable Credential',
-        //   response: {
-        //     200: VerificationChecks,
-        //   },
-        // },
+        schema: {
+          tags: ['Verifier'],
+          summary: 'verifyCredential',
+          description: 'Verify a Verifiable Credential',
+          body: {
+            title: 'Verifiable Credential',
+            description: 'A Verifiable Credential',
+            type: 'object',
+            properties: {
+              verifiableCredential: vcSchema,
+            },
+          },
+          response: {
+            200: verificationChecksSchema,
+          },
+        },
       },
       async (request: any, reply: any) => {
         const wallet = await fastify.wallet.get(
@@ -53,6 +63,17 @@ export default (options: any) => {
           reply.status(200).send(res);
         } catch (e) {
           console.error(e);
+          if (
+            e.message.startsWith('credential is not valid JSON-LD') ||
+            e.message.startsWith('"issuer" id must be a URL')
+          ) {
+            const res: any = {
+              checks: [],
+              warnings: [],
+              errors: [],
+            };
+            reply.status(400).send(res);
+          }
           throw e;
         }
       }
