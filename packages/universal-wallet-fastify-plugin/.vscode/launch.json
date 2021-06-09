@@ -9,8 +9,7 @@
         "--inspect-brk",
         "${workspaceRoot}/node_modules/tsdx/dist/index.js",
         "test",
-        "--runInBand",
-        "vc-vp-university-flow"
+        "--runInBand"
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
