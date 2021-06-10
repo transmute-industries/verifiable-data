@@ -57,7 +57,7 @@ export default (options: any) => {
 
           if (!verification.verified) {
             res.errors.push('proof');
-            reply.status(400);
+            reply.status(400).send(res);
           }
 
           reply.status(200).send(res);
