@@ -1,5 +1,6 @@
 import { getSuiteMap } from '../getSuiteMap';
 import vcSchema from '../schemas/verifiable-credential.json';
+import vpSchema from '../schemas/verifiable-presentation.json';
 import verificationChecksSchema from '../schemas/verification-checks.json';
 
 export default (options: any) => {
@@ -13,8 +14,8 @@ export default (options: any) => {
           summary: 'verifyCredential',
           description: 'Verify a Verifiable Credential',
           body: {
-            title: 'Verifiable Credential',
-            description: 'A Verifiable Credential',
+            title: 'Verifiable Credential Request',
+            description: 'A request to verify a Verifiable Credential',
             type: 'object',
             properties: {
               verifiableCredential: vcSchema,
@@ -83,14 +84,23 @@ export default (options: any) => {
       `/:${options.walletId}/presentations/verify`,
       {
         preValidation: options.hooks ? options.hooks.preValidation : [],
-        // schema: {
-        //   tags: ['Verifier'],
-        //   summary: 'verifyPresentation',
-        //   description: 'Verify a Verifiable Presentation',
-        //   response: {
-        //     200: VerificationChecks,
-        //   },
-        // },
+        schema: {
+          tags: ['Verifier'],
+          summary: 'verifyPresentation',
+          description: 'Verify a Verifiable Presentation',
+          body: {
+            title: 'Verify Presentation Request',
+            description: 'A request to verify a Verifiable Presentation',
+            type: 'object',
+            properties: {
+              verifiablePresentation: vpSchema,
+            },
+            required: ["verifiablePresentation"],
+          },
+          response: {
+            200: verificationChecksSchema,
+          },
+        },
       },
       async (request: any, reply: any) => {
         const wallet = await fastify.wallet.get(
