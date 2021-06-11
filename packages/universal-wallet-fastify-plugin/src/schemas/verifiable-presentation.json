@@ -1,0 +1,16 @@
+{
+  "title": "Verifable Presentation",
+  "description": "A Verifable Presentation",
+  "type": "object",
+  "properties": {
+    "@context": {},
+    "type": {},
+    "holder": {},
+    "verifiableCredential": {
+      "type": "array",
+      "items": {}
+    },
+    "proof": {}
+  },
+  "additionalProperties": false
+}
