@@ -135,48 +135,44 @@ const getAlg = async (cryptoKey: CryptoKey) => {
   }
 };
 
-export const getJwsSigner = async (
-  cryptoKey: CryptoKey
-): Promise<JwsSigner> => {
-  const signer = await getRawSigner(cryptoKey);
-  const alg = await getAlg(cryptoKey);
+export const getJwsSigner = (cryptoKey: CryptoKey): JwsSigner => {
   return {
     sign: async ({ data }: JwsSignerOptions) => {
+      const signer = await getRawSigner(cryptoKey);
+      const alg = await getAlg(cryptoKey);
       return createJws(signer, data, { alg });
     },
   };
 };
 
-export const getDetachedJwsSigner = async (
+export const getDetachedJwsSigner = (
   cryptoKey: CryptoKey
-): Promise<DetachedJwsSigner> => {
-  const signer = await getRawSigner(cryptoKey);
-  const alg = await getAlg(cryptoKey);
+): DetachedJwsSigner => {
   return {
     sign: async ({ data }: DetachedJwsSignerOptions) => {
+      const signer = await getRawSigner(cryptoKey);
+      const alg = await getAlg(cryptoKey);
       return createDetachedJws(signer, data, { alg });
     },
   };
 };
 
-export const getJwsVerifier = async (
-  cryptoKey: CryptoKey
-): Promise<JwsVerifier> => {
-  const verifier = await getRawVerifier(cryptoKey);
+export const getJwsVerifier = (cryptoKey: CryptoKey): JwsVerifier => {
   return {
     verify: async ({ signature }: JwsVerifierOptions) => {
-      return verifyJws(verifier, signature);
+      const verifier = await getRawVerifier(cryptoKey);
+      return verifyJws(verifier, signature.toString());
     },
   };
 };
 
-export const getDetachedJwsVerifier = async (
+export const getDetachedJwsVerifier = (
   cryptoKey: CryptoKey
-): Promise<DetachedJwsVerifier> => {
-  const verifier = await getRawVerifier(cryptoKey);
+): DetachedJwsVerifier => {
   return {
     verify: async ({ data, signature }: DetachedJwsVerifierOptions) => {
-      return verifyDetachedJws(verifier, data, signature);
+      const verifier = await getRawVerifier(cryptoKey);
+      return verifyDetachedJws(verifier, data, signature.toString());
     },
   };
 };

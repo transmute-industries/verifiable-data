@@ -2,7 +2,11 @@ import * as ed25519 from '@stablelib/ed25519';
 import { getMultibaseFingerprintFromPublicKeyBytes } from './getMultibaseFingerprintFromPublicKeyBytes';
 
 import { JsonWebKey2020, Ed25519VerificationKey2018 } from './types';
-import { LdKeyPairStatic, LdKeyPairInstance } from '@transmute/ld-key-pair';
+import {
+  LdKeyPairStatic,
+  LdKeyPairInstance,
+  staticImplements,
+} from '@transmute/ld-key-pair';
 import { importableTypes } from './importFrom';
 import { exportableTypes } from './exportAs';
 import { base58 } from './encoding';
@@ -14,12 +18,6 @@ import {
 import { suiteTypes } from './suites';
 
 import { X25519KeyPair } from '@transmute/x25519-key-pair';
-/* class decorator */
-function staticImplements<T>() {
-  return <U extends T>(constructor: U) => {
-    constructor;
-  };
-}
 
 @staticImplements<LdKeyPairStatic>()
 export class Ed25519KeyPair implements LdKeyPairInstance {

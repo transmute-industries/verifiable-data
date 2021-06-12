@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "@peculiar/webcrypto": "^1.1.6",
+    "@transmute/ld-key-pair": "^0.6.1-unstable.34",
     "big-integer": "^1.6.48"
   }
 }

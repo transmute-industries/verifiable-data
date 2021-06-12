@@ -8,13 +8,20 @@ import { fingerprintToJsonWebKey2020 } from './fingerprintToJsonWebKey2020';
 import { Bls12381G1KeyPair as MattrBls12381G1KeyPair } from '@mattrglobal/bls12381-key-pair';
 
 import {
+  LdKeyPairStatic,
+  LdKeyPairInstance,
+  staticImplements,
+} from '@transmute/ld-key-pair';
+
+import {
   MULTIBASE_ENCODED_BASE58_IDENTIFIER,
   VARIABLE_INTEGER_TRAILING_BYTE,
   BLS12381G1_MULTICODEC_IDENTIFIER,
 } from './constants';
 import { base58 } from './encoding';
 
-export class Bls12381G1KeyPair {
+@staticImplements<LdKeyPairStatic>()
+export class Bls12381G1KeyPair implements LdKeyPairInstance {
   public id: string;
   public type: string = 'JsonWebKey2020';
   public controller: string;
@@ -94,7 +101,7 @@ export class Bls12381G1KeyPair {
     return `${MULTIBASE_ENCODED_BASE58_IDENTIFIER}${base58.encode(buffer)}`;
   }
 
-  export(
+  async export(
     options: {
       privateKey?: boolean;
       type: 'JsonWebKey2020' | 'Bls12381G1Key2020';
@@ -102,7 +109,7 @@ export class Bls12381G1KeyPair {
       privateKey: false,
       type: 'JsonWebKey2020',
     }
-  ): JsonWebKey2020 | Bls12381G1Key2020 {
+  ): Promise<JsonWebKey2020 | Bls12381G1Key2020> {
     if (exportableTypes[options.type]) {
       return exportableTypes[options.type](
         BlsCurveName.G1,
@@ -115,10 +122,10 @@ export class Bls12381G1KeyPair {
     throw new Error('Unsupported export options: ' + JSON.stringify(options));
   }
 
-  signer(type: 'Bbs' = 'Bbs') {
+  signer(type: 'Bbs' = 'Bbs'): any {
     throw new Error('Not implemented for ' + type);
   }
-  verifier(type: 'Bbs' = 'Bbs') {
+  verifier(type: 'Bbs' = 'Bbs'): any {
     throw new Error('Not implemented for ' + type);
   }
 

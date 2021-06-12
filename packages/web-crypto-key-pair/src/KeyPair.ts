@@ -1,3 +1,9 @@
+import {
+  LdKeyPairStatic,
+  LdKeyPairInstance,
+  staticImplements,
+} from '@transmute/ld-key-pair';
+
 import * as key from './key';
 import {
   deriveBitsFromJsonWebKey2020,
@@ -16,7 +22,9 @@ import {
 import { getMulticodec, getJwkFromMulticodec } from './key/identifiers';
 import { getJwkFromCryptoKey } from './key';
 import { exportableTypes } from './exportAs';
-export class KeyPair {
+
+@staticImplements<LdKeyPairStatic>()
+export class KeyPair implements LdKeyPairInstance {
   public id: string;
   public type: string = 'JsonWebKey2020';
   public controller: string;

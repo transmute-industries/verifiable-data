@@ -1,4 +1,11 @@
 import secp256k1 from 'secp256k1';
+
+import {
+  LdKeyPairStatic,
+  LdKeyPairInstance,
+  staticImplements,
+} from '@transmute/ld-key-pair';
+
 import { base58 } from './encoding';
 
 import {
@@ -28,7 +35,8 @@ const _generate = async (secureRandom: () => Uint8Array) => {
   return { publicKey, privateKey: new Uint8Array(privateKey) };
 };
 
-export class Secp256k1KeyPair {
+@staticImplements<LdKeyPairStatic>()
+export class Secp256k1KeyPair implements LdKeyPairInstance {
   public id: string;
   public type: string = 'JsonWebKey2020';
   public controller: string;
@@ -147,7 +155,7 @@ export class Secp256k1KeyPair {
     return secp256k1.ecdh(remote.publicKey, this.privateKey);
   }
 
-  export(
+  async export(
     options: {
       privateKey?: boolean;
       type:
@@ -158,10 +166,11 @@ export class Secp256k1KeyPair {
       privateKey: false,
       type: 'JsonWebKey2020',
     }
-  ):
+  ): Promise<
     | JsonWebKey2020
     | EcdsaSecp256k1VerificationKey2020
-    | EcdsaSecp256k1VerificationKey2019 {
+    | EcdsaSecp256k1VerificationKey2019
+  > {
     if (exportableTypes[options.type]) {
       return exportableTypes[options.type](
         this.id,

@@ -57,6 +57,7 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "@stablelib/x25519": "^1.0.0"
+    "@stablelib/x25519": "^1.0.0",
+    "@transmute/ld-key-pair": "^0.6.1-unstable.34"
   }
 }
