@@ -95,7 +95,7 @@ export default (options: any) => {
             properties: {
               verifiablePresentation: vpSchema,
             },
-            required: ["verifiablePresentation"],
+            required: ['verifiablePresentation'],
           },
           response: {
             200: verificationChecksSchema,

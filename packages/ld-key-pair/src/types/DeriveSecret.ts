@@ -1,5 +1,5 @@
 export type DeriveSecret = ({
-  publicKey,
+  publicKey
 }: {
   publicKey: any;
 }) => Promise<Uint8Array>;

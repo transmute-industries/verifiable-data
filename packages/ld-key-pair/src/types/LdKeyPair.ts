@@ -11,7 +11,7 @@ export interface LdKeyPairInstance {
   fingerprint(): Promise<string>;
   export({
     type,
-    privateKey,
+    privateKey
   }: {
     type: any;
     privateKey?: boolean;
@@ -23,6 +23,7 @@ export interface LdKeyPairInstance {
 
 export function staticImplements<T>() {
   return <U extends T>(constructor: U) => {
+    //eslint-disable-next-line
     constructor;
   };
 }
