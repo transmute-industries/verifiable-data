@@ -4,7 +4,7 @@ import { JsonWebKey2020, Bls12381G1Key2020, BlsCurveName } from './types';
 
 import { importableTypes } from './importFrom';
 import { exportableTypes } from './exportAs';
-
+import { fingerprintToJsonWebKey2020 } from './fingerprintToJsonWebKey2020';
 import { Bls12381G1KeyPair as MattrBls12381G1KeyPair } from '@mattrglobal/bls12381-key-pair';
 
 import {
@@ -62,6 +62,11 @@ export class Bls12381G1KeyPair {
       privateKey,
     });
   };
+
+  static async fromFingerprint({ fingerprint }: { fingerprint: string }) {
+    const { bls12381G1KeyPair } = fingerprintToJsonWebKey2020(fingerprint);
+    return Bls12381G1KeyPair.from(bls12381G1KeyPair);
+  }
 
   constructor(opts: {
     id: string;

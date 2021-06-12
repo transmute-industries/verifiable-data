@@ -35,7 +35,7 @@ export class Ed25519KeyPair {
     }
     const nk = new X25519KeyPair({
       id: '',
-      type: 'X25519KeyAgreementKey2018',
+      type: 'X25519KeyAgreementKey2019',
       controller: kp.controller,
       publicKey,
       privateKey,
