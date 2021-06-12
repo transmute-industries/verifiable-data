@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "@stablelib/ed25519": "^1.0.1",
+    "@transmute/ld-key-pair": "^0.6.1-unstable.34",
     "@transmute/x25519-key-pair": "^0.6.1-unstable.34"
   }
 }

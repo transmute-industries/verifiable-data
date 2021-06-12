@@ -1,3 +1,7 @@
+import {
+  LdVerificationMethod,
+  PublicNodeWithPublicKeyJwk,
+} from '@transmute/ld-key-pair';
 const signer = [
   'assertionMethod',
   'authentication',
@@ -30,10 +34,12 @@ const relationships: any = {
   EcdsaSecp256k1VerificationKey2019: [...signer, ...deriveSecret],
 };
 
-export const getRelationships = (vm: any) => {
+export const getRelationships = (vm: LdVerificationMethod) => {
   const index =
     vm.type === 'JsonWebKey2020'
-      ? `${vm.publicKeyJwk.kty} ${vm.publicKeyJwk.crv}`
+      ? `${(vm as PublicNodeWithPublicKeyJwk).publicKeyJwk.kty} ${
+          (vm as PublicNodeWithPublicKeyJwk).publicKeyJwk.crv
+        }`
       : vm.type;
   return [...(relationships[index] || [])];
 };

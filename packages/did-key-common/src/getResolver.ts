@@ -4,7 +4,8 @@ import { factory, DidDocument } from '@did-core/data-model';
 import { representation } from '@did-core/did-ld-json';
 import { getContext } from './getContext';
 import { documentLoader } from './documentLoader';
-export const getResolver = (KeyPairClass: any) => {
+import { LdKeyPairStatic } from '@transmute/ld-key-pair';
+export const getResolver = (KeyPairClass: LdKeyPairStatic) => {
   return async (
     did: string,
     options: ResolutionOptions = { accept: 'application/did+ld+json' }

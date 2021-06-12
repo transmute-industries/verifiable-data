@@ -1,7 +1,12 @@
 import { DidDocument, DidDocumentRepresentation } from './types';
 import { getRelationships } from './getRelationships';
 import { publicKeyJwkToSecurityVocabType } from './publicKeyJwkToSecurityVocabType';
-
+import {
+  LdKeyPairStatic,
+  LdKeyPairInstance,
+  LdVerificationMethod,
+  PublicNodeWithPublicKeyJwk,
+} from '@transmute/ld-key-pair';
 const publicKeyJwkToLatestSecurityVocabType = (jwk: any) => {
   const type = publicKeyJwkToSecurityVocabType[`${jwk.kty} ${jwk.crv}`];
   if (!type) {
@@ -13,15 +18,19 @@ const publicKeyJwkToLatestSecurityVocabType = (jwk: any) => {
   return type;
 };
 
-const handleSnowFlakes = async (vms: any[], KeyPair: any) => {
+const handleSnowFlakes = async (
+  vms: LdVerificationMethod[],
+  KeyPair: LdKeyPairStatic
+) => {
   let all = [...vms];
   for (const vm of vms) {
     if (
       vm.type === 'Ed25519VerificationKey2018' ||
-      (vm.publicKeyJwk && vm.publicKeyJwk.crv === 'Ed25519')
+      ((vm as PublicNodeWithPublicKeyJwk).publicKeyJwk &&
+        (vm as PublicNodeWithPublicKeyJwk).publicKeyJwk.crv === 'Ed25519')
     ) {
       const k0 = await KeyPair.from(vm);
-      const k1 = await KeyPair.toX25519KeyPair(k0);
+      const k1 = await (KeyPair as any).toX25519KeyPair(k0);
       const k2 = await k1.export({
         type:
           vm.type === 'Ed25519VerificationKey2018'
@@ -35,9 +44,9 @@ const handleSnowFlakes = async (vms: any[], KeyPair: any) => {
 };
 
 const getDidDocumentVerificationMethods = async (
-  keys: any[],
-  representation: any,
-  KeyPair: any
+  keys: LdKeyPairInstance[],
+  representation: DidDocumentRepresentation,
+  KeyPair: LdKeyPairStatic
 ) => {
   const basic = await Promise.all(
     keys.map(async key => {
@@ -56,14 +65,17 @@ const getDidDocumentVerificationMethods = async (
 };
 
 // need to account for multiple key fingerprints
-const fingerprintToKeys = async (KeyPair: any, fingerprint: string) => {
+const fingerprintToKeys = async (
+  KeyPair: LdKeyPairStatic,
+  fingerprint: string
+) => {
   const key = await KeyPair.fromFingerprint({
     fingerprint,
   });
   return Array.isArray(key) ? key : [key];
 };
 
-const inferRelationships = (verificationMethod: any[]) => {
+const inferRelationships = (verificationMethod: LdVerificationMethod[]) => {
   const relationships: any = {};
   verificationMethod.forEach(vm => {
     const types = getRelationships(vm);
@@ -78,7 +90,7 @@ const inferRelationships = (verificationMethod: any[]) => {
 
 export const getDidDocument = async (
   did: string,
-  KeyPair: any,
+  KeyPair: LdKeyPairStatic,
   representation: DidDocumentRepresentation
 ): Promise<DidDocument> => {
   const fingerprint = did.split(':')[2].split('#')[0];
