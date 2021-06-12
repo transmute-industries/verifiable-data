@@ -16,6 +16,7 @@ export const getResolver = (KeyPairClass: any) => {
     );
 
     const context = getContext(didDocumentEntries);
+    // console.log(JSON.stringify(context, null));
 
     const didDocument: DidDocument = factory.build({
       entries: {

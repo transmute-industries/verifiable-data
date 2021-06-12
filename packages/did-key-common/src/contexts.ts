@@ -17,4 +17,10 @@ export const contexts: any = {
   [sc.constants.BLS12381_2020_V1_URL]: sc.contexts.get(
     sc.constants.BLS12381_2020_V1_URL
   ),
+  [sc.constants.MULTIKEY_2021_V1_URL]: sc.contexts.get(
+    sc.constants.MULTIKEY_2021_V1_URL
+  ),
+  [sc.constants.SECP256k1_2019_v1_URL]: sc.contexts.get(
+    sc.constants.SECP256k1_2019_v1_URL
+  ),
 };

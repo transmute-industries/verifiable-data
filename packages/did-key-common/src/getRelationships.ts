@@ -18,6 +18,16 @@ const relationships: any = {
   'EC BLS12381_G2': [...signer],
   Bls12381G1Key2020: [...signer],
   Bls12381G2Key2020: [...signer],
+
+  'EC P-256': [...signer, ...deriveSecret],
+  'EC P-384': [...signer, ...deriveSecret],
+  'EC P-521': [...signer, ...deriveSecret],
+  P256Key2021: [...signer, ...deriveSecret],
+  P384Key2021: [...signer, ...deriveSecret],
+  P521Key2021: [...signer, ...deriveSecret],
+
+  'EC secp256k1': [...signer, ...deriveSecret],
+  EcdsaSecp256k1VerificationKey2019: [...signer, ...deriveSecret],
 };
 
 export const getRelationships = (vm: any) => {
