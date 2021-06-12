@@ -6,6 +6,13 @@
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/cbor-ld",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
+    "directory": "packages/cbor-ld"
+  },
+  "gitHead": "37f52c102233963d1369862e104df87dd4c5d063",
   "publishConfig": {
     "access": "public"
   },
@@ -64,12 +71,5 @@
     "cbor": "^7.0.5",
     "cbor-web": "^7.0.5",
     "uuid": "^8.3.2"
-  },
-  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/cbor-ld",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/transmute-industries/verifiable-data.git",
-    "directory": "packages/cbor-ld"
-  },
-  "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
+  }
 }
