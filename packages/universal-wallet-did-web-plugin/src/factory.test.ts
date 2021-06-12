@@ -1,5 +1,7 @@
 import { pluginFactory } from "./factory";
 
+jest.setTimeout(10 * 1000);
+
 it("can build a didWebWallet with defaults", async () => {
   const wallet = pluginFactory.build();
   expect(wallet.didDocuments).toBeDefined();
@@ -19,6 +21,6 @@ it("can generate", async () => {
     "did:web:example.com:organizations:123#key-2",
     "did:web:example.com:organizations:123#key-3",
     "did:web:example.com:organizations:123#key-4",
-    "did:web:example.com:organizations:123#key-5"
+    "did:web:example.com:organizations:123#key-5",
   ]);
 });

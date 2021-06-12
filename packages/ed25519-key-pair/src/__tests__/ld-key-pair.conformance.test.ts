@@ -101,7 +101,7 @@ it('fromFingerprint', async () => {
   const kn = await Ed25519KeyPair.fromFingerprint({
     fingerprint: 'z6MknEe43MdJM5beyaMQcMoDXYmakzoxBiE9hpvkyhkN1naX',
   });
-  const kx = kn.export({ type: 'JsonWebKey2020' });
+  const kx = await kn.export({ type: 'JsonWebKey2020' });
   expect(kx).toEqual({
     id:
       'did:key:z6MknEe43MdJM5beyaMQcMoDXYmakzoxBiE9hpvkyhkN1naX#z6MknEe43MdJM5beyaMQcMoDXYmakzoxBiE9hpvkyhkN1naX',
