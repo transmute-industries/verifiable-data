@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "@bitauth/libauth": "^1.18.1",
+    "@transmute/ld-key-pair": "^0.6.1-unstable.34",
     "secp256k1": "^4.0.2"
   }
 }

@@ -1,13 +1,19 @@
 {
   "@context": {
-    "privateKeyJwk": "https://w3id.org/security#privateKeyJwk",
+    "privateKeyJwk": {
+      "@id": "https://w3id.org/security#privateKeyJwk",
+      "@type": "@json"
+    },
     "JsonWebKey2020": {
       "@id": "https://w3id.org/security#JsonWebKey2020",
       "@context": {
         "@protected": true,
         "id": "@id",
         "type": "@type",
-        "publicKeyJwk": "https://w3id.org/security#publicKeyJwk"
+        "publicKeyJwk": {
+          "@id": "https://w3id.org/security#publicKeyJwk",
+          "@type": "@json"
+        }
       }
     },
     "JsonWebSignature2020": {

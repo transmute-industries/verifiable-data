@@ -8,7 +8,7 @@ it('p-256', async () => {
     y: 'efsX5b10x8yjyrj4ny3pGfLcY7Xby1KzgqOdqnsrJIM',
   };
   const calc = await getMulticodec(jwk);
-  const id = 'z5bDBRqwwHdvUZ7bd8v8NVbj9VzSitbaS2EePrn3PwBr8nR';
+  const id = 'zDnaerx9CtbPJ1q36T5Ln5wYt3MQYeGRG5ehnPAmxcf5mDZpv';
   expect(calc).toBe(id);
 });
 
@@ -20,7 +20,7 @@ it('p-256 2', async () => {
     y: 'hW2ojTNfH7Jbi8--CJUo3OCbH3y5n91g-IMA9MLMbTU',
   };
   const calc = await getMulticodec(jwk);
-  const id = 'z5bDBGCcz7d4ueXQqjNauwY8VjE3mkGaEfvTVxRXgQsChxg';
+  const id = 'zDnaerDaTF5BXEavCrfRZEk316dpbLsfPDZ3WJ5hRTPFU2169';
   expect(calc).toBe(id);
 });
 
@@ -28,12 +28,12 @@ it('p-384', async () => {
   const jwk = {
     kty: 'EC',
     crv: 'P-384',
-    x: 'lInTxl8fjLKp_UCrxI0WDklahi-7-_6JbtiHjiRvMvhedhKVdHBfi2HCY8t_QJyc',
-    y: 'y6N1IC-2mXxHreETBW7K3mBcw0qGr3CWHCs-yl09yCQRLcyfGv7XhqAngHOu51Zv',
+    x: 'CA-iNoHDg1lL8pvX3d1uvExzVfCz7Rn6tW781Ub8K5MrDf2IMPyL0RTDiaLHC1JT',
+    y: 'Kpnrn8DkXUD3ge4mFxi-DKr0DYO2KuJdwNBrhzLRtfMa3WFMZBiPKUPfJj8dYNl_',
   };
   const calc = await getMulticodec(jwk);
   const id =
-    'z3WFpGi5KxG376emVsW1yELgwp7zAYHNJUnr9qL13fE4xiwvTSqfKPP3KiMh6boCyf3j1';
+    'z82LkvCwHNreneWpsgPEbV3gu1C6NFJEBg4srfJ5gdxEsMGRJUz2sG9FE42shbn2xkZJh54';
   expect(calc).toBe(id);
 });
 
@@ -48,6 +48,6 @@ it('p-521', async () => {
   };
   const calc = await getMulticodec(jwk);
   const id =
-    'zL2wxdRRkLgCFfATzuBHzzxkRuHZFKhsSEWHfVWkftHunRdDURFVBGKacPiXykrgmNKSfKo4ynjG3Sr7PRUGfCLaVgu8F';
+    'z2J9gaYxrKVpdoG9A4gRnmpnRCcxU6agDtFVVBVdn1JedouoZN7SzcyREXXzWgt3gGiwpoHq7K68X4m32D8HgzG8wv3sY5j7';
   expect(calc).toBe(id);
 });

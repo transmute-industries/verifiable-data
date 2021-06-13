@@ -56,14 +56,14 @@ test('should 400 with additional field not in context', async () => {
   const vc2: any = _.cloneDeep(vc);
   vc2.newProp = 'foo';
   await api
-  .post('/accounts/123/credentials/verify')
-  .send({
-    verifiableCredential: vc2,
-    options: {
-      checks: ['proof'],
-    },
-  })
-  .expect(400);
+    .post('/accounts/123/credentials/verify')
+    .send({
+      verifiableCredential: vc2,
+      options: {
+        checks: ['proof'],
+      },
+    })
+    .expect(400);
 });
 
 test('POST `/accounts/123/presentations/verify`', async () => {

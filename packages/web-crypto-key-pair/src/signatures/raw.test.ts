@@ -11,8 +11,8 @@ for (let c in keys) {
         publicKey,
         privateKey,
       } = await getCryptoKeyPairFromJsonWebKey2020(k);
-      const signer = await getSigner(privateKey as CryptoKey);
-      const verifier = await getVerifier(publicKey as CryptoKey);
+      const signer = getSigner(privateKey as CryptoKey);
+      const verifier = getVerifier(publicKey as CryptoKey);
       const message = Buffer.from('hello');
       const signature = await signer.sign({ data: message });
       const verified = await verifier.verify({ data: message, signature });
@@ -30,17 +30,25 @@ for (let c in keys) {
       expect(verified).toBe(true);
     });
 
-    it('should throw if verification', async () => {
+    it('should throw if verification method contains private key', async () => {
+      expect.assertions(1);
+      const signer = getSigner(k);
+      const verifier = getVerifier(k, { ignorePrivateKey: false });
+      const message = Buffer.from('hello');
+      const signature = await signer.sign({ data: message });
       try {
-        await getVerifier(k);
+        await verifier.verify({
+          data: Buffer.from('bye'),
+          signature,
+        });
       } catch (e) {
         expect(e.message).toBe('verification method contained private key!');
       }
     });
 
     it('should throw if tampered', async () => {
-      const signer = await getSigner(k);
-      const verifier = await getVerifier(k, { ignorePrivateKey: true });
+      const signer = getSigner(k);
+      const verifier = getVerifier(k, { ignorePrivateKey: true });
       const message = Buffer.from('hello');
       const signature = await signer.sign({ data: message });
       const verified = await verifier.verify({

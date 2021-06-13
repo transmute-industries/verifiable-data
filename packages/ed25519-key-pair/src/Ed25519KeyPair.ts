@@ -2,7 +2,11 @@ import * as ed25519 from '@stablelib/ed25519';
 import { getMultibaseFingerprintFromPublicKeyBytes } from './getMultibaseFingerprintFromPublicKeyBytes';
 
 import { JsonWebKey2020, Ed25519VerificationKey2018 } from './types';
-
+import {
+  LdKeyPairStatic,
+  LdKeyPairInstance,
+  staticImplements,
+} from '@transmute/ld-key-pair';
 import { importableTypes } from './importFrom';
 import { exportableTypes } from './exportAs';
 import { base58 } from './encoding';
@@ -15,7 +19,8 @@ import { suiteTypes } from './suites';
 
 import { X25519KeyPair } from '@transmute/x25519-key-pair';
 
-export class Ed25519KeyPair {
+@staticImplements<LdKeyPairStatic>()
+export class Ed25519KeyPair implements LdKeyPairInstance {
   public id: string;
   public type: string = 'JsonWebKey2020';
   public controller: string;
@@ -35,7 +40,7 @@ export class Ed25519KeyPair {
     }
     const nk = new X25519KeyPair({
       id: '',
-      type: 'X25519KeyAgreementKey2018',
+      type: 'X25519KeyAgreementKey2019',
       controller: kp.controller,
       publicKey,
       privateKey,
@@ -119,7 +124,7 @@ export class Ed25519KeyPair {
     return getMultibaseFingerprintFromPublicKeyBytes(this.publicKey);
   }
 
-  export(
+  async export(
     options: {
       privateKey?: boolean;
       type: 'JsonWebKey2020' | 'Ed25519VerificationKey2018';
@@ -127,7 +132,7 @@ export class Ed25519KeyPair {
       privateKey: false,
       type: 'JsonWebKey2020',
     }
-  ): JsonWebKey2020 | Ed25519VerificationKey2018 {
+  ): Promise<JsonWebKey2020 | Ed25519VerificationKey2018> {
     if (exportableTypes[options.type]) {
       return exportableTypes[options.type](
         this.id,
@@ -156,6 +161,10 @@ export class Ed25519KeyPair {
       return suiteTypes[type].verifier(this.publicKey);
     }
     throw new Error('Unsupported suite type ' + type);
+  }
+
+  async getDerivedKeyPairs() {
+    return [this, await Ed25519KeyPair.toX25519KeyPair(this)];
   }
 
   async toJsonWebKeyPair(exportPrivateKey = false) {

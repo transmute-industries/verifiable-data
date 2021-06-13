@@ -3,31 +3,36 @@ import { JsonWebKey2020, Verifier, VerifierOptions } from '../types';
 
 import { getCryptoKeyFromJsonWebKey2020 } from '../key/getCryptoKeyFromJsonWebKey2020';
 
-import { getSignaturOptionsFromCryptoKey } from './getSignaturOptionsFromCryptoKey';
+import { getSignatureOptionsFromCryptoKey } from './getSignatureOptionsFromCryptoKey';
 
-export const getVerifier = async (
+export const getVerifier = (
   k: JsonWebKey2020 | CryptoKey,
   opts = { ignorePrivateKey: false }
-): Promise<Verifier> => {
-  let cryptoKey = k as CryptoKey;
-  if (k.type === 'JsonWebKey2020') {
-    if (k.privateKeyJwk) {
-      if (!opts.ignorePrivateKey) {
-        throw new Error('verification method contained private key!');
-      }
-      delete k.privateKeyJwk;
-    }
-    cryptoKey = await getCryptoKeyFromJsonWebKey2020(k);
-  }
-
+): Verifier => {
   return {
-    verify: async (opts: VerifierOptions): Promise<boolean> => {
-      const verified = await subtle.verify(
-        getSignaturOptionsFromCryptoKey(cryptoKey),
-        cryptoKey,
-        opts.signature,
-        opts.data
-      );
+    verify: async ({ signature, data }: VerifierOptions): Promise<boolean> => {
+      let cryptoKey = k as CryptoKey;
+      if (k.type === 'JsonWebKey2020') {
+        if (k.privateKeyJwk) {
+          if (!opts.ignorePrivateKey) {
+            throw new Error('verification method contained private key!');
+          }
+        }
+        cryptoKey = await getCryptoKeyFromJsonWebKey2020(k);
+      }
+      let verified = false;
+      try {
+        verified = await subtle.verify(
+          getSignatureOptionsFromCryptoKey(cryptoKey),
+          cryptoKey,
+          signature,
+          data
+        );
+      } catch (e) {
+        // do nothing
+        // console.warn(signature, data, e);
+      }
+
       return verified;
     },
   };

@@ -91,8 +91,12 @@ export class Cipher {
       recipients.map(e => publicKeyResolver(e.header.kid))
     );
     // derive ephemeral ECDH key pair to use with all recipients
-    const epk = (
+    const epk = await (
       await this.KeyPairClass.generate({
+        // TODO: we need extra arguemnts to handle EPK generation...
+        // P-384 is the default.
+        kty: 'EC',
+        crvOrSize: 'P-384',
         secureRandom: () => {
           return crypto.getRandomValues(new Uint8Array(32));
         },

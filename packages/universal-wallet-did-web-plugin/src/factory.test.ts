@@ -1,5 +1,7 @@
 import { pluginFactory } from "./factory";
 
+jest.setTimeout(10 * 1000);
+
 it("can build a didWebWallet with defaults", async () => {
   const wallet = pluginFactory.build();
   expect(wallet.didDocuments).toBeDefined();

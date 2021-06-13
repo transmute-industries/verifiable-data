@@ -4,6 +4,12 @@
   "description": "Linked Data Key Pair Interfaces, common methods, and tests",
   "author": "mprorock@mesur.io",
   "license": "Apache-2.0",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/ld-key-pair",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
+    "directory": "packages/ld-key-pair"
+  },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "publishConfig": {

@@ -10,7 +10,7 @@ import {
   DetachedJwsVerifierOptions,
 } from '../types';
 
-import { getSignaturOptionsFromCryptoKey } from './getSignaturOptionsFromCryptoKey';
+import { getSignatureOptionsFromCryptoKey } from './getSignatureOptionsFromCryptoKey';
 
 import { getSigner as getRawSigner } from './getSigner';
 import { getVerifier as getRawVerifier } from './getVerifier';
@@ -30,7 +30,9 @@ export const getJwaAlgFromJwk = (jwk: any) => {
   if (jwk.kty === 'RSA') {
     return 'RS256';
   }
-  throw new Error('Unsupported jwk ' + JSON.stringify(jwk));
+  throw new Error(
+    'Unsupported getJwaAlgFromJwk for jwk: ' + JSON.stringify(jwk)
+  );
 };
 
 export const createJws = async (signer: any, payload: any, header: object) => {
@@ -99,7 +101,7 @@ export const verifyDetachedJws = async (
 };
 
 const getAlg = async (cryptoKey: CryptoKey) => {
-  const rawSignatureOptions: any = getSignaturOptionsFromCryptoKey(cryptoKey);
+  const rawSignatureOptions: any = getSignatureOptionsFromCryptoKey(cryptoKey);
 
   let alg = 'none';
 
@@ -135,47 +137,43 @@ const getAlg = async (cryptoKey: CryptoKey) => {
   }
 };
 
-export const getJwsSigner = async (
-  cryptoKey: CryptoKey
-): Promise<JwsSigner> => {
-  const signer = await getRawSigner(cryptoKey);
-  const alg = await getAlg(cryptoKey);
+export const getJwsSigner = (cryptoKey: CryptoKey): JwsSigner => {
   return {
     sign: async ({ data }: JwsSignerOptions) => {
+      const signer = getRawSigner(cryptoKey);
+      const alg = await getAlg(cryptoKey);
       return createJws(signer, data, { alg });
     },
   };
 };
 
-export const getDetachedJwsSigner = async (
+export const getDetachedJwsSigner = (
   cryptoKey: CryptoKey
-): Promise<DetachedJwsSigner> => {
-  const signer = await getRawSigner(cryptoKey);
-  const alg = await getAlg(cryptoKey);
+): DetachedJwsSigner => {
   return {
     sign: async ({ data }: DetachedJwsSignerOptions) => {
+      const signer = getRawSigner(cryptoKey);
+      const alg = await getAlg(cryptoKey);
       return createDetachedJws(signer, data, { alg });
     },
   };
 };
 
-export const getJwsVerifier = async (
-  cryptoKey: CryptoKey
-): Promise<JwsVerifier> => {
-  const verifier = await getRawVerifier(cryptoKey);
+export const getJwsVerifier = (cryptoKey: CryptoKey): JwsVerifier => {
   return {
     verify: async ({ signature }: JwsVerifierOptions) => {
+      const verifier = getRawVerifier(cryptoKey);
       return verifyJws(verifier, signature);
     },
   };
 };
 
-export const getDetachedJwsVerifier = async (
+export const getDetachedJwsVerifier = (
   cryptoKey: CryptoKey
-): Promise<DetachedJwsVerifier> => {
-  const verifier = await getRawVerifier(cryptoKey);
+): DetachedJwsVerifier => {
   return {
     verify: async ({ data, signature }: DetachedJwsVerifierOptions) => {
+      const verifier = getRawVerifier(cryptoKey);
       return verifyDetachedJws(verifier, data, signature);
     },
   };

@@ -14,13 +14,23 @@ export const kekFromEphemeralPeer = (KeyPairClass: any) => {
       publicKeyJwk: epk,
     };
 
-    const { publicKey } = await KeyPairClass.from(ephemeralPublicKey);
+    const epkPair = await KeyPairClass.from(ephemeralPublicKey);
 
     // safe to use IDs like in rfc7518 or does
     // https://tools.ietf.org/html/rfc7748#section-7 pose any issues?
 
     // "Party U Info"
-    const producerInfo = publicKey;
+    let producerInfo: Uint8Array = epkPair.publicKey;
+    if (epkPair.publicKey.extractable) {
+      const temp = await epkPair.export({ type: 'JsonWebKey2020' });
+      producerInfo = Uint8Array.from(
+        Buffer.concat([
+          Buffer.from(temp.publicKeyJwk.x, 'base64'),
+          Buffer.from(temp.publicKeyJwk.y, 'base64'),
+        ])
+      );
+    }
+
     // "Party V Info"
     const consumerInfo = Buffer.from(keyAgreementKey.id);
     // converts keys again....
@@ -28,6 +38,7 @@ export const kekFromEphemeralPeer = (KeyPairClass: any) => {
     const secret = await keyAgreementKey.deriveSecret({
       publicKey: ephemeralPublicKey,
     } as any);
+
     const keyData = await deriveKey({ secret, producerInfo, consumerInfo });
     return {
       kek: await KeyEncryptionKey.createKek({ keyData }),

@@ -1,4 +1,10 @@
 import * as x25519 from '@stablelib/x25519';
+import {
+  LdKeyPairStatic,
+  LdKeyPairInstance,
+  staticImplements,
+} from '@transmute/ld-key-pair';
+
 import { getMultibaseFingerprintFromPublicKeyBytes } from './getMultibaseFingerprintFromPublicKeyBytes';
 
 import { JsonWebKey2020, X25519KeyAgreementKey2019 } from './types';
@@ -10,7 +16,9 @@ import {
   X25519_MULTICODEC_IDENTIFIER,
   VARIABLE_INTEGER_TRAILING_BYTE,
 } from './constants';
-export class X25519KeyPair {
+
+@staticImplements<LdKeyPairStatic>()
+export class X25519KeyPair implements LdKeyPairInstance {
   public id: string;
   public type: string = 'JsonWebKey2020';
   public controller: string;
@@ -97,7 +105,7 @@ export class X25519KeyPair {
     return getMultibaseFingerprintFromPublicKeyBytes(this.publicKey);
   }
 
-  export(
+  async export(
     options: {
       privateKey?: boolean;
       type: 'JsonWebKey2020' | 'X25519KeyAgreementKey2019';
@@ -105,7 +113,7 @@ export class X25519KeyPair {
       privateKey: false,
       type: 'JsonWebKey2020',
     }
-  ): JsonWebKey2020 | X25519KeyAgreementKey2019 {
+  ): Promise<JsonWebKey2020 | X25519KeyAgreementKey2019> {
     if (exportableTypes[options.type]) {
       return exportableTypes[options.type](
         this.id,

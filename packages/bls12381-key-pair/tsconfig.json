@@ -6,6 +6,7 @@
     "lib": ["dom", "esnext"],
     "importHelpers": true,
     "resolveJsonModule": true,
+    "experimentalDecorators": true,
     // output .d.ts declaration files for consumers
     "declaration": true,
     // output .js.map sourcemap files for consumers

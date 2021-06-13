@@ -1,4 +1,4 @@
-export const getSignaturOptionsFromCryptoKey = (cryptoKey: CryptoKey) => {
+export const getSignatureOptionsFromCryptoKey = (cryptoKey: CryptoKey) => {
   if (
     (cryptoKey as any).algorithm.name === 'ECDSA' &&
     (cryptoKey as any).algorithm.namedCurve === 'P-256'

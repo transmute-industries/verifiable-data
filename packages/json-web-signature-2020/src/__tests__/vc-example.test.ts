@@ -46,7 +46,7 @@ it('can sign and verify', async () => {
   const didDoc = {
     '@context': [
       'https://www.w3.org/ns/did/v1',
-      'https://ns.did.ai/transmute/v1',
+      'https://w3id.org/security/suites/jws-2020/v1',
     ],
     id: 'did:example:123',
     assertionMethod: [
@@ -64,6 +64,7 @@ it('can sign and verify', async () => {
     ],
   };
 
+  // console.log(JSON.stringify(vc, null, 2));
   const verification = await vcjs.verifyCredential({
     credential: vc,
     suite,
@@ -78,5 +79,6 @@ it('can sign and verify', async () => {
     },
   });
 
+  // console.log(JSON.stringify(verification, null, 2));
   expect(verification.verified).toBe(true);
 });

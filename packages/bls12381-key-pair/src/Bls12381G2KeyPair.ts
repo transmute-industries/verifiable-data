@@ -8,6 +8,12 @@ import { exportableTypes } from './exportAs';
 import { Bls12381G2KeyPair as MattrBls12381G2KeyPair } from '@mattrglobal/bls12381-key-pair';
 
 import {
+  LdKeyPairStatic,
+  LdKeyPairInstance,
+  staticImplements,
+} from '@transmute/ld-key-pair';
+
+import {
   MULTIBASE_ENCODED_BASE58_IDENTIFIER,
   VARIABLE_INTEGER_TRAILING_BYTE,
   BLS12381G2_MULTICODEC_IDENTIFIER,
@@ -18,7 +24,8 @@ import { base58 } from './encoding';
 import { suiteTypes } from './suites';
 import { fingerprintToJsonWebKey2020 } from './fingerprintToJsonWebKey2020';
 
-export class Bls12381G2KeyPair {
+@staticImplements<LdKeyPairStatic>()
+export class Bls12381G2KeyPair implements LdKeyPairInstance {
   public id: string;
   public type: string = 'JsonWebKey2020';
   public controller: string;
@@ -98,7 +105,7 @@ export class Bls12381G2KeyPair {
     return `${MULTIBASE_ENCODED_BASE58_IDENTIFIER}${base58.encode(buffer)}`;
   }
 
-  export(
+  async export(
     options: {
       privateKey?: boolean;
       type: 'JsonWebKey2020' | 'Bls12381G2Key2020';
@@ -106,7 +113,7 @@ export class Bls12381G2KeyPair {
       privateKey: false,
       type: 'JsonWebKey2020',
     }
-  ): JsonWebKey2020 | Bls12381G2Key2020 {
+  ): Promise<JsonWebKey2020 | Bls12381G2Key2020> {
     if (exportableTypes[options.type]) {
       return exportableTypes[options.type](
         BlsCurveName.G2,
