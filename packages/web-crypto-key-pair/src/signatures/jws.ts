@@ -138,7 +138,7 @@ const getAlg = async (cryptoKey: CryptoKey) => {
 export const getJwsSigner = (cryptoKey: CryptoKey): JwsSigner => {
   return {
     sign: async ({ data }: JwsSignerOptions) => {
-      const signer = await getRawSigner(cryptoKey);
+      const signer = getRawSigner(cryptoKey);
       const alg = await getAlg(cryptoKey);
       return createJws(signer, data, { alg });
     },
@@ -150,7 +150,7 @@ export const getDetachedJwsSigner = (
 ): DetachedJwsSigner => {
   return {
     sign: async ({ data }: DetachedJwsSignerOptions) => {
-      const signer = await getRawSigner(cryptoKey);
+      const signer = getRawSigner(cryptoKey);
       const alg = await getAlg(cryptoKey);
       return createDetachedJws(signer, data, { alg });
     },
@@ -160,8 +160,8 @@ export const getDetachedJwsSigner = (
 export const getJwsVerifier = (cryptoKey: CryptoKey): JwsVerifier => {
   return {
     verify: async ({ signature }: JwsVerifierOptions) => {
-      const verifier = await getRawVerifier(cryptoKey);
-      return verifyJws(verifier, signature.toString());
+      const verifier = getRawVerifier(cryptoKey);
+      return verifyJws(verifier, signature);
     },
   };
 };
@@ -171,8 +171,8 @@ export const getDetachedJwsVerifier = (
 ): DetachedJwsVerifier => {
   return {
     verify: async ({ data, signature }: DetachedJwsVerifierOptions) => {
-      const verifier = await getRawVerifier(cryptoKey);
-      return verifyDetachedJws(verifier, data, signature.toString());
+      const verifier = getRawVerifier(cryptoKey);
+      return verifyDetachedJws(verifier, data, signature);
     },
   };
 };

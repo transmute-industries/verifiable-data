@@ -1,10 +1,10 @@
 import jsonld from 'jsonld';
 import constants from './constants';
-import { KeyPair, subtle } from '@transmute/web-crypto-key-pair';
-
+import { subtle } from '@transmute/web-crypto-key-pair';
+import { JsonWebKeyPair } from './JsonWebKeyPair';
 import jwsV1 from './contexts/jws-v1.json';
 
-export const SUITE_CONTEXT_IRI = 'https://w3id.org/security/jws/v1';
+export const SUITE_CONTEXT_IRI = 'https://w3id.org/security/suites/jws-2020/v1';
 export const SUITE_CONTEXT = {
   [SUITE_CONTEXT_IRI]: jwsV1,
 };
@@ -14,13 +14,13 @@ const sha256 = async (data: any) => {
 };
 
 export interface JsonWebSignatureOptions {
-  key?: KeyPair;
+  key?: JsonWebKeyPair;
   date?: any;
 }
 
 export class JsonWebSignature {
   public useNativeCanonize: boolean = false;
-  public key?: KeyPair;
+  public key?: JsonWebKeyPair;
   public proof: any;
   public date: any;
   public type: string = 'https://w3id.org/security#JsonWebSignature2020';
@@ -249,7 +249,7 @@ export class JsonWebSignature {
         verificationMethod['sec:publicKeyJwk']['@value'];
       delete verificationMethod['sec:publicKeyJwk'];
     }
-    const key = await KeyPair.from(verificationMethod);
+    const key = await JsonWebKeyPair.from(verificationMethod);
     const verifier = await key.verifier();
     return verifier.verify({ data: verifyData, signature: proof.jws });
   }

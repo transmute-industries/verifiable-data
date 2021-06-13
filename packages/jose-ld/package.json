@@ -51,6 +51,7 @@
     "@size-limit/preset-small-lib": "^4.9.2",
     "@transmute/ed25519-key-pair": "^0.6.1-unstable.34",
     "@transmute/secp256k1-key-pair": "^0.6.1-unstable.34",
+    "@transmute/web-crypto-key-pair": "^0.6.1-unstable.34",
     "@transmute/x25519-key-pair": "^0.6.1-unstable.34",
     "jose": "^2.0.3",
     "size-limit": "^4.9.2",

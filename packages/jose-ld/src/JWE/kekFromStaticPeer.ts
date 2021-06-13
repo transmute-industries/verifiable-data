@@ -12,12 +12,25 @@ export const kekFromStaticPeer = (KeyPair: any) => {
       )
     ) {
       throw new Error(
-        `"staticPublicKey.type" must be "X25519KeyAgreementKey2019".`
+        `"staticPublicKey.type" must be "X25519KeyAgreementKey2019" or "JsonWebKey2020".`
       );
     }
+
     const epkPair = await KeyPair.from(ephemeralKeyPair.keypair);
+
     // "Party U Info"
-    const producerInfo = epkPair.publicKey;
+    let producerInfo: Uint8Array = epkPair.publicKey;
+
+    if (epkPair.publicKey.extractable) {
+      const temp = await epkPair.export({ type: 'JsonWebKey2020' });
+      producerInfo = Uint8Array.from(
+        Buffer.concat([
+          Buffer.from(temp.publicKeyJwk.x, 'base64'),
+          Buffer.from(temp.publicKeyJwk.y, 'base64'),
+        ])
+      );
+    }
+
     // "Party V Info"
     const consumerInfo = Buffer.from(staticPublicKey.id);
     const secret = await epkPair.deriveSecret({

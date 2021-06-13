@@ -21,6 +21,6 @@ it("can generate", async () => {
     "did:web:example.com:organizations:123#key-2",
     "did:web:example.com:organizations:123#key-3",
     "did:web:example.com:organizations:123#key-4",
-    "did:web:example.com:organizations:123#key-5",
+    "did:web:example.com:organizations:123#key-5"
   ]);
 });

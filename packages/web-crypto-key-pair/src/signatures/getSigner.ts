@@ -4,17 +4,14 @@ import { getCryptoKeyFromJsonWebKey2020 } from '../key/getCryptoKeyFromJsonWebKe
 
 import { getSignaturOptionsFromCryptoKey } from './getSignaturOptionsFromCryptoKey';
 
-export const getSigner = async (
-  k: JsonWebKey2020 | CryptoKey
-): Promise<Signer> => {
-  let cryptoKey = k as CryptoKey;
-
-  if (k.type === 'JsonWebKey2020') {
-    cryptoKey = await getCryptoKeyFromJsonWebKey2020(k);
-  }
-
+export const getSigner = (k: JsonWebKey2020 | CryptoKey): Signer => {
   return {
     sign: async ({ data }: SignerOptions): Promise<Uint8Array> => {
+      let cryptoKey = k as CryptoKey;
+
+      if (k.type === 'JsonWebKey2020') {
+        cryptoKey = await getCryptoKeyFromJsonWebKey2020(k);
+      }
       const signature = await subtle.sign(
         getSignaturOptionsFromCryptoKey(cryptoKey),
         cryptoKey,

@@ -4,7 +4,7 @@ export type Verifier = {
   verify: (options: VerifierOptions) => Promise<boolean>;
 };
 
-export type JwsVerifierOptions = { signature: string | Uint8Array };
+export type JwsVerifierOptions = { signature: string };
 
 export type JwsVerifier = {
   verify: (options: JwsVerifierOptions) => Promise<boolean>;
@@ -12,7 +12,7 @@ export type JwsVerifier = {
 
 export type DetachedJwsVerifierOptions = {
   data: Uint8Array;
-  signature: string | Uint8Array;
+  signature: string;
 };
 
 export type DetachedJwsVerifier = {

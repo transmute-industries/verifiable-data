@@ -5,3 +5,4 @@ export * from './signatures';
 export * from './derive-bits';
 export * from './KeyPair';
 export * from './crypto';
+export * from './types';

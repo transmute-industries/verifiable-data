@@ -9,7 +9,7 @@ import {
   deriveBitsFromJsonWebKey2020,
   deriveBitsFromCryptoKey,
 } from './derive-bits';
-import { getDetachedJwsSigner, getDetachedJwsVerifier } from './signatures/jws';
+import { getSigner, getVerifier } from './signatures/raw';
 import {
   GenerateKeyOpts,
   JsonWebKey2020,
@@ -41,7 +41,9 @@ export class KeyPair implements LdKeyPairInstance {
       privateKey,
     } = await key.getCryptoKeyPairFromJsonWebKey2020(kp);
     return new KeyPair({
-      id: `#${await KeyPair.fingerprintFromPublicKey(kp.publicKeyJwk)}`,
+      id: `did:key:${id}#${await KeyPair.fingerprintFromPublicKey(
+        kp.publicKeyJwk
+      )}`,
       type: 'JsonWebKey2020',
       controller: `did:key:${id}`,
       publicKey,
@@ -124,27 +126,33 @@ export class KeyPair implements LdKeyPairInstance {
     }) as Promise<JsonWebKey2020>;
   }
 
-  async deriveBits(remote: JsonWebKey2020) {
+  signer(type: 'Ecdsa' = 'Ecdsa') {
+    if (this.privateKey) {
+      return getSigner(this.privateKey);
+    }
+    throw new Error(`No private key to sign ${type} with.`);
+  }
+  verifier(type: 'Ecdsa' = 'Ecdsa') {
+    if (this.publicKey) {
+      return getVerifier(this.publicKey);
+    }
+    throw new Error(`No public key to verify ${type} with.`);
+  }
+
+  async deriveSecret({ publicKey }: { publicKey: JsonWebKey2020 }) {
     if (this.privateKey?.extractable) {
       return deriveBitsFromJsonWebKey2020(
-        await this.toJsonWebKeyPair(true),
-        remote
+        (await this.export({
+          type: 'JsonWebKey2020',
+          privateKey: true,
+        })) as JsonWebKey2020,
+        publicKey
       );
     } else {
-      const publicKey = await key.getCryptoKeyFromJsonWebKey2020(remote, true);
-      return deriveBitsFromCryptoKey(this.privateKey as CryptoKey, publicKey);
+      return deriveBitsFromCryptoKey(
+        this.privateKey as CryptoKey,
+        await key.getCryptoKeyFromJsonWebKey2020(publicKey, true)
+      );
     }
-  }
-  signer() {
-    if (this.privateKey) {
-      return getDetachedJwsSigner(this.privateKey);
-    }
-    throw new Error('No private key to sign with.');
-  }
-  verifier() {
-    if (this.publicKey) {
-      return getDetachedJwsVerifier(this.publicKey);
-    }
-    throw new Error('No public key to verify with.');
   }
 }

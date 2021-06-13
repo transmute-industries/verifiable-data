@@ -6,6 +6,6 @@ export type Verifier = (
     signature
   }: {
     data: Uint8Array;
-    signature: Uint8Array | string;
+    signature: Uint8Array;
   }) => Promise<boolean>;
 };

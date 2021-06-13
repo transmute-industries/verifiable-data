@@ -47,10 +47,13 @@ export async function deriveKey({ secret, producerInfo, consumerInfo }: any) {
   if (!(secret instanceof Uint8Array && secret.length > 0)) {
     throw new TypeError('"secret" must be a non-empty Uint8Array.');
   }
+
   if (!(producerInfo instanceof Uint8Array && producerInfo.length > 0)) {
+    console.warn('producerInfo', producerInfo);
     throw new TypeError('"producerInfo" must be a non-empty Uint8Array.');
   }
   if (!(consumerInfo instanceof Uint8Array && consumerInfo.length > 0)) {
+    console.warn('consumerInfo', consumerInfo);
     throw new TypeError('"consumerInfo" must be a non-empty Uint8Array.');
   }
 
