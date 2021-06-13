@@ -40,13 +40,12 @@ const handleSnowFlakes = async (
       all.push(k2);
     }
   }
-  return Promise.all(all);
+  return all;
 };
 
 const getDidDocumentVerificationMethods = async (
   keys: LdKeyPairInstance[],
-  representation: DidDocumentRepresentation,
-  KeyPair: LdKeyPairStatic
+  representation: DidDocumentRepresentation
 ) => {
   const basic = await Promise.all(
     keys.map(async key => {
@@ -61,10 +60,9 @@ const getDidDocumentVerificationMethods = async (
     })
   );
 
-  return handleSnowFlakes(basic, KeyPair);
+  return basic;
 };
 
-// need to account for multiple key fingerprints
 const fingerprintToKeys = async (
   KeyPair: LdKeyPairStatic,
   fingerprint: string
@@ -72,7 +70,8 @@ const fingerprintToKeys = async (
   const key = await KeyPair.fromFingerprint({
     fingerprint,
   });
-  return Array.isArray(key) ? key : [key];
+  // handle pairing friendly curves
+  return key.getPairedKeyPairs ? key.getPairedKeyPairs() : [key];
 };
 
 const inferRelationships = (verificationMethod: LdVerificationMethod[]) => {
@@ -95,11 +94,12 @@ export const getDidDocument = async (
 ): Promise<DidDocument> => {
   const fingerprint = did.split(':')[2].split('#')[0];
   const keys = await fingerprintToKeys(KeyPair, fingerprint);
-  const verificationMethod = await getDidDocumentVerificationMethods(
+  let verificationMethod = await getDidDocumentVerificationMethods(
     keys,
-    representation,
-    KeyPair
+    representation
   );
+
+  verificationMethod = await handleSnowFlakes(verificationMethod, KeyPair);
   const relationships = inferRelationships(verificationMethod);
   return { id: did, verificationMethod, ...relationships };
 };
