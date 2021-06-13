@@ -12,7 +12,7 @@ export interface LdKeyPairInstance {
   fingerprint(): Promise<string>; // produce a fingerprint
   export({
     type,
-    privateKey,
+    privateKey
   }: {
     type: any;
     privateKey?: boolean;
