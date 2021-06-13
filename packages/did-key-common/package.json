@@ -1,7 +1,7 @@
 {
-  "version": "0.1.0",
+  "version": "0.6.1-unstable.35",
   "license": "MIT",
-  "private":true,
+  "private": true,
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -20,7 +20,6 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "peerDependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
@@ -47,11 +46,11 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.12.0",
-    "@transmute/bls12381-key-pair": "^0.6.1-unstable.34",
-    "@transmute/ed25519-key-pair": "^0.6.1-unstable.34",
-    "@transmute/secp256k1-key-pair": "^0.6.1-unstable.34",
-    "@transmute/web-crypto-key-pair": "^0.6.1-unstable.34",
-    "@transmute/x25519-key-pair": "^0.6.1-unstable.34",
+    "@transmute/bls12381-key-pair": "^0.6.1-unstable.35",
+    "@transmute/ed25519-key-pair": "^0.6.1-unstable.35",
+    "@transmute/secp256k1-key-pair": "^0.6.1-unstable.35",
+    "@transmute/web-crypto-key-pair": "^0.6.1-unstable.35",
+    "@transmute/x25519-key-pair": "^0.6.1-unstable.35",
     "husky": "^6.0.0",
     "size-limit": "^4.12.0",
     "ts-jest": "^27.0.3",
@@ -62,8 +61,8 @@
   "dependencies": {
     "@did-core/data-model": "^0.1.1-unstable.13",
     "@did-core/did-ld-json": "^0.1.1-unstable.13",
-    "@transmute/did-context": "^0.6.1-unstable.34",
-    "@transmute/ld-key-pair": "^0.6.1-unstable.34",
-    "@transmute/security-context": "^0.6.1-unstable.34"
+    "@transmute/did-context": "^0.6.1-unstable.35",
+    "@transmute/ld-key-pair": "^0.6.1-unstable.35",
+    "@transmute/security-context": "^0.6.1-unstable.35"
   }
 }
