@@ -3,7 +3,7 @@ import { JsonWebKey2020, Verifier, VerifierOptions } from '../types';
 
 import { getCryptoKeyFromJsonWebKey2020 } from '../key/getCryptoKeyFromJsonWebKey2020';
 
-import { getSignaturOptionsFromCryptoKey } from './getSignaturOptionsFromCryptoKey';
+import { getSignatureOptionsFromCryptoKey } from './getSignatureOptionsFromCryptoKey';
 
 export const getVerifier = (
   k: JsonWebKey2020 | CryptoKey,
@@ -23,14 +23,14 @@ export const getVerifier = (
       let verified = false;
       try {
         verified = await subtle.verify(
-          getSignaturOptionsFromCryptoKey(cryptoKey),
+          getSignatureOptionsFromCryptoKey(cryptoKey),
           cryptoKey,
           signature,
           data
         );
       } catch (e) {
         // do nothing
-        // console.warn(signature, data, e);
+        console.warn(signature, data, e);
       }
 
       return verified;

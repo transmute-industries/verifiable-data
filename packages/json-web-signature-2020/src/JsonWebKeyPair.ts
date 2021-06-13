@@ -1,9 +1,18 @@
-import { KeyPair, jws, JsonWebKey2020 } from '@transmute/web-crypto-key-pair';
+import {
+  KeyPair,
+  jws,
+  JsonWebKey2020,
+  P256Key2021,
+  P384Key2021,
+  P521Key2021,
+} from '@transmute/web-crypto-key-pair';
 
 export { KeyPair } from '@transmute/web-crypto-key-pair';
 
 export class JsonWebKeyPair extends KeyPair {
-  static from = async (k: JsonWebKey2020) => {
+  static from = async (
+    k: JsonWebKey2020 | P256Key2021 | P384Key2021 | P521Key2021
+  ) => {
     const { publicKey, privateKey } = await KeyPair.from(k);
     return new JsonWebKeyPair({
       id: k.id,

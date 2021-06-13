@@ -2,7 +2,7 @@ import { subtle } from '../crypto';
 import { JsonWebKey2020, Signer, SignerOptions } from '../types';
 import { getCryptoKeyFromJsonWebKey2020 } from '../key/getCryptoKeyFromJsonWebKey2020';
 
-import { getSignaturOptionsFromCryptoKey } from './getSignaturOptionsFromCryptoKey';
+import { getSignatureOptionsFromCryptoKey } from './getSignatureOptionsFromCryptoKey';
 
 export const getSigner = (k: JsonWebKey2020 | CryptoKey): Signer => {
   return {
@@ -13,7 +13,7 @@ export const getSigner = (k: JsonWebKey2020 | CryptoKey): Signer => {
         cryptoKey = await getCryptoKeyFromJsonWebKey2020(k);
       }
       const signature = await subtle.sign(
-        getSignaturOptionsFromCryptoKey(cryptoKey),
+        getSignatureOptionsFromCryptoKey(cryptoKey),
         cryptoKey,
         Buffer.from(data)
       );

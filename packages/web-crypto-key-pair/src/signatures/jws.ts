@@ -10,7 +10,7 @@ import {
   DetachedJwsVerifierOptions,
 } from '../types';
 
-import { getSignaturOptionsFromCryptoKey } from './getSignaturOptionsFromCryptoKey';
+import { getSignatureOptionsFromCryptoKey } from './getSignatureOptionsFromCryptoKey';
 
 import { getSigner as getRawSigner } from './getSigner';
 import { getVerifier as getRawVerifier } from './getVerifier';
@@ -30,7 +30,9 @@ export const getJwaAlgFromJwk = (jwk: any) => {
   if (jwk.kty === 'RSA') {
     return 'RS256';
   }
-  throw new Error('Unsupported jwk ' + JSON.stringify(jwk));
+  throw new Error(
+    'Unsupported getJwaAlgFromJwk for jwk: ' + JSON.stringify(jwk)
+  );
 };
 
 export const createJws = async (signer: any, payload: any, header: object) => {
@@ -99,7 +101,7 @@ export const verifyDetachedJws = async (
 };
 
 const getAlg = async (cryptoKey: CryptoKey) => {
-  const rawSignatureOptions: any = getSignaturOptionsFromCryptoKey(cryptoKey);
+  const rawSignatureOptions: any = getSignatureOptionsFromCryptoKey(cryptoKey);
 
   let alg = 'none';
 

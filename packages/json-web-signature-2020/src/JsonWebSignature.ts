@@ -221,14 +221,13 @@ export class JsonWebSignature {
       result = await jsonld.frame(
         verificationMethod,
         {
-          '@context': 'https://w3id.org/security/v2',
+          '@context': ['https://w3id.org/security/v2', SUITE_CONTEXT_IRI],
           '@embed': '@always',
           id: verificationMethod,
         },
         {
           documentLoader,
           compactToRelative: false,
-          expandContext: 'https://w3id.org/security/v2',
         }
       );
     } catch (e) {
@@ -243,14 +242,8 @@ export class JsonWebSignature {
   }
 
   async verifySignature({ verifyData, verificationMethod, proof }: any) {
-    // TODO: remove when we upgrade from sec/v2
-    if (!verificationMethod.publicKeyJwk) {
-      verificationMethod.publicKeyJwk =
-        verificationMethod['sec:publicKeyJwk']['@value'];
-      delete verificationMethod['sec:publicKeyJwk'];
-    }
     const key = await JsonWebKeyPair.from(verificationMethod);
-    const verifier = await key.verifier();
+    const verifier = key.verifier();
     return verifier.verify({ data: verifyData, signature: proof.jws });
   }
 
