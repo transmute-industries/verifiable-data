@@ -163,6 +163,10 @@ export class Ed25519KeyPair implements LdKeyPairInstance {
     throw new Error('Unsupported suite type ' + type);
   }
 
+  async getDerivedKeyPairs() {
+    return [this, await Ed25519KeyPair.toX25519KeyPair(this)];
+  }
+
   async toJsonWebKeyPair(exportPrivateKey = false) {
     console.warn(
       "DEPRECATION WARNING: .toJsonWebKeyPair should be replaced with .export({type:'JsonWebKey2020'})."

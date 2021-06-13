@@ -1,67 +1,7 @@
 import { DidDocument, DidDocumentRepresentation } from './types';
 import { getRelationships } from './getRelationships';
-import { publicKeyJwkToSecurityVocabType } from './publicKeyJwkToSecurityVocabType';
-import {
-  LdKeyPairStatic,
-  LdKeyPairInstance,
-  LdVerificationMethod,
-  PublicNodeWithPublicKeyJwk,
-} from '@transmute/ld-key-pair';
-const publicKeyJwkToLatestSecurityVocabType = (jwk: any) => {
-  const type = publicKeyJwkToSecurityVocabType[`${jwk.kty} ${jwk.crv}`];
-  if (!type) {
-    throw new Error(
-      'Could not map publicKeyJwk to latest security vocab type: ' +
-        `${jwk.kty} ${jwk.crv}`
-    );
-  }
-  return type;
-};
-
-const handleSnowFlakes = async (
-  vms: LdVerificationMethod[],
-  KeyPair: LdKeyPairStatic
-) => {
-  let all = [...vms];
-  for (const vm of vms) {
-    if (
-      vm.type === 'Ed25519VerificationKey2018' ||
-      ((vm as PublicNodeWithPublicKeyJwk).publicKeyJwk &&
-        (vm as PublicNodeWithPublicKeyJwk).publicKeyJwk.crv === 'Ed25519')
-    ) {
-      const k0 = await KeyPair.from(vm);
-      const k1 = await (KeyPair as any).toX25519KeyPair(k0);
-      const k2 = await k1.export({
-        type:
-          vm.type === 'Ed25519VerificationKey2018'
-            ? 'X25519KeyAgreementKey2019'
-            : 'JsonWebKey2020',
-      });
-      all.push(k2);
-    }
-  }
-  return all;
-};
-
-const getDidDocumentVerificationMethods = async (
-  keys: LdKeyPairInstance[],
-  representation: DidDocumentRepresentation
-) => {
-  const basic = await Promise.all(
-    keys.map(async key => {
-      const jsonWebKey = await key.export({ type: 'JsonWebKey2020' });
-      if (representation === 'application/did+json') {
-        return jsonWebKey;
-      }
-      const type = publicKeyJwkToLatestSecurityVocabType(
-        jsonWebKey.publicKeyJwk
-      );
-      return await key.export({ type });
-    })
-  );
-
-  return basic;
-};
+import { LdKeyPairStatic, LdVerificationMethod } from '@transmute/ld-key-pair';
+import { getSerialized } from './getSerialized';
 
 const fingerprintToKeys = async (
   KeyPair: LdKeyPairStatic,
@@ -70,8 +10,18 @@ const fingerprintToKeys = async (
   const key = await KeyPair.fromFingerprint({
     fingerprint,
   });
+
+  // handle ed25519 to x25519
+  if (key.getDerivedKeyPairs) {
+    return await key.getDerivedKeyPairs();
+  }
+
   // handle pairing friendly curves
-  return key.getPairedKeyPairs ? key.getPairedKeyPairs() : [key];
+  if (key.getPairedKeyPairs) {
+    return await key.getPairedKeyPairs();
+  }
+
+  return [key];
 };
 
 const inferRelationships = (verificationMethod: LdVerificationMethod[]) => {
@@ -94,12 +44,12 @@ export const getDidDocument = async (
 ): Promise<DidDocument> => {
   const fingerprint = did.split(':')[2].split('#')[0];
   const keys = await fingerprintToKeys(KeyPair, fingerprint);
-  let verificationMethod = await getDidDocumentVerificationMethods(
+  const verificationMethod = await getSerialized(
     keys,
-    representation
+    representation,
+    false // do not export private keys into a did document
   );
 
-  verificationMethod = await handleSnowFlakes(verificationMethod, KeyPair);
   const relationships = inferRelationships(verificationMethod);
   return { id: did, verificationMethod, ...relationships };
 };

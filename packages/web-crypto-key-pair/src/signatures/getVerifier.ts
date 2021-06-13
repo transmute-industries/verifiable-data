@@ -30,7 +30,7 @@ export const getVerifier = (
         );
       } catch (e) {
         // do nothing
-        console.warn(signature, data, e);
+        // console.warn(signature, data, e);
       }
 
       return verified;

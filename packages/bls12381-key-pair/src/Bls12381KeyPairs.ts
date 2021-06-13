@@ -147,7 +147,7 @@ export class Bls12381KeyPairs {
     return `${MULTIBASE_ENCODED_BASE58_IDENTIFIER}${base58.encode(buffer)}`;
   }
 
-  getPairedKeyPairs() {
+  async getPairedKeyPairs() {
     return [this.g1KeyPair, this.g2KeyPair];
   }
 }

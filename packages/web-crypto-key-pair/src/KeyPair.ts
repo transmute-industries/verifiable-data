@@ -5,10 +5,7 @@ import {
 } from '@transmute/ld-key-pair';
 
 import * as key from './key';
-import {
-  deriveBitsFromJsonWebKey2020,
-  deriveBitsFromCryptoKey,
-} from './derive-bits';
+import { deriveBitsFromCryptoKey } from './derive-bits';
 import { getSigner, getVerifier } from './signatures/raw';
 import {
   GenerateKeyOpts,
@@ -35,15 +32,18 @@ export class KeyPair implements LdKeyPairInstance {
     opts: GenerateKeyOpts = { kty: 'EC', crvOrSize: 'P-384' }
   ) => {
     const kp = await key.generate(opts);
-    const id = await getMulticodec(kp.publicKeyJwk);
+    const id = await KeyPair.fingerprintFromPublicKey({
+      id: ``,
+      type: 'JsonWebKey2020',
+      controller: ``,
+      publicKeyJwk: kp.publicKeyJwk,
+    });
     const {
       publicKey,
       privateKey,
     } = await key.getCryptoKeyPairFromJsonWebKey2020(kp);
     return new KeyPair({
-      id: `did:key:${id}#${await KeyPair.fingerprintFromPublicKey(
-        kp.publicKeyJwk
-      )}`,
+      id: `did:key:${id}#${id}`,
       type: 'JsonWebKey2020',
       controller: `did:key:${id}`,
       publicKey,
@@ -51,22 +51,40 @@ export class KeyPair implements LdKeyPairInstance {
     });
   };
 
-  static from = async (k: JsonWebKey2020) => {
+  static from = async (
+    k: JsonWebKey2020 | P256Key2021 | P384Key2021 | P521Key2021
+  ) => {
+    if (k.type === 'JsonWebKey2020') {
+      const {
+        publicKey,
+        privateKey,
+      } = await key.getCryptoKeyPairFromJsonWebKey2020(k);
+      return new KeyPair({
+        id: k.id,
+        type: 'JsonWebKey2020',
+        controller: k.controller,
+        publicKey,
+        privateKey,
+      });
+    }
     const {
       publicKey,
       privateKey,
-    } = await key.getCryptoKeyPairFromJsonWebKey2020(k);
+    } = await key.getCryptoKeyPairFromMultiKey2021(k);
     return new KeyPair({
       id: k.id,
-      type: 'JsonWebKey2020',
+      type: k.type,
       controller: k.controller,
       publicKey,
       privateKey,
     });
   };
 
-  static async fingerprintFromPublicKey(publicKeyJwk: any) {
-    return getMulticodec(publicKeyJwk);
+  static async fingerprintFromPublicKey(
+    publicKey: JsonWebKey2020 | P256Key2021 | P384Key2021 | P521Key2021
+  ) {
+    const k = await KeyPair.from(publicKey);
+    return (await k).fingerprint();
   }
 
   static async fromFingerprint({ fingerprint }: { fingerprint: string }) {
@@ -80,6 +98,7 @@ export class KeyPair implements LdKeyPairInstance {
         publicKeyJwk,
       });
     } catch (e) {
+      // console.warn(e);
       throw new Error('Unsupported fingerprint type: ' + fingerprint);
     }
   }
@@ -139,20 +158,33 @@ export class KeyPair implements LdKeyPairInstance {
     throw new Error(`No public key to verify ${type} with.`);
   }
 
-  async deriveSecret({ publicKey }: { publicKey: JsonWebKey2020 }) {
-    if (this.privateKey?.extractable) {
-      return deriveBitsFromJsonWebKey2020(
-        (await this.export({
-          type: 'JsonWebKey2020',
-          privateKey: true,
-        })) as JsonWebKey2020,
-        publicKey
-      );
-    } else {
-      return deriveBitsFromCryptoKey(
-        this.privateKey as CryptoKey,
-        await key.getCryptoKeyFromJsonWebKey2020(publicKey, true)
-      );
+  async deriveSecret({
+    publicKey,
+  }: {
+    publicKey: JsonWebKey2020 | P256Key2021 | P384Key2021 | P521Key2021;
+  }) {
+    if (!this.privateKey) {
+      throw new Error('private key is required to deriveSecret');
     }
+    let localPrivateKey = this.privateKey;
+    // This is required by web crypto to set the key type.
+    // so that deriveBits may be called.
+    if (this.privateKey?.extractable) {
+      localPrivateKey = (
+        await key.getCryptoKeyPairFromJsonWebKey2020(
+          (await this.export({
+            type: 'JsonWebKey2020',
+            privateKey: true,
+          })) as JsonWebKey2020,
+          true
+        )
+      ).privateKey as CryptoKey;
+    }
+    const remotePublicKey =
+      publicKey.type === 'JsonWebKey2020'
+        ? await key.getCryptoKeyPairFromJsonWebKey2020(publicKey, true)
+        : await key.getCryptoKeyPairFromMultiKey2021(publicKey, true);
+
+    return deriveBitsFromCryptoKey(localPrivateKey, remotePublicKey.publicKey);
   }
 }
