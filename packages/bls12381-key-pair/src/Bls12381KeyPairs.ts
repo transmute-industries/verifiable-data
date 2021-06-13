@@ -72,27 +72,30 @@ export class Bls12381KeyPairs {
     const { bls12381G1KeyPair, bls12381G2KeyPair } = await generateKeyPairs(
       seed
     );
-    const keys = new Bls12381KeyPairs({
+    const keypairs = new Bls12381KeyPairs({
       id: '',
       type: 'Bls12381KeyPairs',
       controller: '',
       g1KeyPair: bls12381G1KeyPair,
       g2KeyPair: bls12381G2KeyPair,
     });
-    const fingerprint = keys.fingerprint();
-    keys.id = `did:key:${fingerprint}#${fingerprint}`;
-    keys.controller = `did:key:${fingerprint}`;
-    keys.g1KeyPair.id = keys.g1KeyPair.id.replace(
-      keys.g1KeyPair.controller,
-      keys.controller
-    );
-    keys.g1KeyPair.controller = keys.controller;
-    keys.g2KeyPair.id = keys.g2KeyPair.id.replace(
-      keys.g2KeyPair.controller,
-      keys.controller
-    );
-    keys.g2KeyPair.controller = keys.controller;
-    return keys;
+    const fingerprint = await keypairs.fingerprint();
+    keypairs.id = `did:key:${fingerprint}#${fingerprint}`;
+    keypairs.controller = `did:key:${fingerprint}`;
+
+    bls12381G1KeyPair.controller = keypairs.controller;
+    bls12381G2KeyPair.controller = keypairs.controller;
+
+    bls12381G1KeyPair.id =
+      keypairs.controller + '#' + (await bls12381G1KeyPair.fingerprint());
+
+    bls12381G2KeyPair.id =
+      keypairs.controller + '#' + (await bls12381G2KeyPair.fingerprint());
+
+    keypairs.g1KeyPair = bls12381G1KeyPair;
+    keypairs.g2KeyPair = bls12381G2KeyPair;
+
+    return keypairs;
   }
 
   static async fromFingerprint({ fingerprint }: { fingerprint: string }) {
@@ -118,15 +121,16 @@ export class Bls12381KeyPairs {
       const g1 = await Bls12381G1KeyPair.fromFingerprint({
         fingerprint: g1Fingerprint,
       });
-      g1.id = g1.id.replace(g1.controller, `did:key:${fingerprint}`);
+      g1.id = `did:key:${fingerprint}#${g1.id.split('#').pop()}`;
       g1.controller = `did:key:${fingerprint}`;
+
       const g2 = await Bls12381G2KeyPair.fromFingerprint({
         fingerprint: g2Fingerprint,
       });
-      g2.id = g2.id.replace(g2.controller, `did:key:${fingerprint}`);
+      g2.id = `did:key:${fingerprint}#${g2.id.split('#').pop()}`;
       g2.controller = `did:key:${fingerprint}`;
       return new Bls12381KeyPairs({
-        id: `did:key:${fingerprint}${fingerprint}`,
+        id: `did:key:${fingerprint}#${fingerprint}`,
         type: 'Bls12381KeyPairs',
         controller: `did:key:${fingerprint}`,
         g1KeyPair: g1,
@@ -135,7 +139,7 @@ export class Bls12381KeyPairs {
     }
   }
 
-  fingerprint() {
+  async fingerprint() {
     const g1Buffer = this.g1KeyPair.publicKey;
     const g2Buffer = this.g2KeyPair.publicKey;
     const g1AndG2 = Buffer.concat([g1Buffer, g2Buffer]);
