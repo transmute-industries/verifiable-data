@@ -2,7 +2,7 @@
   "name": "@transmute/ed25519-key-pair",
   "author": "Orie Steele",
   "module": "dist/ed25519-key-pair.esm.js",
-  "version": "0.6.1-unstable.35",
+  "version": "0.6.1-unstable.36",
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/ed25519-key-pair",
   "repository": {
@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@stablelib/ed25519": "^1.0.1",
-    "@transmute/ld-key-pair": "^0.6.1-unstable.35",
-    "@transmute/x25519-key-pair": "^0.6.1-unstable.35"
+    "@transmute/ld-key-pair": "^0.6.1-unstable.36",
+    "@transmute/x25519-key-pair": "^0.6.1-unstable.36"
   }
 }
