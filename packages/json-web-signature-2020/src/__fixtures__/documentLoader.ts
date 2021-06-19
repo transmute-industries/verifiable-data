@@ -1,29 +1,28 @@
-import securityContexts from '@transmute/security-context';
-import credentialsContexts from '@transmute/credentials-context';
-import didContexts from '@transmute/did-context';
+import sec from '@transmute/security-context';
+import cre from '@transmute/credentials-context';
+import did from '@transmute/did-context';
 
-import { SUITE_CONTEXT } from '../JsonWebSignature';
 const contexts: any = {
-  [securityContexts.constants
-    .SECURITY_CONTEXT_V1_URL]: securityContexts.contexts.get(
-    securityContexts.constants.SECURITY_CONTEXT_V1_URL
+  [cre.constants.CREDENTIALS_CONTEXT_V1_URL]: cre.contexts.get(
+    cre.constants.CREDENTIALS_CONTEXT_V1_URL
   ),
-  [securityContexts.constants
-    .SECURITY_CONTEXT_V2_URL]: securityContexts.contexts.get(
-    securityContexts.constants.SECURITY_CONTEXT_V2_URL
+  [did.constants.DID_CONTEXT_V1_URL]: did.contexts.get(
+    did.constants.DID_CONTEXT_V1_URL
   ),
-  [credentialsContexts.constants
-    .CREDENTIALS_CONTEXT_V1_URL]: credentialsContexts.contexts.get(
-    credentialsContexts.constants.CREDENTIALS_CONTEXT_V1_URL
+  [sec.constants.SECURITY_CONTEXT_V1_URL]: sec.contexts.get(
+    sec.constants.SECURITY_CONTEXT_V1_URL
   ),
-  [didContexts.constants.DID_CONTEXT_V1_URL]: didContexts.contexts.get(
-    didContexts.constants.DID_CONTEXT_V1_URL
+  [sec.constants.SECURITY_CONTEXT_V2_URL]: sec.contexts.get(
+    sec.constants.SECURITY_CONTEXT_V2_URL
   ),
-  [didContexts.constants
-    .DID_CONTEXT_TRANSMUTE_V1_URL]: didContexts.contexts.get(
-    didContexts.constants.DID_CONTEXT_TRANSMUTE_V1_URL
+
+  [sec.constants.ED25519_2018_v1_URL]: sec.contexts.get(
+    sec.constants.ED25519_2018_v1_URL
   ),
-  ...SUITE_CONTEXT,
+
+  [sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL]: sec.contexts.get(
+    sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL
+  ),
 };
 
 export const documentLoader = (iri: string) => {

@@ -1,13 +1,9 @@
 import jsonld from 'jsonld';
-import constants from './constants';
+
 import { subtle } from '@transmute/web-crypto-key-pair';
 import { JsonWebKeyPair } from './JsonWebKeyPair';
-import jwsV1 from './contexts/jws-v1.json';
 
-export const SUITE_CONTEXT_IRI = 'https://w3id.org/security/suites/jws-2020/v1';
-export const SUITE_CONTEXT = {
-  [SUITE_CONTEXT_IRI]: jwsV1,
-};
+import sec from '@transmute/security-context';
 
 const sha256 = async (data: any) => {
   return Buffer.from(await subtle.digest('SHA-256', Buffer.from(data)));
@@ -83,13 +79,7 @@ export class JsonWebSignature {
     ]);
   }
 
-  async matchProof({
-    proof,
-  }: // document,
-  // purpose,
-  // documentLoader,
-  // expansionMap,
-  any) {
+  async matchProof({ proof }: any) {
     return proof.type === 'sec:JsonWebSignature2020';
   }
 
@@ -117,18 +107,24 @@ export class JsonWebSignature {
     expansionMap,
     compactProof,
   }: any) {
-    // build proof (currently known as `signature options` in spec)
     let proof;
     if (this.proof) {
       // use proof JSON-LD document passed to API
-      proof = await jsonld.compact(this.proof, constants.SECURITY_CONTEXT_URL, {
-        documentLoader,
-        expansionMap,
-        compactToRelative: false,
-      });
+      proof = await jsonld.compact(
+        this.proof,
+        [sec.constants.SECURITY_CONTEXT_V2_URL],
+
+        {
+          documentLoader,
+          expansionMap,
+          compactToRelative: false,
+        }
+      );
     } else {
       // create proof JSON-LD document
-      proof = { '@context': constants.SECURITY_CONTEXT_URL };
+      proof = {
+        '@context': [sec.constants.SECURITY_CONTEXT_V2_URL],
+      };
     }
 
     // ensure proof type is set
@@ -143,6 +139,7 @@ export class JsonWebSignature {
     // ensure date is in string format
     if (date !== undefined && typeof date !== 'string') {
       date = new Date(date).toISOString();
+      date = date.substr(0, date.length - 5) + 'Z';
     }
 
     // add API overrides
@@ -215,30 +212,33 @@ export class JsonWebSignature {
     // Note: `expansionMap` is intentionally not passed; we can safely drop
     // properties here and must allow for it
 
-    let result;
-
-    try {
-      result = await jsonld.frame(
-        verificationMethod,
-        {
-          '@context': ['https://w3id.org/security/v2', SUITE_CONTEXT_IRI],
-          '@embed': '@always',
-          id: verificationMethod,
+    const { document } = await documentLoader(verificationMethod);
+    const framed = await jsonld.frame(
+      verificationMethod,
+      {
+        '@context': document['@context'],
+        '@embed': '@always',
+        id: verificationMethod,
+      },
+      {
+        // use the cache of the document we just resolved when framing
+        documentLoader: (iri: string) => {
+          if (iri.startsWith(document.id)) {
+            return {
+              documentUrl: iri,
+              document,
+            };
+          }
+          return documentLoader(iri);
         },
-        {
-          documentLoader,
-          compactToRelative: false,
-        }
-      );
-    } catch (e) {
-      console.error(e);
-    }
+      }
+    );
 
-    if (!result || !result.controller) {
+    if (!framed || !framed.controller) {
       throw new Error(`Verification method ${verificationMethod} not found.`);
     }
 
-    return result;
+    return framed;
   }
 
   async verifySignature({ verifyData, verificationMethod, proof }: any) {
