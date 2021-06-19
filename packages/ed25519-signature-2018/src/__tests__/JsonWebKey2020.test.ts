@@ -1,7 +1,7 @@
 import {
   documentLoader,
   credential,
-  verifiableCredential,
+  verifiableCredential
 } from "../__fixtures__";
 import * as vcjs from "@transmute/vc.js";
 import { Ed25519Signature2018, EdDsaEd25519KeyPair } from "..";
@@ -15,7 +15,7 @@ const customDocumentLoader = (iri: string) => {
       document: {
         "@context": [
           "https://www.w3.org/ns/did/v1",
-          "https://w3id.org/security/suites/jws-2020/v1",
+          "https://w3id.org/security/suites/jws-2020/v1"
         ],
         id: "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT",
         verificationMethod: [
@@ -28,8 +28,8 @@ const customDocumentLoader = (iri: string) => {
             publicKeyJwk: {
               crv: "Ed25519",
               x: "kYUxJdxcqoKbfJKjTPEmbifNrDBvuQuoGynhwmr4BSA",
-              kty: "OKP",
-            },
+              kty: "OKP"
+            }
           },
           {
             id:
@@ -40,26 +40,26 @@ const customDocumentLoader = (iri: string) => {
             publicKeyJwk: {
               kty: "OKP",
               crv: "X25519",
-              x: "1KPW5_QTVSFbveTXCeiJ1zescdEApIywCQt-5Bl4uAs",
-            },
-          },
+              x: "1KPW5_QTVSFbveTXCeiJ1zescdEApIywCQt-5Bl4uAs"
+            }
+          }
         ],
         authentication: [
-          "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT#z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT",
+          "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT#z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT"
         ],
         assertionMethod: [
-          "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT#z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT",
+          "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT#z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT"
         ],
         capabilityInvocation: [
-          "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT#z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT",
+          "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT#z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT"
         ],
         capabilityDelegation: [
-          "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT#z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT",
+          "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT#z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT"
         ],
         keyAgreement: [
-          "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT#z6LSqzEVoTwYxvHy3gp2SrKZ7s1duWmyXS1khvEXQyWAS5iS",
-        ],
-      },
+          "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT#z6LSqzEVoTwYxvHy3gp2SrKZ7s1duWmyXS1khvEXQyWAS5iS"
+        ]
+      }
     };
   }
   return documentLoader(iri);
@@ -74,24 +74,24 @@ it("can generate, issue, prove and verify", async () => {
     publicKeyJwk: {
       kty: "OKP",
       crv: "Ed25519",
-      x: "kYUxJdxcqoKbfJKjTPEmbifNrDBvuQuoGynhwmr4BSA",
+      x: "kYUxJdxcqoKbfJKjTPEmbifNrDBvuQuoGynhwmr4BSA"
     },
     privateKeyJwk: {
       kty: "OKP",
       crv: "Ed25519",
       x: "kYUxJdxcqoKbfJKjTPEmbifNrDBvuQuoGynhwmr4BSA",
       d:
-        "TmG8GRjqakeuMwczG-d5gZahqOfP5Lbo98ml82AX2SmRhTEl3Fyqgpt8kqNM8SZuJ82sMG-5C6gbKeHCavgFIA",
-    },
+        "TmG8GRjqakeuMwczG-d5gZahqOfP5Lbo98ml82AX2SmRhTEl3Fyqgpt8kqNM8SZuJ82sMG-5C6gbKeHCavgFIA"
+    }
   });
 
   const vc = await vcjs.ld.issue({
     credential,
     suite: new Ed25519Signature2018({
       date: "2021-06-19T18:53:11Z",
-      key,
+      key
     }),
-    documentLoader: customDocumentLoader,
+    documentLoader: customDocumentLoader
   });
   expect(vc).toEqual(verifiableCredential);
 
@@ -99,20 +99,20 @@ it("can generate, issue, prove and verify", async () => {
     presentation: await vcjs.ld.createPresentation({
       verifiableCredential: vc,
       holder: key.controller,
-      documentLoader: customDocumentLoader,
+      documentLoader: customDocumentLoader
     }),
     challenge: "123",
     suite: new Ed25519Signature2018({
-      key,
+      key
     }),
-    documentLoader: customDocumentLoader,
+    documentLoader: customDocumentLoader
   });
 
   const presentation = await vcjs.ld.verify({
     presentation: vp,
     challenge: "123",
     suite: new Ed25519Signature2018(),
-    documentLoader: customDocumentLoader,
+    documentLoader: customDocumentLoader
   });
 
   expect(presentation.verified).toBe(true);

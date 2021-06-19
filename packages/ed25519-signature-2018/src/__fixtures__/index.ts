@@ -11,12 +11,12 @@ export const credential = {
   id: "http://example.gov/credentials/3732",
   type: ["VerifiableCredential"],
   issuer: {
-    id: "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT",
+    id: "did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT"
   },
   issuanceDate: "2021-06-19T18:53:11Z",
   credentialSubject: {
-    id: "did:example:ebfeb1f712ebc6f1c276e12ec21",
-  },
+    id: "did:example:ebfeb1f712ebc6f1c276e12ec21"
+  }
 };
 
 const contexts: any = {
@@ -42,7 +42,7 @@ const contexts: any = {
   // used to test JsonWebKey2020 backward compatibility
   [sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL]: sec.contexts.get(
     sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL
-  ),
+  )
 };
 
 export const documentLoader = async (iri: string) => {
@@ -51,13 +51,13 @@ export const documentLoader = async (iri: string) => {
   ) {
     return {
       documentUrl: iri,
-      document: didDocument,
+      document: didDocument
     };
   }
   if (contexts[iri]) {
     return {
       documentUrl: iri,
-      document: contexts[iri],
+      document: contexts[iri]
     };
   }
   console.error("Unsupported iri: " + iri);
