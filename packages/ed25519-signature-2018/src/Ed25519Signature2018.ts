@@ -184,17 +184,26 @@ export class Ed25519Signature2018 {
     if (!verificationMethod) {
       throw new Error('No "verificationMethod" or "creator" found in proof.');
     }
-
-    // Note: `expansionMap` is intentionally not passed; we can safely drop
-    // properties here and must allow for it
+    const { document } = await documentLoader(verificationMethod);
     const framed = await jsonld.frame(
       verificationMethod,
       {
-        "@context": [sec.constants.ED25519_2018_v1_URL],
+        "@context": document["@context"],
         "@embed": "@always",
         id: verificationMethod,
       },
-      { documentLoader }
+      {
+        // use the cache of the document we just resolved when framing
+        documentLoader: (iri: string) => {
+          if (iri.startsWith(document.id)) {
+            return {
+              documentUrl: iri,
+              document,
+            };
+          }
+          return documentLoader(iri);
+        },
+      }
     );
 
     if (!framed) {

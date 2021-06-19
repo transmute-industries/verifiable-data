@@ -38,6 +38,11 @@ const contexts: any = {
   [sec.constants.X25519_2019_v1_URL]: sec.contexts.get(
     sec.constants.X25519_2019_v1_URL
   ),
+
+  // used to test JsonWebKey2020 backward compatibility
+  [sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL]: sec.contexts.get(
+    sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL
+  ),
 };
 
 export const documentLoader = async (iri: string) => {
