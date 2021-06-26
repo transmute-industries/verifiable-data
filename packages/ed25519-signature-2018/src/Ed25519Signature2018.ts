@@ -1,8 +1,7 @@
 import jsonld from "jsonld";
-import constants from "./constants";
 import crypto from "crypto";
-
-import { Ed25519KeyPair, EdDSA, keyUtils } from "@transmute/did-key-ed25519";
+import * as sec from "@transmute/security-context";
+import { EdDsaEd25519KeyPair } from "./EdDsaEd25519KeyPair";
 
 const sha256 = (data: any) => {
   const h = crypto.createHash("sha256");
@@ -32,35 +31,9 @@ export class Ed25519Signature2018 {
     if (options.key) {
       this.key = options.key;
       this.verificationMethod = this.key.id;
-      this.signer = {
-        sign: async ({ data }: any) => {
-          const header = {
-            alg: "EdDSA",
-            b64: false,
-            crit: ["b64"]
-          };
-          const payload = Buffer.from(data);
-          const { privateKeyJwk } = await this.key.toJsonWebKeyPair(true);
-          const _jws = await EdDSA.signDetached(payload, privateKeyJwk, header);
-          return _jws;
-        }
-      };
 
-      this.verifier = {
-        verify: async ({ data, signature }: any) => {
-          let verified = false;
-          try {
-            verified = await EdDSA.verifyDetached(
-              signature,
-              data,
-              keyUtils.publicKeyJwkFromPublicKeyBase58(this.key.publicKeyBase58)
-            );
-          } catch (e) {
-            console.error("An error occurred when verifying signature: ", e);
-          }
-          return verified;
-        }
-      };
+      this.signer = this.key.signer();
+      this.verifier = this.key.verifier();
     }
   }
 
@@ -112,11 +85,6 @@ export class Ed25519Signature2018 {
     return proof.type === this.type;
   }
 
-  async updateProof({ proof }: any) {
-    // extending classes may do more
-    return proof;
-  }
-
   async sign({ verifyData, proof }: any) {
     if (!(this.signer && typeof this.signer.sign === "function")) {
       throw new Error("A signer API has not been specified.");
@@ -134,18 +102,21 @@ export class Ed25519Signature2018 {
     expansionMap,
     compactProof
   }: any) {
-    // build proof (currently known as `signature options` in spec)
     let proof;
     if (this.proof) {
       // use proof JSON-LD document passed to API
-      proof = await jsonld.compact(this.proof, constants.SECURITY_CONTEXT_URL, {
-        documentLoader,
-        expansionMap,
-        compactToRelative: false
-      });
+      proof = await jsonld.compact(
+        this.proof,
+        sec.constants.ED25519_2018_v1_URL,
+        {
+          documentLoader,
+          expansionMap,
+          compactToRelative: false
+        }
+      );
     } else {
       // create proof JSON-LD document
-      proof = { "@context": constants.SECURITY_CONTEXT_URL };
+      proof = { "@context": sec.constants.ED25519_2018_v1_URL };
     }
 
     // ensure proof type is set
@@ -160,6 +131,7 @@ export class Ed25519Signature2018 {
     // ensure date is in string format
     if (date !== undefined && typeof date !== "string") {
       date = new Date(date).toISOString();
+      date = date.substr(0, date.length - 5) + "Z";
     }
 
     // add API overrides
@@ -170,16 +142,6 @@ export class Ed25519Signature2018 {
     if (this.verificationMethod !== undefined) {
       proof.verificationMethod = this.verificationMethod;
     }
-
-    // add any extensions to proof (mostly for legacy support)
-    proof = await this.updateProof({
-      document,
-      proof,
-      purpose,
-      documentLoader,
-      expansionMap,
-      compactProof
-    });
 
     // allow purpose to update the proof; the `proof` is in the
     // SECURITY_CONTEXT_URL `@context` -- therefore the `purpose` must
@@ -222,17 +184,26 @@ export class Ed25519Signature2018 {
     if (!verificationMethod) {
       throw new Error('No "verificationMethod" or "creator" found in proof.');
     }
-
-    // Note: `expansionMap` is intentionally not passed; we can safely drop
-    // properties here and must allow for it
+    const { document } = await documentLoader(verificationMethod);
     const framed = await jsonld.frame(
       verificationMethod,
       {
-        "@context": constants.SECURITY_CONTEXT_URL,
+        "@context": document["@context"],
         "@embed": "@always",
         id: verificationMethod
       },
-      { documentLoader, compactToRelative: false }
+      {
+        // use the cache of the document we just resolved when framing
+        documentLoader: (iri: string) => {
+          if (iri.startsWith(document.id)) {
+            return {
+              documentUrl: iri,
+              document
+            };
+          }
+          return documentLoader(iri);
+        }
+      }
     );
 
     if (!framed) {
@@ -248,35 +219,8 @@ export class Ed25519Signature2018 {
   }
 
   async verifySignature({ verifyData, verificationMethod, proof }: any) {
-    let { verifier } = this;
-    if (!verifier) {
-      // because sec-v2 does not understand JWK, we must convert back to it...
-      // thanks JSON-LD / Obama.
-      if (verificationMethod["sec:publicKeyJwk"]) {
-        verificationMethod.publicKeyJwk =
-          verificationMethod["sec:publicKeyJwk"]["@value"];
-        delete verificationMethod["sec:publicKeyJwk"];
-      }
-      const key = await Ed25519KeyPair.from(verificationMethod);
-      // this suite relies on detached JWS....
-      // so we need to make sure thats the signature format we are verifying.
-      verifier = {
-        verify: async ({ data, signature }: any) => {
-          let verified = false;
-          const { publicKeyJwk } = await key.toJsonWebKeyPair(false);
-          try {
-            verified = await EdDSA.verifyDetached(
-              signature,
-              data,
-              publicKeyJwk
-            );
-          } catch (e) {
-            console.error("An error occurred when verifying signature: ", e);
-          }
-          return verified;
-        }
-      };
-    }
+    const key = await EdDsaEd25519KeyPair.from(verificationMethod);
+    const verifier = key.verifier();
     return verifier.verify({ data: verifyData, signature: proof.jws });
   }
 

@@ -25,4 +25,8 @@ export const contexts: any = {
     .DID_CONTEXT_TRANSMUTE_V1_URL]: didContexts.contexts.get(
     didContexts.constants.DID_CONTEXT_TRANSMUTE_V1_URL
   ),
+
+  [secContexts.constants.ED25519_2018_v1_URL]: secContexts.contexts.get(
+    secContexts.constants.ED25519_2018_v1_URL
+  ),
 };

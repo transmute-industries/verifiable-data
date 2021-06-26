@@ -13,8 +13,10 @@ export const getFastifyWithWalletOptions = (walletOptions: any) => {
   fastify.register(walletRoutes(walletOptions), { prefix: '/accounts' });
 
   fastify.setErrorHandler((error: any, _request: any, reply: any) => {
-    // Send error response
-    console.error(error);
+    if (process.env.NODE_ENV !== 'test') {
+      // Send error response
+      console.error(error);
+    }
 
     reply.send({ message: error.message });
   });

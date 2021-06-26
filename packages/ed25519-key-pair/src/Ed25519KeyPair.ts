@@ -7,7 +7,7 @@ import {
   LdKeyPairInstance,
   staticImplements,
 } from '@transmute/ld-key-pair';
-import { importableTypes } from './importFrom';
+import { importFromType } from './importFrom';
 import { exportableTypes } from './exportAs';
 import { base58 } from './encoding';
 import {
@@ -76,7 +76,7 @@ export class Ed25519KeyPair implements LdKeyPairInstance {
   };
 
   static from = async (k: JsonWebKey2020 | Ed25519VerificationKey2018) => {
-    const { publicKey, privateKey } = importableTypes[k.type](k as any);
+    const { publicKey, privateKey } = importFromType(k as any);
     return new Ed25519KeyPair({
       id: k.id,
       type: k.type,

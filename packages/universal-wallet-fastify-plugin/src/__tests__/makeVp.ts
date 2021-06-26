@@ -1,5 +1,8 @@
-import { Ed25519Signature2018 } from '@transmute/ed25519-signature-2018';
-import * as ed25519 from '@transmute/did-key-ed25519';
+import {
+  Ed25519Signature2018,
+  EdDsaEd25519KeyPair,
+} from '@transmute/ed25519-signature-2018';
+
 import { documentLoader } from '../__fixtures__/documentLoader';
 
 export const makeVp = async (
@@ -17,7 +20,7 @@ export const makeVp = async (
       challenge,
       domain,
       suite: new Ed25519Signature2018({
-        key: await ed25519.Ed25519KeyPair.from(signingKey),
+        key: await EdDsaEd25519KeyPair.from(signingKey),
       }),
     },
   });

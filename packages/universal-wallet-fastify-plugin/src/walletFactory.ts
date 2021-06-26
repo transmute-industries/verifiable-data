@@ -22,9 +22,9 @@ export const walletFactory = Factory.Sync.makeFactory<FastifyWalletFactory>({
   ...Vp.factoryDefaults,
   //   ...Edv.factoryDefaults,
 })
-  .combine(Wallet.walletFactory)
+  .combine(Wallet.walletFactory as any)
   .combine(DidKey.pluginFactory)
-  .combine(DidWeb.pluginFactory)
-  .combine(Vc.pluginFactory)
+  .combine(DidWeb.pluginFactory as any)
+  .combine(Vc.pluginFactory as any)
   .combine(Vp.pluginFactory);
 //   .combine(Edv.pluginFactory);

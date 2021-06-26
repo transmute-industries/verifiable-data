@@ -21,7 +21,7 @@ export const toJsonWebKey2020 = (
   if (privateKey) {
     k.privateKeyJwk = {
       ...publicKeyJwk,
-      d: base64url.encode(privateKey),
+      d: base64url.encode(privateKey.slice(0, privateKey.length / 2)),
     };
   }
   return k;

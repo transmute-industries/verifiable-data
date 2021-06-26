@@ -1,7 +1,7 @@
 import { passwordToKey } from "./passwordToKey";
 
-import { X25519KeyPair } from "@transmute/did-key-x25519";
-import { Cipher } from "@transmute/did-key-cipher";
+import { X25519KeyPair } from "@transmute/x25519-key-pair";
+import { JWE } from "@transmute/jose-ld";
 
 export const lockContents = async (
   password: string,
@@ -23,14 +23,14 @@ export const lockContents = async (
   };
   const recipients = [recipient];
 
-  const keyResolver = ({ id }: any) => {
+  const keyResolver = (id: string) => {
     if (kp.id === id) {
       return kp.toJsonWebKeyPair(false);
     }
     throw new Error(`Key ${id} not found`);
   };
 
-  const cipher = new Cipher(X25519KeyPair);
+  const cipher = new JWE.Cipher(X25519KeyPair);
 
   const encryptedContents = await Promise.all(
     contents.map(async content => {
@@ -38,7 +38,7 @@ export const lockContents = async (
       const jwe = await cipher.encryptObject({
         obj: { ...content },
         recipients: [...recipients],
-        keyResolver
+        publicKeyResolver: keyResolver
       });
       return jwe;
     })

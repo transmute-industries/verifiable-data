@@ -10,14 +10,14 @@
       "issuer": {
         "id": "did:web:platform.example:accounts:123"
       },
-      "issuanceDate": "2010-03-10T04:24:12.164Z",
+      "issuanceDate": "2010-03-10T04:24:12Z",
       "credentialSubject": {
         "id": "did:web:platform.example:accounts:123"
       },
       "proof": {
         "type": "Ed25519Signature2018",
-        "created": "2021-03-21T16:45:02.812Z",
-        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..mdV9JCIM4A5B3IGvzEUDX7AoeE2CGkHLRPHwb7q0BClvdZQEu2tzYN0ccTaQpFvpgYwqvDq8r7ZJ3ZxYg5h2Ag",
+        "created": "2021-06-26T20:29:39Z",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..yfk5gXjZsWzfJa1f5v1RS5yxYAj5xI-_zTdsTEZLE4Bn-7enBjA1uNZ4gu0q0s6HNAr1UMz8nF3Tncsp2LVLAQ",
         "proofPurpose": "assertionMethod",
         "verificationMethod": "did:web:platform.example:accounts:123#key-0"
       }
@@ -25,10 +25,10 @@
   ],
   "proof": {
     "type": "Ed25519Signature2018",
-    "created": "2021-03-21T16:49:03.837Z",
+    "created": "2021-06-26T20:31:09Z",
     "challenge": "d436f0c8-fbd9-4e48-bbb2-55fc5d0920a8",
     "domain": "example.com",
-    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..uy9dJZVmi-tLrTDwXbLeAqDwNa7X8tVcKCKJc55IBjGe96wUjRbKuvAvH4uGj8vaUS-KFXErMpHJd58GDnotDg",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..L8kC3RR39MaIDs6na3Zsac-hLbIw6z1e1175E3SgZc9Ow5r5q9gbTR_eSpNSHGfDfV7jIXXsoy_fPzkWT52yDw",
     "proofPurpose": "authentication",
     "verificationMethod": "did:web:platform.example:accounts:123#key-0"
   }

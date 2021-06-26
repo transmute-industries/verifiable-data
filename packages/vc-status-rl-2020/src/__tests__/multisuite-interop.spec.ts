@@ -1,7 +1,9 @@
 import { ld as vc } from '@transmute/vc.js';
 
-import { Ed25519KeyPair } from '@transmute/did-key-ed25519';
-import { Ed25519Signature2018 } from '@transmute/ed25519-signature-2018';
+import {
+  Ed25519Signature2018,
+  EdDsaEd25519KeyPair,
+} from '@transmute/ed25519-signature-2018';
 
 import { Bls12381G2KeyPair } from '@transmute/did-key-bls12381';
 import { BbsBlsSignature2020 } from '@mattrglobal/jsonld-signatures-bbs';
@@ -13,21 +15,21 @@ let suite: Ed25519Signature2018;
 
 beforeAll(async () => {
   suite = new Ed25519Signature2018({
-    key: Ed25519KeyPair.from({
+    key: await EdDsaEd25519KeyPair.from({
       id:
         'did:key:z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4#z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4',
       type: 'JsonWebKey2020',
       controller: 'did:key:z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4',
       publicKeyJwk: {
+        kty: 'OKP',
         crv: 'Ed25519',
         x: 'TQY0tCyM0wMZhJbDQ9B-IoZXWN9hS8bCHkpwVXlVves',
-        kty: 'OKP',
       },
       privateKeyJwk: {
+        kty: 'OKP',
         crv: 'Ed25519',
         d: 'XbVr_jPdbQXCoH9hvO1YbSkH7f-FfVl90hH8MKYW44I',
         x: 'TQY0tCyM0wMZhJbDQ9B-IoZXWN9hS8bCHkpwVXlVves',
-        kty: 'OKP',
       },
     }),
     // adding date here makes this fixture stable
