@@ -7,7 +7,7 @@ const customWalletFactory = Factory.Sync.makeFactory({
   ...Wallet.walletDefaults,
   ...DidKey.factoryDefaults,
 })
-  .combine(Wallet.walletFactory)
-  .combine(DidKey.pluginFactory);
+  .combine(Wallet.walletFactory as any)
+  .combine(DidKey.pluginFactory as any);
 
 export { customWalletFactory };
