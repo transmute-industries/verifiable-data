@@ -32,7 +32,6 @@ it("can from, issue, prove and verify", async () => {
   const vc = await vcjs.ld.issue({
     credential: {
       ...credential,
-      issuer: key.controller,
     },
     suite: new Ed25519Signature2018({
       date: "2021-06-19T18:53:11Z",

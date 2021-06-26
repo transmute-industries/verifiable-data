@@ -1,38 +1,28 @@
-import { documentLoader, credential, rawKeyJsonLd } from "../__fixtures__";
+import {
+  documentLoader,
+  rawKeyJsonLd,
+  credential,
+  verifiableCredential,
+} from "../__fixtures__";
 import * as vcjs from "@transmute/vc.js";
 import { Ed25519Signature2018, EdDsaEd25519KeyPair } from "..";
 
-it("can generate, issue, prove and verify", async () => {
-  const key = await EdDsaEd25519KeyPair.generate({
-    secureRandom: () => {
-      return Buffer.from(
-        "4f66b355aa7b0980ff901f2295b9c562ac3061be4df86703eb28c612faae6578",
-        "hex"
-      );
-    },
-  });
-
-  const rawKeyJson = await key.export({ type: "JsonWebKey2020" });
-
-  const rawKeyJsonLdConverted = await key.export({
-    type: "Ed25519VerificationKey2018",
-    privateKey: true,
-  });
-  expect(rawKeyJsonLdConverted).toEqual(rawKeyJsonLd);
+it("can from, issue, prove and verify", async () => {
+  const key = await EdDsaEd25519KeyPair.from(rawKeyJsonLd);
 
   const customDocumentLoader = (iri: string) => {
-    if (iri.startsWith(rawKeyJson.controller)) {
+    if (iri.startsWith(rawKeyJsonLd.controller)) {
       return {
         documentUrl: iri,
         document: {
           "@context": [
             "https://www.w3.org/ns/did/v1",
-            "https://w3id.org/security/suites/jws-2020/v1",
+            "https://w3id.org/security/suites/ed25519-2018/v1",
           ],
-          id: rawKeyJson.controller,
-          verificationMethod: [rawKeyJson],
-          authentication: [rawKeyJson.id],
-          assertionMethod: [rawKeyJson.id],
+          id: rawKeyJsonLd.controller,
+          verificationMethod: [rawKeyJsonLd],
+          authentication: [rawKeyJsonLd.id],
+          assertionMethod: [rawKeyJsonLd.id],
         },
       };
     }
@@ -42,7 +32,6 @@ it("can generate, issue, prove and verify", async () => {
   const vc = await vcjs.ld.issue({
     credential: {
       ...credential,
-      issuer: key.controller,
     },
     suite: new Ed25519Signature2018({
       date: "2021-06-19T18:53:11Z",
@@ -50,6 +39,8 @@ it("can generate, issue, prove and verify", async () => {
     }),
     documentLoader: customDocumentLoader,
   });
+
+  expect(vc).toEqual(verifiableCredential);
 
   const vp = await vcjs.ld.signPresentation({
     presentation: await vcjs.ld.createPresentation({

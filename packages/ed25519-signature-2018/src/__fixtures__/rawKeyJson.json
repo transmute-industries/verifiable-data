@@ -1,16 +1,16 @@
 {
-  "id": "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv#z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv",
+  "id": "did:key:z6Mkk7yqnGF3YwTrLpqrW6PGsKci7dNqh1CjnvMbzrMerSeL#z6Mkk7yqnGF3YwTrLpqrW6PGsKci7dNqh1CjnvMbzrMerSeL",
   "type": "JsonWebKey2020",
-  "controller": "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv",
+  "controller": "did:key:z6Mkk7yqnGF3YwTrLpqrW6PGsKci7dNqh1CjnvMbzrMerSeL",
   "publicKeyJwk": {
+    "kty": "OKP",
     "crv": "Ed25519",
-    "x": "a6mOQOq72S9O1ZtTmCdJDVCT4z3009INmFDwQooJN-s",
-    "kty": "OKP"
+    "x": "VDXDwuGKVq91zxU6q7__jLDUq8_C5cuxECgd-1feFTE"
   },
   "privateKeyJwk": {
+    "kty": "OKP",
     "crv": "Ed25519",
-    "d": "NP_HydvV5-1tpLIeON4XHoMFFefJ3w9vMNV7lfTzncE",
-    "x": "a6mOQOq72S9O1ZtTmCdJDVCT4z3009INmFDwQooJN-s",
-    "kty": "OKP"
+    "x": "VDXDwuGKVq91zxU6q7__jLDUq8_C5cuxECgd-1feFTE",
+    "d": "T2azVap7CYD_kB8ilbnFYqwwYb5N-GcD6yjGEvquZXg"
   }
 }

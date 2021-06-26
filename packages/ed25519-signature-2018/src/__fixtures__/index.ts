@@ -1,24 +1,12 @@
 import * as did from "@transmute/did-context";
 import * as sec from "@transmute/security-context";
 import * as cre from "@transmute/credentials-context";
-import didDocument from "./didDocument.json";
+
 import verifiableCredential from "./verifiableCredential.json";
 import rawKeyJson from "./rawKeyJson.json";
-
-export { didDocument, verifiableCredential, rawKeyJson };
-
-export const credential = {
-  "@context": ["https://www.w3.org/2018/credentials/v1"],
-  id: "http://example.gov/credentials/3732",
-  type: ["VerifiableCredential"],
-  issuer: {
-    id: "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv",
-  },
-  issuanceDate: "2021-06-19T18:53:11Z",
-  credentialSubject: {
-    id: "did:example:ebfeb1f712ebc6f1c276e12ec21",
-  },
-};
+import rawKeyJsonLd from "./rawKeyJsonLd.json";
+import credential from "./credential.json";
+export { credential, verifiableCredential, rawKeyJson, rawKeyJsonLd };
 
 const contexts: any = {
   [did.constants.DID_CONTEXT_V1_URL]: did.contexts.get(
@@ -47,14 +35,6 @@ const contexts: any = {
 };
 
 export const documentLoader = async (iri: string) => {
-  if (
-    iri.startsWith("did:key:z6MkpFJxUgQgYKK68fmokaCWwpRYoWdG3LzZR6dLFXvdJvAT")
-  ) {
-    return {
-      documentUrl: iri,
-      document: didDocument,
-    };
-  }
   if (contexts[iri]) {
     return {
       documentUrl: iri,
