@@ -9,7 +9,8 @@ export interface VerifyCredential {
 }
 
 export interface PresentCredentials {
-  verifiableCredential: any;
+  verifiableCredential?: any;
+  presentation?: any;
   options: any;
 }
 

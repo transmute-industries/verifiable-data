@@ -1,0 +1,37 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/bls12381-2020/v1"
+  ],
+  "type": ["VerifiablePresentation"],
+  "holder": "did:key:zUC78Fnoo4GrPw827VwFSWEEPCcuxWhCuCSGhXYn8fZYyTzTSnVQLHsiAXrLkG2xtixMrVjjoiGJnk22vWGLZHQ6LsvoKd8ti957ibdLqYZXaZyS7wXApPJ3JzSzDzxoqXnZ9sz",
+  "verifiableCredential": {
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://w3id.org/security/suites/bls12381-2020/v1"
+    ],
+    "id": "http://example.gov/credentials/3732",
+    "type": ["VerifiableCredential"],
+    "issuer": "did:key:zUC78Fnoo4GrPw827VwFSWEEPCcuxWhCuCSGhXYn8fZYyTzTSnVQLHsiAXrLkG2xtixMrVjjoiGJnk22vWGLZHQ6LsvoKd8ti957ibdLqYZXaZyS7wXApPJ3JzSzDzxoqXnZ9sz",
+    "issuanceDate": "2021-06-19T18:53:11Z",
+    "credentialSubject": {
+      "id": "did:example:ebfeb1f712ebc6f1c276e12ec21"
+    },
+    "proof": {
+      "type": "BbsBlsSignature2020",
+      "created": "2021-06-26T18:56:45Z",
+      "proofPurpose": "assertionMethod",
+      "proofValue": "uOFrQBGE/s0FbmQqf+qMNelwTkXQ/EaGnJgkLtyWBBjNXrhSejk8pJjRiDS2MygdHyKEQr6WPmogWlUi4xR6Ev/MHql+la2xaLrCO8YdQ59VSOMSK6P/xSRFqPUFLvCbIrBBqqce3Jx7sfQv34lNuQ==",
+      "verificationMethod": "did:key:zUC78Fnoo4GrPw827VwFSWEEPCcuxWhCuCSGhXYn8fZYyTzTSnVQLHsiAXrLkG2xtixMrVjjoiGJnk22vWGLZHQ6LsvoKd8ti957ibdLqYZXaZyS7wXApPJ3JzSzDzxoqXnZ9sz#zUC78Fnoo4GrPw827VwFSWEEPCcuxWhCuCSGhXYn8fZYyTzTSnVQLHsiAXrLkG2xtixMrVjjoiGJnk22vWGLZHQ6LsvoKd8ti957ibdLqYZXaZyS7wXApPJ3JzSzDzxoqXnZ9sz"
+    }
+  },
+  "proof": {
+    "type": "BbsBlsSignature2020",
+    "created": "2021-06-26T19:05:49Z",
+    "challenge": "nonce-123",
+    "domain": "example.com",
+    "proofPurpose": "authentication",
+    "proofValue": "gfOVmmkud06KXY5dLn69koGvGl5li5v1Bs/TWbs/HgPt6SaOzGd1GIh3fLncnIdOUsGqGVCKpGp+/rvG9/Ky1C7uj/FwYTSvuWBT/YtSgXAtxnv12P1tcD1HQiO2UiKbhEqmc+DPWa9rgSDLt7yvIg==",
+    "verificationMethod": "did:key:zUC78Fnoo4GrPw827VwFSWEEPCcuxWhCuCSGhXYn8fZYyTzTSnVQLHsiAXrLkG2xtixMrVjjoiGJnk22vWGLZHQ6LsvoKd8ti957ibdLqYZXaZyS7wXApPJ3JzSzDzxoqXnZ9sz#zUC78Fnoo4GrPw827VwFSWEEPCcuxWhCuCSGhXYn8fZYyTzTSnVQLHsiAXrLkG2xtixMrVjjoiGJnk22vWGLZHQ6LsvoKd8ti957ibdLqYZXaZyS7wXApPJ3JzSzDzxoqXnZ9sz"
+  }
+}

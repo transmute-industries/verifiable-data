@@ -1,0 +1,28 @@
+{
+  "@context": ["https://www.w3.org/2018/credentials/v1"],
+  "type": ["VerifiablePresentation"],
+  "verifiableCredential": {
+    "@context": ["https://www.w3.org/2018/credentials/v1"],
+    "id": "http://example.gov/credentials/3732",
+    "type": ["VerifiableCredential"],
+    "issuer": "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv",
+    "issuanceDate": "2021-06-19T18:53:11Z",
+    "credentialSubject": { "id": "did:example:ebfeb1f712ebc6f1c276e12ec21" },
+    "proof": {
+      "type": "Ed25519Signature2018",
+      "created": "2021-06-19T18:53:11Z",
+      "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..SMqdKSo5m14-a0GaGXSaVSLcIQ25rzJnM_P4se7qLg2BwqX6fauh5xT4HN6NseKtn4QhK8Te9NPNArRwYyccCQ",
+      "proofPurpose": "assertionMethod",
+      "verificationMethod": "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv#z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv"
+    }
+  },
+  "proof": {
+    "type": "Ed25519Signature2018",
+    "created": "2021-06-19T18:53:11Z",
+    "challenge": "nonce-123",
+    "domain": "example.com",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..LY-fWJiyxG_aOlyM5DXlASPs4G7MXJAhQXHhhrtxMxhgebnD4wZHFcZO7rh5IQ68FE11N8x7f9pDrhHmag4fAQ",
+    "proofPurpose": "authentication",
+    "verificationMethod": "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv#z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv"
+  }
+}

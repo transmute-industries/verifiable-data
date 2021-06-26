@@ -26,7 +26,16 @@ export const fromX25519KeyAgreementKey2019 = (
   return { publicKey, privateKey };
 };
 
-export const importableTypes = {
+export const importableTypes: any = {
   JsonWebKey2020: fromJsonWebKey2020,
   Ed25519VerificationKey2018: fromX25519KeyAgreementKey2019,
+};
+
+export const importFromType = (k: any): any => {
+  if (!importableTypes[k.type]) {
+    throw new Error(
+      `Cannot import from unsupported type: ${JSON.stringify(k, null, 2)}`
+    );
+  }
+  return importableTypes[k.type](k);
 };
