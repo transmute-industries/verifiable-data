@@ -19,7 +19,7 @@ export const factoryDefaults: DidWebPlugin = {
   keysToDidDocument,
   generate: async function(endpoint: string): Promise<any> {
     return generate(endpoint);
-  },
+  }
 };
 
 export const pluginFactory = Factory.Sync.makeFactory<DidWebPlugin>(

@@ -9,7 +9,7 @@ const getKeys = async (did: string) => {
   const options = {
     secureRandom: () => {
       return crypto.randomBytes(32);
-    },
+    }
   };
   const k0 = await Ed25519KeyPair.generate(options);
   const k1 = await Bls12381KeyPairs.generate(options);

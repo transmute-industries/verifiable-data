@@ -31,14 +31,14 @@ const contexts: any = {
   // used to test JsonWebKey2020 backward compatibility
   [sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL]: sec.contexts.get(
     sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL
-  ),
+  )
 };
 
 export const documentLoader = async (iri: string) => {
   if (contexts[iri]) {
     return {
       documentUrl: iri,
-      document: contexts[iri],
+      document: contexts[iri]
     };
   }
   console.error("Unsupported iri: " + iri);
