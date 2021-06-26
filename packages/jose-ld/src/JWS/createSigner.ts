@@ -21,17 +21,20 @@ export const createSigner = (
       );
 
       const toBeSigned = options.detached
-        ? Buffer.concat([
-            Buffer.from(encodedHeader + '.', 'utf8'),
-            Buffer.from(data.buffer, data.byteOffset, data.length),
-          ])
+        ? new Uint8Array(
+            Buffer.concat([
+              Buffer.from(encodedHeader, 'utf8'),
+              Buffer.from('.', 'utf-8'),
+              data,
+            ])
+          )
         : `${encodedHeader}.${encodedPayload}`;
 
-      const message = Buffer.from(toBeSigned);
+      const message = toBeSigned as any;
       const signature = await signer.sign({ data: message });
 
       return options.detached
-        ? `${encodedHeader}..${base64url.encode(signature)}`
+        ? `${encodedHeader}..${base64url.encode(Buffer.from(signature))}`
         : `${encodedHeader}.${encodedPayload}.${base64url.encode(signature)}`;
     },
   };

@@ -1,0 +1,26 @@
+{
+  "name": "test-helper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test:db:raw && npm run test:ts:raw",
+    "test:db:raw": "node ./__tests__/raw-ed25519-eddsa.digitalbazaar.js",
+    "test:ts:raw": "node ./__tests__/raw-ed25519-eddsa.transmute.js",
+    "test:db:ld": "node ./__tests__/ed25519-signature-2018.digitalbazaar.js",
+    "test:ts:ld": "node ./__tests__/ed25519-signature-2018.transmute.js"
+  },
+  "author": "Orie Steele",
+  "license": "ISC",
+  "dependencies": {
+    "@digitalbazaar/ed25519-signature-2018": "^2.0.1",
+    "@digitalbazaar/ed25519-verification-key-2018": "^3.1.1",
+    "@digitalbazaar/vc": "^1.0.0",
+    "@transmute/credentials-context": "^0.6.1-unstable.36",
+    "@transmute/did-context": "^0.6.1-unstable.36",
+    "@transmute/ed25519-key-pair": "^0.6.1-unstable.36",
+    "@transmute/ed25519-signature-2018": "^0.6.1-unstable.36",
+    "@transmute/security-context": "^0.6.1-unstable.36",
+    "@transmute/vc.js": "^0.2.1-unstable.12"
+  }
+}
