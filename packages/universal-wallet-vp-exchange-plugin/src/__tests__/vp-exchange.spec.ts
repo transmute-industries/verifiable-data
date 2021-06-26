@@ -1,8 +1,10 @@
-import { Ed25519KeyPair } from "@transmute/did-key-ed25519";
-import { Ed25519Signature2018 } from "@transmute/ed25519-signature-2018";
+import {
+  Ed25519Signature2018,
+  EdDsaEd25519KeyPair,
+} from "@transmute/ed25519-signature-2018";
 import {
   walletFactory,
-  FixtureWalletFactory
+  FixtureWalletFactory,
 } from "../__fixtures__/walletFactory";
 import { makeVc } from "../__fixtures__/makeVc";
 import { documentLoader } from "../__fixtures__/documentLoader";
@@ -13,10 +15,10 @@ let bobWallet: FixtureWalletFactory;
 const getVp = async (m1: any) => {
   const vc = await makeVc(aliceWallet, "IntentToSell");
   // this stuff feels like it should be abstracted...
-  const key = await Ed25519KeyPair.from(aliceWallet.contents[0]);
+  const key = await EdDsaEd25519KeyPair.from(aliceWallet.contents[0]);
   const suite = new Ed25519Signature2018({
     key,
-    date: "2020-03-10T04:24:12.164Z"
+    date: "2020-03-10T04:24:12.164Z",
   });
   const m2 = {
     verifiablePresentation: await aliceWallet.createVerifiablePresentation({
@@ -26,55 +28,54 @@ const getVp = async (m1: any) => {
         challenge: m1.challenge,
         domain: m1.domain,
         suite,
-        documentLoader: documentLoader
-      }
-    })
+        documentLoader: documentLoader,
+      },
+    }),
   };
   return m2;
 };
 
 beforeAll(async () => {
-  aliceWallet = walletFactory.build().add(
-    await Ed25519KeyPair.generate({
-      secureRandom: () => {
-        return Buffer.from(
-          "7052adea8f9823817065456ecad5bf24dcd31a698f7bc9a0b5fc170849af4226",
-          "hex"
-        );
-      }
-    }).then(k => {
-      let k0 = k.toJsonWebKeyPair(true);
-      k0.id = k0.controller + k0.id;
-      return k0;
-    })
-  ) as FixtureWalletFactory;
+  let k0 = await EdDsaEd25519KeyPair.generate({
+    secureRandom: () => {
+      return Buffer.from(
+        "7052adea8f9823817065456ecad5bf24dcd31a698f7bc9a0b5fc170849af4226",
+        "hex"
+      );
+    },
+  });
 
-  bobWallet = walletFactory.build().add(
-    await Ed25519KeyPair.generate({
-      secureRandom: () => {
-        return Buffer.from(
-          "8052adea8f9823817065456ecad5bf24dcd31a698f7bc9a0b5fc170849af4226",
-          "hex"
-        );
-      }
-    }).then(k => {
-      let k0 = k.toJsonWebKeyPair(true);
-      k0.id = k0.controller + k0.id;
-      return k0;
-    })
-  ) as FixtureWalletFactory;
+  const k1 = await EdDsaEd25519KeyPair.generate({
+    secureRandom: () => {
+      return Buffer.from(
+        "8052adea8f9823817065456ecad5bf24dcd31a698f7bc9a0b5fc170849af4226",
+        "hex"
+      );
+    },
+  });
+  aliceWallet = walletFactory
+    .build()
+    .add(
+      await k0.export({ type: "JsonWebKey2020", privateKey: true })
+    ) as FixtureWalletFactory;
+
+  bobWallet = walletFactory
+    .build()
+    .add(
+      await k1.export({ type: "JsonWebKey2020", privateKey: true })
+    ) as FixtureWalletFactory;
 });
 
 it("bob configures his wallet to support a new credential flow", async () => {
   bobWallet.authorizeCredentialFlow("IntentToSellProductCategory", [
-    "IntentToSell"
+    "IntentToSell",
   ]);
   expect(bobWallet.contents[1].type).toBe("FlowRequirements");
 });
 
 it("bob configures his wallet to accept a flow from alice", async () => {
   bobWallet.authorizePresentationFlow(aliceWallet.contents[0].controller, [
-    "IntentToSellProductCategory"
+    "IntentToSellProductCategory",
   ]);
   expect(bobWallet.contents[2].type).toBe("AuthorizedFlows");
 });
@@ -105,7 +106,7 @@ it("alice responds to bobs challenge and query with a vp", async () => {
 it("bob verifies and stores alice's vp", async () => {
   await bobWallet.verifyAndAddPresentation(m2, {
     suite: new Ed25519Signature2018(),
-    documentLoader: documentLoader
+    documentLoader: documentLoader,
   });
   expect(bobWallet.contents[4].type).toBe("Submission");
 });
