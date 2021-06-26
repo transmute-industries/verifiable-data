@@ -1,50 +1,47 @@
+import { Ed25519KeyPair } from '..';
+
 const { generateKeyPair } = require('jose/util/generate_key_pair');
 const { fromKeyLike } = require('jose/jwk/from_key_like');
-const { Ed25519KeyPair } = require('./dist');
 
-// jwk / base58 key conversion appears functional.
-(async () => {
+it('jose interop tests', async () => {
   const key = await generateKeyPair('EdDSA');
   const privateKeyJwk = await fromKeyLike(key.privateKey);
-
-  console.log('good: ', JSON.stringify(privateKeyJwk, null, 2));
-  const k = await Ed25519KeyPair.from({
-    id: '',
-    type: 'JsonWebKey2020',
-    controller: '',
-    publicKeyJwk: {
-      ...privateKeyJwk,
-    },
-    privateKeyJwk: {
-      ...privateKeyJwk,
-    },
-  });
-
+  const handCraftedJsonWebKeyPair = JSON.parse(
+    JSON.stringify({
+      id: '',
+      type: 'JsonWebKey2020',
+      controller: '',
+      publicKeyJwk: {
+        ...privateKeyJwk,
+      },
+      privateKeyJwk: {
+        ...privateKeyJwk,
+      },
+    })
+  );
+  delete handCraftedJsonWebKeyPair.publicKeyJwk.d;
+  const k = await Ed25519KeyPair.from(handCraftedJsonWebKeyPair);
   const exported1 = await k.export({
     type: 'JsonWebKey2020',
     privateKey: true,
   });
-  console.log('good: ', JSON.stringify(exported1, null, 2));
-
+  expect(exported1).toEqual(handCraftedJsonWebKeyPair);
   const exported2 = await k.export({
     type: 'Ed25519VerificationKey2018',
     privateKey: true,
   });
-  console.log('good?: ', JSON.stringify(exported2, null, 2));
-
   const imported1 = await Ed25519KeyPair.from(exported2);
-
   const exported3 = await imported1.export({
     type: 'JsonWebKey2020',
     privateKey: true,
   });
-
-  console.log('good?: ', JSON.stringify(exported3, null, 2));
+  // proves base58 key conversion is stable.
+  expect(exported3).toEqual(handCraftedJsonWebKeyPair);
 
   const exported4 = await imported1.export({
     type: 'Ed25519VerificationKey2018',
     privateKey: true,
   });
-
-  console.log('good?: ', JSON.stringify(exported4, null, 2));
-})();
+  // proves base58 key conversion is stable.
+  expect(exported4).toEqual(exported2);
+});
