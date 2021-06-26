@@ -1,5 +1,5 @@
-import securityContexts from '@transmute/security-context';
-import credentialsContexts from '@transmute/credentials-context';
+import sec from '@transmute/security-context';
+import cre from '@transmute/credentials-context';
 import didContexts from '@transmute/did-context';
 import rlContexts from '@transmute/revocation-list-context';
 import walletV1 from './wallet-v1.json';
@@ -9,17 +9,17 @@ import bbsV1 from './bbs-v1.json';
 import citV1 from './citizenship-v1.json';
 
 export const contexts: any = {
-  [securityContexts.constants
-    .SECURITY_CONTEXT_V1_URL]: securityContexts.contexts.get(
-    securityContexts.constants.SECURITY_CONTEXT_V1_URL
+  [sec.constants.SECURITY_CONTEXT_V1_URL]: sec.contexts.get(
+    sec.constants.SECURITY_CONTEXT_V1_URL
   ),
-  [securityContexts.constants
-    .SECURITY_CONTEXT_V2_URL]: securityContexts.contexts.get(
-    securityContexts.constants.SECURITY_CONTEXT_V2_URL
+  [sec.constants.SECURITY_CONTEXT_V2_URL]: sec.contexts.get(
+    sec.constants.SECURITY_CONTEXT_V2_URL
   ),
-  [credentialsContexts.constants
-    .CREDENTIALS_CONTEXT_V1_URL]: credentialsContexts.contexts.get(
-    credentialsContexts.constants.CREDENTIALS_CONTEXT_V1_URL
+  [sec.constants.ED25519_2018_v1_URL]: sec.contexts.get(
+    sec.constants.ED25519_2018_v1_URL
+  ),
+  [cre.constants.CREDENTIALS_CONTEXT_V1_URL]: cre.contexts.get(
+    cre.constants.CREDENTIALS_CONTEXT_V1_URL
   ),
   [didContexts.constants.DID_CONTEXT_V1_URL]: didContexts.contexts.get(
     didContexts.constants.DID_CONTEXT_V1_URL

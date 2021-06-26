@@ -1,7 +1,9 @@
 import { BbsBlsSignature2020 } from '@mattrglobal/jsonld-signatures-bbs';
-import { Ed25519Signature2018 } from '@transmute/ed25519-signature-2018';
+import {
+  Ed25519Signature2018,
+  EdDsaEd25519KeyPair,
+} from '@transmute/ed25519-signature-2018';
 
-import * as ed25519 from '@transmute/did-key-ed25519';
 import * as bls12381 from '@transmute/did-key-bls12381';
 
 export const getSuiteForKey = async (k: any) => {
@@ -22,7 +24,7 @@ export const getSuiteForKey = async (k: any) => {
     k.publicKeyJwk.kty === 'OKP' &&
     k.publicKeyJwk.crv === 'Ed25519'
   ) {
-    const key = await ed25519.Ed25519KeyPair.from(k);
+    const key = await EdDsaEd25519KeyPair.from(k);
     const suite = new Ed25519Signature2018({
       key,
     });

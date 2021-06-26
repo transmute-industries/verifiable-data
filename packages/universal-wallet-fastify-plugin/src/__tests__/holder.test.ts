@@ -42,6 +42,7 @@ test('POST `/accounts/123/presentations/prove`', async () => {
     .expect('Content-Type', 'application/json; charset=utf-8');
   expect(response.body.type.includes('VerifiablePresentation')).toBe(true);
   expect(response.body.proof.type).toBe('Ed25519Signature2018');
+  // console.log(JSON.stringify(response.body, null, 2));
 });
 
 // blocked by https://github.com/mattrglobal/jsonld-signatures-bbs/issues/102
