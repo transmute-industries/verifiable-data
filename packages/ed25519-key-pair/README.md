@@ -9,7 +9,7 @@ import { Ed25519KeyPair } from '@transmute/ed25519-key-pair';
 const k = await Ed25519KeyPair.generate({
   secureRandom: () => {
     return Buffer.from(
-      '4e61bc1918ea6a47ae3307331be7798196a1a8e7cfe4b6e8f7c9a5f36017d929',
+      '4f66b355aa7b0980ff901f2295b9c562ac3061be4df86703eb28c612faae6578',
       'hex'
     );
   },
