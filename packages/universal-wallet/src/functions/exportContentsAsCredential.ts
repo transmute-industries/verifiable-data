@@ -1,7 +1,7 @@
 import { passwordToKey } from "./passwordToKey";
 import { lockContents } from "./lockContents";
 
-import { X25519KeyPair } from "@transmute/did-key-x25519";
+import { X25519KeyPair } from "@transmute/x25519-key-pair";
 
 export const exportContentsAsCredential = async (
   password: string,
@@ -13,7 +13,7 @@ export const exportContentsAsCredential = async (
     secureRandom: () => {
       return derivedKey;
     }
-  });
+  }); 
   kp.id = kp.controller + kp.id;
 
   // we don't want to leak number of wallet contents...

@@ -1,7 +1,7 @@
 import { passwordToKey } from "./passwordToKey";
 
-import { X25519KeyPair } from "@transmute/did-key-x25519";
-import { Cipher } from "@transmute/did-key-cipher";
+import { X25519KeyPair } from "@transmute/x25519-key-pair";
+import { JWE } from "@transmute/jose-ld";
 
 export const unlockContents = async (
   password: string,
@@ -12,17 +12,18 @@ export const unlockContents = async (
   const kp = await X25519KeyPair.generate({
     secureRandom: () => {
       return derivedKey;
-    }
+    },
   });
   kp.id = kp.controller + kp.id;
 
-  const cipher = new Cipher(X25519KeyPair);
+  const cipher = new JWE.Cipher(X25519KeyPair);
+
   let decryptedContents = [];
   for (let i = 0; i < contents.length; i++) {
     const content = contents[i];
     const decryptedContent = await cipher.decryptObject({
       jwe: content,
-      keyAgreementKey: kp
+      keyAgreementKey: kp,
     });
     decryptedContents.push(decryptedContent);
   }
