@@ -13,7 +13,7 @@ export const exportContentsAsCredential = async (
     secureRandom: () => {
       return derivedKey;
     }
-  }); 
+  });
   kp.id = kp.controller + kp.id;
 
   // we don't want to leak number of wallet contents...

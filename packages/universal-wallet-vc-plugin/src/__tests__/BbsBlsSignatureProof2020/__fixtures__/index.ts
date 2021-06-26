@@ -17,5 +17,5 @@ export {
   frame,
   derivedCredential,
   verifiablePresentation,
-  controller,
+  controller
 };

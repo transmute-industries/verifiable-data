@@ -37,20 +37,20 @@ const fixtureContexts: any = {
   "http://w3id.org/wallet/v1": wallet_v1,
   "https://w3id.org/security/bbs/v1": bbs_v1,
   "https://w3id.org/citizenship/v1": citizenship_v1,
-  "https://w3id.org/security/v3-unstable": sec_v3,
+  "https://w3id.org/security/v3-unstable": sec_v3
 };
 
 const documentLoader = (iri: string) => {
   if (fixtureContexts[iri]) {
     return {
-      document: fixtureContexts[iri],
+      document: fixtureContexts[iri]
     };
   }
   const base = `${iri}`.split("#")[0];
 
   if ((issuers as any)[base]) {
     return {
-      document: (issuers as any)[base],
+      document: (issuers as any)[base]
     };
   }
   throw new Error("unsupported IRI " + iri);

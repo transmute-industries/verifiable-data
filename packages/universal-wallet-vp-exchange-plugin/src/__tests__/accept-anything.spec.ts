@@ -1,10 +1,10 @@
 import {
   Ed25519Signature2018,
-  EdDsaEd25519KeyPair,
+  EdDsaEd25519KeyPair
 } from "@transmute/ed25519-signature-2018";
 import {
   walletFactory,
-  FixtureWalletFactory,
+  FixtureWalletFactory
 } from "../__fixtures__/walletFactory";
 
 import { makeVc } from "../__fixtures__/makeVc";
@@ -20,7 +20,7 @@ const getVp = async (m1: any) => {
   const key = await EdDsaEd25519KeyPair.from(aliceWallet.contents[0]);
   const suite = new Ed25519Signature2018({
     key,
-    date: "2020-03-10T04:24:12.164Z",
+    date: "2020-03-10T04:24:12.164Z"
   });
   const m2 = {
     verifiablePresentation: await aliceWallet.createVerifiablePresentation({
@@ -30,9 +30,9 @@ const getVp = async (m1: any) => {
         challenge: m1.challenge,
         domain: m1.domain,
         suite,
-        documentLoader: documentLoader,
-      },
-    }),
+        documentLoader: documentLoader
+      }
+    })
   };
   return m2;
 };
@@ -44,7 +44,7 @@ beforeAll(async () => {
         "7052adea8f9823817065456ecad5bf24dcd31a698f7bc9a0b5fc170849af4226",
         "hex"
       );
-    },
+    }
   });
 
   const k1 = await EdDsaEd25519KeyPair.generate({
@@ -53,7 +53,7 @@ beforeAll(async () => {
         "8052adea8f9823817065456ecad5bf24dcd31a698f7bc9a0b5fc170849af4226",
         "hex"
       );
-    },
+    }
   });
   aliceWallet = walletFactory
     .build()
@@ -94,7 +94,7 @@ it("alice responds to bobs challenge and query with a vp", async () => {
 it("bob verifies and stores alice's vp", async () => {
   await bobWallet.verifyAndAddPresentation(m2, {
     suite: new Ed25519Signature2018(),
-    documentLoader: documentLoader,
+    documentLoader: documentLoader
   });
   expect(bobWallet.contents[2].type).toBe("Submission");
 });

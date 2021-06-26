@@ -7,7 +7,7 @@ const vcjs = ld;
 const createVerifiablePresentation = ({
   presentation,
   verifiableCredential,
-  options,
+  options
 }: PresentCredentials) => {
   // remember the context must cover the proof suite...
   if (!presentation) {
@@ -15,7 +15,7 @@ const createVerifiablePresentation = ({
       "@context": ["https://www.w3.org/2018/credentials/v1"],
       type: ["VerifiablePresentation"],
       holder: options.holder,
-      verifiableCredential,
+      verifiableCredential
     };
   }
 
@@ -24,7 +24,7 @@ const createVerifiablePresentation = ({
     suite: options.suite,
     challenge: options.challenge,
     domain: options.domain,
-    documentLoader: options.documentLoader,
+    documentLoader: options.documentLoader
   });
 };
 

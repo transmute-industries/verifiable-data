@@ -2,7 +2,7 @@ import {
   Bls12381G2KeyPair,
   BbsBlsSignature2020,
   BbsBlsSignatureProof2020,
-  deriveProof,
+  deriveProof
 } from "@mattrglobal/jsonld-signatures-bbs";
 
 import { plugin } from "../../index";
@@ -14,7 +14,7 @@ import {
   frame,
   controller,
   derivedCredential,
-  verifiablePresentation,
+  verifiablePresentation
 } from "./__fixtures__";
 
 let key: Bls12381G2KeyPair;
@@ -24,7 +24,7 @@ beforeAll(async () => {
   key = await Bls12381G2KeyPair.from(key0 as any);
   suite = new BbsBlsSignature2020({
     key,
-    date: "2021-06-19T18:53:11Z",
+    date: "2021-06-19T18:53:11Z"
   });
 });
 
@@ -53,12 +53,12 @@ describe("from / derive / present / verify", () => {
         documentLoader: (iri: string) => {
           if (iri.startsWith(controller.id)) {
             return {
-              document: controller,
+              document: controller
             };
           }
           return documentLoader(iri);
-        },
-      },
+        }
+      }
     });
     expectProofsToBeEqual(vc, derivedCredential);
   });
@@ -70,14 +70,14 @@ describe("from / derive / present / verify", () => {
         "@context": verifiableCredential["@context"],
         type: ["VerifiablePresentation"],
         holder: key.controller,
-        verifiableCredential: [derivedCredential],
+        verifiableCredential: [derivedCredential]
       },
       options: {
         challenge: "nonce-123",
         domain: "example.com",
         suite,
-        documentLoader,
-      },
+        documentLoader
+      }
     });
     expectProofsToBeEqual(vp, verifiablePresentation);
   });
@@ -90,17 +90,17 @@ describe("from / derive / present / verify", () => {
         domain: "example.com",
         suiteMap: {
           BbsBlsSignature2020,
-          BbsBlsSignatureProof2020,
+          BbsBlsSignatureProof2020
         },
         documentLoader: (iri: string) => {
           if (iri.startsWith(controller.id)) {
             return {
-              document: controller,
+              document: controller
             };
           }
           return documentLoader(iri);
-        },
-      },
+        }
+      }
     });
     expect(verification.verified).toBe(true);
   });

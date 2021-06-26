@@ -23,5 +23,5 @@ export const contexts: any = {
   ),
   [sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL]: sec.contexts.get(
     sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL
-  ),
+  )
 };

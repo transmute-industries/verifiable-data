@@ -12,5 +12,5 @@ export {
   credential,
   verifiableCredential,
   verifiablePresentation,
-  controller,
+  controller
 };

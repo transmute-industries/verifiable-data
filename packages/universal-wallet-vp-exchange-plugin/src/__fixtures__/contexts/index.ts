@@ -22,5 +22,5 @@ export const contexts: any = {
 
   [sec.constants.ED25519_2018_v1_URL]: sec.contexts.get(
     sec.constants.ED25519_2018_v1_URL
-  ),
+  )
 };
