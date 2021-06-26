@@ -1,19 +1,26 @@
 const fs = require("fs");
 const path = require("path");
+JSON.canonicalize = require("canonicalize");
+const {
+  documentLoader,
+} = require("../__fixtures__/documentLoader.dereference");
 
-const { documentLoader } = require("../__fixtures__/documentLoader");
-
-const vcjs = require("@transmute/vc.js").ld;
+const vcjs = require("@digitalbazaar/vc");
 
 const {
   Ed25519Signature2018,
-  EdDsaEd25519KeyPair,
-} = require("@transmute/ed25519-signature-2018");
+} = require("@digitalbazaar/ed25519-signature-2018");
 
-// const { Ed25519KeyPair } = require("@transmute/ed25519-key-pair");
+const {
+  Ed25519VerificationKey2018,
+} = require("@digitalbazaar/ed25519-verification-key-2018");
 
 (async () => {
-  const key = await EdDsaEd25519KeyPair.from(
+  // their "private key" is really a private and public key....
+  // const generated = await Ed25519VerificationKey2018.generate();
+  // console.log(generated);
+
+  const key = await Ed25519VerificationKey2018.from(
     require("../__fixtures__/key-ld.json")
   );
 
@@ -36,14 +43,11 @@ const {
       },
     },
     suite,
-    documentLoader,
   });
 
-  // console.log(JSON.stringify(vc, null, 2));
-
   if (
-    JSON.stringify(vc) !==
-    JSON.stringify(require("../__fixtures__/ed25519-signaturee-2018.json"))
+    JSON.canonicalize(vc) !==
+    JSON.canonicalize(require("../__fixtures__/ed25519-signaturee-2018.json"))
   ) {
     console.error("credential does not match fixture");
     process.exit(1);
