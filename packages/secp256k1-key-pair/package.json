@@ -2,7 +2,7 @@
   "name": "@transmute/secp256k1-key-pair",
   "author": "Orie Steele",
   "module": "dist/secp256k1-key-pair.esm.js",
-  "version": "0.7.0-unstable.0",
+  "version": "0.7.0-unstable.1",
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/secp256k1-key-pair",
   "repository": {
@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "@bitauth/libauth": "^1.18.1",
-    "@transmute/ld-key-pair": "^0.6.1-unstable.37",
+    "@transmute/ld-key-pair": "^0.7.0-unstable.1",
     "secp256k1": "^4.0.2"
   }
 }
