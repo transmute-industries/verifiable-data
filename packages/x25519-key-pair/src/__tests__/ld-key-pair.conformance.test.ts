@@ -24,7 +24,10 @@ it('generate', async () => {
 });
 
 it('export', async () => {
-  const k1 = await k.toJsonWebKeyPair(true);
+  const k1 = (await k.export({
+    type: 'JsonWebKey2020',
+    privateKey: true,
+  })) as JsonWebKey2020;
   expect(k1.controller).toBe(
     'did:key:z6LSmj99jDmtGRf67cjCwaavf1oEdEwMcWZ8mh9Q7yTjWrP3'
   );

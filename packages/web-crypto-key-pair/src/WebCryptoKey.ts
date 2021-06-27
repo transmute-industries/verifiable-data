@@ -135,15 +135,7 @@ export class WebCryptoKey implements LdKeyPairInstance {
     throw new Error('Unsupported export options: ' + JSON.stringify(options));
   }
 
-  async toJsonWebKeyPair(exportPrivateKey = false) {
-    console.warn(
-      "DEPRECATION WARNING: .toJsonWebKeyPair should be replaced with .export({type:'JsonWebKey2020'})."
-    );
-    return this.export({
-      type: 'JsonWebKey2020',
-      privateKey: exportPrivateKey,
-    }) as Promise<JsonWebKey2020>;
-  }
+ 
 
   signer(type: 'Ecdsa' = 'Ecdsa') {
     if (this.privateKey) {

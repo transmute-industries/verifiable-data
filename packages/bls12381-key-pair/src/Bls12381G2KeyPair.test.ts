@@ -100,52 +100,6 @@ it('fingerprintFromPublicKey', async () => {
   );
 });
 
-it('toJsonWebKeyPair', async () => {
-  const kn = await Bls12381G2KeyPair.from({
-    id:
-      'did:key:zUC71nmwvy83x1UzNKbZbS7N9QZx8rqpQx3Ee3jGfKiEkZngTKzsRoqobX6wZdZF5F93pSGYYco3gpK9tc53ruWUo2tkBB9bxPCFBUjq2th8FbtT4xih6y6Q1K9EL4Th86NiCGT#zUC71nmwvy83x1UzNKbZbS7N9QZx8rqpQx3Ee3jGfKiEkZngTKzsRoqobX6wZdZF5F93pSGYYco3gpK9tc53ruWUo2tkBB9bxPCFBUjq2th8FbtT4xih6y6Q1K9EL4Th86NiCGT',
-    type: 'JsonWebKey2020',
-    controller:
-      'did:key:zUC71nmwvy83x1UzNKbZbS7N9QZx8rqpQx3Ee3jGfKiEkZngTKzsRoqobX6wZdZF5F93pSGYYco3gpK9tc53ruWUo2tkBB9bxPCFBUjq2th8FbtT4xih6y6Q1K9EL4Th86NiCGT',
-    publicKeyJwk: {
-      kty: 'EC',
-      crv: 'BLS12381_G2',
-      x:
-        'gn6no-fdvchOjSf1XQvnPduLowppHLq5NCswBjRSKPl597BuGZeHs6QENSki29YvBNbvPruDOyjzS2wcAGvEcOATFYGwlpHB1fy9exY4CmM3Cl_hXbMOWQ2EzUunHs6k',
-    },
-    privateKeyJwk: {
-      kty: 'EC',
-      crv: 'BLS12381_G2',
-      x:
-        'gn6no-fdvchOjSf1XQvnPduLowppHLq5NCswBjRSKPl597BuGZeHs6QENSki29YvBNbvPruDOyjzS2wcAGvEcOATFYGwlpHB1fy9exY4CmM3Cl_hXbMOWQ2EzUunHs6k',
-      d: 'P9zRDsbJf-VlNMt9FO6_zU-qPDDwI41i7Df0QaadHEI',
-    },
-  });
-
-  const kx = await kn.toJsonWebKeyPair(true);
-
-  expect(kx).toEqual({
-    id:
-      'did:key:zUC71nmwvy83x1UzNKbZbS7N9QZx8rqpQx3Ee3jGfKiEkZngTKzsRoqobX6wZdZF5F93pSGYYco3gpK9tc53ruWUo2tkBB9bxPCFBUjq2th8FbtT4xih6y6Q1K9EL4Th86NiCGT#zUC71nmwvy83x1UzNKbZbS7N9QZx8rqpQx3Ee3jGfKiEkZngTKzsRoqobX6wZdZF5F93pSGYYco3gpK9tc53ruWUo2tkBB9bxPCFBUjq2th8FbtT4xih6y6Q1K9EL4Th86NiCGT',
-    type: 'JsonWebKey2020',
-    controller:
-      'did:key:zUC71nmwvy83x1UzNKbZbS7N9QZx8rqpQx3Ee3jGfKiEkZngTKzsRoqobX6wZdZF5F93pSGYYco3gpK9tc53ruWUo2tkBB9bxPCFBUjq2th8FbtT4xih6y6Q1K9EL4Th86NiCGT',
-    publicKeyJwk: {
-      kty: 'EC',
-      crv: 'BLS12381_G2',
-      x:
-        'gn6no-fdvchOjSf1XQvnPduLowppHLq5NCswBjRSKPl597BuGZeHs6QENSki29YvBNbvPruDOyjzS2wcAGvEcOATFYGwlpHB1fy9exY4CmM3Cl_hXbMOWQ2EzUunHs6k',
-    },
-    privateKeyJwk: {
-      kty: 'EC',
-      crv: 'BLS12381_G2',
-      x:
-        'gn6no-fdvchOjSf1XQvnPduLowppHLq5NCswBjRSKPl597BuGZeHs6QENSki29YvBNbvPruDOyjzS2wcAGvEcOATFYGwlpHB1fy9exY4CmM3Cl_hXbMOWQ2EzUunHs6k',
-      d: 'P9zRDsbJf-VlNMt9FO6_zU-qPDDwI41i7Df0QaadHEI',
-    },
-  });
-});
-
 it('signer / verifier', async () => {
   const kn = await Bls12381G2KeyPair.from({
     id:

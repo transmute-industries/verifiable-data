@@ -12,20 +12,23 @@ export const lockContents = async (
   const kp = await X25519KeyPair.generate({
     secureRandom: () => {
       return derivedKey;
-    }
+    },
   });
   kp.id = kp.controller + kp.id;
   const recipient = {
     header: {
       kid: kp.id,
-      alg: "ECDH-ES+A256KW"
-    }
+      alg: "ECDH-ES+A256KW",
+    },
   };
   const recipients = [recipient];
 
   const keyResolver = (id: string) => {
     if (kp.id === id) {
-      return kp.toJsonWebKeyPair(false);
+      return kp.export({
+        type: "JsonWebKey2020",
+        privateKey: false,
+      });
     }
     throw new Error(`Key ${id} not found`);
   };
@@ -33,12 +36,12 @@ export const lockContents = async (
   const cipher = new JWE.Cipher(X25519KeyPair);
 
   const encryptedContents = await Promise.all(
-    contents.map(async content => {
+    contents.map(async (content) => {
       // spreading to avoid mutation of function args.
       const jwe = await cipher.encryptObject({
         obj: { ...content },
         recipients: [...recipients],
-        publicKeyResolver: keyResolver
+        publicKeyResolver: keyResolver,
       });
       return jwe;
     })

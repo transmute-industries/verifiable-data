@@ -182,15 +182,5 @@ export class Secp256k1KeyPair implements LdKeyPairInstance {
     throw new Error('Unsupported export options: ' + JSON.stringify(options));
   }
 
-  async toJsonWebKeyPair(exportPrivateKey = false) {
-    console.warn(
-      "DEPRECATION WARNING: .toJsonWebKeyPair should be replaced with .export({type:'JsonWebKey2020'})."
-    );
-    return exportableTypes['JsonWebKey2020'](
-      this.id,
-      this.controller,
-      this.publicKey,
-      exportPrivateKey ? this.privateKey : undefined
-    );
-  }
+ 
 }
