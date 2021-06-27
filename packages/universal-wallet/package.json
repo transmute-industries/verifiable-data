@@ -2,7 +2,7 @@
   "name": "@transmute/universal-wallet",
   "author": "Orie Steele",
   "module": "dist/universal-wallet.esm.js",
-  "version": "0.6.1-unstable.37",
+  "version": "0.7.0-unstable.0",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -51,9 +51,9 @@
   },
   "dependencies": {
     "@peculiar/webcrypto": "^1.1.4",
-    "@transmute/jose-ld": "^0.6.1-unstable.37",
+    "@transmute/jose-ld": "^0.7.0-unstable.0",
     "@transmute/universal-wallet-test-vectors": "^0.6.1-unstable.37",
-    "@transmute/x25519-key-pair": "^0.6.1-unstable.37",
+    "@transmute/x25519-key-pair": "^0.7.0-unstable.0",
     "core-js": "^3.8.3",
     "factory.ts": "^0.5.1"
   },
