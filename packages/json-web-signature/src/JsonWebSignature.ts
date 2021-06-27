@@ -1,7 +1,7 @@
 import jsonld from 'jsonld';
 
 import { subtle } from '@transmute/web-crypto-key-pair';
-import { JsonWebKeyPair } from './JsonWebKeyPair';
+import { JsonWebKey } from './JsonWebKey';
 
 import sec from '@transmute/security-context';
 
@@ -10,13 +10,13 @@ const sha256 = async (data: any) => {
 };
 
 export interface JsonWebSignatureOptions {
-  key?: JsonWebKeyPair;
+  key?: JsonWebKey;
   date?: any;
 }
 
 export class JsonWebSignature {
   public useNativeCanonize: boolean = false;
-  public key?: JsonWebKeyPair;
+  public key?: JsonWebKey;
   public proof: any;
   public date: any;
   public type: string = 'https://w3id.org/security#JsonWebSignature2020';
@@ -242,7 +242,7 @@ export class JsonWebSignature {
   }
 
   async verifySignature({ verifyData, verificationMethod, proof }: any) {
-    const key = await JsonWebKeyPair.from(verificationMethod);
+    const key = await JsonWebKey.from(verificationMethod);
     const verifier = key.verifier();
     return verifier.verify({ data: verifyData, signature: proof.jws });
   }

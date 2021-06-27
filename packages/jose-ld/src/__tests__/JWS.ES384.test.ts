@@ -1,9 +1,9 @@
-import { KeyPair } from '@transmute/web-crypto-key-pair';
+import { WebCryptoKey } from '@transmute/web-crypto-key-pair';
 import { JWS } from '../index';
 
-let k: KeyPair;
+let k: WebCryptoKey;
 beforeAll(async () => {
-  k = await KeyPair.generate();
+  k = await WebCryptoKey.generate();
 });
 
 const rawSuiteType = 'Ecdsa';

@@ -11,7 +11,7 @@ const generateContentFromSeed = async (seed: Uint8Array) => {
   const ed25519KeyPair = await ed25519.Ed25519KeyPair.generate({
     secureRandom: () => {
       return Buffer.from(seed);
-    }
+    },
   });
 
   const k0 = ed25519KeyPair.toJsonWebKeyPair(true);
@@ -29,7 +29,7 @@ const generateContentFromSeed = async (seed: Uint8Array) => {
     description: "Used to generate a DID with a signing and encryption key.",
     tags: ["inception"],
     type: "Entropy",
-    value: Buffer.from(seed).toString("hex")
+    value: Buffer.from(seed).toString("hex"),
   };
 
   const key0 = {
@@ -40,7 +40,7 @@ const generateContentFromSeed = async (seed: Uint8Array) => {
     image: "https://via.placeholder.com/150",
     description: "Used to produce digital signatures.",
     tags: ["inception"],
-    generatedFrom: [secret0.id]
+    generatedFrom: [secret0.id],
   };
 
   const key1 = {
@@ -51,7 +51,7 @@ const generateContentFromSeed = async (seed: Uint8Array) => {
     image: "https://via.placeholder.com/150",
     description: "Used to derive symmetric keys for encryption.",
     tags: ["inception"],
-    generatedFrom: [secret0.id]
+    generatedFrom: [secret0.id],
   };
 
   const contents = [secret0, key0, key1];

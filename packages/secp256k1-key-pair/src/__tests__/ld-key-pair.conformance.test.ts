@@ -71,7 +71,11 @@ it('import', async () => {
       y: 'vTGyefjnlCj2-T7gYw3Det6m1UtDOfbB4CTzROlT6QA',
     },
   });
-  const k1 = await kn.toJsonWebKeyPair(true);
+  const k1 = (await kn.export({
+    type: 'JsonWebKey2020',
+    privateKey: true,
+  })) as JsonWebKey2020;
+
   expect(k1.privateKeyJwk).toEqual({
     kty: 'EC',
     crv: 'secp256k1',

@@ -1,6 +1,6 @@
 import {
   Ed25519Signature2018,
-  EdDsaEd25519KeyPair
+  Ed25519VerificationKey2018,
 } from "@transmute/ed25519-signature-2018";
 
 import { FixtureWalletFactory } from "./walletFactory";
@@ -14,22 +14,22 @@ export const makeVc = async (wallet: FixtureWalletFactory, type: string) => {
       "@context": [
         "https://www.w3.org/2018/credentials/v1",
         {
-          [type]: "https://example.com/" + type
-        }
+          [type]: "https://example.com/" + type,
+        },
       ],
       id: "https://example.com/credentials/123",
       type: ["VerifiableCredential", type],
       issuer: signingKey.controller,
       issuanceDate: "2019-12-03T12:19:52Z",
       credentialSubject: {
-        id: "did:example:456"
-      }
+        id: "did:example:456",
+      },
     },
     options: {
       documentLoader,
       suite: new Ed25519Signature2018({
-        key: await EdDsaEd25519KeyPair.from(signingKey)
-      })
-    }
+        key: await Ed25519VerificationKey2018.from(signingKey),
+      }),
+    },
   });
 };

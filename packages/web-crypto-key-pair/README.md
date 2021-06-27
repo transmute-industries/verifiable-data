@@ -18,6 +18,9 @@ const verified = await verifier.verify({
   data: Buffer.from('hello'),
   signature,
 });
-const remote = await key.toJsonWebKeyPair();
+const remote = await key.export({
+  type: 'JsonWebKey2020',
+  privateKey: false,
+});
 const bits = await key.deriveBits(remote);
 ```

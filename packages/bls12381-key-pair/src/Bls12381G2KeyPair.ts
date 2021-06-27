@@ -145,16 +145,5 @@ export class Bls12381G2KeyPair implements LdKeyPairInstance {
     throw new Error('Unsupported suite type ' + type);
   }
 
-  async toJsonWebKeyPair(exportPrivateKey = false) {
-    console.warn(
-      "DEPRECATION WARNING: .toJsonWebKeyPair should be replaced with .export({type:'JsonWebKey2020'})."
-    );
-    return exportableTypes['JsonWebKey2020'](
-      BlsCurveName.G2,
-      this.id,
-      this.controller,
-      this.publicKey,
-      exportPrivateKey ? this.privateKey : undefined
-    );
-  }
+ 
 }

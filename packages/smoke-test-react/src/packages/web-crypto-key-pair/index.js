@@ -16,8 +16,14 @@ function App() {
         data: Buffer.from("hello"),
         signature,
       });
-      const local = await key.toJsonWebKeyPair(true);
-      const remote = await key.toJsonWebKeyPair();
+      const local = await key.export({
+        type: "JsonWebKey2020",
+        privateKey: true,
+      });
+      const remote = await key.export({
+        type: "JsonWebKey2020",
+        privateKey: false,
+      });
       const bits = await key.deriveBits(remote);
       setState({
         key: local,

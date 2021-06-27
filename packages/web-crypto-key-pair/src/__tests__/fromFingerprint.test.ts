@@ -1,9 +1,9 @@
-import { KeyPair } from '../KeyPair';
+import { WebCryptoKey } from '../WebCryptoKey';
 describe('can get public key from compressed fingerprint', () => {
   it('P-521', async () => {
     const fingerprint =
       'z2J9gcGdb2nEyMDmzQYv2QZQcM1vXktvy1Pw4MduSWxGabLZ9XESSWLQgbuPhwnXN7zP7HpTzWqrMTzaY5zWe6hpzJ2jnw4f';
-    const k = await KeyPair.fromFingerprint({ fingerprint });
+    const k = await WebCryptoKey.fromFingerprint({ fingerprint });
     const k1 = await k.export({ type: 'JsonWebKey2020' });
     expect(k1).toEqual({
       id:
@@ -25,7 +25,7 @@ describe('can get public key from compressed fingerprint', () => {
   it('P-384', async () => {
     const fingerprint =
       'z82Lm1MpAkeJcix9K8TMiLd5NMAhnwkjjCBeWHXyu3U4oT2MVJJKXkcVBgjGhnLBn2Kaau9';
-    const k = await KeyPair.fromFingerprint({ fingerprint });
+    const k = await WebCryptoKey.fromFingerprint({ fingerprint });
     const k1 = await k.export({ type: 'JsonWebKey2020' });
     expect(k1).toEqual({
       id:
@@ -44,7 +44,7 @@ describe('can get public key from compressed fingerprint', () => {
 
   it('P-256', async () => {
     const fingerprint = 'zDnaerx9CtbPJ1q36T5Ln5wYt3MQYeGRG5ehnPAmxcf5mDZpv';
-    const k = await KeyPair.fromFingerprint({ fingerprint });
+    const k = await WebCryptoKey.fromFingerprint({ fingerprint });
     const k1 = await k.export({ type: 'JsonWebKey2020' });
     expect(k1).toEqual({
       id:

@@ -167,15 +167,5 @@ export class Ed25519KeyPair implements LdKeyPairInstance {
     return [this, await Ed25519KeyPair.toX25519KeyPair(this)];
   }
 
-  async toJsonWebKeyPair(exportPrivateKey = false) {
-    console.warn(
-      "DEPRECATION WARNING: .toJsonWebKeyPair should be replaced with .export({type:'JsonWebKey2020'})."
-    );
-    return exportableTypes['JsonWebKey2020'](
-      this.id,
-      this.controller,
-      this.publicKey,
-      exportPrivateKey ? this.privateKey : undefined
-    );
-  }
+  
 }

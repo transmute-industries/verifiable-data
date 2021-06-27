@@ -1,4 +1,4 @@
-import { KeyPair } from '..';
+import { JsonWebKey } from '..';
 
 const options: any = [
   {
@@ -64,7 +64,7 @@ options.forEach((opt: any) => {
   describe(`${opt.type} `, () => {
     it('from / sign / verify', async () => {
       try {
-        const k = await KeyPair.from(opt);
+        const k = await JsonWebKey.from(opt);
         const kx = (await k.export({
           type: k.type,
           privateKey: true,
