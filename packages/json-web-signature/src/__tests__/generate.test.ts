@@ -1,5 +1,5 @@
 import { JsonWebKey2020 } from '@transmute/web-crypto-key-pair';
-import { KeyPair } from '..';
+import { JsonWebKey } from '..';
 
 const options = [
   { kty: 'OKP', crv: 'Ed25519' },
@@ -29,7 +29,7 @@ options.forEach(opt => {
   describe(`${opt.kty} ${opt.crv}`, () => {
     it('generate / export / sign / verify', async () => {
       try {
-        const k = await KeyPair.generate(opt);
+        const k = await JsonWebKey.generate(opt);
         const kx = (await k.export({
           type: 'JsonWebKey2020',
           privateKey: true,

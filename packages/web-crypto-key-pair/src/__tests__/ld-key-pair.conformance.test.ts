@@ -1,8 +1,8 @@
-import { KeyPair, JsonWebKey2020 } from '../index';
+import { WebCryptoKey, JsonWebKey2020 } from '../index';
 
 describe('fromFingerprint', () => {
   it('p256 zDnaerx9CtbPJ1q36T5Ln5wYt3MQYeGRG5ehnPAmxcf5mDZpv', async () => {
-    const kn = await KeyPair.fromFingerprint({
+    const kn = await WebCryptoKey.fromFingerprint({
       fingerprint: 'zDnaerx9CtbPJ1q36T5Ln5wYt3MQYeGRG5ehnPAmxcf5mDZpv',
     });
     const kx = await kn.export({ type: 'JsonWebKey2020' });
@@ -21,7 +21,7 @@ describe('fromFingerprint', () => {
   });
 
   it('p256 zDnaerDaTF5BXEavCrfRZEk316dpbLsfPDZ3WJ5hRTPFU2169', async () => {
-    const kn = await KeyPair.fromFingerprint({
+    const kn = await WebCryptoKey.fromFingerprint({
       fingerprint: 'zDnaerDaTF5BXEavCrfRZEk316dpbLsfPDZ3WJ5hRTPFU2169',
     });
     const kx = await kn.export({ type: 'JsonWebKey2020' });
@@ -62,7 +62,7 @@ describe('generate / export / from', () => {
   params.forEach(p => {
     it(p.crvOrSize, async () => {
       const { kty, crvOrSize, prefix } = p;
-      const kn = await KeyPair.generate({ kty, crvOrSize });
+      const kn = await WebCryptoKey.generate({ kty, crvOrSize });
       expect(kn.type).toBe('JsonWebKey2020');
       const exported = await kn.export({
         type: 'JsonWebKey2020',
@@ -71,7 +71,7 @@ describe('generate / export / from', () => {
       expect(kn.id.substr(8, 4)).toBe(prefix);
       expect(exported.id).toBe(kn.id);
       expect(exported.controller).toBe(kn.controller);
-      const k2 = await KeyPair.from(exported as JsonWebKey2020);
+      const k2 = await WebCryptoKey.from(exported as JsonWebKey2020);
       const k3 = await k2.export({
         type: 'JsonWebKey2020',
         privateKey: true,
@@ -82,19 +82,21 @@ describe('generate / export / from', () => {
 });
 
 it('fingerprintFromPublicKey', async () => {
-  const kn = await KeyPair.fromFingerprint({
+  const kn = await WebCryptoKey.fromFingerprint({
     fingerprint: 'zDnaerx9CtbPJ1q36T5Ln5wYt3MQYeGRG5ehnPAmxcf5mDZpv',
   });
   const exported = await kn.export({
     type: 'JsonWebKey2020',
     privateKey: true,
   });
-  const f = await KeyPair.fingerprintFromPublicKey(exported as JsonWebKey2020);
+  const f = await WebCryptoKey.fingerprintFromPublicKey(
+    exported as JsonWebKey2020
+  );
   expect(f).toBe('zDnaerx9CtbPJ1q36T5Ln5wYt3MQYeGRG5ehnPAmxcf5mDZpv');
 });
 
 it('fingerprint', async () => {
-  const kn = await KeyPair.fromFingerprint({
+  const kn = await WebCryptoKey.fromFingerprint({
     fingerprint: 'zDnaerx9CtbPJ1q36T5Ln5wYt3MQYeGRG5ehnPAmxcf5mDZpv',
   });
   const f = await kn.fingerprint();
@@ -102,7 +104,7 @@ it('fingerprint', async () => {
 });
 
 it('deriveSecret', async () => {
-  const kn = await KeyPair.generate();
+  const kn = await WebCryptoKey.generate();
   const s = await kn.deriveSecret({
     publicKey: await kn.export({
       type: 'JsonWebKey2020',

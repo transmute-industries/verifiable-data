@@ -1,10 +1,10 @@
-import { KeyPair, JsonWebSignature } from '../index';
+import { JsonWebKey, JsonWebSignature } from '../index';
 import { ld as vcjs } from '@transmute/vc.js';
 import { documentLoader } from '../__fixtures__';
 let suite: JsonWebSignature;
 
 it('can sign and verify', async () => {
-  const key = await KeyPair.from({
+  const key = await JsonWebKey.from({
     id: 'did:example:123#key',
     type: 'Ed25519VerificationKey2018',
     controller: 'did:example:123',

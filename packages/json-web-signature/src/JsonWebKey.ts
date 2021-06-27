@@ -12,7 +12,7 @@ import crypto from 'crypto';
 import { JWS } from '@transmute/jose-ld';
 
 import {
-  KeyPair,
+  WebCryptoKey,
   JsonWebKey2020,
   P256Key2021,
   P384Key2021,
@@ -29,12 +29,13 @@ const getKeyPairForKtyAndCrv = (kty: string, crv: string) => {
     if (crv === 'secp256k1') {
       return Secp256k1KeyPair;
     }
+
     if (crv === 'BLS12381_G2') {
       return Bls12381G2KeyPair;
     }
 
     if (['P-256', 'P-384', 'P-521'].includes(crv)) {
-      return KeyPair;
+      return WebCryptoKey;
     }
   }
   throw new Error(`getKeyPairForKtyAndCrv does not support: ${kty} and ${crv}`);
@@ -55,7 +56,7 @@ const getKeyPairForType = (k: any) => {
   }
 
   if (['P256Key2021', 'P384Key2021', 'P521Key2021'].includes(k.type)) {
-    return KeyPair;
+    return WebCryptoKey;
   }
 
   throw new Error('getKeyPairForType does not support type: ' + k.type);
@@ -155,7 +156,7 @@ const useJwa = async (k: any) => {
   return k;
 };
 
-export class JsonWebKeyPair {
+export class JsonWebKey {
   public id!: string;
   public type!: string;
   public controller!: string;

@@ -21,7 +21,7 @@ import { getJwkFromCryptoKey } from './key';
 import { exportableTypes } from './exportAs';
 
 @staticImplements<LdKeyPairStatic>()
-export class KeyPair implements LdKeyPairInstance {
+export class WebCryptoKey implements LdKeyPairInstance {
   public id: string;
   public type: string = 'JsonWebKey2020';
   public controller: string;
@@ -32,7 +32,7 @@ export class KeyPair implements LdKeyPairInstance {
     opts: GenerateKeyOpts = { kty: 'EC', crvOrSize: 'P-384' }
   ) => {
     const kp = await key.generate(opts);
-    const id = await KeyPair.fingerprintFromPublicKey({
+    const id = await WebCryptoKey.fingerprintFromPublicKey({
       id: ``,
       type: 'JsonWebKey2020',
       controller: ``,
@@ -42,7 +42,7 @@ export class KeyPair implements LdKeyPairInstance {
       publicKey,
       privateKey,
     } = await key.getCryptoKeyPairFromJsonWebKey2020(kp);
-    return new KeyPair({
+    return new WebCryptoKey({
       id: `did:key:${id}#${id}`,
       type: 'JsonWebKey2020',
       controller: `did:key:${id}`,
@@ -59,7 +59,7 @@ export class KeyPair implements LdKeyPairInstance {
         publicKey,
         privateKey,
       } = await key.getCryptoKeyPairFromJsonWebKey2020(k);
-      return new KeyPair({
+      return new WebCryptoKey({
         id: k.id,
         type: 'JsonWebKey2020',
         controller: k.controller,
@@ -71,7 +71,7 @@ export class KeyPair implements LdKeyPairInstance {
       publicKey,
       privateKey,
     } = await key.getCryptoKeyPairFromMultiKey2021(k);
-    return new KeyPair({
+    return new WebCryptoKey({
       id: k.id,
       type: k.type,
       controller: k.controller,
@@ -83,7 +83,7 @@ export class KeyPair implements LdKeyPairInstance {
   static async fingerprintFromPublicKey(
     publicKey: JsonWebKey2020 | P256Key2021 | P384Key2021 | P521Key2021
   ) {
-    const k = await KeyPair.from(publicKey);
+    const k = await WebCryptoKey.from(publicKey);
     return (await k).fingerprint();
   }
 
@@ -91,7 +91,7 @@ export class KeyPair implements LdKeyPairInstance {
     try {
       const publicKeyJwk = getJwkFromMulticodec(fingerprint);
 
-      return KeyPair.from({
+      return WebCryptoKey.from({
         id: `did:key:${fingerprint}#${fingerprint}`,
         type: 'JsonWebKey2020',
         controller: `did:key:${fingerprint}`,

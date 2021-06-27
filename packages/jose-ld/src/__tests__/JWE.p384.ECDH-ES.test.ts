@@ -1,12 +1,12 @@
-import { KeyPair, JsonWebKey2020 } from '@transmute/web-crypto-key-pair';
+import { WebCryptoKey, JsonWebKey2020 } from '@transmute/web-crypto-key-pair';
 
 import { JWE } from '../index';
 
-let k: KeyPair;
+let k: WebCryptoKey;
 let ks: JsonWebKey2020;
 
 beforeAll(async () => {
-  k = await KeyPair.generate({
+  k = await WebCryptoKey.generate({
     kty: 'EC',
     crvOrSize: 'P-384',
   });
@@ -19,7 +19,7 @@ beforeAll(async () => {
 
 describe(`ECDH-ES`, () => {
   it('encrypt / decrypt', async () => {
-    const cipher = new JWE.Cipher(KeyPair);
+    const cipher = new JWE.Cipher(WebCryptoKey);
     const document = { key1: 'value1', key2: 'value2' };
     const recipients = [
       {

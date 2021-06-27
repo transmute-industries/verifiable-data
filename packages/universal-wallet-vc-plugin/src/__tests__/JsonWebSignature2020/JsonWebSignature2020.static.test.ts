@@ -1,4 +1,4 @@
-import { JsonWebSignature, KeyPair } from "@transmute/json-web-signature";
+import { JsonWebSignature, JsonWebKey } from "@transmute/json-web-signature";
 
 import { plugin } from "../../index";
 
@@ -8,17 +8,17 @@ import {
   documentLoader,
   verifiableCredential,
   verifiablePresentation,
-  controller
+  controller,
 } from "./__fixtures__";
 
-let key: KeyPair;
+let key: JsonWebKey;
 let suite: JsonWebSignature;
 
 beforeAll(async () => {
-  key = await KeyPair.from(key0 as any);
+  key = await JsonWebKey.from(key0 as any);
   suite = new JsonWebSignature({
     key,
-    date: "2021-06-19T18:53:11Z"
+    date: "2021-06-19T18:53:11Z",
   });
 });
 
@@ -28,8 +28,8 @@ describe("from / issue / present / verify", () => {
       credential: { ...credential, issuer: key.controller },
       options: {
         suite,
-        documentLoader
-      }
+        documentLoader,
+      },
     });
     expect(vc).toEqual(verifiableCredential);
   });
@@ -40,14 +40,14 @@ describe("from / issue / present / verify", () => {
         "@context": verifiableCredential["@context"],
         type: ["VerifiablePresentation"],
         holder: key.controller,
-        verifiableCredential: [verifiableCredential]
+        verifiableCredential: [verifiableCredential],
       },
       options: {
         challenge: "nonce-123",
         domain: "example.com",
         suite,
-        documentLoader
-      }
+        documentLoader,
+      },
     });
     expect(vp).toEqual(verifiablePresentation);
   });
@@ -62,12 +62,12 @@ describe("from / issue / present / verify", () => {
         documentLoader: (iri: string) => {
           if (iri.startsWith(controller.id)) {
             return {
-              document: controller
+              document: controller,
             };
           }
           return documentLoader(iri);
-        }
-      }
+        },
+      },
     });
     expect(verification.verified).toBe(true);
   });
