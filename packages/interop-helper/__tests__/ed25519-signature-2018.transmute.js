@@ -7,11 +7,11 @@ const vcjs = require("@transmute/vc.js").ld;
 
 const {
   Ed25519Signature2018,
-  EdDsaEd25519KeyPair,
+  Ed25519VerificationKey2018,
 } = require("@transmute/ed25519-signature-2018");
 
 (async () => {
-  const key = await EdDsaEd25519KeyPair.from(
+  const key = await Ed25519VerificationKey2018.from(
     require("../__fixtures__/key.json")
   );
 

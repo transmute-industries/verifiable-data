@@ -2,7 +2,7 @@ import { ld as vc } from '@transmute/vc.js';
 
 import {
   Ed25519Signature2018,
-  EdDsaEd25519KeyPair,
+  Ed25519VerificationKey2018,
 } from '@transmute/ed25519-signature-2018';
 
 import { Bls12381G2KeyPair } from '@transmute/did-key-bls12381';
@@ -15,7 +15,7 @@ let suite: Ed25519Signature2018;
 
 beforeAll(async () => {
   suite = new Ed25519Signature2018({
-    key: await EdDsaEd25519KeyPair.from({
+    key: await Ed25519VerificationKey2018.from({
       id:
         'did:key:z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4#z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4',
       type: 'JsonWebKey2020',
