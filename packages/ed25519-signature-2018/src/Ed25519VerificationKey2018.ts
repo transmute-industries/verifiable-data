@@ -3,7 +3,7 @@ import { JWS } from "@transmute/jose-ld";
 
 export class Ed25519VerificationKey2018 extends Ed25519KeyPair {
   static generate = async ({
-    secureRandom,
+    secureRandom
   }: {
     secureRandom: () => Uint8Array;
   }) => {
@@ -19,19 +19,19 @@ export class Ed25519VerificationKey2018 extends Ed25519KeyPair {
     super(args);
     const JWA_ALG = "EdDSA";
     const verifier = JWS.createVerifier(this.verifier("EdDsa"), JWA_ALG, {
-      detached: true,
+      detached: true
     });
     this.verifier = () => verifier as any;
 
     if (this.privateKey) {
       const signer = JWS.createSigner(this.signer("EdDsa"), JWA_ALG, {
-        detached: true,
+        detached: true
       });
       this.signer = () => {
         return {
           sign: async ({ data }: any) => {
             return signer.sign({ data });
-          },
+          }
         } as any;
       };
     }

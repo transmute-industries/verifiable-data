@@ -166,6 +166,4 @@ export class Ed25519KeyPair implements LdKeyPairInstance {
   async getDerivedKeyPairs() {
     return [this, await Ed25519KeyPair.toX25519KeyPair(this)];
   }
-
-  
 }

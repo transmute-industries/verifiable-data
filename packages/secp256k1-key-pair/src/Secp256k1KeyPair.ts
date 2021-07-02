@@ -181,6 +181,4 @@ export class Secp256k1KeyPair implements LdKeyPairInstance {
     }
     throw new Error('Unsupported export options: ' + JSON.stringify(options));
   }
-
- 
 }

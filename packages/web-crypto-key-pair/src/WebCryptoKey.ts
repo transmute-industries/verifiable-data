@@ -135,8 +135,6 @@ export class WebCryptoKey implements LdKeyPairInstance {
     throw new Error('Unsupported export options: ' + JSON.stringify(options));
   }
 
- 
-
   signer(type: 'Ecdsa' = 'Ecdsa') {
     if (this.privateKey) {
       return getSigner(this.privateKey);

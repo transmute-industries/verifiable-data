@@ -144,6 +144,4 @@ export class Bls12381G2KeyPair implements LdKeyPairInstance {
     }
     throw new Error('Unsupported suite type ' + type);
   }
-
- 
 }
