@@ -67,7 +67,7 @@ export class Bls12381KeyPairs {
   static async generate(options: any) {
     let seed = undefined;
     if (options.secureRandom) {
-      seed = options.secureRandom();
+      seed = Uint8Array.from(options.secureRandom());
     }
     const { bls12381G1KeyPair, bls12381G2KeyPair } = await generateKeyPairs(
       seed
@@ -140,8 +140,8 @@ export class Bls12381KeyPairs {
   }
 
   async fingerprint() {
-    const g1Buffer = this.g1KeyPair.publicKey;
-    const g2Buffer = this.g2KeyPair.publicKey;
+    const g1Buffer = Buffer.from(this.g1KeyPair.publicKey);
+    const g2Buffer = Buffer.from(this.g2KeyPair.publicKey);
     const g1AndG2 = Buffer.concat([g1Buffer, g2Buffer]);
     const buffer = new Uint8Array(2 + g1AndG2.length);
     buffer[0] = BLS12381G1ANDG2_MULTICODEC_IDENTIFIER;

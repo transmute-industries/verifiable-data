@@ -22,10 +22,12 @@ export const toJsonWebKey2020 = (
   );
   const x = Buffer.from(expandedPublicKey)
     .toString('hex')
-    .substr(2, 65);
+    .substr(2, 64);
+
   const y = Buffer.from(expandedPublicKey)
     .toString('hex')
     .substr(66);
+
   const publicKeyJwk = {
     kty: 'EC',
     crv: 'secp256k1',
