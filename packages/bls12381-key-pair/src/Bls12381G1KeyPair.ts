@@ -128,6 +128,4 @@ export class Bls12381G1KeyPair implements LdKeyPairInstance {
   verifier(type: 'Bbs' = 'Bbs'): any {
     throw new Error('Not implemented for ' + type);
   }
-
- 
 }

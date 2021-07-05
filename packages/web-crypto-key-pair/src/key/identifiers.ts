@@ -16,7 +16,6 @@ const uvarintToCrv: any = {
   '8224': 'P-521',
 };
 
-// working!
 export const getJwkFromMulticodec = (fingerprint: string) => {
   const decoders: any = {
     z: base58,
@@ -58,8 +57,9 @@ export const getMulticodec = async (jwk: any) => {
   if (jwk.y) {
     publicKey.push(Buffer.from(jwk.y, 'base64'));
   }
+
   const publicKeyBuffer = Buffer.concat(publicKey);
-  const compressed = compress(Uint8Array.from(publicKeyBuffer));
+  const compressed = Buffer.from(compress(Uint8Array.from(publicKeyBuffer)));
   return (
     'z' +
     base58.encode(

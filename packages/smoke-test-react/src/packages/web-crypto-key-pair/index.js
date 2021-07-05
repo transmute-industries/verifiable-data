@@ -1,44 +1,24 @@
+import * as web from "@transmute/web-crypto-key-pair";
 import React from "react";
 
-import * as web from "@transmute/web-crypto-key-pair";
+export const WebCryptoKeyPairTest = () => {
+  const [state, setState] = React.useState({ name: "web" });
 
-function App() {
-  const [state, setState] = React.useState({ kp: {} });
   React.useEffect(() => {
     (async () => {
-      const key = await web.KeyPair.generate({ kty: "EC", crvOrSize: "P-384" });
-      const signer = await key.signer();
-      const verifier = await key.verifier();
-      const signature = await signer.sign({
-        data: Buffer.from("hello"),
+      const k = await web.WebCryptoKey.generate({
+        kty: "EC",
+        crvOrSize: "P-384",
       });
-      const verified = await verifier.verify({
-        data: Buffer.from("hello"),
-        signature,
-      });
-      const local = await key.export({
+
+      const k1 = await k.export({
         type: "JsonWebKey2020",
         privateKey: true,
       });
-      const remote = await key.export({
-        type: "JsonWebKey2020",
-        privateKey: false,
-      });
-      const bits = await key.deriveBits(remote);
-      setState({
-        key: local,
-        signature,
-        verified,
-        bits: Buffer.from(bits).toString("base64"),
-      });
+
+      setState({ ...state, k1 });
     })();
   }, []);
-  return (
-    <div className="Package">
-      <h4>@transmute/web-crypto-key-pair</h4>
-      <pre>{JSON.stringify(state, null, 2)}</pre>
-    </div>
-  );
-}
 
-export default App;
+  return <pre>{JSON.stringify(state, null, 2)}</pre>;
+};

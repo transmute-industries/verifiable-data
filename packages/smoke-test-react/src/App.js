@@ -1,13 +1,15 @@
 import React from "react";
-
-import WebCryptoKeyPair from "./packages/web-crypto-key-pair";
-import UniversalWallet from "./packages/universal-wallet";
-
+import { Secp256k1KeyPairTest } from "./packages/secp256k1-key-pair";
+import { Bls12381KeyPairTest } from "./packages/bls12381-key-pair";
+import { WebCryptoKeyPairTest } from "./packages/web-crypto-key-pair";
 function App() {
   return (
     <div className="App">
-      <WebCryptoKeyPair />
-      <UniversalWallet />
+      <h3> See console.</h3>
+
+      <Secp256k1KeyPairTest />
+      <Bls12381KeyPairTest />
+      <WebCryptoKeyPairTest />
     </div>
   );
 }
