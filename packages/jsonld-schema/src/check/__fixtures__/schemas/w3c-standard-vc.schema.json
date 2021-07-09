@@ -1,0 +1,91 @@
+{
+  "title": "W3C Verifiable Credential",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array"
+        }
+      ]
+    },
+    "id": {
+      "type": "string"
+    },
+    "type": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array"
+        }
+      ]
+    },
+    "issuer": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "issuanceDate": { "type": "string" },
+    "credentialSubject": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "proof": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array"
+            }
+          ]
+        },
+        "created": {
+          "type": "string"
+        },
+        "proofPurpose": {
+          "type": "string"
+        },
+        "verificationMethod": {
+          "type": "string"
+        },
+        "jws": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["@context"],
+  "additionalProperties": false
+}

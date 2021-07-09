@@ -1,0 +1,64 @@
+{
+  "input": {
+    "@context": ["https://www.w3.org/2018/credentials/v1"],
+    "id": "http://example.gov/credentials/3732",
+    "type": ["VerifiableCredential"],
+    "issuer": "did:key:z6Mkk7yqnGF3YwTrLpqrW6PGsKci7dNqh1CjnvMbzrMerSeL",
+    "issuanceDate": "2020-03-10T04:24:12Z",
+    "credentialSubject": {
+      "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+      "barbar": 123
+    },
+    "proof": {
+      "type": "Ed25519Signature2018",
+      "created": "2020-03-10T04:24:12Z",
+      "proofPurpose": "assertionMethod",
+      "verificationMethod": "did:key:z6Mkk7yqnGF3YwTrLpqrW6PGsKci7dNqh1CjnvMbzrMerSeL#z6Mkk7yqnGF3YwTrLpqrW6PGsKci7dNqh1CjnvMbzrMerSeL",
+      "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..nH9EoZEQLZdIG8zcFbmxk4fXhTDSveQ07Ulf1SjAWZxh1ojbDPo0H67JGEG64F-lHJYxiVehzqwPWTd1-9IBAw"
+    }
+  },
+  "output": {
+    "json-schema": {
+      "ok": false,
+      "error": {
+        "type": "JSON_SCHEMA_VALIDATION_ERROR",
+        "details": [
+          {
+            "instancePath": "/credentialSubject",
+            "schemaPath": "#/properties/credentialSubject/oneOf/0/type",
+            "keyword": "type",
+            "params": {
+              "type": "string"
+            },
+            "message": "must be string"
+          },
+          {
+            "instancePath": "/credentialSubject",
+            "schemaPath": "#/properties/credentialSubject/oneOf/1/additionalProperties",
+            "keyword": "additionalProperties",
+            "params": {
+              "additionalProperty": "barbar"
+            },
+            "message": "must NOT have additional properties"
+          },
+          {
+            "instancePath": "/credentialSubject",
+            "schemaPath": "#/properties/credentialSubject/oneOf",
+            "keyword": "oneOf",
+            "params": {
+              "passingSchemas": null
+            },
+            "message": "must match exactly one schema in oneOf"
+          }
+        ]
+      }
+    },
+    "json-ld": {
+      "ok": false,
+      "error": {
+        "type": "MISSING_PROPERTIES_IN_CONTEXT",
+        "details": ["credentialSubject.barbar"]
+      }
+    }
+  }
+}
