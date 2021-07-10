@@ -1,7 +1,6 @@
 import { ProofPurpose } from "./ProofPurpose";
 import { IPurposeValidateOptions } from "../types";
-
-const jsonld = require("jsonld");
+import jsonld from "jsonld";
 
 export class ControllerProofPurpose extends ProofPurpose {
   public controller: any;
@@ -28,15 +27,13 @@ export class ControllerProofPurpose extends ProofPurpose {
       }
 
       const { verificationMethod, documentLoader } = _options;
-
       const { id: verificationId } = verificationMethod;
 
       // if no `controller` specified, use verification method's
       if (this.controller) {
         result.controller = this.controller;
       } else {
-        // support legacy `owner` property
-        const { controller, owner } = verificationMethod;
+        const { controller } = verificationMethod;
         let controllerId;
         if (controller) {
           if (typeof controller === "object") {
@@ -48,16 +45,7 @@ export class ControllerProofPurpose extends ProofPurpose {
           } else {
             controllerId = controller;
           }
-        } else if (owner) {
-          if (typeof owner === "object") {
-            controllerId = owner.id;
-          } else if (typeof owner !== "string") {
-            throw new TypeError('"owner" must be a string representing a URL.');
-          } else {
-            controllerId = owner;
-          }
         }
-
         const { document } = await documentLoader(controllerId);
         result.controller = document;
       }

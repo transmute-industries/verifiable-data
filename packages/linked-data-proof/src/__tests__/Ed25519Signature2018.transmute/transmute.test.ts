@@ -40,6 +40,6 @@ it("verify", async () => {
       documentLoader: fixtures.documentLoader,
     }
   );
-  console.log(JSON.stringify(res));
+  // console.log(JSON.stringify(res));
   expect(res.verified).toBe(true);
 });

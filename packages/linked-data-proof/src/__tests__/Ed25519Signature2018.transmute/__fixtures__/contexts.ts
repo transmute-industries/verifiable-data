@@ -12,12 +12,4 @@ export const contexts: any = {
   [did.constants.DID_CONTEXT_V1_URL]: did.contexts.get(
     did.constants.DID_CONTEXT_V1_URL
   ),
-
-  // Need to make these not required.
-  [sec.constants.SECURITY_CONTEXT_V1_URL]: sec.contexts.get(
-    sec.constants.SECURITY_CONTEXT_V1_URL
-  ),
-  [sec.constants.SECURITY_CONTEXT_V2_URL]: sec.contexts.get(
-    sec.constants.SECURITY_CONTEXT_V2_URL
-  ),
 };
