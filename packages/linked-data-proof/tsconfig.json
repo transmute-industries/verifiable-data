@@ -4,6 +4,7 @@
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "importHelpers": true,
+    "resolveJsonModule": true,
     "declaration": true,
     "sourceMap": true,
     "rootDir": "./src",
