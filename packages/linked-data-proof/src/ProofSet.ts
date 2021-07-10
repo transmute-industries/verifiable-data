@@ -1,10 +1,10 @@
-import jsonld from 'jsonld';
-import { serializeError } from 'serialize-error';
-import constants from './constants';
-import strictExpansionMap from './strictExpansionMap';
-import getTypeInfo from './getTypeInfo';
+import jsonld from "jsonld";
+import { serializeError } from "serialize-error";
+import constants from "./constants";
+import strictExpansionMap from "./strictExpansionMap";
+import getTypeInfo from "./getTypeInfo";
 
-import { IProofSetAddOptions } from './types';
+import { IProofSetAddOptions } from "./types";
 
 export class ProofSet {
   async add(
@@ -35,7 +35,7 @@ export class ProofSet {
       expansionMap = strictExpansionMap;
     }
 
-    if (typeof document === 'string') {
+    if (typeof document === "string") {
       // fetch document
       document = await documentLoader(document);
     }
@@ -57,7 +57,7 @@ export class ProofSet {
     }
 
     // save but exclude any existing proof(s)
-    const proofProperty = suite.legacy ? 'signature' : 'proof';
+    const proofProperty = suite.legacy ? "signature" : "proof";
     //const existingProofs = input[proofProperty];
     delete input[proofProperty];
 
@@ -73,31 +73,25 @@ export class ProofSet {
 
     if (compactProof) {
       // compact proof to match document's context
-      let expandedProof;
-      if (suite.legacy) {
-        expandedProof = {
-          [constants.SECURITY_SIGNATURE_URL]: proof,
-        };
-      } else {
-        expandedProof = {
-          [constants.SECURITY_PROOF_URL]: { '@graph': proof },
-        };
-      }
+      let expandedProof = {
+        [constants.SECURITY_PROOF_URL]: { "@graph": proof },
+      };
+
       // account for type-scoped `proof` definition by getting document types
       const { types, alias } = await getTypeInfo({
         document,
         documentLoader,
         expansionMap,
       });
-      expandedProof['@type'] = types;
-      const ctx = jsonld.getValues(document, '@context');
+      expandedProof["@type"] = types;
+      const ctx = jsonld.getValues(document, "@context");
       const compactProof = await jsonld.compact(expandedProof, ctx, {
         documentLoader,
         expansionMap,
         compactToRelative: false,
       });
       delete compactProof[alias];
-      delete compactProof['@context'];
+      delete compactProof["@context"];
 
       // add proof to document
       const key = Object.keys(compactProof)[0];
@@ -108,7 +102,7 @@ export class ProofSet {
             document[proofProperty] = existingProofs;
           }*/
       // add new proof
-      delete proof['@context'];
+      delete proof["@context"];
       jsonld.addValue(document, proofProperty, proof);
     }
 
@@ -123,7 +117,7 @@ export class ProofSet {
     compactProof,
   }: any) => {
     // handle document preprocessing to find proofs
-    const proofProperty = legacy ? 'signature' : 'proof';
+    const proofProperty = legacy ? "signature" : "proof";
     let proofSet;
 
     if (compactProof) {
@@ -140,14 +134,14 @@ export class ProofSet {
 
     if (proofSet.length === 0) {
       // no possible matches
-      throw new Error('No matching proofs found in the given document.');
+      throw new Error("No matching proofs found in the given document.");
     }
 
     // TODO: consider in-place editing to optimize
 
     // shallow copy proofs and add SECURITY_CONTEXT_URL
     proofSet = proofSet.map((proof: any) => ({
-      '@context': constants.SECURITY_CONTEXT_URL,
+      "@context": constants.SECURITY_CONTEXT_URL,
       ...proof,
     }));
 
@@ -216,7 +210,7 @@ export class ProofSet {
   };
 
   private _addToJSON = (error: any) => {
-    Object.defineProperty(error, 'toJSON', {
+    Object.defineProperty(error, "toJSON", {
       value: function() {
         return serializeError(this);
       },
@@ -243,7 +237,7 @@ export class ProofSet {
     }
     const suites = Array.isArray(suite) ? suite : [suite];
     if (suites.length === 0) {
-      throw new TypeError('At least one suite is required.');
+      throw new TypeError("At least one suite is required.");
     }
 
     const legacy = suites.some((s) => s.legacy);
@@ -259,7 +253,7 @@ export class ProofSet {
     }
 
     try {
-      if (typeof document === 'string') {
+      if (typeof document === "string") {
         // fetch document
         document = await documentLoader(document);
       } else {
@@ -294,8 +288,8 @@ export class ProofSet {
 
       if (results.length === 0) {
         throw new Error(
-          'Could not verify any proofs; no proofs matched the required ' +
-            'suite and purpose.'
+          "Could not verify any proofs; no proofs matched the required " +
+            "suite and purpose."
         );
       }
 
