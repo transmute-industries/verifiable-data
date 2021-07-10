@@ -1,0 +1,59 @@
+{
+  "name": "@transmute/vc.js",
+  "author": "Orie Steele",
+  "module": "dist/vc.js.esm.js",
+  "version": "0.2.1-unstable.8",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/transmute-industries//tree/master/packages/vc.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/vc.js.git",
+    "directory": "packages/vc.js"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint src --fix",
+    "prepare": "tsdx build"
+  },
+  "devDependencies": {
+    "@digitalbazaar/ed25519-signature-2018": "^2.0.1",
+    "@digitalbazaar/ed25519-verification-key-2018": "^3.1.1",
+    "@mattrglobal/jsonld-signatures-bbs": "^0.7.1-unstable.83d3170",
+    "@transmute/did-key-bls12381": "^0.2.1-unstable.35",
+    "@transmute/did-key-ed25519": "^0.2.1-unstable.35",
+    "@transmute/ed25519-signature-2018": "^0.2.1-unstable.8",
+    "@transmute/json-web-key-2020": "^1.0.0",
+    "@transmute/json-web-signature-2020": "^1.0.0",
+    "@types/moment": "^2.13.0",
+    "crypto-ld": "^3.7.0",
+    "jose": "^1.28.1",
+    "jsonld-signatures": "^5.1.0",
+    "ts-jest": "^27.0.3",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.0",
+    "typescript": "^3.9.5",
+    "vc-js": "^0.6.4"
+  },
+  "dependencies": {
+    "@transmute/credentials-context": "0.0.4-unstable.2",
+    "@transmute/linked-data-proof": "^0.2.1-unstable.8",
+    "@transmute/security-context": "0.0.4-unstable.2",
+    "jsonld": "^5.2.0",
+    "jsonld-checker": "0.1.4",
+    "moment": "^2.27.0"
+  }
+}
