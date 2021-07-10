@@ -11,6 +11,7 @@ let suite: any;
 
 const purpose = new jsigs.purposes.AssertionProofPurpose();
 
+// digital bazaar can use transmute suite
 beforeAll(async () => {
   key = await Ed25519VerificationKey2018.from(fixtures.key);
   suite = new Ed25519Signature2018({

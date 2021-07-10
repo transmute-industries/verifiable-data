@@ -47,7 +47,6 @@ export class ProofSet {
     //const existingProofs = input[proofProperty];
     delete input[proofProperty];
 
-    // console.log(input);
     // create the new proof (suites MUST output a proof using the security-v2
     // `@context`)
     const proof = await suite.createProof({
