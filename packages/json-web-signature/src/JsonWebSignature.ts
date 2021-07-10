@@ -3,7 +3,7 @@ import jsonld from 'jsonld';
 import { subtle } from '@transmute/web-crypto-key-pair';
 import { JsonWebKey } from './JsonWebKey';
 
-import sec from '@transmute/security-context';
+// import sec from '@transmute/security-context';
 
 const sha256 = async (data: any) => {
   return Buffer.from(await subtle.digest('SHA-256', Buffer.from(data)));
@@ -19,7 +19,7 @@ export class JsonWebSignature {
   public key?: JsonWebKey;
   public proof: any;
   public date: any;
-  public type: string = 'https://w3id.org/security#JsonWebSignature2020';
+  public type: string = 'JsonWebSignature2020';
   public verificationMethod?: string;
 
   constructor(options: JsonWebSignatureOptions = {}) {
@@ -49,8 +49,6 @@ export class JsonWebSignature {
     // options
     proof = { ...proof };
     delete proof.jws;
-    delete proof.signatureValue;
-    delete proof.proofValue;
     return this.canonize(proof, {
       documentLoader,
       expansionMap,
@@ -80,11 +78,7 @@ export class JsonWebSignature {
   }
 
   async matchProof({ proof }: any) {
-    return (
-      proof.type === 'JsonWebSignature2020' ||
-      proof.type === 'sec:JsonWebSignature2020' ||
-      proof.type === 'https://w3id.org/security#JsonWebSignature2020'
-    );
+    return proof.type === 'JsonWebSignature2020';
   }
 
   async updateProof({ proof }: any) {
@@ -112,7 +106,9 @@ export class JsonWebSignature {
     compactProof,
   }: any) {
     let proof;
-    const context = sec.constants.SECURITY_CONTEXT_V2_URL;
+
+    const context = document['@context'];
+
     if (this.proof) {
       // use proof JSON-LD document passed to API
       proof = await jsonld.compact(this.proof, context, {
@@ -126,6 +122,8 @@ export class JsonWebSignature {
         '@context': context,
       };
     }
+
+    // console.log(document);
 
     // ensure proof type is set
     proof.type = this.type;

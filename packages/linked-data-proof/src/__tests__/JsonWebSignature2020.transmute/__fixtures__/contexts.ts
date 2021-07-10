@@ -13,11 +13,11 @@ export const contexts: any = {
     did.constants.DID_CONTEXT_V1_URL
   ),
 
-  [sec.constants.SECURITY_CONTEXT_V1_URL]: sec.contexts.get(
-    sec.constants.SECURITY_CONTEXT_V1_URL
-  ),
-
-  [sec.constants.SECURITY_CONTEXT_V2_URL]: sec.contexts.get(
-    sec.constants.SECURITY_CONTEXT_V2_URL
-  ),
+  // // need to eliminate
+  // [sec.constants.SECURITY_CONTEXT_V1_URL]: sec.contexts.get(
+  //   sec.constants.SECURITY_CONTEXT_V1_URL
+  // ),
+  // [sec.constants.SECURITY_CONTEXT_V2_URL]: sec.contexts.get(
+  //   sec.constants.SECURITY_CONTEXT_V2_URL
+  // ),
 };
