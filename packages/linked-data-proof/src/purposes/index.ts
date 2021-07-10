@@ -1,4 +1,11 @@
-export * from "./ProofPurpose";
-export * from "./ControllerProofPurpose";
-export * from "./AssertionProofPurpose";
-export * from "./AuthenticationProofPurpose";
+import { ProofPurpose } from "./ProofPurpose";
+import { ControllerProofPurpose } from "./ControllerProofPurpose";
+import { AssertionProofPurpose } from "./AssertionProofPurpose";
+import { AuthenticationProofPurpose } from "./AuthenticationProofPurpose";
+
+export const purposes = {
+  ProofPurpose,
+  ControllerProofPurpose,
+  AssertionProofPurpose,
+  AuthenticationProofPurpose,
+};

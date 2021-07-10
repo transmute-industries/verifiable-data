@@ -156,6 +156,7 @@ const _verifyPresentation = async (options: IVerifyOptions) => {
     error: presentationResult.error,
   };
 };
+
 export const verify = async (options: IVerifyOptions) => {
   if (!options.documentLoader) {
     throw new TypeError(
