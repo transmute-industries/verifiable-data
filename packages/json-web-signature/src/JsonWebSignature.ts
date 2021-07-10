@@ -80,7 +80,11 @@ export class JsonWebSignature {
   }
 
   async matchProof({ proof }: any) {
-    return proof.type === 'sec:JsonWebSignature2020';
+    return (
+      proof.type === 'JsonWebSignature2020' ||
+      proof.type === 'sec:JsonWebSignature2020' ||
+      proof.type === 'https://w3id.org/security#JsonWebSignature2020'
+    );
   }
 
   async updateProof({ proof }: any) {
@@ -108,22 +112,18 @@ export class JsonWebSignature {
     compactProof,
   }: any) {
     let proof;
+    const context = sec.constants.SECURITY_CONTEXT_V2_URL;
     if (this.proof) {
       // use proof JSON-LD document passed to API
-      proof = await jsonld.compact(
-        this.proof,
-        [sec.constants.SECURITY_CONTEXT_V2_URL],
-
-        {
-          documentLoader,
-          expansionMap,
-          compactToRelative: false,
-        }
-      );
+      proof = await jsonld.compact(this.proof, context, {
+        documentLoader,
+        expansionMap,
+        compactToRelative: false,
+      });
     } else {
       // create proof JSON-LD document
       proof = {
-        '@context': [sec.constants.SECURITY_CONTEXT_V2_URL],
+        '@context': context,
       };
     }
 

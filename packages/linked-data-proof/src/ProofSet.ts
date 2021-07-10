@@ -48,6 +48,7 @@ export class ProofSet {
     //const existingProofs = input[proofProperty];
     delete input[proofProperty];
 
+    // console.log(input);
     // create the new proof (suites MUST output a proof using the security-v2
     // `@context`)
     const proof = await suite.createProof({
@@ -57,6 +58,8 @@ export class ProofSet {
       expansionMap,
       compactProof,
     });
+
+    // console.log(proof);
 
     if (compactProof) {
       // compact proof to match document's context
@@ -110,6 +113,7 @@ export class ProofSet {
       // if we must compact the proof(s) then we must first compact the input
       // document to find the proof(s)
       const context = document["@context"];
+      // console.log(document);
       document = await jsonld.compact(document, context, {
         documentLoader,
         expansionMap,

@@ -35,6 +35,7 @@
     "@transmute/credentials-context": "0.7.0-unstable.2",
     "@transmute/did-context": "^0.7.0-unstable.2",
     "@transmute/ed25519-signature-2018": "^0.7.0-unstable.2",
+    "@transmute/json-web-signature": "^0.7.0-unstable.2",
     "@transmute/security-context": "0.7.0-unstable.2",
     "crypto-ld": "^3.7.0",
     "jsonld-signatures": "^9.2.1",
