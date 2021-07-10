@@ -1,0 +1,13 @@
+{
+    "@context": ["https://www.w3.org/ns/did/v1"],
+    "id": "did:example:def",
+    "verificationMethod": [{
+        "id": "#123",
+        "type": "Ed25519VerificationKey2018",
+        "controller": "did:example:def",
+        "publicKeyBase58": "6fioC1zcDPyPEL19pXRS2E4iJ46zH7xP6uSgAaPdwDrx"
+    }],
+    "assertionMethod": [
+        "#123"
+    ]
+}

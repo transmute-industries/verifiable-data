@@ -1,0 +1,81 @@
+{
+  "presentationResult": {
+    "verified": true,
+    "results": [
+      {
+        "proof": {
+          "@context": "https://w3id.org/security/v2",
+          "type": "Ed25519Signature2018",
+          "created": "2019-12-11T03:50:55Z",
+          "challenge": "123",
+          "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..aJivp-p1DCKUdDiehok6VHluA48QJLph8zpSNfmEJjHbs-CK-Np5xTAAMhLLEZir2cYx-rvJgNMwyqKa4P8ACA",
+          "proofPurpose": "authentication",
+          "verificationMethod": "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ#z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ"
+        },
+        "verified": true,
+        "purposeResult": {
+          "valid": true,
+          "controller": {
+            "id": "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ",
+            "assertionMethod": [
+              "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ#z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ"
+            ],
+            "authentication": [
+              "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ#z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ"
+            ],
+            "capabilityDelegation": [
+              "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ#z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ"
+            ],
+            "capabilityInvocation": [
+              "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ#z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ"
+            ],
+            "keyAgreement": [
+              {
+                "id": "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ#zCB8kVS1JUjPux8Hu8QbPWdeTbzuf1RAyko3G7ry1CtyBZ",
+                "type": "did:/X25519KeyAgreementKey2019",
+                "controller": "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ",
+                "publicKeyBase58": "Be2n4pVHMedX2Evg16pYUUnJkdr3rUNFu9y61tConj5M"
+              }
+            ],
+            "publicKey": [
+              {
+                "id": "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ#z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ",
+                "type": "Ed25519VerificationKey2018",
+                "controller": "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ",
+                "publicKeyBase58": "Avp3Y4RKGUHbuRnYEK4PoWLvsgFuPjs5QKSddDRFxLwB"
+              },
+              {
+                "id": "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ#llJtlNS6AEAUd7_cozAN4nWVV2pdubbMa4-gtanKUS0",
+                "type": "did:/JsonWebKey2020",
+                "controller": "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "verified": true,
+  "credentialResults": [
+    {
+      "verified": true,
+      "results": [
+        {
+          "proof": {
+            "@context": "https://w3id.org/security/v2",
+            "type": "Ed25519Signature2018",
+            "created": "2019-12-11T03:50:55Z",
+            "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..sW-8OqzPxieDbJvnFX2WKTsXz2HP5JAvNaIpvTneqbZxSnGlvdpBNwFLQPLNi4L0kYqWl5o8BE1f0Z04Ard9BQ",
+            "proofPurpose": "assertionMethod",
+            "verificationMethod": "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ#z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ"
+          },
+          "verified": true,
+          "purposeResult": {
+            "valid": true
+          }
+        }
+      ],
+      "credentialId": "http://example.gov/credentials/3732"
+    }
+  ]
+}

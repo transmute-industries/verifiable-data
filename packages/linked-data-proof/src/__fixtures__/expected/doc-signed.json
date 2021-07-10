@@ -1,0 +1,27 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "name": "schema:name",
+    "homepage": "schema:url",
+    "image": "schema:image"
+  },
+  "name": "Manu Sporny",
+  "homepage": "https://manu.sporny.org/",
+  "image": "https://manu.sporny.org/images/manu.png",
+  "https://w3id.org/security#proof": {
+    "@graph": {
+      "@type": "https://w3id.org/security#Ed25519Signature2018",
+      "http://purl.org/dc/terms/created": {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2019-12-11T03:50:55Z"
+      },
+      "https://w3id.org/security#jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..i4xq_61NQIvOQM_4-EtDbzbQmmkpQFsxGrBm_wv33JG30RGeDNCPibCosVbpRapNzsKmwfZNEVTeecezVKi5CA",
+      "https://w3id.org/security#proofPurpose": {
+        "@id": "https://w3id.org/security#assertionMethod"
+      },
+      "https://w3id.org/security#verificationMethod": {
+        "@id": "did:key:z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ#z6MkpP568Jfkc1n51vdEut2EebtvhFXkod7S6LMZTVPGsZiZ"
+      }
+    }
+  }
+}
