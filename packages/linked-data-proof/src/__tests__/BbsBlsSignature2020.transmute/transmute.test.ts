@@ -55,6 +55,5 @@ it("verify", async () => {
       documentLoader: fixtures.documentLoader,
     }
   );
-
   expect(res.verified).toBe(true);
 });

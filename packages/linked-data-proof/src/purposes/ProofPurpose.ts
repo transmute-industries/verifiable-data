@@ -43,6 +43,18 @@ export class ProofPurpose {
     }
   }
 
+  /**
+   * Called to update a proof when it is being created, adding any properties
+   * specific to this purpose. This method is called prior to the proof
+   * value being generated such that any properties added may be, for example,
+   * included in a digital signature value.
+   *
+   * @param proof {object} the proof, in the `constants.SECURITY_CONTEXT_URL`
+   *   to update.
+   *
+   * @return {Promise<object>} resolves to the proof instance (in the
+   *   `constants.SECURITY_CONTEXT_URL`.
+   */
   async update(proof: any, _options: IPurposeValidateOptions) {
     proof.proofPurpose = this.term;
     return proof;
