@@ -1,6 +1,7 @@
 import jsonld from "jsonld";
 import crypto from "crypto";
 import * as sec from "@transmute/security-context";
+import * as cred from "@transmute/credentials-context";
 import { Ed25519VerificationKey2018 } from "./Ed25519VerificationKey2018";
 
 const sha256 = (data: any) => {
@@ -35,6 +36,35 @@ export class Ed25519Signature2018 {
       this.signer = this.key.signer();
       this.verifier = this.key.verifier();
     }
+  }
+
+  ensureSuiteContext({ document }: any) {
+    // Ed25519Signature2018 shipped in credential v1
+    if (
+      document["@context"] === cred.constants.CREDENTIALS_CONTEXT_V1_URL ||
+      (Array.isArray(document["@context"]) &&
+        document["@context"].includes(
+          cred.constants.CREDENTIALS_CONTEXT_V1_URL
+        ))
+    ) {
+      // document already includes the required context
+      return;
+    }
+
+    // otherwise ensure the suite context
+    if (
+      document["@context"] === sec.constants.ED25519_2018_v1_URL ||
+      (Array.isArray(document["@context"]) &&
+        document["@context"].includes(sec.constants.ED25519_2018_v1_URL))
+    ) {
+      // document already includes the required context
+      return;
+    }
+
+    throw new TypeError(
+      `The document to be signed must contain this suite's @context, ` +
+        `"${JSON.stringify(document["@context"], null, 2)}".`
+    );
   }
 
   async canonize(
@@ -170,7 +200,7 @@ export class Ed25519Signature2018 {
       documentLoader,
       expansionMap,
     });
-
+    delete proof["@context"];
     return proof;
   }
 
