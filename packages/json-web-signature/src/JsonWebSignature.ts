@@ -3,7 +3,7 @@ import jsonld from 'jsonld';
 import { subtle } from '@transmute/web-crypto-key-pair';
 import { JsonWebKey } from './JsonWebKey';
 
-// import sec from '@transmute/security-context';
+import sec from '@transmute/security-context';
 
 const sha256 = async (data: any) => {
   return Buffer.from(await subtle.digest('SHA-256', Buffer.from(data)));
@@ -28,6 +28,22 @@ export class JsonWebSignature {
       this.key = options.key;
       this.verificationMethod = this.key.id;
     }
+  }
+
+  ensureSuiteContext({ document }: any) {
+    const contextUrl = sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL;
+    if (
+      document['@context'] === contextUrl ||
+      (Array.isArray(document['@context']) &&
+        document['@context'].includes(contextUrl))
+    ) {
+      // document already includes the required context
+      return;
+    }
+    throw new TypeError(
+      `The document to be signed must contain this suite's @context, ` +
+        `"${contextUrl}".`
+    );
   }
 
   async canonize(
@@ -79,11 +95,6 @@ export class JsonWebSignature {
 
   async matchProof({ proof }: any) {
     return proof.type === 'JsonWebSignature2020';
-  }
-
-  async updateProof({ proof }: any) {
-    // extending classes may do more
-    return proof;
   }
 
   async sign({ verifyData, proof }: any) {
@@ -149,16 +160,6 @@ export class JsonWebSignature {
       proof.verificationMethod = this.verificationMethod;
     }
 
-    // add any extensions to proof (mostly for legacy support)
-    proof = await this.updateProof({
-      document,
-      proof,
-      purpose,
-      documentLoader,
-      expansionMap,
-      compactProof,
-    });
-
     // allow purpose to update the proof; the `proof` is in the
     // SECURITY_CONTEXT_URL `@context` -- therefore the `purpose` must
     // ensure any added fields are also represented in that same `@context`
@@ -187,6 +188,7 @@ export class JsonWebSignature {
       expansionMap,
     });
 
+    delete proof['@context'];
     return proof;
   }
 
