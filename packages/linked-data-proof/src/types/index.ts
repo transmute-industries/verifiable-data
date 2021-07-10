@@ -1,3 +1,11 @@
+export interface IPurposeValidateOptions {
+  document?: any;
+  suite?: any;
+  verificationMethod?: any;
+  documentLoader?: any;
+  expansionMap?: any;
+}
+
 export interface IGetTypeInfoOptions {
   document: any;
   documentLoader: any;
