@@ -32,6 +32,7 @@
   "devDependencies": {
     "@digitalbazaar/ed25519-signature-2018": "^2.0.1",
     "@digitalbazaar/ed25519-verification-key-2018": "^3.1.1",
+    "@digitalbazaar/vc": "^1.0.0",
     "@transmute/credentials-context": "0.7.0-unstable.2",
     "@transmute/did-context": "^0.7.0-unstable.2",
     "@transmute/security-context": "0.7.0-unstable.2",
