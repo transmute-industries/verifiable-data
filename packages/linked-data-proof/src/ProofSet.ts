@@ -1,8 +1,7 @@
 import jsonld from "jsonld";
 import { serializeError } from "serialize-error";
-import constants from "./constants";
+
 import strictExpansionMap from "./strictExpansionMap";
-import getTypeInfo from "./getTypeInfo";
 
 import { IProofSetAddOptions } from "./types";
 
@@ -59,42 +58,7 @@ export class ProofSet {
       compactProof,
     });
 
-    // console.log(proof);
-
-    if (compactProof) {
-      // compact proof to match document's context
-      let expandedProof = {
-        [constants.SECURITY_PROOF_URL]: { "@graph": proof },
-      };
-
-      // account for type-scoped `proof` definition by getting document types
-      const { types, alias } = await getTypeInfo({
-        document,
-        documentLoader,
-        expansionMap,
-      });
-      expandedProof["@type"] = types;
-      const ctx = jsonld.getValues(document, "@context");
-      const compactProof = await jsonld.compact(expandedProof, ctx, {
-        documentLoader,
-        expansionMap,
-        compactToRelative: false,
-      });
-      delete compactProof[alias];
-      delete compactProof["@context"];
-
-      // add proof to document
-      const key = Object.keys(compactProof)[0];
-      jsonld.addValue(document, key, compactProof[key]);
-    } else {
-      // in-place restore any existing proofs
-      /*if(existingProofs) {
-            document[proofProperty] = existingProofs;
-          }*/
-      // add new proof
-      delete proof["@context"];
-      jsonld.addValue(document, proofProperty, proof);
-    }
+    jsonld.addValue(document, proofProperty, proof);
 
     return document;
   }

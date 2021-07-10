@@ -133,20 +133,18 @@ export class Ed25519Signature2018 {
     compactProof,
   }: any) {
     let proof;
+    const context = document["@context"] || sec.constants.ED25519_2018_v1_URL;
+
     if (this.proof) {
       // use proof JSON-LD document passed to API
-      proof = await jsonld.compact(
-        this.proof,
-        sec.constants.ED25519_2018_v1_URL,
-        {
-          documentLoader,
-          expansionMap,
-          compactToRelative: false,
-        }
-      );
+      proof = await jsonld.compact(this.proof, context, {
+        documentLoader,
+        expansionMap,
+        compactToRelative: false,
+      });
     } else {
       // create proof JSON-LD document
-      proof = { "@context": sec.constants.ED25519_2018_v1_URL };
+      proof = { "@context": context };
     }
 
     // ensure proof type is set
@@ -200,6 +198,7 @@ export class Ed25519Signature2018 {
       documentLoader,
       expansionMap,
     });
+
     delete proof["@context"];
     return proof;
   }
