@@ -1,0 +1,15 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/bls12381-2020/v1"
+  ],
+  "id": "did:key:z5TcCXqMd6ZcQ8GtmsX2gCPqSmBueUV4Y8NwaTE8TxAYvBitMG3VBBb92KGzrpRAh3BYArdiPpsvijkgVEbiUUCvBs71BGYBqFMN1griQHjSk7h9erjwxfn6UaRtZUoP5g7j4wyUYDf2MT32FDaNxSo7HWfaQnFCzDLjL6cykFpWuz2gjLxQAVgtPizLWVuvKkw9YM2XX",
+  "assertionMethod": [
+    {
+      "id": "did:key:z5TcCXqMd6ZcQ8GtmsX2gCPqSmBueUV4Y8NwaTE8TxAYvBitMG3VBBb92KGzrpRAh3BYArdiPpsvijkgVEbiUUCvBs71BGYBqFMN1griQHjSk7h9erjwxfn6UaRtZUoP5g7j4wyUYDf2MT32FDaNxSo7HWfaQnFCzDLjL6cykFpWuz2gjLxQAVgtPizLWVuvKkw9YM2XX#zUC7GC7YedtpobLxXx48A12mhsdtHGwMT9vBgDk76rqRgfNHcTs3VuMnKkH1JdzDBxu4dCwAhFiCevE6t2fpCku8J5YEUgcdZ8kUXbsv9wW9Qr2ATuQuM6mibjBYWjW8vyXUPAd",
+      "type": "Bls12381G2Key2020",
+      "controller": "did:key:z5TcCXqMd6ZcQ8GtmsX2gCPqSmBueUV4Y8NwaTE8TxAYvBitMG3VBBb92KGzrpRAh3BYArdiPpsvijkgVEbiUUCvBs71BGYBqFMN1griQHjSk7h9erjwxfn6UaRtZUoP5g7j4wyUYDf2MT32FDaNxSo7HWfaQnFCzDLjL6cykFpWuz2gjLxQAVgtPizLWVuvKkw9YM2XX",
+      "publicKeyBase58": "22MZfaxEbSyUk81PGz4LZQaGy2zd9RBNFoqAHd1Ncwn1VCruQoExdXJKL9edxffMRUzXHeqrPH2g8w9wh3VZQU81WgLiXbVczFxBXFisGvttJ715JGAbcRvma3YmFMRNbtZK"
+    }
+  ]
+}

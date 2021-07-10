@@ -4,6 +4,7 @@ import { serializeError } from "serialize-error";
 import strictExpansionMap from "./strictExpansionMap";
 
 import { IProofSetAddOptions } from "./types";
+// import constants from "./constants";
 
 export class ProofSet {
   async add(
@@ -47,8 +48,6 @@ export class ProofSet {
     //const existingProofs = input[proofProperty];
     delete input[proofProperty];
 
-    // create the new proof (suites MUST output a proof using the security-v2
-    // `@context`)
     const proof = await suite.createProof({
       document: input,
       purpose,
@@ -56,6 +55,70 @@ export class ProofSet {
       expansionMap,
       compactProof,
     });
+
+    // const getTypeInfo = async ({
+    //   document,
+    //   documentLoader,
+    //   expansionMap,
+    // }: any) => {
+    //   // determine `@type` alias, if any
+    //   const ctx = jsonld.getValues(document, "@context");
+    //   const compacted = await jsonld.compact({ "@type": "_:b0" }, ctx, {
+    //     documentLoader,
+    //     expansionMap,
+    //   });
+    //   delete compacted["@context"];
+    //   const alias = Object.keys(compacted)[0];
+
+    //   // optimize: expand only `@type` and `type` values
+    //   const toExpand: any = { "@context": ctx };
+    //   toExpand["@type"] = jsonld
+    //     .getValues(document, "@type")
+    //     .concat(jsonld.getValues(document, alias));
+    //   const expanded =
+    //     (await jsonld.expand(toExpand, { documentLoader, expansionMap }))[0] ||
+    //     {};
+    //   return { types: jsonld.getValues(expanded, "@type"), alias };
+    // };
+
+    // if (compactProof) {
+    //   // compact proof to match document's context
+    //   let expandedProof = {
+    //     [constants.SECURITY_PROOF_URL]: { "@graph": proof },
+    //   };
+    //   // account for type-scoped `proof` definition by getting document types
+    //   const { types, alias } = await getTypeInfo({
+    //     document,
+    //     documentLoader,
+    //     expansionMap,
+    //   });
+    //   expandedProof["@type"] = types;
+    //   const ctx = jsonld.getValues(document, "@context");
+    //   const compactProof = await jsonld.compact(expandedProof, ctx, {
+    //     documentLoader,
+    //     expansionMap,
+    //     compactToRelative: false,
+    //   });
+    //   delete compactProof[alias];
+    //   delete compactProof["@context"];
+
+    //   // add proof to document
+    //   const key = Object.keys(compactProof)[0];
+    //   jsonld.addValue(document, key, compactProof[key]);
+    // } else {
+    //   delete proof["@context"];
+    //   // this is required here, for cases where the suite
+    //   // still requires / uses sec-v2
+    //   proof.type = proof.type.replace("sec:", "");
+
+    //   jsonld.addValue(document, proofProperty, proof);
+    //   console.log(JSON.stringify(document, null, 2));
+    // }
+
+    delete proof["@context"];
+    // this is required here, for cases where the suite
+    // still requires / uses sec-v2
+    proof.type = proof.type.replace("sec:", "");
 
     jsonld.addValue(document, proofProperty, proof);
 
@@ -122,19 +185,15 @@ export class ProofSet {
       return [];
     }
 
+    console.log("here.....???", matches);
+
     // verify each matching proof
     return (
       await Promise.all(
         matches.map(async (proof: any) => {
           for (const s of suites) {
-            if (
-              await s.matchProof({
-                proof,
-                document,
-                documentLoader,
-                expansionMap,
-              })
-            ) {
+            const matchFound = s.type.replace("sec:", "") === proof.type;
+            if (matchFound) {
               return s
                 .verifyProof({
                   proof,
