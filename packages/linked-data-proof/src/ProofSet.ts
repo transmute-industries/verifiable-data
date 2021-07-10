@@ -41,23 +41,10 @@ export class ProofSet {
     }
 
     // preprocess document to prepare to remove existing proofs
-    let input;
-    if (compactProof) {
-      // cannot assume security context terms, so do full compaction
-      input = await jsonld.compact(document, constants.SECURITY_CONTEXT_URL, {
-        documentLoader,
-        expansionMap,
-        compactToRelative: false,
-      });
-    } else {
-      // TODO: optimize to modify document in place to maximize optimization
-
-      // shallow copy document to allow removal of existing proofs
-      input = { ...document };
-    }
+    let input = { ...document };
 
     // save but exclude any existing proof(s)
-    const proofProperty = suite.legacy ? "signature" : "proof";
+    const proofProperty = "proof";
     //const existingProofs = input[proofProperty];
     delete input[proofProperty];
 
@@ -111,23 +98,23 @@ export class ProofSet {
 
   private _getProofs = async ({
     document,
-    legacy,
     documentLoader,
     expansionMap,
     compactProof,
   }: any) => {
     // handle document preprocessing to find proofs
-    const proofProperty = legacy ? "signature" : "proof";
+    const proofProperty = "proof";
     let proofSet;
 
     if (compactProof) {
       // if we must compact the proof(s) then we must first compact the input
       // document to find the proof(s)
-      document = await jsonld.compact(
-        document,
-        constants.SECURITY_CONTEXT_URL,
-        { documentLoader, expansionMap, compactToRelative: false }
-      );
+      const context = document["@context"];
+      document = await jsonld.compact(document, context, {
+        documentLoader,
+        expansionMap,
+        compactToRelative: false,
+      });
     }
     proofSet = jsonld.getValues(document, proofProperty);
     delete document[proofProperty];
@@ -138,10 +125,9 @@ export class ProofSet {
     }
 
     // TODO: consider in-place editing to optimize
-
-    // shallow copy proofs and add SECURITY_CONTEXT_URL
+    const context = document["@context"];
     proofSet = proofSet.map((proof: any) => ({
-      "@context": constants.SECURITY_CONTEXT_URL,
+      "@context": context,
       ...proof,
     }));
 
@@ -239,7 +225,6 @@ export class ProofSet {
     if (suites.length === 0) {
       throw new TypeError("At least one suite is required.");
     }
-
     const legacy = suites.some((s) => s.legacy);
     if (legacy) {
       throw new TypeError(`Legacy suites are no longer supported.`);
@@ -259,15 +244,13 @@ export class ProofSet {
       } else {
         // TODO: consider in-place editing to optimize when `compactProof`
         // is `false`
-
-        // shallow copy to allow for removal of proof set prior to canonize
-        document = { ...document };
+        // never mutate function arguments.
+        document = JSON.parse(JSON.stringify(document));
       }
 
       // get proofs from document
       const { proofSet, document: doc } = await this._getProofs({
         document,
-        legacy,
         documentLoader,
         expansionMap,
         compactProof,

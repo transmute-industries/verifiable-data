@@ -4,14 +4,7 @@ export class ProofPurpose {
   public term: any;
   public date: any;
   public maxTimestampDelta: any;
-  /**
-   * @param term {string} the `proofPurpose` term, as defined in the
-   *    SECURITY_CONTEXT_URL `@context` or a URI if not defined in such.
-   * @param [date] {string or Date or integer} the expected date for
-   *   the creation of the proof.
-   * @param [maxTimestampDelta] {integer} a maximum number of seconds that
-   *   the date on the signature can deviate from, defaults to `Infinity`.
-   */
+
   constructor({ term, date, maxTimestampDelta = Infinity }: any = {}) {
     if (term === undefined) {
       throw new Error('"term" is required.');
@@ -32,17 +25,6 @@ export class ProofPurpose {
     this.maxTimestampDelta = maxTimestampDelta;
   }
 
-  /**
-   * Called to validate the purpose of a proof. This method is called during
-   * proof verification, after the proof value has been checked against the
-   * given verification method (e.g. in the case of a digital signature, the
-   * signature has been cryptographically verified against the public key).
-   *
-   * @param proof {object} the proof, in the `constants.SECURITY_CONTEXT_URL`,
-   *   with the matching purpose to validate.
-   *
-   * @return {Promise<object>} resolves to an object with `valid` and `error`.
-   */
   async validate(proof: any, _options: IPurposeValidateOptions) {
     try {
       // check expiration
@@ -61,18 +43,6 @@ export class ProofPurpose {
     }
   }
 
-  /**
-   * Called to update a proof when it is being created, adding any properties
-   * specific to this purpose. This method is called prior to the proof
-   * value being generated such that any properties added may be, for example,
-   * included in a digital signature value.
-   *
-   * @param proof {object} the proof, in the `constants.SECURITY_CONTEXT_URL`
-   *   to update.
-   *
-   * @return {Promise<object>} resolves to the proof instance (in the
-   *   `constants.SECURITY_CONTEXT_URL`.
-   */
   async update(proof: any, _options: IPurposeValidateOptions) {
     proof.proofPurpose = this.term;
     return proof;

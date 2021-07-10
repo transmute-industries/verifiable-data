@@ -1,26 +1,10 @@
 import { ProofPurpose } from "./ProofPurpose";
-import constants from "../constants";
-
 import { IPurposeValidateOptions } from "../types";
 
 const jsonld = require("jsonld");
 
 export class ControllerProofPurpose extends ProofPurpose {
   public controller: any;
-  /**
-   * Creates a proof purpose that will validate whether or not the verification
-   * method in a proof was authorized by its declared controller for the
-   * proof's purpose.
-   *
-   * @param term {string} the `proofPurpose` term, as defined in the
-   *    SECURITY_CONTEXT_URL `@context` or a URI if not defined in such.
-   * @param [controller] {object} the description of the controller, if it
-   *   is not to be dereferenced via a `documentLoader`.
-   * @param [date] {string or Date or integer} the expected date for
-   *   the creation of the proof.
-   * @param [maxTimestampDelta] {integer} a maximum number of seconds that
-   *   the date on the signature can deviate from, defaults to `Infinity`.
-   */
   constructor({
     term,
     controller,
@@ -73,23 +57,9 @@ export class ControllerProofPurpose extends ProofPurpose {
             controllerId = owner;
           }
         }
-        // Note: `expansionMap` is intentionally not passed; we can safely drop
-        // properties here and must allow for it
-        const framed = await jsonld.frame(
-          controllerId,
-          {
-            "@context": constants.SECURITY_CONTEXT_URL,
-            id: controllerId,
-            // the term should be in the json-ld object the controllerId resolves
-            // to.
-            [this.term]: {
-              "@embed": "@never",
-              id: verificationId,
-            },
-          },
-          { documentLoader, compactToRelative: false }
-        );
-        result.controller = framed;
+
+        const { document } = await documentLoader(controllerId);
+        result.controller = document;
       }
       const verificationMethods = jsonld.getValues(
         result.controller,
