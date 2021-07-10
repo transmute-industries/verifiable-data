@@ -19,21 +19,21 @@ beforeAll(async () => {
   });
 });
 
-// const expectProofsToBeEqual = (a: any, b: any) => {
-//   // because these signatures are not deterministic,
-//   // we cannot compare the full proof
-//   // so we delete the parts that change
-//   delete a.proof.created;
-//   delete a.proof.proofValue;
-//   delete a.proof.nonce;
-//   const unstable: any = JSON.parse(JSON.stringify(b));
-//   delete unstable.proof.created;
-//   delete unstable.proof.proofValue;
-//   delete unstable.proof.nonce;
-//   expect(a).toEqual(unstable);
-// };
+const expectProofsToBeEqual = (a: any, b: any) => {
+  // because these signatures are not deterministic,
+  // we cannot compare the full proof
+  // so we delete the parts that change
+  delete a.proof.created;
+  delete a.proof.proofValue;
+  delete a.proof.nonce;
+  const unstable: any = JSON.parse(JSON.stringify(b));
+  delete unstable.proof.created;
+  delete unstable.proof.proofValue;
+  delete unstable.proof.nonce;
+  expect(a).toEqual(unstable);
+};
 
-it("sign / verify", async () => {
+it("sign", async () => {
   const docSigned = await jsigs.sign(
     { ...fixtures.doc, issuer: { id: key.controller } },
     {
@@ -43,11 +43,12 @@ it("sign / verify", async () => {
     }
   );
 
-  console.log(JSON.stringify(docSigned, null, 2));
-  // expectProofsToBeEqual(docSigned, fixtures.docSigned);
+  expectProofsToBeEqual(docSigned, fixtures.docSigned);
+});
 
+it("verify", async () => {
   const res = await jsigs.verify(
-    { ...docSigned },
+    { ...fixtures.docSigned },
     {
       suite: new BbsBlsSignature2020(),
       purpose: purpose,
@@ -55,6 +56,5 @@ it("sign / verify", async () => {
     }
   );
 
-  console.log(JSON.stringify(res, null, 2));
   expect(res.verified).toBe(true);
 });
