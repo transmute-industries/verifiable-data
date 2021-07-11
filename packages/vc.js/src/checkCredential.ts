@@ -1,14 +1,7 @@
 import jsonld from "jsonld";
 import { check } from "@transmute/jsonld-schema";
 
-const dateRegex = new RegExp(
-  "^(\\d{4})-(0[1-9]|1[0-2])-" +
-    "(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):" +
-    "([0-5][0-9]):([0-5][0-9]|60)" +
-    "(\\.[0-9]+)?(Z|(\\+|-)([01][0-9]|2[0-3]):" +
-    "([0-5][0-9]))$",
-  "i"
-);
+import { checkDate } from "./datetime";
 
 function _getId(obj: any) {
   if (typeof obj === "string") {
@@ -22,7 +15,11 @@ function _getId(obj: any) {
   return obj.id;
 }
 
-export const checkCredential = async (credential: any, documentLoader: any) => {
+export const checkCredential = async (
+  credential: any,
+  documentLoader: any,
+  strict: "ignore" | "warn" | "throw" = "warn"
+) => {
   // ensure first context is 'https://www.w3.org/2018/credentials/v1'
   if (typeof credential === "string") {
     // might be a JWT... in which case... there is no way to validate....
@@ -38,13 +35,6 @@ export const checkCredential = async (credential: any, documentLoader: any) => {
       )}`
     );
   }
-
-  // if (credential['@context'][0] !== constants.CREDENTIALS_CONTEXT_V1_URL) {
-  //   throw new Error(
-  //     `"${constants.CREDENTIALS_CONTEXT_V1_URL}" needs to be first in the ` +
-  //       'list of contexts.'
-  //   );
-  // }
 
   // check type presence and cardinality
   if (!credential["type"]) {
@@ -74,21 +64,32 @@ export const checkCredential = async (credential: any, documentLoader: any) => {
   }
 
   if ("issuanceDate" in credential) {
-    if (!dateRegex.test(credential.issuanceDate)) {
-      throw new Error(
-        `"issuanceDate" must be a valid date: ${credential.issuanceDate}`
-      );
+    const res = checkDate(credential.issuanceDate);
+    if (!res.valid) {
+      const message =
+        "issuanceDate is not valid: " + JSON.stringify(res.warnings, null, 2);
+      if (strict == "warn") {
+        console.warn(message);
+      }
+      if (strict == "throw") {
+        throw new Error(message);
+      }
     }
   }
 
   // check expires is a date
-  if (
-    "expirationDate" in credential &&
-    !dateRegex.test(credential.expirationDate)
-  ) {
-    throw new Error(
-      `"expirationDate" must be a valid date: ${credential.expirationDate}`
-    );
+  if ("expirationDate" in credential) {
+    const res = checkDate(credential.expirationDate);
+    if (!res.valid) {
+      const message =
+        "expirationDate is not valid: " + JSON.stringify(res.warnings, null, 2);
+      if (strict == "warn") {
+        console.warn(message);
+      }
+      if (strict == "throw") {
+        throw new Error(message);
+      }
+    }
   }
 
   // check issuer cardinality

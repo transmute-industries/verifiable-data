@@ -7,15 +7,18 @@ export const createVerifiableCredential = async (options: {
   credential: any;
   suite: any;
   documentLoader: any;
+  strict?: "ignore" | "warn" | "throw";
 }) => {
   const { credential, suite, documentLoader } = options;
+
+  const strict = options.strict || "warn";
 
   // run common credential checks
   if (!credential) {
     throw new TypeError('"credential" parameter is required for issuing.');
   }
 
-  await checkCredential(credential, documentLoader);
+  await checkCredential(credential, documentLoader, strict);
 
   if (!documentLoader) {
     throw new TypeError('"documentLoader" parameter is required for issuing.');
