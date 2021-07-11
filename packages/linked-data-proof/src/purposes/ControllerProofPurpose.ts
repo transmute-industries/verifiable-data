@@ -4,19 +4,8 @@ import jsonld from "jsonld";
 
 export class ControllerProofPurpose extends ProofPurpose {
   public controller: any;
-  constructor({
-    term,
-    controller,
-    date,
-    maxTimestampDelta = Infinity,
-  }: any = {}) {
+  constructor({ term, date, maxTimestampDelta = Infinity }: any = {}) {
     super({ term, date, maxTimestampDelta });
-    if (controller !== undefined) {
-      if (typeof controller !== "object") {
-        throw new TypeError('"controller" must be an object.');
-      }
-      this.controller = controller;
-    }
   }
 
   async validate(proof: any, _options: IPurposeValidateOptions) {
@@ -29,35 +18,23 @@ export class ControllerProofPurpose extends ProofPurpose {
       const { verificationMethod, documentLoader } = _options;
       const { id: verificationId } = verificationMethod;
 
-      // if no `controller` specified, use verification method's
-      if (this.controller) {
-        result.controller = this.controller;
-      } else {
-        const { controller } = verificationMethod;
-        let controllerId;
-        if (controller) {
-          if (typeof controller === "object") {
-            controllerId = controller.id;
-          } else if (typeof controller !== "string") {
-            throw new TypeError(
-              '"controller" must be a string representing a URL.'
-            );
-          } else {
-            controllerId = controller;
-          }
-        }
-        const { document } = await documentLoader(controllerId);
-        result.controller = document;
-      }
+      const { controller } = verificationMethod;
+      const { id: controllerId } = controller;
+
+      const { document } = await documentLoader(controllerId);
+      result.controller = document;
       const verificationMethods = jsonld.getValues(
         result.controller,
         this.term
       );
+
       result.valid = verificationMethods.some(
         (vm: any) =>
           vm === verificationId ||
+          vm === "#" + verificationId.split("#").pop() ||
           (typeof vm === "object" && vm.id === verificationId)
       );
+
       if (!result.valid) {
         throw new Error(
           `Verification method "${verificationMethod.id}" not authorized ` +
