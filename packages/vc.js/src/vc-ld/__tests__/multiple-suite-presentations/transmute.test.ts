@@ -99,6 +99,6 @@ it("verify presentation", async () => {
     challenge: "123",
     suite: [new BbsBlsSignature2020(), new BbsBlsSignatureProof2020()],
     documentLoader: fixtures.documentLoader,
-  });
+  }); 
   expect(res.verified).toBe(true);
 });
