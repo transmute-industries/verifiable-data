@@ -1,7 +1,7 @@
 import * as ldp from "@transmute/linked-data-proof";
 
 import { checkCredential } from "../checkCredential";
-import { CredentialIssuancePurpose } from "../CredentialIssuancePurpose";
+import { CredentialIssuancePurpose } from "./CredentialIssuancePurpose";
 
 export const createVerifiableCredential = async (options: {
   credential: any;
