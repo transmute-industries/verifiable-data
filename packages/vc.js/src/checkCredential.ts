@@ -23,6 +23,7 @@ export const checkCredential = async (
   // ensure first context is 'https://www.w3.org/2018/credentials/v1'
   if (typeof credential === "string") {
     // might be a JWT... in which case... there is no way to validate....
+    console.log("probably a jwt...");
     return;
   }
 

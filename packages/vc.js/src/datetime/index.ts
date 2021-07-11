@@ -12,9 +12,25 @@ export const ISO_8601_FULL = /^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3(
 
 // https://www.w3.org/TR/NOTE-datetime-970915
 export const isW3CDate = (datetime: string) => {
-  const parsedDate = new Date(datetime);
-  const str = parsedDate.toISOString();
-  return str.substr(0, str.length - 5) + "Z" === datetime;
+  try {
+    const parsedDate = new Date(datetime);
+    const str = parsedDate.toISOString();
+    return str.substr(0, str.length - 5) + "Z" === datetime;
+  } catch (e) {
+    return false;
+  }
+};
+
+export const isUnixTimestampStable = (datetime: string) => {
+  const iso = moment(datetime)
+    .utc()
+    .format();
+  const timestamp = moment(iso).unix();
+  const backToIso = moment
+    .unix(timestamp)
+    .utc()
+    .format();
+  return backToIso === iso && iso === datetime;
 };
 
 // for the sake of safety, we check the date
@@ -43,6 +59,12 @@ export const checkDate = (
   if (moment(datetime).toISOString() === null) {
     res.warnings.push(
       `${datetime} could not be parsed and serialized as ISO 8601 Date Time.`
+    );
+  }
+
+  if (!isUnixTimestampStable(datetime)) {
+    res.warnings.push(
+      `${datetime} could not be converted to unix timestamp and back.`
     );
   }
   moment.suppressDeprecationWarnings = false;

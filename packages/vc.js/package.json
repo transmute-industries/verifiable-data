@@ -42,6 +42,8 @@
     "@transmute/security-context": "0.7.0-unstable.3",
     "@transmute/vc-status-rl-2020": "0.7.0-unstable.3",
     "jsonld-signatures": "^9.2.1",
+    "@transmute/ed25519-key-pair": "0.7.0-unstable.3",
+    "@transmute/jose-ld": "0.7.0-unstable.3",
     "tsdx": "^0.13.2",
     "tslib": "^2.3.0",
     "typescript": "^3.9.5"

@@ -1,2 +1,3 @@
 import * as ld from "./vc-ld";
-export { ld };
+import * as jwt from "./vc-jwt";
+export { ld, jwt };

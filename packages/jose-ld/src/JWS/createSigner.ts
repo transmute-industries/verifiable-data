@@ -10,14 +10,19 @@ export const createSigner = (
   }
 ) => {
   return {
-    sign: async ({ data }: { data: Uint8Array }): Promise<string> => {
+    sign: async ({
+      data,
+    }: {
+      data: Uint8Array | object | string;
+    }): Promise<string> => {
       const header = {
         alg: type,
         ...(options.detached ? detachedHeaderParams : undefined),
+        ...options.header,
       };
       const encodedHeader = base64url.encode(JSON.stringify(header));
       const encodedPayload = base64url.encode(
-        JSON.stringify(Buffer.from(data).toString('utf-8'))
+        typeof data === 'string' ? data : JSON.stringify(data)
       );
 
       const toBeSigned = options.detached
@@ -25,7 +30,7 @@ export const createSigner = (
             Buffer.concat([
               Buffer.from(encodedHeader, 'utf8'),
               Buffer.from('.', 'utf-8'),
-              data,
+              data as Uint8Array,
             ])
           )
         : `${encodedHeader}.${encodedPayload}`;
