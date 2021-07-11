@@ -5,12 +5,17 @@ import { checkPresentation } from "../checkPresentation";
 import { verifyVerifiableCredential } from "./verifyVerifiableCredential";
 
 export const verifyVerifiablePresentation = async (options: any) => {
-  if (!options.documentLoader) {
+  const { documentLoader, domain, challenge } = options;
+
+  const strict = options.strict || "warn";
+
+  const { presentation, unsignedPresentation } = options;
+
+  if (!documentLoader) {
     throw new TypeError(
       '"documentLoader" parameter is required for verifying.'
     );
   }
-  const { presentation, unsignedPresentation } = options;
 
   try {
     if (!presentation && !unsignedPresentation) {
@@ -28,12 +33,12 @@ export const verifyVerifiablePresentation = async (options: any) => {
 
     let presentationResult = null;
     if (presentation) {
-      checkPresentation(presentation);
+      await checkPresentation(presentation, documentLoader, strict);
       vp = presentation;
       if (!vp.proof) {
         throw new Error('presentation MUST contain "proof"');
       }
-      const { controller, domain, challenge } = options;
+
       if (!options.presentationPurpose && !challenge) {
         throw new Error(
           'A "challenge" param is required for AuthenticationProofPurpose.'
@@ -41,7 +46,6 @@ export const verifyVerifiablePresentation = async (options: any) => {
       }
 
       const purpose = new ldp.purposes.AuthenticationProofPurpose({
-        controller,
         domain,
         challenge,
       });
@@ -56,7 +60,7 @@ export const verifyVerifiablePresentation = async (options: any) => {
     }
 
     if (unsignedPresentation) {
-      checkPresentation(unsignedPresentation);
+      await checkPresentation(unsignedPresentation, documentLoader, strict);
       vp = unsignedPresentation;
       if (vp.proof) {
         throw new Error('unsignedPresentation MUST NOT contain "proof"');

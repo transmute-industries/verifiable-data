@@ -1,5 +1,5 @@
 import * as ldp from "@transmute/linked-data-proof";
-
+import { checkPresentation } from "../checkPresentation";
 export const createVerifiablePresentation = async (options: {
   presentation: any;
   suite: any;
@@ -10,14 +10,13 @@ export const createVerifiablePresentation = async (options: {
   ) => Promise<{
     document: any;
   }>;
+  strict?: "ignore" | "warn" | "throw";
 }) => {
   const { presentation, domain, challenge, documentLoader } = options;
 
-  if (!documentLoader) {
-    throw new TypeError(
-      '"documentLoader" parameter is required for presenting.'
-    );
-  }
+  const strict = options.strict || "warn";
+
+  await checkPresentation(presentation, documentLoader, strict);
 
   const purpose = new ldp.purposes.AuthenticationProofPurpose({
     domain,

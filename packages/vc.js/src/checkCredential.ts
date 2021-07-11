@@ -25,6 +25,17 @@ export const checkCredential = async (
     // might be a JWT... in which case... there is no way to validate....
     return;
   }
+
+  if (!credential["@context"]) {
+    throw new Error("Verifiable Credentials MUST include a @context property.");
+  }
+
+  if (!documentLoader) {
+    throw new TypeError(
+      '"documentLoader" parameter is required for checking presentations.'
+    );
+  }
+
   const isValidJsonLd = await check({ input: credential, documentLoader });
   if (!isValidJsonLd.ok) {
     throw new Error(
