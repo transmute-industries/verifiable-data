@@ -49,9 +49,7 @@ export const verifyVerifiablePresentation = async (options: any) => {
         });
 
       let suite = options.suite;
-      if (options.suiteMap) {
-        suite = new options.suiteMap[presentation.proof.type]();
-      }
+
       presentationResult = await ldp.verify(presentation, {
         purpose,
         ...options,
@@ -76,9 +74,12 @@ export const verifyVerifiablePresentation = async (options: any) => {
       credentialResults = await Promise.all(
         credentials.map((credential: any) => {
           let suite = options.suite;
-          if (options.suiteMap) {
-            suite = new options.suiteMap[credential.proof.type]();
+          if (Array.isArray(suite)) {
+            suite = suite.find((s: any) => {
+              return s.type.replace("sec:", "") === credential.proof.type;
+            });
           }
+
           return verifyVerifiableCredential({ credential, ...options, suite });
         })
       );

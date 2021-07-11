@@ -92,10 +92,16 @@ export class ProofSet {
       throw new Error("No matching proofs found in the given document.");
     }
 
+    const secV2Locked = ["BbsBlsSignatureProof2020"];
     // TODO: consider in-place editing to optimize
     const context = document["@context"];
     proofSet = proofSet.map((proof: any) => ({
-      "@context": context,
+      // this is required because of...
+      // https://github.com/mattrglobal/jsonld-signatures-bbs/blob/master/src/BbsBlsSignatureProof2020.ts#L32
+      // A seperate implementation is probably advisable.
+      "@context": secV2Locked.includes(proof.type)
+        ? ["https://w3id.org/security/v2"]
+        : context,
       ...proof,
     }));
 
@@ -135,6 +141,7 @@ export class ProofSet {
             // we think matchProof should be a simply string comparison here...
             // and no support for the "expanded" proofs should be provided...
             const matchFound = s.type.replace("sec:", "") === proof.type;
+
             if (matchFound) {
               return s
                 .verifyProof({
@@ -180,7 +187,7 @@ export class ProofSet {
       purpose,
       documentLoader,
       expansionMap,
-      compactProof = true,
+      compactProof = true, // consider not supporting anything else...
     }: any = {}
   ) => {
     if (!suite) {
@@ -210,8 +217,6 @@ export class ProofSet {
         // fetch document
         document = await documentLoader(document);
       } else {
-        // TODO: consider in-place editing to optimize when `compactProof`
-        // is `false`
         // never mutate function arguments.
         document = JSON.parse(JSON.stringify(document));
       }
