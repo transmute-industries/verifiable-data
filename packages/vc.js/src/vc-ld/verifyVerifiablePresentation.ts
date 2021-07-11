@@ -40,13 +40,11 @@ export const verifyVerifiablePresentation = async (options: any) => {
         );
       }
 
-      const purpose =
-        options.presentationPurpose ||
-        new ldp.purposes.AuthenticationProofPurpose({
-          controller,
-          domain,
-          challenge,
-        });
+      const purpose = new ldp.purposes.AuthenticationProofPurpose({
+        controller,
+        domain,
+        challenge,
+      });
 
       let suite = options.suite;
 
@@ -73,14 +71,7 @@ export const verifyVerifiablePresentation = async (options: any) => {
       // verify every credential in `verifiableCredential`
       credentialResults = await Promise.all(
         credentials.map((credential: any) => {
-          let suite = options.suite;
-          if (Array.isArray(suite)) {
-            suite = suite.find((s: any) => {
-              return s.type.replace("sec:", "") === credential.proof.type;
-            });
-          }
-
-          return verifyVerifiableCredential({ credential, ...options, suite });
+          return verifyVerifiableCredential({ credential, ...options });
         })
       );
 

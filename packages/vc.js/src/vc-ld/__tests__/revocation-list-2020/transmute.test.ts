@@ -23,7 +23,6 @@ it("issue verifiable credential", async () => {
     suite,
     documentLoader: fixtures.documentLoader, // required since custom suite.
   });
-  // console.log(JSON.stringify(docSigned));
   expect(docSigned).toEqual(fixtures.verifiableCredential);
 });
 
@@ -34,30 +33,30 @@ it("verify verifiable credential", async () => {
     checkStatus,
     documentLoader: fixtures.documentLoader,
   });
-  console.log(res.statusResult);
   expect(res.verified).toBe(true);
 });
 
-// it("present verifiable credential", async () => {
-//   const verifiablePresentation = await vc.createVerifiablePresentation({
-//     presentation: {
-//       "@context": fixtures.verifiableCredential["@context"],
-//       type: ["VerifiablePresentation"],
-//       verifiableCredential: [fixtures.verifiableCredential],
-//     },
-//     challenge: "123",
-//     suite,
-//     documentLoader: fixtures.documentLoader, // required since custom suite.
-//   });
-//   expect(verifiablePresentation).toEqual(fixtures.verifiablePresentation);
-// });
+it("present verifiable credential", async () => {
+  const verifiablePresentation = await vc.createVerifiablePresentation({
+    presentation: {
+      "@context": fixtures.verifiableCredential["@context"],
+      type: ["VerifiablePresentation"],
+      verifiableCredential: [fixtures.verifiableCredential],
+    },
+    challenge: "123",
+    suite,
+    documentLoader: fixtures.documentLoader, // required since custom suite.
+  });
+  expect(verifiablePresentation).toEqual(fixtures.verifiablePresentation);
+});
 
-// it("verify presentation", async () => {
-//   const res = await vc.verifyVerifiablePresentation({
-//     presentation: fixtures.verifiablePresentation,
-//     challenge: "123",
-//     suite,
-//     documentLoader: fixtures.documentLoader,
-//   });
-//   expect(res.verified).toBe(true);
-// });
+it("verify presentation", async () => {
+  const res = await vc.verifyVerifiablePresentation({
+    presentation: fixtures.verifiablePresentation,
+    challenge: "123",
+    suite: [new JsonWebSignature(), new Ed25519Signature2018()],
+    checkStatus,
+    documentLoader: fixtures.documentLoader,
+  });
+  expect(res.verified).toBe(true);
+});
