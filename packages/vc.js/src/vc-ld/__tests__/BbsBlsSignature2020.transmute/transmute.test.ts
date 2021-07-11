@@ -1,33 +1,50 @@
-import { Ed25519VerificationKey2018 } from "@digitalbazaar/ed25519-verification-key-2018";
-import { Ed25519Signature2018 } from "@digitalbazaar/ed25519-signature-2018";
-import { ld as vc } from "../..";
+import {
+  Bls12381G2KeyPair,
+  BbsBlsSignature2020,
+} from "@mattrglobal/jsonld-signatures-bbs";
+import { ld as vc } from "../../..";
 import * as fixtures from "./__fixtures__";
 
-let key: any;
-let suite: any;
+const expectProofsToBeEqual = (a: any, b: any) => {
+  // because these signatures are not deterministic,
+  // we cannot compare the full proof
+  // so we delete the parts that change
+  delete a.proof.created;
+  delete a.proof.proofValue;
+  delete a.proof.nonce;
+  const unstable: any = JSON.parse(JSON.stringify(b));
+  delete unstable.proof.created;
+  delete unstable.proof.proofValue;
+  delete unstable.proof.nonce;
+  expect(a).toEqual(unstable);
+};
 
-// our library with their suites
+let key: Bls12381G2KeyPair;
+let suite: BbsBlsSignature2020;
+
+// our lib, their suite.
 beforeAll(async () => {
-  key = await Ed25519VerificationKey2018.from(fixtures.key);
-  suite = new Ed25519Signature2018({
+  key = await Bls12381G2KeyPair.from(fixtures.key as any);
+  suite = new BbsBlsSignature2020({
     key,
     date: "2010-01-01T19:23:24Z",
   });
 });
 
 it("issue verifiable credential", async () => {
-  const docSigned = await vc.createVerifiableCredential({
+  const verifiableCredential = await vc.createVerifiableCredential({
     credential: { ...fixtures.credential, issuer: { id: key.controller } },
     suite,
     documentLoader: fixtures.documentLoader,
   });
-  expect(docSigned).toEqual(fixtures.verifiableCredential);
+
+  expectProofsToBeEqual(verifiableCredential, fixtures.verifiableCredential);
 });
 
 it("verify verifiable credential", async () => {
   const res = await vc.verifyVerifiableCredential({
     credential: fixtures.verifiableCredential,
-    suite: new Ed25519Signature2018(),
+    suite: new BbsBlsSignature2020(),
     documentLoader: fixtures.documentLoader,
   });
   expect(res.verified).toBe(true);
@@ -44,7 +61,10 @@ it("present verifiable credential", async () => {
     suite,
     documentLoader: fixtures.documentLoader,
   });
-  expect(verifiablePresentation).toEqual(fixtures.verifiablePresentation);
+  expectProofsToBeEqual(
+    verifiablePresentation,
+    fixtures.verifiablePresentation
+  );
 });
 
 it("verify presentation", async () => {

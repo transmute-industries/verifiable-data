@@ -1,5 +1,5 @@
 import { JsonWebKey, JsonWebSignature } from "@transmute/json-web-signature";
-import { ld as vc } from "../..";
+import { ld as vc } from "../../..";
 
 import * as fixtures from "./__fixtures__";
 
