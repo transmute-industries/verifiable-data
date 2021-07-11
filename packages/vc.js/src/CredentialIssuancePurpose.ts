@@ -1,5 +1,5 @@
 import * as ldp from "@transmute/linked-data-proof";
-import jsonld from "jsonld";
+// import jsonld from "jsonld";
 
 export const { AssertionProofPurpose } = ldp.purposes;
 
@@ -25,16 +25,16 @@ export class CredentialIssuancePurpose extends AssertionProofPurpose {
         throw result.error;
       }
 
-      const issuer = jsonld.getValues(
-        document,
-        "https://www.w3.org/2018/credentials#issuer"
-      );
+      const issuer =
+        typeof document.issuer === "string"
+          ? document.issuer
+          : document.issuer.id;
 
-      if (!issuer || issuer.length === 0) {
+      if (!issuer) {
         throw new Error("Credential issuer is required.");
       }
 
-      if (result.controller.id !== issuer[0].id) {
+      if (result.controller.id !== issuer) {
         throw new Error(
           "Credential issuer must match the verification method controller."
         );
