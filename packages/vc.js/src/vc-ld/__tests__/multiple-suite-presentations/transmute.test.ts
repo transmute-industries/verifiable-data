@@ -72,35 +72,33 @@ it("verify derived verifiable credential", async () => {
     suite: new BbsBlsSignatureProof2020(),
     documentLoader: fixtures.documentLoader,
   });
-  console.log(res);
   expect(res.verified).toBe(true);
 });
 
-// it("present verifiable credential", async () => {
-//   const verifiablePresentation = await vc.createVerifiablePresentation({
-//     presentation: {
-//       "@context": fixtures.verifiableCredential["@context"],
-//       type: ["VerifiablePresentation"],
-//       verifiableCredential: [fixtures.derivedVerifiableCredential],
-//     },
-//     challenge: "123",
-//     suite,
-//     documentLoader: fixtures.documentLoader,
-//   });
+it("present verifiable credential", async () => {
+  const verifiablePresentation = await vc.createVerifiablePresentation({
+    presentation: {
+      "@context": fixtures.verifiableCredential["@context"],
+      type: ["VerifiablePresentation"],
+      verifiableCredential: [fixtures.derivedVerifiableCredential],
+    },
+    challenge: "123",
+    suite,
+    documentLoader: fixtures.documentLoader,
+  });
 
-//   expectProofsToBeEqual(
-//     verifiablePresentation,
-//     fixtures.verifiablePresentation
-//   );
-// });
+  expectProofsToBeEqual(
+    verifiablePresentation,
+    fixtures.verifiablePresentation
+  );
+});
 
-// it("verify presentation", async () => {
-//   const res = await vc.verifyVerifiablePresentation({
-//     presentation: fixtures.verifiablePresentation,
-//     challenge: "123",
-//     suite: [new BbsBlsSignature2020(), new BbsBlsSignatureProof2020()],
-//     documentLoader: fixtures.documentLoader,
-//   });
-//   console.log(res.credentialResults[0]);
-//   expect(res.verified).toBe(true);
-// });
+it("verify presentation", async () => {
+  const res = await vc.verifyVerifiablePresentation({
+    presentation: fixtures.verifiablePresentation,
+    challenge: "123",
+    suite: [new BbsBlsSignature2020(), new BbsBlsSignatureProof2020()],
+    documentLoader: fixtures.documentLoader,
+  });
+  expect(res.verified).toBe(true);
+});
