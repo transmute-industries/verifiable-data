@@ -9,7 +9,7 @@ export const verifyVerifiablePresentation = async (options: any) => {
 
   const strict = options.strict || "warn";
 
-  const { presentation, unsignedPresentation } = options;
+  const { presentation } = options;
 
   if (!documentLoader) {
     throw new TypeError(
@@ -17,97 +17,74 @@ export const verifyVerifiablePresentation = async (options: any) => {
     );
   }
 
+  if (!presentation) {
+    throw new TypeError('A "presentation" property is required for verifying.');
+  }
   try {
-    if (!presentation && !unsignedPresentation) {
-      throw new TypeError(
-        'A "presentation" or "unsignedPresentation" property is required for verifying.'
-      );
-    }
-
-    let vp = null;
-    if (presentation && unsignedPresentation) {
-      throw new Error(
-        '"presentation" or "unsignedPresentation" are required, NOT both.'
-      );
-    }
-
-    let presentationResult = null;
-    if (presentation) {
-      await checkPresentation(presentation, documentLoader, strict);
-      vp = presentation;
-      if (!vp.proof) {
-        throw new Error('presentation MUST contain "proof"');
-      }
-
-      if (!options.presentationPurpose && !challenge) {
-        throw new Error(
-          'A "challenge" param is required for AuthenticationProofPurpose.'
-        );
-      }
-
-      const purpose = new ldp.purposes.AuthenticationProofPurpose({
-        domain,
-        challenge,
-      });
-
-      let suite = options.suite;
-
-      presentationResult = await ldp.verify(presentation, {
-        purpose,
-        ...options,
-        suite,
-      });
-    }
-
-    if (unsignedPresentation) {
-      await checkPresentation(unsignedPresentation, documentLoader, strict);
-      vp = unsignedPresentation;
-      if (vp.proof) {
-        throw new Error('unsignedPresentation MUST NOT contain "proof"');
-      }
-    }
-
-    // if verifiableCredentials are present, verify them, individually
-    let credentialResults: any;
-    let verified = true;
-    const credentials = jsonld.getValues(vp, "verifiableCredential");
-    if (credentials.length > 0) {
-      // verify every credential in `verifiableCredential`
-      credentialResults = await Promise.all(
-        credentials.map((credential: any) => {
-          return verifyVerifiableCredential({ credential, ...options });
-        })
-      );
-
-      credentialResults = credentialResults.map((cr: any, i: any) => {
-        cr.credentialId = credentials[i].id;
-        return cr;
-      });
-
-      const allCredentialsVerified = credentialResults.every(
-        (r: any) => r.verified
-      );
-      if (!allCredentialsVerified) {
-        verified = false;
-      }
-    }
-
-    if (unsignedPresentation) {
-      // No need to verify the proof section of this presentation
-      return { verified, results: [vp], credentialResults };
-    }
-
-    return {
-      presentationResult,
-      verified: verified && presentationResult.verified,
-      credentialResults,
-      error: presentationResult.error,
-    };
-  } catch (error) {
+    await checkPresentation(presentation, documentLoader, strict);
+  } catch (e) {
     return {
       verified: false,
-      results: [{ presentation, verified: false, error }],
-      error,
+      errors: [e],
     };
   }
+
+  if (
+    (!presentation.proof && !presentation.verifiableCredential) ||
+    (presentation.verifiableCredential &&
+      presentation.verifiableCredential.length === 0)
+  ) {
+    const message =
+      'presentation MUST contain "proof" or "verifiableCredential"';
+    throw new Error(message);
+  }
+
+  if (!presentation.proof) {
+    const message = 'presentation MUST contain "proof" when strict';
+    if (strict == "warn") {
+      console.warn(message);
+    }
+    if (strict == "throw") {
+      throw new Error(message);
+    }
+  }
+
+  const result: { verified: boolean; errors?: any } = {
+    verified: false,
+  };
+
+  if (!presentation.proof) {
+    const credentials = await Promise.all(
+      jsonld
+        .getValues(presentation, "verifiableCredential")
+        .map(async (credential: any) => {
+          const res = await verifyVerifiableCredential({
+            credential,
+            ...options,
+          });
+          return {
+            credentialId: credential.id,
+            ...res,
+          };
+        })
+    );
+    result.verified = credentials.every((r: any) => r.verified);
+    if (!result.verified) {
+      result.errors = credentials;
+    }
+  } else {
+    const purpose = new ldp.purposes.AuthenticationProofPurpose({
+      domain,
+      challenge,
+    });
+    const res = await ldp.verify(presentation, {
+      ...options,
+      purpose,
+    });
+    result.verified = res.verified;
+    if (!result.verified) {
+      result.errors = [res];
+    }
+  }
+  return result;
 };
