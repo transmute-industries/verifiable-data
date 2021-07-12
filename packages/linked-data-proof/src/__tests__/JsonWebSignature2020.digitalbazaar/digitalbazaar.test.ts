@@ -12,7 +12,7 @@ beforeAll(async () => {
   key = await JsonWebKey.from(fixtures.key as any);
   suite = new JsonWebSignature({
     key,
-    date: "2010-01-01T19:23:24Z",
+    date: "2010-01-01T19:23:24Z"
   });
 });
 
@@ -22,7 +22,7 @@ it("sign", async () => {
     {
       suite,
       purpose,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   // console.log(JSON.stringify(docSigned));
@@ -35,7 +35,7 @@ it("verify", async () => {
     {
       suite: new JsonWebSignature(),
       purpose: purpose,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   // console.log(JSON.stringify(res));

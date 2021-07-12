@@ -1,9 +1,9 @@
-import cre from '@transmute/credentials-context';
-import sec from '@transmute/security-context';
-import did from '@transmute/did-context';
-import rev from '@transmute/revocation-list-context';
+import cre from "@transmute/credentials-context";
+import sec from "@transmute/security-context";
+import did from "@transmute/did-context";
+import rev from "@transmute/revocation-list-context";
 
-import citizenshipV1 from './citizenship-v1.json';
+import citizenshipV1 from "./citizenship-v1.json";
 
 export const contexts: any = {
   [sec.constants.ED25519_2018_v1_URL]: sec.contexts.get(
@@ -21,5 +21,5 @@ export const contexts: any = {
   [rev.constants.REVOCATION_LIST_CONTEXT_V1_URL]: rev.contexts.get(
     rev.constants.REVOCATION_LIST_CONTEXT_V1_URL
   ),
-  'https://w3id.org/citizenship/v1': citizenshipV1,
+  "https://w3id.org/citizenship/v1": citizenshipV1
 };

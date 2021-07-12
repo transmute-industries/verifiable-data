@@ -14,7 +14,7 @@ const documentResolver = async (iri: string) => {
   if (iri.startsWith(controller.id)) {
     return {
       documentUrl: controller.id,
-      document: controller,
+      document: controller
     };
   }
   return undefined;

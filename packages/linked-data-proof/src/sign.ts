@@ -1,6 +1,6 @@
-import { ProofSet } from './ProofSet';
+import { ProofSet } from "./ProofSet";
 
-import { ISignOptions } from './types';
+import { ISignOptions } from "./types";
 
 export const sign = async (
   document: any,
@@ -9,9 +9,9 @@ export const sign = async (
     purpose,
     documentLoader,
     expansionMap,
-    compactProof,
+    compactProof
   }: ISignOptions = {
-    compactProof: true,
+    compactProof: true
   }
 ) => {
   try {
@@ -20,12 +20,12 @@ export const sign = async (
       purpose,
       documentLoader,
       expansionMap,
-      compactProof,
+      compactProof
     });
   } catch (e) {
-    if (!documentLoader && e.name === 'jsonld.InvalidUrl') {
+    if (!documentLoader && e.name === "jsonld.InvalidUrl") {
       const {
-        details: { url },
+        details: { url }
       } = e;
       const err: any = new Error(
         `A URL "${url}" could not be fetched;` +

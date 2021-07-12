@@ -11,7 +11,7 @@ beforeAll(async () => {
   key = await JsonWebKey.from(fixtures.key as any);
   suite = new JsonWebSignature({
     key,
-    date: "2010-01-01T19:23:24Z",
+    date: "2010-01-01T19:23:24Z"
   });
 });
 
@@ -20,11 +20,11 @@ it("verify unisigned presentation", async () => {
     presentation: {
       "@context": ["https://www.w3.org/2018/credentials/v1"],
       type: ["VerifiablePresentation"],
-      verifiableCredential: [fixtures.verifiableCredential],
+      verifiableCredential: [fixtures.verifiableCredential]
     },
     suite,
     strict: "ignore",
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(true);
 });
@@ -36,11 +36,11 @@ it("should throw when unisigned presentation", async () => {
       presentation: {
         "@context": ["https://www.w3.org/2018/credentials/v1"],
         type: ["VerifiablePresentation"],
-        verifiableCredential: [fixtures.verifiableCredential],
+        verifiableCredential: [fixtures.verifiableCredential]
       },
       suite,
       strict: "throw",
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     });
   } catch (e) {
     expect(e.message).toBe('presentation MUST contain "proof" when strict');
@@ -53,11 +53,11 @@ it("should throw when unisigned presentation and no credentials", async () => {
     await vc.verifyVerifiablePresentation({
       presentation: {
         "@context": ["https://www.w3.org/2018/credentials/v1"],
-        type: ["VerifiablePresentation"],
+        type: ["VerifiablePresentation"]
       },
       suite,
       strict: "throw",
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     });
   } catch (e) {
     expect(e.message).toBe(
@@ -74,13 +74,13 @@ it("should fail when credentials are invalid json ld", async () => {
       verifiableCredential: [
         {
           ...fixtures.verifiableCredential,
-          issuer2: "did:example:123",
-        },
-      ],
+          issuer2: "did:example:123"
+        }
+      ]
     },
     suite,
     strict: "throw",
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(false);
   expect(res.errors[0].message).toBe(`presentation is not valid JSON-LD: {
@@ -99,13 +99,13 @@ it("should fail when credentials are tampered credentials", async () => {
       verifiableCredential: [
         {
           ...fixtures.verifiableCredential,
-          issuer: "did:example:123",
-        },
-      ],
+          issuer: "did:example:123"
+        }
+      ]
     },
     suite,
     strict: "ignore",
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(false);
   expect(res.errors[0].results[0].error.message).toBe("Invalid signature.");

@@ -1,6 +1,6 @@
-import { contexts } from './contexts';
-import controller from './controller.json';
-import revocationList from './revocationList.json';
+import { contexts } from "./contexts";
+import controller from "./controller.json";
+import revocationList from "./revocationList.json";
 
 // import jsonld from 'jsonld';
 
@@ -15,15 +15,15 @@ const documentResolver = async (iri: string) => {
   if (iri.startsWith(controller.id)) {
     return {
       documentUrl: controller.id,
-      document: controller,
+      document: controller
     };
   }
   if (
-    iri === 'https://w3c-ccg.github.io/vc-http-api/fixtures/revocationList.json'
+    iri === "https://w3c-ccg.github.io/vc-http-api/fixtures/revocationList.json"
   ) {
     return {
       documentUrl: iri,
-      document: revocationList,
+      document: revocationList
     };
   }
   return undefined;
@@ -83,7 +83,7 @@ export const documentLoader = async (iri: string) => {
     // }
   }
 
-  const message = 'Unsupported iri: ' + iri;
+  const message = "Unsupported iri: " + iri;
   console.error(message);
   throw new Error(message);
 };

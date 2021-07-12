@@ -15,7 +15,7 @@ export const verifyVerifiablePresentation = async (
 
   await checkPresentation(jwt, { documentLoader, strict, aud, nonce });
   const res = await verifier.verify({
-    signature: jwt,
+    signature: jwt
   });
   return res;
 };

@@ -11,7 +11,7 @@ beforeAll(async () => {
   key = await Ed25519KeyPair.from(fixtures.key as any);
   const [rawSuiteType, JWA_ALG]: any = ["EdDsa", "EdDSA"];
   signer = JWS.createSigner(key.signer(rawSuiteType), JWA_ALG, {
-    header: { kid: key.id },
+    header: { kid: key.id }
   });
   verifier = JWS.createVerifier(key.verifier(rawSuiteType), JWA_ALG);
 });
@@ -21,7 +21,7 @@ it("issue", async () => {
     { ...fixtures.credential, issuer: { id: key.controller } },
     {
       signer,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   expect(jwt).toBe(fixtures.verifiableCredential);
@@ -32,7 +32,7 @@ it("verify", async () => {
     fixtures.verifiableCredential,
     {
       verifier,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   expect(verified).toBe(true);
@@ -45,7 +45,7 @@ it("present", async () => {
       aud: "example.com",
       nonce: "123",
       signer,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   expect(jwt).toBe(fixtures.verifiablePresentation);
@@ -58,7 +58,7 @@ it("verify", async () => {
       aud: "example.com",
       nonce: "123",
       verifier,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   expect(verified).toBe(true);

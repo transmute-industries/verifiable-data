@@ -12,7 +12,7 @@ export class ProofSet {
       purpose,
       documentLoader,
       expansionMap,
-      compactProof = true,
+      compactProof = true
     }: IProofSetAddOptions = { compactProof: true }
   ) {
     if (!suite) {
@@ -51,7 +51,7 @@ export class ProofSet {
       purpose,
       documentLoader,
       expansionMap,
-      compactProof,
+      compactProof
     });
 
     delete proof["@context"];
@@ -67,7 +67,7 @@ export class ProofSet {
     document,
     documentLoader,
     expansionMap,
-    compactProof,
+    compactProof
   }: any) => {
     // handle document preprocessing to find proofs
     const proofProperty = "proof";
@@ -81,7 +81,7 @@ export class ProofSet {
       document = await jsonld.compact(document, context, {
         documentLoader,
         expansionMap,
-        compactToRelative: false,
+        compactToRelative: false
       });
     }
     proofSet = jsonld.getValues(document, proofProperty);
@@ -102,7 +102,7 @@ export class ProofSet {
       "@context": secV2Locked.includes(proof.type)
         ? ["https://w3id.org/security/v2"]
         : context,
-      ...proof,
+      ...proof
     }));
 
     return { proofSet, document };
@@ -115,7 +115,7 @@ export class ProofSet {
     purpose,
     documentLoader,
     expansionMap,
-    compactProof,
+    compactProof
   }: any) => {
     // filter out matching proofs
     const result = await Promise.all(
@@ -150,7 +150,7 @@ export class ProofSet {
                   purpose,
                   documentLoader,
                   expansionMap,
-                  compactProof,
+                  compactProof
                 })
                 .catch((error: any) => ({ verified: false, error }));
             }
@@ -167,7 +167,7 @@ export class ProofSet {
         }
         return { proof: matches[i], ...r };
       })
-      .filter((r) => r);
+      .filter(r => r);
   };
 
   private _addToJSON = (error: any) => {
@@ -176,7 +176,7 @@ export class ProofSet {
         return JSON.stringify(this, null, 2);
       },
       configurable: true,
-      writable: true,
+      writable: true
     });
   };
 
@@ -187,7 +187,7 @@ export class ProofSet {
       purpose,
       documentLoader,
       expansionMap,
-      compactProof = true, // consider not supporting anything else...
+      compactProof = true // consider not supporting anything else...
     }: any = {}
   ) => {
     if (!suite) {
@@ -200,7 +200,7 @@ export class ProofSet {
     if (suites.length === 0) {
       throw new TypeError("At least one suite is required.");
     }
-    const legacy = suites.some((s) => s.legacy);
+    const legacy = suites.some(s => s.legacy);
     if (legacy) {
       throw new TypeError(`Legacy suites are no longer supported.`);
     }
@@ -226,7 +226,7 @@ export class ProofSet {
         document,
         documentLoader,
         expansionMap,
-        compactProof,
+        compactProof
       });
 
       document = doc;
@@ -239,7 +239,7 @@ export class ProofSet {
         purpose,
         documentLoader,
         expansionMap,
-        compactProof,
+        compactProof
       });
 
       if (results.length === 0) {
@@ -250,10 +250,10 @@ export class ProofSet {
       }
 
       // combine results
-      const verified = results.some((r) => r.verified);
+      const verified = results.some(r => r.verified);
       if (!verified) {
         const errors = [].concat(
-          ...results.filter((r) => r.error).map((r) => r.error)
+          ...results.filter(r => r.error).map(r => r.error)
         );
         const result: any = { verified, results };
         if (errors.length > 0) {

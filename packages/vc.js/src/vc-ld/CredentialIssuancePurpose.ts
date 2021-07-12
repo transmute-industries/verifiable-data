@@ -18,7 +18,7 @@ export class CredentialIssuancePurpose extends AssertionProofPurpose {
         suite,
         verificationMethod,
         documentLoader,
-        expansionMap,
+        expansionMap
       });
 
       if (!result.valid) {

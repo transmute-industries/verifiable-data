@@ -1,6 +1,6 @@
 import {
   Bls12381G2KeyPair,
-  BbsBlsSignature2020,
+  BbsBlsSignature2020
 } from "@mattrglobal/jsonld-signatures-bbs";
 import vc from "@digitalbazaar/vc";
 import * as fixtures from "./__fixtures__";
@@ -26,7 +26,7 @@ beforeAll(async () => {
   key = await Bls12381G2KeyPair.from(fixtures.key as any);
   suite = new BbsBlsSignature2020({
     key,
-    date: "2010-01-01T19:23:24Z",
+    date: "2010-01-01T19:23:24Z"
   });
 });
 
@@ -35,7 +35,7 @@ it("issue verifiable credential", async () => {
   try {
     const verifiableCredential = await vc.issue({
       credential: { ...fixtures.credential, issuer: { id: key.controller } },
-      suite,
+      suite
     });
     console.log(verifiableCredential);
     // expect(verifiableCredential).toEqual(fixtures.verifiableCredential);

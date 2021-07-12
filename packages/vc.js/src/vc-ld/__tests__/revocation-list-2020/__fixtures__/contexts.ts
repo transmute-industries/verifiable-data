@@ -21,5 +21,5 @@ export const contexts: any = {
   ),
   [rev.constants.REVOCATION_LIST_CONTEXT_V1_URL]: rev.contexts.get(
     rev.constants.REVOCATION_LIST_CONTEXT_V1_URL
-  ),
+  )
 };

@@ -12,7 +12,7 @@ beforeAll(async () => {
   key = await Ed25519VerificationKey2018.from(fixtures.key);
   suite = new Ed25519Signature2018({
     key,
-    date: "2010-01-01T19:23:24Z",
+    date: "2010-01-01T19:23:24Z"
   });
 });
 
@@ -22,7 +22,7 @@ it("sign", async () => {
     {
       suite,
       purpose,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   expect(docSigned).toEqual(fixtures.docSigned);
@@ -34,7 +34,7 @@ it("verify", async () => {
     {
       suite: new Ed25519Signature2018(),
       purpose: purpose,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   expect(verified).toBe(true);

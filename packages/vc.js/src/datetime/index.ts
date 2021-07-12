@@ -41,7 +41,7 @@ export const checkDate = (
 ): { valid: boolean; warnings: string[] } => {
   const res: { valid: boolean; warnings: string[] } = {
     valid: false,
-    warnings: [],
+    warnings: []
   };
 
   if (!ISO_8601_FULL.test(datetime)) {

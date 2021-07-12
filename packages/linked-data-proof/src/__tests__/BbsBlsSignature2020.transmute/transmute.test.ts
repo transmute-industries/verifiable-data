@@ -1,6 +1,6 @@
 import {
   Bls12381G2KeyPair,
-  BbsBlsSignature2020,
+  BbsBlsSignature2020
 } from "@mattrglobal/jsonld-signatures-bbs";
 
 import * as fixtures from "./__fixtures__";
@@ -15,7 +15,7 @@ beforeAll(async () => {
   key = await Bls12381G2KeyPair.from(fixtures.key as any);
   suite = new BbsBlsSignature2020({
     key,
-    date: "2010-01-01T19:23:24Z",
+    date: "2010-01-01T19:23:24Z"
   });
 });
 
@@ -39,7 +39,7 @@ it("sign", async () => {
     {
       suite,
       purpose,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
 
@@ -52,7 +52,7 @@ it("verify", async () => {
     {
       suite: new BbsBlsSignature2020(),
       purpose: purpose,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   expect(res.verified).toBe(true);

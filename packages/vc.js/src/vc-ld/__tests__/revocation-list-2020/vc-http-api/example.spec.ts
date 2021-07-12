@@ -10,7 +10,7 @@ it("case 14 should pass", async () => {
     credential: case14,
     documentLoader,
     suite: [new Ed25519Signature2018()],
-    checkStatus, // required
+    checkStatus // required
   });
   expect(result.verified).toBe(true);
 });
@@ -20,7 +20,7 @@ it("case 15 should fail", async () => {
     credential: case15,
     documentLoader,
     suite: [new Ed25519Signature2018()],
-    checkStatus, // required
+    checkStatus // required
   });
   expect(result.verified).toBe(false);
 });

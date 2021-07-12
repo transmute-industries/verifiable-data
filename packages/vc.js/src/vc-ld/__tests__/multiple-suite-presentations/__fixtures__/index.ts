@@ -15,5 +15,5 @@ export {
   verifiablePresentation,
   controller,
   frame,
-  documentLoader,
+  documentLoader
 };

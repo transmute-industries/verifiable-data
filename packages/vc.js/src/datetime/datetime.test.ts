@@ -17,13 +17,13 @@ const validExamples = [
   "2019-10-12 07:20:50.52Z",
 
   // https://github.com/openlink/virtuoso-opensource/issues/619
-  "2016-12-31T24:00:00",
+  "2016-12-31T24:00:00"
 ];
 
 // https://w3c.github.io/vc-data-model/#issuance-date
 
 describe("valid", () => {
-  validExamples.forEach((datetime) => {
+  validExamples.forEach(datetime => {
     it(`${datetime} MUST validate`, () => {
       expect(RFC_3339.test(datetime)).toBe(true);
     });

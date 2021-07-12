@@ -16,7 +16,7 @@ const documentResolver = async (iri: string) => {
   if (iri.startsWith(controller.id)) {
     return {
       documentUrl: controller.id,
-      document: controller,
+      document: controller
     };
   }
   if (
@@ -24,7 +24,7 @@ const documentResolver = async (iri: string) => {
   ) {
     return {
       documentUrl: iri,
-      document: revocationList,
+      document: revocationList
     };
   }
   if (
@@ -32,7 +32,7 @@ const documentResolver = async (iri: string) => {
   ) {
     return {
       documentUrl: iri,
-      document: controller2,
+      document: controller2
     };
   }
   return undefined;

@@ -10,7 +10,7 @@ export class AuthenticationProofPurpose extends ControllerProofPurpose {
     challenge,
     date,
     domain,
-    maxTimestampDelta = Infinity,
+    maxTimestampDelta = Infinity
   }: any = {}) {
     super({ term, controller, date, maxTimestampDelta });
     if (typeof challenge !== "string") {
@@ -28,7 +28,7 @@ export class AuthenticationProofPurpose extends ControllerProofPurpose {
     {
       verificationMethod,
       documentLoader,
-      expansionMap,
+      expansionMap
     }: IPurposeValidateOptions
   ) {
     try {
@@ -51,7 +51,7 @@ export class AuthenticationProofPurpose extends ControllerProofPurpose {
       return super.validate(proof, {
         verificationMethod,
         documentLoader,
-        expansionMap,
+        expansionMap
       });
     } catch (error) {
       return { valid: false, error };

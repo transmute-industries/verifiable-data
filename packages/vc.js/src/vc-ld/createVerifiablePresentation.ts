@@ -20,7 +20,7 @@ export const createVerifiablePresentation = async (options: {
 
   const purpose = new ldp.purposes.AuthenticationProofPurpose({
     domain,
-    challenge,
+    challenge
   });
 
   return ldp.sign(presentation, { ...options, purpose });

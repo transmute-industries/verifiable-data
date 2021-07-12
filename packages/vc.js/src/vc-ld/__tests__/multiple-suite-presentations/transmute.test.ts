@@ -2,7 +2,7 @@ import {
   Bls12381G2KeyPair,
   BbsBlsSignature2020,
   BbsBlsSignatureProof2020,
-  deriveProof,
+  deriveProof
 } from "@mattrglobal/jsonld-signatures-bbs";
 import { ld as vc } from "../../..";
 import * as fixtures from "./__fixtures__";
@@ -29,7 +29,7 @@ beforeAll(async () => {
   key = await Bls12381G2KeyPair.from(fixtures.key as any);
   suite = new BbsBlsSignature2020({
     key,
-    date: "2010-01-01T19:23:24Z",
+    date: "2010-01-01T19:23:24Z"
   });
 });
 
@@ -37,7 +37,7 @@ it("issue verifiable credential", async () => {
   const verifiableCredential = await vc.createVerifiableCredential({
     credential: { ...fixtures.credential, issuer: { id: key.controller } },
     suite,
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expectProofsToBeEqual(verifiableCredential, fixtures.verifiableCredential);
 });
@@ -46,7 +46,7 @@ it("verify verifiable credential", async () => {
   const res = await vc.verifyVerifiableCredential({
     credential: fixtures.verifiableCredential,
     suite: new BbsBlsSignature2020(),
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(true);
 });
@@ -57,7 +57,7 @@ it("derive verifiable credential", async () => {
     fixtures.frame,
     {
       suite: new BbsBlsSignatureProof2020(),
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   expectProofsToBeEqual(
@@ -70,7 +70,7 @@ it("verify derived verifiable credential", async () => {
   const res = await vc.verifyVerifiableCredential({
     credential: fixtures.derivedVerifiableCredential,
     suite: new BbsBlsSignatureProof2020(),
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(true);
 });
@@ -80,11 +80,11 @@ it("present verifiable credential", async () => {
     presentation: {
       "@context": fixtures.verifiableCredential["@context"],
       type: ["VerifiablePresentation"],
-      verifiableCredential: [fixtures.derivedVerifiableCredential],
+      verifiableCredential: [fixtures.derivedVerifiableCredential]
     },
     challenge: "123",
     suite,
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
 
   expectProofsToBeEqual(
@@ -98,7 +98,7 @@ it("verify presentation", async () => {
     presentation: fixtures.verifiablePresentation,
     challenge: "123",
     suite: [new BbsBlsSignature2020(), new BbsBlsSignatureProof2020()],
-    documentLoader: fixtures.documentLoader,
-  }); 
+    documentLoader: fixtures.documentLoader
+  });
   expect(res.verified).toBe(true);
 });

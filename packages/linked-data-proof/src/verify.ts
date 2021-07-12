@@ -1,6 +1,6 @@
-import { ProofSet } from './ProofSet';
-import { VerificationError } from './VerificationError';
-import { IVerifyOptions } from './types';
+import { ProofSet } from "./ProofSet";
+import { VerificationError } from "./VerificationError";
+import { IVerifyOptions } from "./types";
 export const verify = async (
   document: any,
   {
@@ -8,7 +8,7 @@ export const verify = async (
     purpose,
     documentLoader,
     expansionMap,
-    compactProof,
+    compactProof
   }: IVerifyOptions = {}
 ) => {
   const result = await new ProofSet().verify(document, {
@@ -16,13 +16,13 @@ export const verify = async (
     purpose,
     documentLoader,
     expansionMap,
-    compactProof,
+    compactProof
   });
   const { error } = result;
   if (error) {
-    if (!documentLoader && error.name === 'jsonld.InvalidUrl') {
+    if (!documentLoader && error.name === "jsonld.InvalidUrl") {
       const {
-        details: { url },
+        details: { url }
       } = error;
       const urlError = new Error(
         `A URL "${url}" could not be fetched; you need to pass ` +

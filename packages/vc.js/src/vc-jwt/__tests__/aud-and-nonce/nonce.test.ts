@@ -11,7 +11,7 @@ beforeAll(async () => {
   key = await Ed25519KeyPair.from(fixtures.key as any);
   const [rawSuiteType, JWA_ALG]: any = ["EdDsa", "EdDSA"];
   signer = JWS.createSigner(key.signer(rawSuiteType), JWA_ALG, {
-    header: { kid: key.id },
+    header: { kid: key.id }
   });
   verifier = JWS.createVerifier(key.verifier(rawSuiteType), JWA_ALG);
 });
@@ -23,7 +23,7 @@ it("should fail to present without nonce", async () => {
       { ...fixtures.presentation, holder: { id: key.controller } },
       {
         signer,
-        documentLoader: fixtures.documentLoader,
+        documentLoader: fixtures.documentLoader
       } as any
     );
   } catch (e) {
@@ -39,7 +39,7 @@ it("should fail to verify when nonce does not match", async () => {
     {
       nonce: "123",
       signer,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   expect.assertions(1);
@@ -47,7 +47,7 @@ it("should fail to verify when nonce does not match", async () => {
     await vc.verifyVerifiablePresentation(jwt, {
       nonce: "456",
       verifier,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     });
   } catch (e) {
     expect(e.message).toBe(

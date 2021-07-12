@@ -13,7 +13,7 @@ export const verifyVerifiableCredential = async (
 
   await checkCredential(jwt, { documentLoader, strict });
   const res = await verifier.verify({
-    signature: jwt,
+    signature: jwt
   });
   return res;
 };

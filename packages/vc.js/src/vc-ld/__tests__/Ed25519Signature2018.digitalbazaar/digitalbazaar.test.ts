@@ -10,14 +10,14 @@ beforeAll(async () => {
   key = await Ed25519VerificationKey2018.from(fixtures.key);
   suite = new Ed25519Signature2018({
     key,
-    date: "2010-01-01T19:23:24Z",
+    date: "2010-01-01T19:23:24Z"
   });
 });
 
 it("issue verifiable credential", async () => {
   const docSigned = await vc.issue({
     credential: { ...fixtures.credential, issuer: { id: key.controller } },
-    suite,
+    suite
   });
   expect(docSigned).toEqual(fixtures.verifiableCredential);
 });
@@ -26,7 +26,7 @@ it("verify verifiable credential", async () => {
   const res = await vc.verifyCredential({
     credential: fixtures.verifiableCredential,
     suite: new Ed25519Signature2018(),
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(true);
 });
@@ -36,10 +36,10 @@ it("present verifiable credential", async () => {
     presentation: {
       "@context": fixtures.verifiableCredential["@context"],
       type: ["VerifiablePresentation"],
-      verifiableCredential: [fixtures.verifiableCredential],
+      verifiableCredential: [fixtures.verifiableCredential]
     },
     challenge: "123",
-    suite,
+    suite
   });
   expect(verifiablePresentation).toEqual(fixtures.verifiablePresentation);
 });
@@ -49,7 +49,7 @@ it("verify presentation", async () => {
     presentation: fixtures.verifiablePresentation,
     challenge: "123",
     suite,
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(true);
 });

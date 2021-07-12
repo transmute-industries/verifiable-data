@@ -25,5 +25,5 @@ export const contexts: any = {
   // used to test JsonWebKey2020 backward compatibility
   [sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL]: sec.contexts.get(
     sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL
-  ),
+  )
 };

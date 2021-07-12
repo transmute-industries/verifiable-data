@@ -11,7 +11,7 @@ beforeAll(async () => {
   key = await JsonWebKey.from(fixtures.key as any);
   suite = new JsonWebSignature({
     key,
-    date: "2010-01-01T19:23:24Z",
+    date: "2010-01-01T19:23:24Z"
   });
 });
 
@@ -24,18 +24,18 @@ it("w3c datetime is supported", async () => {
         await vc.createVerifiableCredential({
           credential: {
             ...fixtures.credential,
-            issuer: { id: key.controller },
+            issuer: { id: key.controller }
           },
           suite,
           documentLoader: fixtures.documentLoader,
-          strict: "throw",
-        }),
-      ],
+          strict: "throw"
+        })
+      ]
     },
     challenge: "123",
     suite,
     strict: "throw",
-    documentLoader: fixtures.documentLoader, // required since custom suite.
+    documentLoader: fixtures.documentLoader // required since custom suite.
   });
   expect(docSigned).toEqual(fixtures.verifiablePresentation);
 });
@@ -52,18 +52,18 @@ it("should throw when RFC 3339 and ISO 8601 do not agree.", async () => {
             credential: {
               ...fixtures.credential,
               issuer: { id: key.controller },
-              issuanceDate: "1985-04-12 23:20:50.52Z",
+              issuanceDate: "1985-04-12 23:20:50.52Z"
             },
             suite,
             documentLoader: fixtures.documentLoader,
-            strict: "ignore",
-          }),
-        ],
+            strict: "ignore"
+          })
+        ]
       },
       challenge: "123",
       suite,
       strict: "throw",
-      documentLoader: fixtures.documentLoader, // required since custom suite.
+      documentLoader: fixtures.documentLoader // required since custom suite.
     });
   } catch (e) {
     expect(e.message).toBe(`issuanceDate is not valid: [

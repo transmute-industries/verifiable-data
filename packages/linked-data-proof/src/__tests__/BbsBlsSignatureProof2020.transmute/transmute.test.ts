@@ -2,7 +2,7 @@ import {
   Bls12381G2KeyPair,
   BbsBlsSignature2020,
   BbsBlsSignatureProof2020,
-  deriveProof,
+  deriveProof
 } from "@mattrglobal/jsonld-signatures-bbs";
 
 import * as fixtures from "./__fixtures__";
@@ -17,7 +17,7 @@ beforeAll(async () => {
   key = await Bls12381G2KeyPair.from(fixtures.key as any);
   suite = new BbsBlsSignature2020({
     key,
-    date: "2010-01-01T19:23:24Z",
+    date: "2010-01-01T19:23:24Z"
   });
 });
 
@@ -41,7 +41,7 @@ it("sign", async () => {
     {
       suite,
       purpose,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
 
@@ -54,7 +54,7 @@ it("verify", async () => {
     {
       suite: new BbsBlsSignature2020(),
       purpose: purpose,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   expect(res.verified).toBe(true);
@@ -63,7 +63,7 @@ it("verify", async () => {
 it("derive", async () => {
   const docDerived = await deriveProof(fixtures.docSigned, fixtures.frame, {
     suite: new BbsBlsSignatureProof2020(),
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expectProofsToBeEqual(docDerived, fixtures.docDerived);
 });
@@ -74,7 +74,7 @@ it("verify", async () => {
     {
       suite: new BbsBlsSignatureProof2020(),
       purpose: purpose,
-      documentLoader: fixtures.documentLoader,
+      documentLoader: fixtures.documentLoader
     }
   );
   expect(res.verified).toBe(true);

@@ -13,7 +13,7 @@ beforeAll(async () => {
   key = await JsonWebKey.from(fixtures.key as any);
   suite = new JsonWebSignature({
     key,
-    date: "2010-01-01T19:23:24Z",
+    date: "2010-01-01T19:23:24Z"
   });
 });
 
@@ -21,7 +21,7 @@ it("issue verifiable credential", async () => {
   const docSigned = await vc.createVerifiableCredential({
     credential: { ...fixtures.credential, issuer: { id: key.controller } },
     suite,
-    documentLoader: fixtures.documentLoader, // required since custom suite.
+    documentLoader: fixtures.documentLoader // required since custom suite.
   });
   expect(docSigned).toEqual(fixtures.verifiableCredential);
 });
@@ -31,7 +31,7 @@ it("verify verifiable credential", async () => {
     credential: fixtures.verifiableCredential,
     suite: [new JsonWebSignature(), new Ed25519Signature2018()],
     checkStatus,
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(true);
 });
@@ -41,11 +41,11 @@ it("present verifiable credential", async () => {
     presentation: {
       "@context": fixtures.verifiableCredential["@context"],
       type: ["VerifiablePresentation"],
-      verifiableCredential: [fixtures.verifiableCredential],
+      verifiableCredential: [fixtures.verifiableCredential]
     },
     challenge: "123",
     suite,
-    documentLoader: fixtures.documentLoader, // required since custom suite.
+    documentLoader: fixtures.documentLoader // required since custom suite.
   });
   expect(verifiablePresentation).toEqual(fixtures.verifiablePresentation);
 });
@@ -56,7 +56,7 @@ it("verify presentation", async () => {
     challenge: "123",
     suite: [new JsonWebSignature(), new Ed25519Signature2018()],
     checkStatus,
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(true);
 });

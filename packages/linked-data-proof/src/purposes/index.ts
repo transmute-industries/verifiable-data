@@ -7,5 +7,5 @@ export const purposes = {
   ProofPurpose,
   ControllerProofPurpose,
   AssertionProofPurpose,
-  AuthenticationProofPurpose,
+  AuthenticationProofPurpose
 };

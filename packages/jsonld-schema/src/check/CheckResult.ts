@@ -1,4 +1,3 @@
-
 class CheckResult {
   ok: boolean;
   error?: {

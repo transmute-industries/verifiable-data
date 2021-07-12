@@ -14,5 +14,5 @@ export {
   verifiableCredential,
   presentation,
   verifiablePresentation,
-  documentLoader,
+  documentLoader
 };

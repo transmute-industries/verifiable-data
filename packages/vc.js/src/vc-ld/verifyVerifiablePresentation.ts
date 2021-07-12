@@ -24,7 +24,7 @@ export const verifyVerifiablePresentation = async (options: any) => {
   } catch (e) {
     return {
       verified: false,
-      errors: [e],
+      errors: [e]
     };
   }
 
@@ -49,7 +49,7 @@ export const verifyVerifiablePresentation = async (options: any) => {
   }
 
   const result: { verified: boolean; errors?: any } = {
-    verified: false,
+    verified: false
   };
 
   if (!presentation.proof) {
@@ -59,11 +59,11 @@ export const verifyVerifiablePresentation = async (options: any) => {
         .map(async (credential: any) => {
           const res = await verifyVerifiableCredential({
             credential,
-            ...options,
+            ...options
           });
           return {
             credentialId: credential.id,
-            ...res,
+            ...res
           };
         })
     );
@@ -74,11 +74,11 @@ export const verifyVerifiablePresentation = async (options: any) => {
   } else {
     const purpose = new ldp.purposes.AuthenticationProofPurpose({
       domain,
-      challenge,
+      challenge
     });
     const res = await ldp.verify(presentation, {
       ...options,
-      purpose,
+      purpose
     });
     result.verified = res.verified;
     if (!result.verified) {

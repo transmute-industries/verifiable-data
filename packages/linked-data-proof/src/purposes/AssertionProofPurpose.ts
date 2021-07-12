@@ -5,7 +5,7 @@ export class AssertionProofPurpose extends ControllerProofPurpose {
     term = "assertionMethod",
     controller,
     date,
-    maxTimestampDelta = Infinity,
+    maxTimestampDelta = Infinity
   }: any = {}) {
     super({ term, controller, date, maxTimestampDelta });
   }

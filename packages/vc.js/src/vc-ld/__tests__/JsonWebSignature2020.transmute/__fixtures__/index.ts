@@ -10,5 +10,5 @@ export {
   verifiableCredential,
   verifiablePresentation,
   controller,
-  documentLoader,
+  documentLoader
 };
