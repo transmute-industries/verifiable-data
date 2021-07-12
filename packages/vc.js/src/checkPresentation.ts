@@ -13,24 +13,28 @@ export const checkPresentation = async (
     nonce?: string;
   }
 ) => {
-  const { documentLoader } = options;
+  const { documentLoader, aud, nonce } = options;
   const strict = options.strict || "warn";
 
   if (typeof presentation === "string") {
-    try {
-      let [encodedHeader, encodedPayload] = presentation.split(".");
-      const header = JSON.parse(
-        Buffer.from(encodedHeader, "base64").toString()
-      );
-      if (!header.alg) {
-        throw new Error("alg is required in JWT header");
+    let [encodedHeader, encodedPayload] = presentation.split(".");
+    const header = JSON.parse(Buffer.from(encodedHeader, "base64").toString());
+    if (!header.alg) {
+      throw new Error("alg is required in JWT header");
+    }
+    const payload = JSON.parse(
+      Buffer.from(encodedPayload, "base64").toString()
+    );
+    presentation = payload.vp;
+    if (payload.aud) {
+      if (payload.aud !== aud) {
+        throw new Error('"aud" does not match this verifiable presentation');
       }
-      const payload = JSON.parse(
-        Buffer.from(encodedPayload, "base64").toString()
-      );
-      presentation = payload.vp;
-    } catch (e) {
-      throw new Error("could not decode presentation: " + presentation);
+    }
+    if (payload.nonce) {
+      if (payload.nonce !== nonce) {
+        throw new Error('"nonce" does not match this verifiable presentation');
+      }
     }
   }
 

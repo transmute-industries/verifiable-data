@@ -13,6 +13,10 @@ export const createVerifiablePresentation = async (
   const { signer, documentLoader, aud, nonce } = options;
   const strict = options.strict || "warn";
 
+  if (!nonce) {
+    throw new Error('"nonce" is required to create verifiable presentations');
+  }
+
   await checkPresentation(presentation, { documentLoader, strict, aud, nonce });
 
   const payload: any = {};

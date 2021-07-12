@@ -26,21 +26,15 @@ export const checkCredential = async (
   const strict = options.strict || "warn";
 
   if (typeof credential === "string") {
-    try {
-      let [encodedHeader, encodedPayload] = credential.split(".");
-      const header = JSON.parse(
-        Buffer.from(encodedHeader, "base64").toString()
-      );
-      if (!header.alg) {
-        throw new Error("alg is required in JWT header");
-      }
-      const payload = JSON.parse(
-        Buffer.from(encodedPayload, "base64").toString()
-      );
-      credential = payload.vc;
-    } catch (e) {
-      throw new Error("could not decode credential: " + credential);
+    let [encodedHeader, encodedPayload] = credential.split(".");
+    const header = JSON.parse(Buffer.from(encodedHeader, "base64").toString());
+    if (!header.alg) {
+      throw new Error("alg is required in JWT header");
     }
+    const payload = JSON.parse(
+      Buffer.from(encodedPayload, "base64").toString()
+    );
+    credential = payload.vc;
   }
 
   if (!credential["@context"]) {
