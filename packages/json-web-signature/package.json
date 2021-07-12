@@ -51,7 +51,7 @@
     "@size-limit/preset-small-lib": "^4.9.2",
     "@transmute/credentials-context": "^0.7.0-unstable.3",
     "@transmute/did-context": "^0.7.0-unstable.3",
-    "@transmute/vc.js": "^0.2.1-unstable.9",
+    "@transmute/vc.js": "^0.2.1-unstable.8",
     "jose": "^2.0.3",
     "size-limit": "^4.9.2",
     "ts-jest": "^26.5.0",

@@ -28,7 +28,7 @@ it('can sign and verify', async () => {
   });
   expect(suite.verificationMethod).toBe('did:example:123#key');
 
-  const vc = await vcjs.issue({
+  const vc = await vcjs.createVerifiableCredential({
     credential: {
       '@context': [
         'https://www.w3.org/2018/credentials/v1',
@@ -36,7 +36,7 @@ it('can sign and verify', async () => {
       ],
       id: 'https://example.com/credentials/123',
       issuer: key.controller,
-      issuanceDate: '2000-03-10T04:24:12.164Z',
+      issuanceDate: '2010-01-01T19:23:24Z',
       type: ['VerifiableCredential'],
       credentialSubject: {
         id: `https://example.com/example/123`,
@@ -47,7 +47,7 @@ it('can sign and verify', async () => {
   });
 
   // console.log(JSON.stringify(vc, null, 2));
-  const verification = await vcjs.verifyCredential({
+  const verification = await vcjs.verifyVerifiableCredential({
     credential: vc,
     suite,
     documentLoader: async (iri: string) => {

@@ -35,7 +35,7 @@ it('can sign and verify', async () => {
     assertionMethod: ['did:example:123#key'],
   };
 
-  const vc = await vcjs.issue({
+  const vc = await vcjs.createVerifiableCredential({
     credential: {
       '@context': [
         'https://www.w3.org/2018/credentials/v1',
@@ -43,7 +43,7 @@ it('can sign and verify', async () => {
       ],
       id: 'https://example.com/credentials/123',
       issuer: key.controller,
-      issuanceDate: '2000-03-10T04:24:12.164Z',
+      issuanceDate: '2010-01-01T19:23:24Z',
       type: ['VerifiableCredential'],
       credentialSubject: {
         id: `https://example.com/example/123`,
@@ -53,21 +53,19 @@ it('can sign and verify', async () => {
     documentLoader,
   });
 
-  const p = await vcjs.createPresentation({
-    verifiableCredential: vc,
-    holder: key.controller,
-    documentLoader,
-  });
-  p['@context'].push('https://w3id.org/security/suites/jws-2020/v1');
-
-  const vp = await vcjs.signPresentation({
-    presentation: p,
+  const vp = await vcjs.createVerifiablePresentation({
+    presentation: {
+      '@context': vc['@context'],
+      type: ['VerifiablePresentation'],
+      holder: key.controller,
+      verifiableCredential: [vc],
+    },
     challenge: '123',
     suite,
-    documentLoader,
+    documentLoader: documentLoader as any,
   });
 
-  const verification = await vcjs.verify({
+  const verification = await vcjs.verifyVerifiablePresentation({
     presentation: vp,
     suite,
     challenge: '123',
