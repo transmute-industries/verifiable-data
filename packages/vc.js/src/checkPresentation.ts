@@ -6,9 +6,34 @@ import { check } from "@transmute/jsonld-schema";
 
 export const checkPresentation = async (
   presentation: any,
-  documentLoader: any,
-  strict: "ignore" | "warn" | "throw" = "warn"
+  options: {
+    documentLoader: any;
+    strict: "ignore" | "warn" | "throw";
+    aud?: string;
+    nonce?: string;
+  }
 ) => {
+  const { documentLoader } = options;
+  const strict = options.strict || "warn";
+
+  if (typeof presentation === "string") {
+    try {
+      let [encodedHeader, encodedPayload] = presentation.split(".");
+      const header = JSON.parse(
+        Buffer.from(encodedHeader, "base64").toString()
+      );
+      if (!header.alg) {
+        throw new Error("alg is required in JWT header");
+      }
+      const payload = JSON.parse(
+        Buffer.from(encodedPayload, "base64").toString()
+      );
+      presentation = payload.vp;
+    } catch (e) {
+      throw new Error("could not decode presentation: " + presentation);
+    }
+  }
+
   if (!presentation["@context"]) {
     throw new Error(
       "Verifiable Presentations MUST include a @context property."
@@ -47,7 +72,7 @@ export const checkPresentation = async (
 
     await Promise.all(
       credentials.map(async (vc: any) => {
-        await checkCredential(vc, documentLoader, strict);
+        await checkCredential(vc, { documentLoader, strict });
       })
     );
   }

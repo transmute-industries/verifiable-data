@@ -16,7 +16,7 @@ export const createVerifiablePresentation = async (options: {
 
   const strict = options.strict || "warn";
 
-  await checkPresentation(presentation, documentLoader, strict);
+  await checkPresentation(presentation, { documentLoader, strict });
 
   const purpose = new ldp.purposes.AuthenticationProofPurpose({
     domain,

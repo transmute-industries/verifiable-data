@@ -17,14 +17,30 @@ function _getId(obj: any) {
 
 export const checkCredential = async (
   credential: any,
-  documentLoader: any,
-  strict: "ignore" | "warn" | "throw" = "warn"
+  options: {
+    documentLoader: any;
+    strict?: "ignore" | "warn" | "throw";
+  }
 ) => {
-  // ensure first context is 'https://www.w3.org/2018/credentials/v1'
+  const { documentLoader } = options;
+  const strict = options.strict || "warn";
+
   if (typeof credential === "string") {
-    // might be a JWT... in which case... there is no way to validate....
-    console.log("probably a jwt...");
-    return;
+    try {
+      let [encodedHeader, encodedPayload] = credential.split(".");
+      const header = JSON.parse(
+        Buffer.from(encodedHeader, "base64").toString()
+      );
+      if (!header.alg) {
+        throw new Error("alg is required in JWT header");
+      }
+      const payload = JSON.parse(
+        Buffer.from(encodedPayload, "base64").toString()
+      );
+      credential = payload.vc;
+    } catch (e) {
+      throw new Error("could not decode credential: " + credential);
+    }
   }
 
   if (!credential["@context"]) {

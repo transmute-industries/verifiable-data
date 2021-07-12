@@ -17,7 +17,7 @@ export const verifyVerifiableCredential = async (options: {
     }
 
     // run common credential checks
-    await checkCredential(credential, documentLoader);
+    await checkCredential(credential, { documentLoader });
 
     // if credential status is provided, a `checkStatus` function must be given
     if (

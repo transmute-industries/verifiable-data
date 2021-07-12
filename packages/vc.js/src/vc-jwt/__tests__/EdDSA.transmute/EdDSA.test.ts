@@ -16,36 +16,50 @@ beforeAll(async () => {
   verifier = JWS.createVerifier(key.verifier(rawSuiteType), JWA_ALG);
 });
 
-it("sign / verify", async () => {
-  const jwt = await vc.createVerifiableCredential(
-    { message: "hello" },
-    signer,
-    fixtures.documentLoader
-  );
-  const verified = await vc.verifyVerifiableCredential(
-    jwt,
-    verifier,
-    fixtures.documentLoader
-  );
-  console.log(jwt, verified);
-});
-
 it("issue", async () => {
   const jwt = await vc.createVerifiableCredential(
-    fixtures.credential,
-    signer,
-    fixtures.documentLoader
+    { ...fixtures.credential, issuer: { id: key.controller } },
+    {
+      signer,
+      documentLoader: fixtures.documentLoader,
+    }
   );
-  expect(jwt).toBe(fixtures.jwt);
+  expect(jwt).toBe(fixtures.verifiableCredential);
 });
 
 it("verify", async () => {
-  console.log(fixtures.jwt);
   const verified = await vc.verifyVerifiableCredential(
-    fixtures.jwt,
-    verifier,
-    fixtures.documentLoader
+    fixtures.verifiableCredential,
+    {
+      verifier,
+      documentLoader: fixtures.documentLoader,
+    }
   );
+  expect(verified).toBe(true);
+});
 
+it("present", async () => {
+  const jwt = await vc.createVerifiablePresentation(
+    { ...fixtures.presentation, holder: { id: key.controller } },
+    {
+      aud: "example.com",
+      nonce: "123",
+      signer,
+      documentLoader: fixtures.documentLoader,
+    }
+  );
+  expect(jwt).toBe(fixtures.verifiablePresentation);
+});
+
+it("verify", async () => {
+  const verified = await vc.verifyVerifiablePresentation(
+    fixtures.verifiablePresentation,
+    {
+      aud: "example.com",
+      nonce: "123",
+      verifier,
+      documentLoader: fixtures.documentLoader,
+    }
+  );
   expect(verified).toBe(true);
 });

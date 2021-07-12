@@ -6,7 +6,6 @@ import { verifyVerifiableCredential } from "./verifyVerifiableCredential";
 
 export const verifyVerifiablePresentation = async (options: any) => {
   const { documentLoader, domain, challenge } = options;
-
   const strict = options.strict || "warn";
 
   const { presentation } = options;
@@ -21,7 +20,7 @@ export const verifyVerifiablePresentation = async (options: any) => {
     throw new TypeError('A "presentation" property is required for verifying.');
   }
   try {
-    await checkPresentation(presentation, documentLoader, strict);
+    await checkPresentation(presentation, { documentLoader, strict });
   } catch (e) {
     return {
       verified: false,
