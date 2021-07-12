@@ -21,5 +21,11 @@ export const contexts: any = {
   ),
   [rev.constants.REVOCATION_LIST_CONTEXT_V1_URL]: rev.contexts.get(
     rev.constants.REVOCATION_LIST_CONTEXT_V1_URL
-  )
+  ),
+  [sec.constants.SECURITY_CONTEXT_V1_URL]: sec.contexts.get(
+    sec.constants.SECURITY_CONTEXT_V1_URL
+  ),
+  [sec.constants.SECURITY_CONTEXT_V2_URL]: sec.contexts.get(
+    sec.constants.SECURITY_CONTEXT_V2_URL
+  ),
 };

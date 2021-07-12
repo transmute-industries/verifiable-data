@@ -48,7 +48,7 @@ it('issuer can create signed revocation list', async () => {
       issuanceDate: '2021-03-01T01:16:12.860Z',
     },
     suite,
-    documentLoader,
+    documentLoader, 
   });
   expect(verifiableCredentialStatusList).toEqual(signedRevocationList2020);
 });
