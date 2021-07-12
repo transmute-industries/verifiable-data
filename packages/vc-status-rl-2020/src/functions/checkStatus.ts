@@ -95,7 +95,7 @@ async function _checkStatus({
 
   // verify RL VC
   if (verifyRevocationListCredential) {
-    const verifyResult = await vc.verifyVerifiableCredential({
+    const verifyResult = await vc.verifyCredential({
       credential: rlCredential,
       documentLoader,
       suite,

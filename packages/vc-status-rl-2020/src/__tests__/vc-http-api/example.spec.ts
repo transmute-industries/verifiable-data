@@ -6,7 +6,7 @@ import { checkStatus } from '../..';
 import { case14, case15, documentLoader } from './__fixtures__';
 
 it('case 14 should pass', async () => {
-  const result = await vc.verifyVerifiableCredential({
+  const result = await vc.verifyCredential({
     credential: case14,
     documentLoader,
     suite: [new Ed25519Signature2018()],
@@ -16,7 +16,7 @@ it('case 14 should pass', async () => {
 });
 
 it('case 15 should fail', async () => {
-  const result = await vc.verifyVerifiableCredential({
+  const result = await vc.verifyCredential({
     credential: case15,
     documentLoader,
     suite: [new Ed25519Signature2018()],
