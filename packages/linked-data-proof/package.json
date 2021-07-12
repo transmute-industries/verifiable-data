@@ -39,13 +39,13 @@
     "@transmute/json-web-signature": "^0.7.0-unstable.2",
     "@transmute/security-context": "0.7.0-unstable.2",
     "crypto-ld": "^3.7.0",
+    "jsonld": "^5.2.0",
     "jsonld-signatures": "^9.2.1",
     "tsdx": "^0.13.2",
     "tslib": "^2.3.0",
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "jsonld": "^5.2.0",
     "serialize-error": "^7.0.1"
   }
 }

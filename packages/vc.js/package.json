@@ -51,6 +51,7 @@
   "dependencies": {
     "@transmute/jsonld-schema": "^0.7.0-unstable.3",
     "@transmute/linked-data-proof": "^0.2.1-unstable.8",
-    "jsonld": "^5.2.0"
+    "jsonld": "^5.2.0",
+    "moment": "^2.29.1"
   }
 }

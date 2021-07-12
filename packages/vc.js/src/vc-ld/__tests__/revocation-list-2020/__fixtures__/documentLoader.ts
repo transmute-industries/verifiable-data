@@ -1,10 +1,12 @@
 import { contexts } from "./contexts";
 import controller from "./controller.json";
 import controller2 from "./controller2.json";
+import controller3 from "./controller3.json";
 import revocationList from "./revocationList.json";
 
-// import jsonld from "jsonld";
+import signedRevocationList2020 from "./signed-revocation-list-2020.json";
 
+import revocationListCredential from "./revocationListCredential.json";
 const contextResolver = async (iri: string) => {
   if (contexts[iri]) {
     return { document: contexts[iri] };
@@ -16,15 +18,16 @@ const documentResolver = async (iri: string) => {
   if (iri.startsWith(controller.id)) {
     return {
       documentUrl: controller.id,
-      document: controller
+      document: controller,
     };
   }
+
   if (
     iri === "https://w3c-ccg.github.io/vc-http-api/fixtures/revocationList.json"
   ) {
     return {
       documentUrl: iri,
-      document: revocationList
+      document: revocationList,
     };
   }
   if (
@@ -32,7 +35,29 @@ const documentResolver = async (iri: string) => {
   ) {
     return {
       documentUrl: iri,
-      document: controller2
+      document: controller2,
+    };
+  }
+
+  if (iri === "https://example.com/status/1") {
+    return {
+      documentUrl: iri,
+      document: revocationListCredential,
+    };
+  }
+  if (iri === "https://example.com/status/2") {
+    return {
+      documentUrl: iri,
+      document: signedRevocationList2020,
+    };
+  }
+
+  if (
+    iri.startsWith("did:key:z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4")
+  ) {
+    return {
+      documentUrl: iri,
+      document: controller3,
     };
   }
   return undefined;

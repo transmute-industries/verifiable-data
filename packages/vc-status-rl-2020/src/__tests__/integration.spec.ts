@@ -20,13 +20,6 @@ import {
 
 import { Ed25519Signature2018 } from '@transmute/ed25519-signature-2018';
 
-// import { constants, contexts } from 'vc-revocation-list-context';
-// import vc from 'vc-js';
-// import {
-//   assertRevocationList2020Context,
-//   getCredentialStatus,
-// } from '../main.js';
-
 describe('vc-status-rl-2020', () => {
   it('should create a list', async () => {
     const list = await createList({ length: 8 });

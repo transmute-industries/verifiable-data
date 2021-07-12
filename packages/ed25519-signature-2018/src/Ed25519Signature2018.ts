@@ -77,7 +77,7 @@ export class Ed25519Signature2018 {
       documentLoader,
       expansionMap,
       skipExpansion,
-      useNative: this.useNativeCanonize
+      useNative: this.useNativeCanonize,
     });
   }
 
@@ -89,7 +89,7 @@ export class Ed25519Signature2018 {
     return this.canonize(proof, {
       documentLoader,
       expansionMap,
-      skipExpansion: false
+      skipExpansion: false,
     });
   }
 
@@ -97,16 +97,16 @@ export class Ed25519Signature2018 {
     document,
     proof,
     documentLoader,
-    expansionMap
+    expansionMap,
   }: any) {
     // concatenate hash of c14n proof options and hash of c14n document
     const c14nProofOptions = await this.canonizeProof(proof, {
       documentLoader,
-      expansionMap
+      expansionMap,
     });
     const c14nDocument = await this.canonize(document, {
       documentLoader,
-      expansionMap
+      expansionMap,
     });
     return Buffer.concat([sha256(c14nProofOptions), sha256(c14nDocument)]);
   }
@@ -130,7 +130,7 @@ export class Ed25519Signature2018 {
     purpose,
     documentLoader,
     expansionMap,
-    compactProof
+    compactProof,
   }: any) {
     let proof;
     const context = document["@context"] || sec.constants.ED25519_2018_v1_URL;
@@ -140,7 +140,7 @@ export class Ed25519Signature2018 {
       proof = await jsonld.compact(this.proof, context, {
         documentLoader,
         expansionMap,
-        compactToRelative: false
+        compactToRelative: false,
       });
     } else {
       // create proof JSON-LD document
@@ -178,7 +178,7 @@ export class Ed25519Signature2018 {
       document,
       suite: this,
       documentLoader,
-      expansionMap
+      expansionMap,
     });
 
     // create data to sign
@@ -187,7 +187,7 @@ export class Ed25519Signature2018 {
       proof,
       documentLoader,
       expansionMap,
-      compactProof
+      compactProof,
     });
 
     // sign data
@@ -196,7 +196,7 @@ export class Ed25519Signature2018 {
       document,
       proof,
       documentLoader,
-      expansionMap
+      expansionMap,
     });
 
     delete proof["@context"];
@@ -219,7 +219,7 @@ export class Ed25519Signature2018 {
       {
         "@context": document["@context"],
         "@embed": "@always",
-        id: verificationMethod
+        id: verificationMethod,
       },
       {
         // use the cache of the document we just resolved when framing
@@ -227,11 +227,11 @@ export class Ed25519Signature2018 {
           if (iri.startsWith(document.id)) {
             return {
               documentUrl: iri,
-              document
+              document,
             };
           }
           return documentLoader(iri);
-        }
+        },
       }
     );
 
@@ -259,7 +259,7 @@ export class Ed25519Signature2018 {
     purpose,
     documentLoader,
     expansionMap,
-    compactProof
+    compactProof,
   }: any) {
     try {
       // create data to verify
@@ -268,7 +268,7 @@ export class Ed25519Signature2018 {
         proof,
         documentLoader,
         expansionMap,
-        compactProof
+        compactProof,
       });
 
       // fetch verification method
@@ -276,7 +276,7 @@ export class Ed25519Signature2018 {
         proof,
         document,
         documentLoader,
-        expansionMap
+        expansionMap,
       });
 
       // verify signature on data
@@ -286,7 +286,7 @@ export class Ed25519Signature2018 {
         document,
         proof,
         documentLoader,
-        expansionMap
+        expansionMap,
       });
       if (!verified) {
         throw new Error("Invalid signature.");
@@ -298,7 +298,7 @@ export class Ed25519Signature2018 {
         suite: this,
         verificationMethod,
         documentLoader,
-        expansionMap
+        expansionMap,
       });
 
       if (!purposeResult.valid) {
