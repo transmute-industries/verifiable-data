@@ -2,7 +2,7 @@
   "name": "@transmute/vc.js",
   "author": "Orie Steele",
   "module": "dist/vc.js.esm.js",
-  "version": "0.2.1-unstable.8",
+  "version": "0.2.1-unstable.12",
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/vc.js",
   "repository": {
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@transmute/jsonld-schema": "^0.7.0-unstable.3",
-    "@transmute/linked-data-proof": "^0.2.1-unstable.8",
+    "@transmute/linked-data-proof": "^0.2.1-unstable.12",
     "jsonld": "^5.2.0",
     "moment": "^2.29.1"
   }
