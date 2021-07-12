@@ -32,7 +32,7 @@
   "devDependencies": {
     "@transmute/credentials-context": "^0.7.0-unstable.3",
     "@transmute/did-context": "^0.7.0-unstable.3",
-    "@transmute/vc.js": "^0.2.1-unstable.12",
+    "@transmute/vc.js": "^0.2.1-unstable.8",
     "ts-jest": "^27.0.3",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
