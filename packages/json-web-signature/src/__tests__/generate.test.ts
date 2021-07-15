@@ -3,6 +3,7 @@ import { JsonWebKey } from '..';
 
 const options = [
   { kty: 'OKP', crv: 'Ed25519' },
+  { kty: 'OKP', crv: 'X25519' },
   {
     kty: 'EC',
     crv: 'secp256k1',

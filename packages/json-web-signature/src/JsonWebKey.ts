@@ -1,4 +1,8 @@
 import {
+  X25519KeyPair,
+  X25519KeyAgreementKey2019,
+} from '@transmute/x25519-key-pair';
+import {
   Ed25519KeyPair,
   Ed25519VerificationKey2018,
 } from '@transmute/ed25519-key-pair';
@@ -24,6 +28,9 @@ const getKeyPairForKtyAndCrv = (kty: string, crv: string) => {
     if (crv === 'Ed25519') {
       return Ed25519KeyPair;
     }
+    if (crv === 'X25519') {
+      return X25519KeyPair;
+    }
   }
   if (kty === 'EC') {
     if (crv === 'secp256k1') {
@@ -48,6 +55,9 @@ const getKeyPairForType = (k: any) => {
   if (k.type === 'Ed25519VerificationKey2018') {
     return Ed25519KeyPair;
   }
+  if (k.type === 'X25519KeyAgreementKey2019') {
+    return X25519KeyPair;
+  }
   if (k.type === 'EcdsaSecp256k1VerificationKey2019') {
     return Secp256k1KeyPair;
   }
@@ -65,11 +75,21 @@ const getKeyPairForType = (k: any) => {
 const getVerifier = async (k: any) => {
   const { publicKeyJwk } = await k.export({ type: 'JsonWebKey2020' });
   const { kty, crv } = publicKeyJwk;
+  console.log(k);
   if (kty === 'OKP') {
     if (crv === 'Ed25519') {
       return JWS.createVerifier(k.verifier('EdDsa'), 'EdDSA', {
         detached: true,
       });
+    }
+    if (crv === 'X25519') {
+      return JWS.createVerifier(
+        k.verifier('ECDH-ES+A256KW'),
+        'ECDH-ES+A256KW',
+        {
+          detached: true,
+        }
+      );
     }
   }
 
@@ -112,6 +132,11 @@ const getSigner = async (k: any) => {
   if (kty === 'OKP') {
     if (crv === 'Ed25519') {
       return JWS.createSigner(k.signer('EdDsa'), 'EdDSA', {
+        detached: true,
+      });
+    }
+    if (crv === 'X25519') {
+      return JWS.createSigner(k.signer('ECDH-ES+A256KW'), 'ECDH-ES+A256KW', {
         detached: true,
       });
     }
@@ -184,6 +209,7 @@ export class JsonWebKey {
       | P521Key2021
       | Ed25519VerificationKey2018
       | EcdsaSecp256k1VerificationKey2019
+      | X25519KeyAgreementKey2019
   ) => {
     const KeyPair = getKeyPairForType(k);
     const kp = await KeyPair.from(k as any);
