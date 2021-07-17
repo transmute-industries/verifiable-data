@@ -2,7 +2,7 @@
   "name": "@transmute/hl",
   "author": "Orie Steele",
   "module": "dist/hl.esm.js",
-  "version": "0.7.0-unstable.3",
+  "version": "0.7.0-unstable.4",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

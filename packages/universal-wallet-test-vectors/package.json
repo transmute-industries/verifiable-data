@@ -2,7 +2,7 @@
   "name": "@transmute/universal-wallet-test-vectors",
   "author": "Orie Steele",
   "module": "dist/universal-wallet-test-vectors.esm.js",
-  "version": "0.7.0-unstable.3",
+  "version": "0.7.0-unstable.4",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -30,15 +30,15 @@
     "prepare": "npm run build"
   },
   "devDependencies": {
-    "@transmute/did-context": "^0.7.0-unstable.3",
+    "@transmute/did-context": "^0.7.0-unstable.4",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "@transmute/credentials-context": "^0.7.0-unstable.3",
+    "@transmute/credentials-context": "^0.7.0-unstable.4",
     "@transmute/jsonld-document-loader": "^0.2.0",
-    "@transmute/security-context": "^0.7.0-unstable.3"
+    "@transmute/security-context": "^0.7.0-unstable.4"
   },
   "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
 }
