@@ -12,7 +12,7 @@
     "test:ts:ld": "node ./__tests__/ed25519-signature-2018.transmute.js"
   },
   "author": "Orie Steele",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "@digitalbazaar/ed25519-signature-2018": "^2.0.1",
     "@digitalbazaar/ed25519-verification-key-2018": "^3.1.1",
