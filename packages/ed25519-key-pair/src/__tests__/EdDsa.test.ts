@@ -33,3 +33,35 @@ it('verify fails when signature changes', async () => {
   const verified = await verifier.verify({ data: message, signature });
   expect(verified).toBe(false);
 });
+
+it('sign / verify - larger example', async () => {
+  const signer = k.signer();
+  const verifier = k.verifier();
+  const credential: any = {
+    '@context': ['https://www.w3.org/2018/credentials/v1'],
+    id: 'http://example.edu/credentials/3732',
+    type: ['VerifiableCredential'],
+    issuer: 'https://example.edu/issuers/14',
+    issuanceDate: '2010-01-01T19:23:24Z',
+    credentialSubject: {
+      id: 'did:example:ebfeb1f712ebc6f1c276e12ec21',
+    },
+  };
+  const payload: any = {
+    iss:
+      typeof credential.issuer === 'string'
+        ? credential.issuer
+        : credential.issuer.id,
+    sub:
+      typeof credential.credentialSubject === 'string'
+        ? credential.credentialSubject
+        : credential.credentialSubject.id,
+    vc: credential,
+    jti: credential.id,
+    nbf: 1262373804,
+  };
+  const message = Buffer.from(JSON.stringify(payload));
+  const signature = await signer.sign({ data: message });
+  const verified = await verifier.verify({ data: message, signature });
+  expect(verified).toBe(true);
+});

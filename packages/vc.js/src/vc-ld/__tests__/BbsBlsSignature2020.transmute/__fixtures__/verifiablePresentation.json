@@ -1,0 +1,37 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/bls12381-2020/v1"
+  ],
+  "type": ["VerifiablePresentation"],
+  "verifiableCredential": [
+    {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://w3id.org/security/suites/bls12381-2020/v1"
+      ],
+      "id": "http://example.edu/credentials/3732",
+      "type": ["VerifiableCredential"],
+      "issuer": {
+        "id": "did:key:z5TcCXqMd6ZcQ8GtmsX2gCPqSmBueUV4Y8NwaTE8TxAYvBitMG3VBBb92KGzrpRAh3BYArdiPpsvijkgVEbiUUCvBs71BGYBqFMN1griQHjSk7h9erjwxfn6UaRtZUoP5g7j4wyUYDf2MT32FDaNxSo7HWfaQnFCzDLjL6cykFpWuz2gjLxQAVgtPizLWVuvKkw9YM2XX"
+      },
+      "issuanceDate": "2010-01-01T19:23:24Z",
+      "credentialSubject": { "id": "did:example:ebfeb1f712ebc6f1c276e12ec21" },
+      "proof": {
+        "type": "BbsBlsSignature2020",
+        "created": "2021-07-10T20:14:21Z",
+        "verificationMethod": "did:key:z5TcCXqMd6ZcQ8GtmsX2gCPqSmBueUV4Y8NwaTE8TxAYvBitMG3VBBb92KGzrpRAh3BYArdiPpsvijkgVEbiUUCvBs71BGYBqFMN1griQHjSk7h9erjwxfn6UaRtZUoP5g7j4wyUYDf2MT32FDaNxSo7HWfaQnFCzDLjL6cykFpWuz2gjLxQAVgtPizLWVuvKkw9YM2XX#zUC7GC7YedtpobLxXx48A12mhsdtHGwMT9vBgDk76rqRgfNHcTs3VuMnKkH1JdzDBxu4dCwAhFiCevE6t2fpCku8J5YEUgcdZ8kUXbsv9wW9Qr2ATuQuM6mibjBYWjW8vyXUPAd",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "kR9qjMN1a8kB8/hbJ8+QLItzUp1jWV7FBLOBmDEqM17Du0Yy6MLmDcSw5tNW/ZmJTCnYJfYl6N7Sz0r8hYvwQrmryaYL/fAVZRy/sl32NiFiRHjEBAqsCMTjJnuSiusC2YhrhWSJYDKt9C8jCiYbYg=="
+      }
+    }
+  ],
+  "proof": {
+    "type": "BbsBlsSignature2020",
+    "created": "2021-07-11T00:29:01Z",
+    "verificationMethod": "did:key:z5TcCXqMd6ZcQ8GtmsX2gCPqSmBueUV4Y8NwaTE8TxAYvBitMG3VBBb92KGzrpRAh3BYArdiPpsvijkgVEbiUUCvBs71BGYBqFMN1griQHjSk7h9erjwxfn6UaRtZUoP5g7j4wyUYDf2MT32FDaNxSo7HWfaQnFCzDLjL6cykFpWuz2gjLxQAVgtPizLWVuvKkw9YM2XX#zUC7GC7YedtpobLxXx48A12mhsdtHGwMT9vBgDk76rqRgfNHcTs3VuMnKkH1JdzDBxu4dCwAhFiCevE6t2fpCku8J5YEUgcdZ8kUXbsv9wW9Qr2ATuQuM6mibjBYWjW8vyXUPAd",
+    "proofPurpose": "authentication",
+    "challenge": "123",
+    "proofValue": "kGo0YTT1qcrwDevbBgHZqk7ljMVZ6LfUdlUgoSgAOHI2IaXNJuaYipH91U414yQCM8NT9TCzfB0YJYQPcCTn0mZc4wRPw+GqJFH3vxc2/SwFYgb4c2j6JuKlpGor3G1k9pcHKz3zADgoD1aLAjwpCQ=="
+  }
+}

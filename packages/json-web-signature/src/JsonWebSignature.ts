@@ -19,7 +19,7 @@ export class JsonWebSignature {
   public key?: JsonWebKey;
   public proof: any;
   public date: any;
-  public type: string = 'https://w3id.org/security#JsonWebSignature2020';
+  public type: string = 'JsonWebSignature2020';
   public verificationMethod?: string;
 
   constructor(options: JsonWebSignatureOptions = {}) {
@@ -28,6 +28,22 @@ export class JsonWebSignature {
       this.key = options.key;
       this.verificationMethod = this.key.id;
     }
+  }
+
+  ensureSuiteContext({ document }: any) {
+    const contextUrl = sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL;
+    if (
+      document['@context'] === contextUrl ||
+      (Array.isArray(document['@context']) &&
+        document['@context'].includes(contextUrl))
+    ) {
+      // document already includes the required context
+      return;
+    }
+    throw new TypeError(
+      `The document to be signed must contain this suite's @context, ` +
+        `"${contextUrl}".`
+    );
   }
 
   async canonize(
@@ -49,8 +65,6 @@ export class JsonWebSignature {
     // options
     proof = { ...proof };
     delete proof.jws;
-    delete proof.signatureValue;
-    delete proof.proofValue;
     return this.canonize(proof, {
       documentLoader,
       expansionMap,
@@ -80,12 +94,7 @@ export class JsonWebSignature {
   }
 
   async matchProof({ proof }: any) {
-    return proof.type === 'sec:JsonWebSignature2020';
-  }
-
-  async updateProof({ proof }: any) {
-    // extending classes may do more
-    return proof;
+    return proof.type === 'JsonWebSignature2020';
   }
 
   async sign({ verifyData, proof }: any) {
@@ -108,24 +117,24 @@ export class JsonWebSignature {
     compactProof,
   }: any) {
     let proof;
+
+    const context = document['@context'];
+
     if (this.proof) {
       // use proof JSON-LD document passed to API
-      proof = await jsonld.compact(
-        this.proof,
-        [sec.constants.SECURITY_CONTEXT_V2_URL],
-
-        {
-          documentLoader,
-          expansionMap,
-          compactToRelative: false,
-        }
-      );
+      proof = await jsonld.compact(this.proof, context, {
+        documentLoader,
+        expansionMap,
+        compactToRelative: false,
+      });
     } else {
       // create proof JSON-LD document
       proof = {
-        '@context': [sec.constants.SECURITY_CONTEXT_V2_URL],
+        '@context': context,
       };
     }
+
+    // console.log(document);
 
     // ensure proof type is set
     proof.type = this.type;
@@ -150,16 +159,6 @@ export class JsonWebSignature {
     if (this.verificationMethod !== undefined) {
       proof.verificationMethod = this.verificationMethod;
     }
-
-    // add any extensions to proof (mostly for legacy support)
-    proof = await this.updateProof({
-      document,
-      proof,
-      purpose,
-      documentLoader,
-      expansionMap,
-      compactProof,
-    });
 
     // allow purpose to update the proof; the `proof` is in the
     // SECURITY_CONTEXT_URL `@context` -- therefore the `purpose` must
@@ -189,6 +188,7 @@ export class JsonWebSignature {
       expansionMap,
     });
 
+    delete proof['@context'];
     return proof;
   }
 

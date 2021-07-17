@@ -10,14 +10,16 @@ export const createSigner = (
   }
 ) => {
   return {
-    sign: async ({ data }: { data: Uint8Array }): Promise<string> => {
+    sign: async ({ data }: { data: Uint8Array | any }): Promise<string> => {
       const header = {
         alg: type,
         ...(options.detached ? detachedHeaderParams : undefined),
       };
       const encodedHeader = base64url.encode(JSON.stringify(header));
       const encodedPayload = base64url.encode(
-        JSON.stringify(Buffer.from(data).toString('utf-8'))
+        data instanceof Uint8Array
+          ? Buffer.from(data).toString('utf-8')
+          : JSON.stringify(data)
       );
 
       const toBeSigned = options.detached
@@ -28,14 +30,16 @@ export const createSigner = (
               data,
             ])
           )
-        : `${encodedHeader}.${encodedPayload}`;
+        : new Uint8Array(Buffer.from(`${encodedHeader}.${encodedPayload}`));
 
       const message = toBeSigned as any;
       const signature = await signer.sign({ data: message });
 
       return options.detached
         ? `${encodedHeader}..${base64url.encode(Buffer.from(signature))}`
-        : `${encodedHeader}.${encodedPayload}.${base64url.encode(signature)}`;
+        : `${encodedHeader}.${encodedPayload}.${base64url.encode(
+            Buffer.from(signature)
+          )}`;
     },
   };
 };

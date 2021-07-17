@@ -27,13 +27,13 @@ describe(`${rawSuiteType} as ${JWA_ALG}`, () => {
     const verified = await verifier.verify({
       signature,
     });
-    expect(verified);
+    expect(verified).toBe(true);
   });
   it('detached sign / verify', async () => {
     const signer = JWS.createSigner(k.signer(rawSuiteType), JWA_ALG, {
       detached: true,
     });
-    const verifier = JWS.createVerifier(k.verifier(), JWA_ALG, {
+    const verifier = JWS.createVerifier(k.verifier(rawSuiteType), JWA_ALG, {
       detached: true,
     });
     const message = Uint8Array.from(Buffer.from('hello'));
@@ -42,6 +42,6 @@ describe(`${rawSuiteType} as ${JWA_ALG}`, () => {
       data: message,
       signature,
     });
-    expect(verified);
+    expect(verified).toBe(true);
   });
 });

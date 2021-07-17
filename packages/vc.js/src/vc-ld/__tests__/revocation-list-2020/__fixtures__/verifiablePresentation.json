@@ -1,0 +1,45 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/jws-2020/v1",
+    "https://w3id.org/vc-revocation-list-2020/v1"
+  ],
+  "type": ["VerifiablePresentation"],
+  "verifiableCredential": [
+    {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://w3id.org/security/suites/jws-2020/v1",
+        "https://w3id.org/vc-revocation-list-2020/v1"
+      ],
+      "id": "http://example.edu/credentials/3732",
+      "type": ["VerifiableCredential"],
+      "issuer": {
+        "id": "did:key:z6MkhRZ7XMcydYWTYGQrVxKXaG9Bpd3LrbA345QGWNMaSxeE"
+      },
+      "issuanceDate": "2010-01-01T19:23:24Z",
+      "credentialStatus": {
+        "id": "https://issuer.oidp.uscis.gov/credentials/status/3#94567",
+        "type": "RevocationList2020Status",
+        "revocationListIndex": "0",
+        "revocationListCredential": "https://w3c-ccg.github.io/vc-http-api/fixtures/revocationList.json"
+      },
+      "credentialSubject": { "id": "did:example:ebfeb1f712ebc6f1c276e12ec21" },
+      "proof": {
+        "type": "JsonWebSignature2020",
+        "created": "2010-01-01T19:23:24Z",
+        "verificationMethod": "did:key:z6MkhRZ7XMcydYWTYGQrVxKXaG9Bpd3LrbA345QGWNMaSxeE#z6MkhRZ7XMcydYWTYGQrVxKXaG9Bpd3LrbA345QGWNMaSxeE",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..gz5cG7HbHtyb9x_bakUUQcZ-CDK2kq663HBPmSnIzvK0eY7jUJArrwNcMg1olMzUmZZ-WrJrnWJJS-kyaM8_Bw"
+      }
+    }
+  ],
+  "proof": {
+    "type": "JsonWebSignature2020",
+    "created": "2010-01-01T19:23:24Z",
+    "verificationMethod": "did:key:z6MkhRZ7XMcydYWTYGQrVxKXaG9Bpd3LrbA345QGWNMaSxeE#z6MkhRZ7XMcydYWTYGQrVxKXaG9Bpd3LrbA345QGWNMaSxeE",
+    "proofPurpose": "authentication",
+    "challenge": "123",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..uXB3ako1rYJvywf2noaKNau_qolV2zK_i-WuYelXEatzlJzoBzMp3kffHhKHLv1XbPwJWYaIB1DugTFUI2tUCA"
+  }
+}

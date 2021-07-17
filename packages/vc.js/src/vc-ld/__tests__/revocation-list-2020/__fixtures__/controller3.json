@@ -1,0 +1,17 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://ns.did.ai/transmute/v1"
+  ],
+  "id": "did:key:z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4",
+  "verificationMethod": [
+    {
+      "id": "#z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:key:z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4",
+      "publicKeyBase58": "6Bft7UNtFNqLQSuvyVUkHDCHeMWQ4z2cEarSX2WAU65g"
+    }
+  ],
+  "authentication": ["#z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4"],
+  "assertionMethod": ["#z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4"]
+}
