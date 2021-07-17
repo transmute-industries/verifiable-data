@@ -18,8 +18,8 @@ it("sign / verify", async () => {
     issuer: "https://example.edu/issuers/14",
     issuanceDate: "2010-01-01T19:23:24Z",
     credentialSubject: {
-      id: "did:example:ebfeb1f712ebc6f1c276e12ec21"
-    }
+      id: "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    },
   };
   const payload: any = {
     iss:
@@ -32,17 +32,17 @@ it("sign / verify", async () => {
         : credential.credentialSubject.id,
     vc: credential,
     jti: credential.id,
-    nbf: 1262373804
+    nbf: 1262373804,
   };
   const signer = JWS.createSigner(key.signer(rawSuiteType), JWA_ALG, {
     header: {
-      kid: "123"
-    }
+      kid: "123",
+    },
   });
   const verifier = JWS.createVerifier(key.verifier(rawSuiteType), JWA_ALG);
   const signature = await signer.sign({ data: payload });
   const verified = await verifier.verify({
-    signature
+    signature,
   });
   expect(verified).toBe(true);
 });

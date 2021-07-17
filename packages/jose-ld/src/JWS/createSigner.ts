@@ -13,6 +13,7 @@ export const createSigner = (
     sign: async ({ data }: { data: Uint8Array | any }): Promise<string> => {
       const header = {
         alg: type,
+        ...options.header,
         ...(options.detached ? detachedHeaderParams : undefined),
       };
       const encodedHeader = base64url.encode(JSON.stringify(header));
