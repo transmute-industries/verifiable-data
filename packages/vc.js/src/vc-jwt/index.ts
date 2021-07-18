@@ -3,3 +3,5 @@ export * from "./verifyVerifiableCredential";
 
 export * from "./createVerifiablePresentation";
 export * from "./verifyVerifiablePresentation";
+
+export * from "./createVcPayload";

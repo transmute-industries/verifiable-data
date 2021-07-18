@@ -19,6 +19,8 @@ import {
   P521Key2021,
 } from '@transmute/web-crypto-key-pair';
 
+export { JsonWebKey2020 };
+
 const getKeyPairForKtyAndCrv = (kty: string, crv: string) => {
   if (kty === 'OKP') {
     if (crv === 'Ed25519') {
@@ -126,7 +128,7 @@ const getSigner = async (k: any, options = { detached: true }) => {
   );
 };
 
-const useJwa = async (k: any, options?: any) => {
+const applyJwa = async (k: any, options?: any) => {
   const verifier = await getVerifier(k, options);
   k.verifier = () => verifier as any;
   if (k.privateKey) {
@@ -136,13 +138,19 @@ const useJwa = async (k: any, options?: any) => {
   return k;
 };
 
+// this is dirty...
+const useJwa = async (k: any, options?: any) => {
+  // before mutation, annotate the apply function....
+  k.useJwa = async (options?: any) => {
+    return applyJwa(k, options);
+  };
+  return applyJwa(k, options);
+};
+
 export class JsonWebKey {
   public id!: string;
   public type!: string;
   public controller!: string;
-
-  public signer!: () => any;
-  public verifier!: () => any;
 
   static generate = async (
     options: any = { kty: 'OKP', crv: 'Ed25519', detached: true }
@@ -177,4 +185,7 @@ export class JsonWebKey {
     }
     return useJwa(kp, { detached, header });
   };
+
+  public signer!: () => any;
+  public verifier!: () => any;
 }
