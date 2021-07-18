@@ -1,12 +1,17 @@
 import * as ld from "../../vc-ld";
-// import * as jwt from "../../vc-jwt";
+import { VerifyCredentialOptions, VerificationResult } from "../../types";
 
-export const verify = async (options: any) => {
-  const result: any = {
+export const verify = async (
+  options: VerifyCredentialOptions
+): Promise<VerificationResult> => {
+  const result: VerificationResult = {
     verified: false,
   };
 
-  if (options.format.includes("vc") && options.credential["@context"]) {
+  if (
+    options.format.includes("vc") &&
+    (options.credential as any)["@context"]
+  ) {
     const res = await ld.verifyVerifiableCredential({
       credential: options.credential,
       suite: options.suite,
@@ -16,8 +21,11 @@ export const verify = async (options: any) => {
   }
 
   // vc-jwt's are strings with an encoded vc member that conforms to the data model
-  if (options.format.includes("vc-jwt") && !options.credential["@context"]) {
-    const [header] = options.credential
+  if (
+    options.format.includes("vc-jwt") &&
+    !(options.credential as any)["@context"]
+  ) {
+    const [header] = (options.credential as string)
       .split(".")
       .splice(0, 1)
       .map((item: string) => {
@@ -36,6 +44,12 @@ export const verify = async (options: any) => {
       documentLoader: options.documentLoader,
       instance: true, // need this to get the class instance
     });
+
+    if (!verificationMethod || !verificationMethod.useJwa) {
+      throw new Error(
+        'Transmute requires "suite.getVerificationMethod" to return a key instance with member useJwa.'
+      );
+    }
     const k = await verificationMethod.useJwa({
       detached: false,
     });

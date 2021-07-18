@@ -1,8 +1,14 @@
 import * as ld from "../../vc-ld";
 import * as jwt from "../../vc-jwt";
+import {
+  CreateVerifiablePresentationOptions,
+  CreatePresentationResult,
+} from "../../types";
 
-export const create = async (options: any) => {
-  const result: any = {
+export const create = async (
+  options: CreateVerifiablePresentationOptions
+): Promise<CreatePresentationResult> => {
+  const result: CreatePresentationResult = {
     items: [],
   };
   if (options.format.includes("vp")) {
@@ -17,10 +23,21 @@ export const create = async (options: any) => {
     );
   }
   if (options.format.includes("vp-jwt")) {
-    const k = await options.suite.key.useJwa({
+    const suite = Array.isArray(options.suite)
+      ? options.suite[0]
+      : options.suite;
+
+    const { key } = suite;
+
+    if (!key || !key.useJwa) {
+      throw new Error(
+        "Cannot create credential when suite does not contain a key that supports useJwa."
+      );
+    }
+    const k = await key.useJwa({
       detached: false,
       header: {
-        kid: options.suite.key.id,
+        kid: key.id,
       },
     });
     const signer = k.signer();
