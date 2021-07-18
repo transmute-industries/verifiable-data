@@ -9,6 +9,10 @@ export const verify = async (
     verified: false,
   };
 
+  if (!options.format) {
+    options.format = ["vp"];
+  }
+
   if (
     options.format.includes("vp") &&
     (options.presentation as any)["@context"]

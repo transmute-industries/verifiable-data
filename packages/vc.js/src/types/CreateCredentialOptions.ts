@@ -8,7 +8,9 @@ import { Suite } from "./Suite";
 
 export interface CreateCredentialOptions {
   credential: VerifiableCredential | JWT;
-  format: Array<CredentialFormat>;
+
   suite: Array<Suite> | Suite;
   documentLoader: DocumentLoader;
+
+  format?: Array<CredentialFormat>;
 }

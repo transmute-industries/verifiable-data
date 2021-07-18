@@ -8,6 +8,10 @@ export const verify = async (
     verified: false,
   };
 
+  if (!options.format) {
+    options.format = ["vc"];
+  }
+
   if (
     options.format.includes("vc") &&
     (options.credential as any)["@context"]

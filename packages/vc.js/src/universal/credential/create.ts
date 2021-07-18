@@ -9,6 +9,11 @@ export const create = async (
   const result: CreateCredentialResult = {
     items: [],
   };
+
+  if (!options.format) {
+    options.format = ["vc"];
+  }
+  
   if (options.format.includes("vc")) {
     result.items.push(
       await ld.createVerifiableCredential({

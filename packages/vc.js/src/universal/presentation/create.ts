@@ -11,6 +11,11 @@ export const create = async (
   const result: CreatePresentationResult = {
     items: [],
   };
+
+  if (!options.format) {
+    options.format = ["vp"];
+  }
+
   if (options.format.includes("vp")) {
     result.items.push(
       await ld.createVerifiablePresentation({
