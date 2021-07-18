@@ -9,11 +9,11 @@ export const checkPresentation = async (
   options: {
     documentLoader: any;
     strict: "ignore" | "warn" | "throw";
-    aud?: string;
-    nonce?: string;
+    domain?: string;
+    challenge?: string;
   }
 ) => {
-  const { documentLoader, aud, nonce } = options;
+  const { documentLoader, domain, challenge } = options;
   const strict = options.strict || "warn";
 
   if (typeof presentation === "string") {
@@ -27,13 +27,17 @@ export const checkPresentation = async (
     );
     presentation = payload.vp;
     if (payload.aud) {
-      if (payload.aud !== aud) {
-        throw new Error('"aud" does not match this verifiable presentation');
+      if (payload.aud !== domain) {
+        throw new Error(
+          '"aud" and "domain" does not match this verifiable presentation'
+        );
       }
     }
     if (payload.nonce) {
-      if (payload.nonce !== nonce) {
-        throw new Error('"nonce" does not match this verifiable presentation');
+      if (payload.nonce !== challenge) {
+        throw new Error(
+          '"nonce" and "challenge" does not match this verifiable presentation'
+        );
       }
     }
   }

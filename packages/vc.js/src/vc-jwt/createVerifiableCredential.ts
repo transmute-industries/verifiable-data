@@ -9,7 +9,7 @@ export const createVerifiableCredential = async (
   }
 ) => {
   const { signer } = options;
-  const payload: any = createVcPayload(credential, options);
+  const payload: any = await createVcPayload(credential, options);
   const jwt = await signer.sign({ data: payload });
   return jwt;
 };

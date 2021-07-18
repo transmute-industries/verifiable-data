@@ -3,4 +3,14 @@ import credential from "./credential.json";
 import credentialCreate from "./credential-create.json";
 import { documentLoader } from "./documentLoader";
 
-export { key, credential, credentialCreate, documentLoader };
+import presentation from "./presentation";
+import presentationCreate from "./presentation-create.json";
+
+export {
+  key,
+  credential,
+  presentation,
+  credentialCreate,
+  presentationCreate,
+  documentLoader,
+};

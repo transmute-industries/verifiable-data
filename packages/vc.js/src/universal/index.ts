@@ -1,5 +1,4 @@
 import { credential } from "./credential";
-
-const presentation = {};
+import { presentation } from "./presentation";
 
 export const verifiable = { credential, presentation };

@@ -11,7 +11,7 @@ beforeAll(async () => {
   key = await Ed25519KeyPair.from(fixtures.key as any);
   const [rawSuiteType, JWA_ALG]: any = ["EdDsa", "EdDSA"];
   signer = JWS.createSigner(key.signer(rawSuiteType), JWA_ALG, {
-    header: { kid: key.id }
+    header: { kid: key.id },
   });
   verifier = JWS.createVerifier(key.verifier(rawSuiteType), JWA_ALG);
 });
@@ -20,21 +20,23 @@ it("should fail to verify when aud does not match", async () => {
   const jwt = await vc.createVerifiablePresentation(
     { ...fixtures.presentation, holder: { id: key.controller } },
     {
-      aud: "example.com",
-      nonce: "123",
+      domain: "example.com",
+      challenge: "123",
       signer,
-      documentLoader: fixtures.documentLoader
+      documentLoader: fixtures.documentLoader,
     }
   );
   expect.assertions(1);
   try {
     await vc.verifyVerifiablePresentation(jwt, {
-      aud: "2.example.com",
-      nonce: "123",
+      domain: "2.example.com",
+      challenge: "123",
       verifier,
-      documentLoader: fixtures.documentLoader
+      documentLoader: fixtures.documentLoader,
     });
   } catch (e) {
-    expect(e.message).toBe('"aud" does not match this verifiable presentation');
+    expect(e.message).toBe(
+      '"aud" and "domain" does not match this verifiable presentation'
+    );
   }
 });
