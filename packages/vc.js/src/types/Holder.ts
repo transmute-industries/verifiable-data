@@ -1,7 +1,7 @@
 type HolderId = string;
 
 interface HolderNode {
-  id: "string";
+  id: string;
   [x: string]: any;
 }
 

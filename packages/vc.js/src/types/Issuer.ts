@@ -1,7 +1,7 @@
 type IssuerId = string;
 
 interface IssuerNode {
-  id: "string";
+  id: string;
   [x: string]: any;
 }
 

@@ -16,7 +16,7 @@ fixtures.registeredKeys.forEach((k) => {
             const result = await verifiable.credential.create({
               credential: {
                 ...fixtures.credential,
-                issuer: { id: k.controller } as any, // make sure issuer is set correctly
+                issuer: { id: k.controller }, // make sure issuer is set correctly
               },
               format: [format],
               documentLoader: fixtures.documentLoader,
@@ -51,7 +51,7 @@ fixtures.registeredKeys.forEach((k) => {
             const result = await verifiable.presentation.create({
               presentation: {
                 ...fixtures.presentation,
-                holder: { id: k.controller } as any, // make sure holder is set correctly
+                holder: { id: k.controller }, // make sure holder is set correctly
               },
               format: [format],
               challenge: "123",
