@@ -75,7 +75,7 @@ const getKeyPairForType = (k: any) => {
 const getVerifier = async (k: any) => {
   const { publicKeyJwk } = await k.export({ type: 'JsonWebKey2020' });
   const { kty, crv } = publicKeyJwk;
-  console.log(k);
+
   if (kty === 'OKP') {
     if (crv === 'Ed25519') {
       return JWS.createVerifier(k.verifier('EdDsa'), 'EdDSA', {
@@ -83,13 +83,7 @@ const getVerifier = async (k: any) => {
       });
     }
     if (crv === 'X25519') {
-      return JWS.createVerifier(
-        k.verifier('ECDH-ES+A256KW'),
-        'ECDH-ES+A256KW',
-        {
-          detached: true,
-        }
-      );
+      throw new Error('X25519 must not be used for signatures');
     }
   }
 
@@ -136,9 +130,7 @@ const getSigner = async (k: any) => {
       });
     }
     if (crv === 'X25519') {
-      return JWS.createSigner(k.signer('ECDH-ES+A256KW'), 'ECDH-ES+A256KW', {
-        detached: true,
-      });
+      throw new Error('X25519 must not be used for signatures');
     }
   }
   if (kty === 'EC') {
