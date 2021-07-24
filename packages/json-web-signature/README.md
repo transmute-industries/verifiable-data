@@ -6,7 +6,8 @@ npm i @transmute/json-web-signature@latest --save
 
 ```ts
 import { JsonWebKey, JsonWebSignature } from '@transmute/json-web-signature';
-
+import { documentLoader } from 'path/somewhere';
+import { verifiable } from '@transmute/vc.js';
 const key = await JsonWebKey.from({
   id: 'did:example:123#key',
   type: 'JsonWebKey2020',
@@ -30,7 +31,7 @@ suite = new JsonWebSignature({
   key,
 });
 
-const vc = await vcjs.issue({
+const result = await verifiable.credential.create({
   credential: {
     '@context': [
       'https://www.w3.org/2018/credentials/v1',
@@ -44,8 +45,9 @@ const vc = await vcjs.issue({
       id: `https://example.com/example/123`,
     },
   },
+  format: ['vc'],
+  documentLoader: documentLoader,
   suite,
-  documentLoader,
 });
 
 const didDoc = {
@@ -69,9 +71,9 @@ const didDoc = {
   ],
 };
 
-const verification = await vcjs.verifyCredential({
-  credential: vc,
-  suite,
+const result2 = await verifiable.credential.verify({
+  credential: result.items[0],
+  format: ['vc'],
   //   make sure to use a document loader
   //   that supports:
   //   https://www.w3.org/ns/did/v1
@@ -86,5 +88,6 @@ const verification = await vcjs.verifyCredential({
     }
     return documentLoader(iri);
   },
+  suite: [new JsonWebSignature()],
 });
 ```
