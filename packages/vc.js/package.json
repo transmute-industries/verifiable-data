@@ -34,7 +34,7 @@
     "@digitalbazaar/ed25519-signature-2018": "^2.0.1",
     "@digitalbazaar/ed25519-verification-key-2018": "^3.1.1",
     "@digitalbazaar/vc": "^1.0.0",
-    "@mattrglobal/jsonld-signatures-bbs": "^0.10.0",
+    "@mattrglobal/jsonld-signatures-bbs": "^0.10.1-unstable.3000f3c",
     "@transmute/credentials-context": "^0.7.0-unstable.5",
     "@transmute/did-context": "^0.7.0-unstable.5",
     "@transmute/ed25519-key-pair": "^0.7.0-unstable.5",

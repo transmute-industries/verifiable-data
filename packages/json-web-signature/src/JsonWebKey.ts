@@ -19,6 +19,8 @@ import {
   P521Key2021,
 } from '@transmute/web-crypto-key-pair';
 
+export { JsonWebKey2020 };
+
 const getKeyPairForKtyAndCrv = (kty: string, crv: string) => {
   if (kty === 'OKP') {
     if (crv === 'Ed25519') {
@@ -62,38 +64,28 @@ const getKeyPairForType = (k: any) => {
   throw new Error('getKeyPairForType does not support type: ' + k.type);
 };
 
-const getVerifier = async (k: any) => {
+const getVerifier = async (k: any, options = { detached: true }) => {
   const { publicKeyJwk } = await k.export({ type: 'JsonWebKey2020' });
   const { kty, crv } = publicKeyJwk;
   if (kty === 'OKP') {
     if (crv === 'Ed25519') {
-      return JWS.createVerifier(k.verifier('EdDsa'), 'EdDSA', {
-        detached: true,
-      });
+      return JWS.createVerifier(k.verifier('EdDsa'), 'EdDSA', options);
     }
   }
 
   if (kty === 'EC') {
     if (crv === 'secp256k1') {
-      return JWS.createVerifier(k.verifier('Ecdsa'), 'ES256K', {
-        detached: true,
-      });
+      return JWS.createVerifier(k.verifier('Ecdsa'), 'ES256K', options);
     }
 
     if (crv === 'P-256') {
-      return JWS.createVerifier(k.verifier('Ecdsa'), 'ES256', {
-        detached: true,
-      });
+      return JWS.createVerifier(k.verifier('Ecdsa'), 'ES256', options);
     }
     if (crv === 'P-384') {
-      return JWS.createVerifier(k.verifier('Ecdsa'), 'ES384', {
-        detached: true,
-      });
+      return JWS.createVerifier(k.verifier('Ecdsa'), 'ES384', options);
     }
     if (crv === 'P-521') {
-      return JWS.createVerifier(k.verifier('Ecdsa'), 'ES512', {
-        detached: true,
-      });
+      return JWS.createVerifier(k.verifier('Ecdsa'), 'ES512', options);
     }
 
     if (crv === 'BLS12381_G2') {
@@ -106,39 +98,29 @@ const getVerifier = async (k: any) => {
   );
 };
 
-const getSigner = async (k: any) => {
+const getSigner = async (k: any, options = { detached: true }) => {
   const { publicKeyJwk } = await k.export({ type: 'JsonWebKey2020' });
   const { kty, crv } = publicKeyJwk;
   if (kty === 'OKP') {
     if (crv === 'Ed25519') {
-      return JWS.createSigner(k.signer('EdDsa'), 'EdDSA', {
-        detached: true,
-      });
+      return JWS.createSigner(k.signer('EdDsa'), 'EdDSA', options);
     }
   }
   if (kty === 'EC') {
     if (crv === 'secp256k1') {
-      return JWS.createSigner(k.signer('Ecdsa'), 'ES256K', {
-        detached: true,
-      });
+      return JWS.createSigner(k.signer('Ecdsa'), 'ES256K', options);
     }
     if (crv === 'BLS12381_G2') {
       throw new Error('BLS12381_G2 has no registered JWA');
     }
     if (crv === 'P-256') {
-      return JWS.createSigner(k.signer('Ecdsa'), 'ES256', {
-        detached: true,
-      });
+      return JWS.createSigner(k.signer('Ecdsa'), 'ES256', options);
     }
     if (crv === 'P-384') {
-      return JWS.createSigner(k.signer('Ecdsa'), 'ES384', {
-        detached: true,
-      });
+      return JWS.createSigner(k.signer('Ecdsa'), 'ES384', options);
     }
     if (crv === 'P-521') {
-      return JWS.createSigner(k.signer('Ecdsa'), 'ES512', {
-        detached: true,
-      });
+      return JWS.createSigner(k.signer('Ecdsa'), 'ES512', options);
     }
   }
   throw new Error(
@@ -146,14 +128,23 @@ const getSigner = async (k: any) => {
   );
 };
 
-const useJwa = async (k: any) => {
-  const verifier = await getVerifier(k);
+const applyJwa = async (k: any, options?: any) => {
+  const verifier = await getVerifier(k, options);
   k.verifier = () => verifier as any;
   if (k.privateKey) {
-    const signer = await getSigner(k);
+    const signer = await getSigner(k, options);
     k.signer = () => signer as any;
   }
   return k;
+};
+
+// this is dirty...
+const useJwa = async (k: any, options?: any) => {
+  // before mutation, annotate the apply function....
+  k.useJwa = async (options?: any) => {
+    return applyJwa(k, options);
+  };
+  return applyJwa(k, options);
 };
 
 export class JsonWebKey {
@@ -161,10 +152,9 @@ export class JsonWebKey {
   public type!: string;
   public controller!: string;
 
-  public signer!: () => any;
-  public verifier!: () => any;
-
-  static generate = async (options: any = { kty: 'OKP', crv: 'Ed25519' }) => {
+  static generate = async (
+    options: any = { kty: 'OKP', crv: 'Ed25519', detached: true }
+  ) => {
     const KeyPair = getKeyPairForKtyAndCrv(options.kty, options.crv);
     const kp = await KeyPair.generate({
       kty: options.kty,
@@ -173,7 +163,8 @@ export class JsonWebKey {
         return crypto.randomBytes(32);
       },
     });
-    return useJwa(kp);
+    const { detached } = options;
+    return useJwa(kp, { detached });
   };
 
   static from = async (
@@ -183,10 +174,18 @@ export class JsonWebKey {
       | P384Key2021
       | P521Key2021
       | Ed25519VerificationKey2018
-      | EcdsaSecp256k1VerificationKey2019
+      | EcdsaSecp256k1VerificationKey2019,
+    options: any = { detached: true }
   ) => {
     const KeyPair = getKeyPairForType(k);
     const kp = await KeyPair.from(k as any);
-    return useJwa(kp);
+    let { detached, header } = options;
+    if (detached === undefined) {
+      detached = true;
+    }
+    return useJwa(kp, { detached, header });
   };
+
+  public signer!: () => any;
+  public verifier!: () => any;
 }

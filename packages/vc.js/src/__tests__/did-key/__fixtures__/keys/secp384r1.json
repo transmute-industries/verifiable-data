@@ -1,0 +1,18 @@
+{
+  "id": "did:key:z82Lm4tNHnx7nnY5tmEE1x4FkckvzsnxwJ7SJRaZtVkxokXxcn3br1eYy9wQDYUPJzepyo4#z82Lm4tNHnx7nnY5tmEE1x4FkckvzsnxwJ7SJRaZtVkxokXxcn3br1eYy9wQDYUPJzepyo4",
+  "type": "JsonWebKey2020",
+  "controller": "did:key:z82Lm4tNHnx7nnY5tmEE1x4FkckvzsnxwJ7SJRaZtVkxokXxcn3br1eYy9wQDYUPJzepyo4",
+  "publicKeyJwk": {
+    "kty": "EC",
+    "crv": "P-384",
+    "x": "9K6c7REsvfr_g4emg6zLhSYaRz7j2GaBPkC2h1-hXkSf7RbNlWk0vxO_7an0puXX",
+    "y": "ZleWzUJ4uIjMzpkeRUE_HcSA9iPLJNw4uK2EjoyZNeh8Am7vool7sJZN-_laJyEF"
+  },
+  "privateKeyJwk": {
+    "kty": "EC",
+    "crv": "P-384",
+    "d": "JdXALp6IX01ECSoQRgC8YJgBTLrWYmpvJzv9NB2VKImeT1IRTrZHhKbQh44Fl9Gs",
+    "x": "9K6c7REsvfr_g4emg6zLhSYaRz7j2GaBPkC2h1-hXkSf7RbNlWk0vxO_7an0puXX",
+    "y": "ZleWzUJ4uIjMzpkeRUE_HcSA9iPLJNw4uK2EjoyZNeh8Am7vool7sJZN-_laJyEF"
+  }
+}

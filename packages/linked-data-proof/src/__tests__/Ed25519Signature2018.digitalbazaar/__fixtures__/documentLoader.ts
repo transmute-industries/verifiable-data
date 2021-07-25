@@ -14,7 +14,7 @@ const documentResolver = async (iri: string) => {
   if (iri.startsWith(controller.id)) {
     return {
       documentUrl: controller.id,
-      document: controller
+      document: controller,
     };
   }
   return undefined;
@@ -28,8 +28,7 @@ const documentDereferencer = async (document: any, iri: string) => {
       document,
       {
         "@context": document["@context"],
-        "@embed": "@always",
-        id: iri
+        id: iri,
       },
       {
         documentLoader: (iri: string) => {
@@ -37,16 +36,17 @@ const documentDereferencer = async (document: any, iri: string) => {
           if (iri === document.id) {
             return {
               documentUrl: iri,
-              document
+              document,
             };
           }
           return contextResolver(iri);
-        }
+        },
       }
     );
+    // console.log(JSON.stringify(frame, null, 2));
     return {
       documentUrl: iri,
-      document: frame
+      document: frame,
     };
   } catch (e) {
     console.error("documentDereferencer frame failed on: " + iri);

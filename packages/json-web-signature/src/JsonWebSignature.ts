@@ -192,7 +192,7 @@ export class JsonWebSignature {
     return proof;
   }
 
-  async getVerificationMethod({ proof, documentLoader }: any) {
+  async getVerificationMethod({ proof, documentLoader, instance }: any) {
     let { verificationMethod } = proof;
 
     if (!verificationMethod) {
@@ -238,12 +238,15 @@ export class JsonWebSignature {
       throw new Error(`Verification method ${verificationMethod} not found.`);
     }
 
-    return framed;
+    if (!instance) {
+      return framed;
+    }
+
+    return JsonWebKey.from(framed);
   }
 
   async verifySignature({ verifyData, verificationMethod, proof }: any) {
-    const key = await JsonWebKey.from(verificationMethod);
-    const verifier = key.verifier();
+    const verifier = await verificationMethod.verifier();
     return verifier.verify({ data: verifyData, signature: proof.jws });
   }
 
@@ -271,12 +274,13 @@ export class JsonWebSignature {
         document,
         documentLoader,
         expansionMap,
+        instance: true, // this means we get a key pair class instance, not just json.
       });
 
       // verify signature on data
       const verified = await this.verifySignature({
         verifyData,
-        verificationMethod,
+        verificationMethod, // key pair class instance here.
         document,
         proof,
         documentLoader,

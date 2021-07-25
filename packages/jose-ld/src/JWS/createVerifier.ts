@@ -15,6 +15,9 @@ export const createVerifier = (
       data?: Uint8Array;
       signature: string;
     }): Promise<boolean> => {
+      if (!signature.split) {
+        signature = signature.toString();
+      }
       const [encodedHeader, encodedPayload, encodedSignature] = signature.split(
         '.'
       );

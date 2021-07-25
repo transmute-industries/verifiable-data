@@ -9,6 +9,13 @@ npm i @transmute/ed25519-signature-2018 --save
 ## Usage
 
 ```ts
+import {
+  Ed25519VerificationKey2018,
+  Ed25519Signature2018,
+} from "@transmute/ed25519-signature-2018";
+import { documentLoader } from "path/somewhere";
+import { verifiable } from "@transmute/vc.js";
+
 const key = await Ed25519VerificationKey2018.from({
   id:
     "did:key:z6Mkth1TmxaUcDLj9FrgNejhojR8k32HMSFJNCESGZ14DJrC#z6Mkth1TmxaUcDLj9FrgNejhojR8k32HMSFJNCESGZ14DJrC",
@@ -18,7 +25,8 @@ const key = await Ed25519VerificationKey2018.from({
   privateKeyBase58:
     "4ywHegJBWnGAu3ZTtMX3Jtu1XUMtJJdmzEoqMk8RS2Fkv5W9hnJpyooY5qNFBTWEPHT5uSjakt2rJodp4DundZvg",
 });
-const vc = await vcjs.issue({
+
+const result = await verifiable.credential.create({
   credential: {
     "@context": ["https://www.w3.org/2018/credentials/v1"],
     id: "https://example.com/credentials/123",
@@ -29,17 +37,16 @@ const vc = await vcjs.issue({
       id: "did:key:z6Mkth1TmxaUcDLj9FrgNejhojR8k32HMSFJNCESGZ14DJrC",
     },
   },
+  format: ["vc"],
+  documentLoader: documentLoader,
   suite: new Ed25519Signature2018({
     key,
   }),
-  documentLoader,
 });
 
-expect(vc.proof.type).toBe("Ed25519Signature2018");
-
-const verification = await vcjs.verifyCredential({
-  credential: vc,
-  suite: new Ed25519Signature2018({}),
+const result2 = await verifiable.credential.verify({
+  credential: result.items[0],
+  format: ["vc"],
   documentLoader: (iri: string) => {
     if (iri.startsWith("did:key:z6Mkth1Tmxa")) {
       return {
@@ -65,8 +72,8 @@ const verification = await vcjs.verifyCredential({
     }
     return documentLoader(iri);
   },
+  suite: [new Ed25519Signature2018()],
 });
-expect(verification.verified).toBe(true);
 ```
 
 ## About
