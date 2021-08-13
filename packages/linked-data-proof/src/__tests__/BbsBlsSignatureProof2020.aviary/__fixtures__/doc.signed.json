@@ -1,0 +1,26 @@
+{
+  "@context": [
+    "https://w3id.org/security/v2",
+    "https://w3id.org/security/suites/bls12381-2020/v1",
+    {
+      "email": "https://schema.org/email",
+      "firstName": "https://schema.org/firstName",
+      "jobTitle": "https://schema.org/jobTitle",
+      "lastName": "https://schema.org/lastName",
+      "telephone": "https://schema.org/telephone"
+    }
+  ],
+  "id": "_:c14n0",
+  "email": "jane.doe@example.com",
+  "firstName": "Jane",
+  "jobTitle": "Professor",
+  "lastName": "Does",
+  "telephone": "(425) 123-4567",
+  "proof": {
+    "type": "BbsBlsSignature2020",
+    "created": "2021-08-12T22:31:52Z",
+    "verificationMethod": "did:key:z5TcCXqMd6ZcQ8GtmsX2gCPqSmBueUV4Y8NwaTE8TxAYvBitMG3VBBb92KGzrpRAh3BYArdiPpsvijkgVEbiUUCvBs71BGYBqFMN1griQHjSk7h9erjwxfn6UaRtZUoP5g7j4wyUYDf2MT32FDaNxSo7HWfaQnFCzDLjL6cykFpWuz2gjLxQAVgtPizLWVuvKkw9YM2XX#zUC7GC7YedtpobLxXx48A12mhsdtHGwMT9vBgDk76rqRgfNHcTs3VuMnKkH1JdzDBxu4dCwAhFiCevE6t2fpCku8J5YEUgcdZ8kUXbsv9wW9Qr2ATuQuM6mibjBYWjW8vyXUPAd",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "llNehBCbfkdhpqVZR1QIzndBvw0Z2T/G+piVAnwKZSXcqmfkwDgTmbQqkYWbZcBIYSLQlY2XdyezDYqkpTTa8Q1fN6PF3Prw2+l9iQd4uDYBcN+wHHEme3VBGVua6O7HHSRXIZPqLynMbRAkaCvF0A=="
+  }
+}

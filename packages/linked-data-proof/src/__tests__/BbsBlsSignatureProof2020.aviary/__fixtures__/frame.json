@@ -1,0 +1,15 @@
+{
+  "@context": [
+    "https://w3id.org/security/v2",
+    "https://w3id.org/security/suites/bls12381-2020/v1",
+    {
+      "email": "https://schema.org/email",
+      "firstName": "https://schema.org/firstName",
+      "jobTitle": "https://schema.org/jobTitle",
+      "lastName": "https://schema.org/lastName",
+      "telephone": "https://schema.org/telephone"
+    }
+  ],
+  "@explicit": true,
+  "firstName": {}
+}
