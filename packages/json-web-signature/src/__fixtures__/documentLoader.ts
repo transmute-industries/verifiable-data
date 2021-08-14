@@ -1,6 +1,7 @@
 import sec from '@transmute/security-context';
 import cre from '@transmute/credentials-context';
 import did from '@transmute/did-context';
+import { controller0 } from './controllers';
 
 const contexts: any = {
   [cre.constants.CREDENTIALS_CONTEXT_V1_URL]: cre.contexts.get(
@@ -32,6 +33,14 @@ export const documentLoader = (iri: string) => {
       document: contexts[iri],
     };
   }
+
+  if (iri.startsWith(controller0.id)) {
+    return {
+      documentUrl: iri,
+      document: controller0,
+    };
+  }
+
   console.warn('Unsupported iri ' + iri);
   throw new Error('Unsupported iri ' + iri);
 };

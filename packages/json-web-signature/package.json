@@ -49,7 +49,9 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.2",
-    "jose": "^2.0.3",
+    "@transmute/credentials-context": "^0.7.0-unstable.6",
+    "@transmute/did-context": "^0.7.0-unstable.6",
+    "jose": "^2.0.5",
     "size-limit": "^4.9.2",
     "ts-jest": "^26.5.0",
     "tsdx": "^0.14.1",
