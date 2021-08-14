@@ -1,0 +1,40 @@
+{
+  "name": "@transmute/bls12381-bbs-signature-2020",
+  "version": "0.7.0-unstable.6",
+  "description": "Bls12381 BBS+ Signature Suite for Linked Data Proofs",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/bls12381-bbs-signature-2020",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
+    "directory": "packages/bls12381-bbs-signature-2020"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint src --fix ",
+    "prepare": "tsdx build"
+  },
+  "keywords": [
+    "json-ld",
+    "jsonld",
+    "linked",
+    "data",
+    "pairing"
+  ],
+  "devDependencies": {
+    "tsdx": "^0.14.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.2.3"
+  }
+}
