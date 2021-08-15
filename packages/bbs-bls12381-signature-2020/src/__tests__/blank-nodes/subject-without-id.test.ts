@@ -29,6 +29,7 @@ it("issue", async () => {
     documentLoader: fixtures.documentLoader,
     compactProof: true,
   });
+  console.log(JSON.stringify({ ...document1, proof: proof1 }));
   expect(proof1).toBeDefined();
 });
 

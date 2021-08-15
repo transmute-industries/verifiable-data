@@ -30,8 +30,8 @@ export const createVerifiableCredential = async (options: {
   // check to make sure the `suite` has required params
   // Note: verificationMethod defaults to publicKey.id, in suite constructor...
   // ...in some implementations...
-  if (!suite.verificationMethod) {
-    throw new TypeError('"suite.verificationMethod" property is required.');
+  if (!suite.key?.id) {
+    throw new TypeError('"suite.key" property is required.');
   }
 
   const purpose = new CredentialIssuancePurpose();
