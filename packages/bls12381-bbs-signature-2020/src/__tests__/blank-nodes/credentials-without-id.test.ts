@@ -36,10 +36,7 @@ it("derive", async () => {
   const suite = new transmute.BbsBlsSignatureProof2020();
   const result: any = await suite.deriveProof({
     document: { ...document1 },
-    proof: {
-      ...proof1,
-      "@context": document1["@context"],
-    },
+    proof: { ...proof1 },
     revealDocument: fixtures.frames.frame0,
     documentLoader: fixtures.documentLoader,
   });
@@ -52,8 +49,8 @@ it("derive", async () => {
 it("verify", async () => {
   const suite = new transmute.BbsBlsSignatureProof2020();
   const result = await suite.verifyProof({
-    document: document2,
-    proof: { ...proof2, "@context": document2["@context"] },
+    document: { ...document2 },
+    proof: { ...proof2 },
     purpose: {
       // ignore validation of dates and such...
       validate: () => {
