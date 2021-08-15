@@ -6,12 +6,12 @@ import {
   BbsBlsSignature2020ProofType,
   CreateVerifyDataOptions,
   VerifyProofOptions,
-  VerifySignatureOptions
+  VerifySignatureOptions,
 } from "./types";
 
 const suiteContexts = [
   "https://w3id.org/security/suites/jws-2020/v1",
-  "https://w3id.org/security/suites/bls12381-2020/v1"
+  "https://w3id.org/security/suites/bls12381-2020/v1",
 ];
 
 // const debugMessages = (data: any) => {
@@ -33,12 +33,36 @@ const suiteContexts = [
 
 export class BbsBlsSignature2020 {
   public static type = "BbsBlsSignature2020";
+  public verificationMethod?: string;
   private key?: Bls12381G2KeyPair;
   private date?: string;
 
   constructor({ key, date }: { key?: Bls12381G2KeyPair; date?: string } = {}) {
     this.key = key;
     this.date = date;
+    if (key) {
+      this.verificationMethod = key.id;
+    }
+  }
+
+  ensureSuiteContext({ document }: any) {
+    const contextUrl = "https://w3id.org/security/suites/bls12381-2020/v1";
+    if (
+      document["@context"] === contextUrl ||
+      (Array.isArray(document["@context"]) &&
+        document["@context"].includes(contextUrl))
+    ) {
+      // document already includes the required context
+      return;
+    }
+    throw new TypeError(
+      `The document to be signed must contain this suite's @context, ` +
+        `"${contextUrl}".`
+    );
+  }
+
+  async matchProof({ proof }: any) {
+    return proof.type === BbsBlsSignature2020.type;
   }
 
   async canonize(
@@ -51,7 +75,7 @@ export class BbsBlsSignature2020 {
       documentLoader,
       expansionMap,
       skipExpansion,
-      useNative: false
+      useNative: false,
     });
   }
 
@@ -63,7 +87,7 @@ export class BbsBlsSignature2020 {
     return this.canonize(proof, {
       documentLoader,
       expansionMap,
-      skipExpansion: false
+      skipExpansion: false,
     });
   }
 
@@ -73,7 +97,7 @@ export class BbsBlsSignature2020 {
   ): Promise<string[]> {
     const c14nProofOptions = await this.canonizeProof(proof, {
       documentLoader,
-      expansionMap
+      expansionMap,
     });
 
     return c14nProofOptions.split("\n").filter((_: string) => _.length > 0);
@@ -85,7 +109,7 @@ export class BbsBlsSignature2020 {
   ): Promise<string[]> {
     const c14nDocument = await this.canonize(document, {
       documentLoader,
-      expansionMap
+      expansionMap,
     });
 
     return c14nDocument.split("\n").filter((_: string) => _.length > 0);
@@ -96,11 +120,11 @@ export class BbsBlsSignature2020 {
 
     const proofStatements = await this.createVerifyProofData(proof, {
       documentLoader,
-      expansionMap
+      expansionMap,
     });
     const documentStatements = await this.createVerifyDocumentData(document, {
       documentLoader,
-      expansionMap
+      expansionMap,
     });
 
     // concatenate c14n proof options and c14n document
@@ -112,12 +136,12 @@ export class BbsBlsSignature2020 {
     purpose,
     documentLoader,
     expansionMap,
-    compactProof
+    compactProof,
   }: any) {
     const context = document["@context"];
 
     let proof: BbsBlsSignature2020ProofType = {
-      "@context": context
+      "@context": context,
     };
 
     proof.type = BbsBlsSignature2020.type;
@@ -135,7 +159,12 @@ export class BbsBlsSignature2020 {
       proof.verificationMethod = this.key.id;
     }
 
-    proof = await purpose.update(proof);
+    proof = await purpose.update(proof, {
+      document,
+      suite: this,
+      documentLoader,
+      expansionMap,
+    });
 
     const verifyData = (
       await this.createVerifyData({
@@ -143,7 +172,7 @@ export class BbsBlsSignature2020 {
         proof,
         documentLoader,
         expansionMap,
-        compactProof
+        compactProof,
       })
     ).map((item: any) => new Uint8Array(Buffer.from(item)));
 
@@ -171,12 +200,12 @@ export class BbsBlsSignature2020 {
       {
         "@context": suiteContexts,
         "@embed": "@always",
-        id: verificationMethod
+        id: verificationMethod,
       },
       {
         documentLoader,
         compactToRelative: false,
-        expandContext: suiteContexts
+        expandContext: suiteContexts,
       }
     );
     if (!result) {
@@ -203,7 +232,7 @@ export class BbsBlsSignature2020 {
 
     return await verifier.verify({
       data: verifyData,
-      signature
+      signature,
     });
   }
 
@@ -222,16 +251,16 @@ export class BbsBlsSignature2020 {
           proof,
           documentLoader,
           expansionMap,
-          compactProof: false
+          compactProof: false,
         })
-      ).map(item => new Uint8Array(Buffer.from(item)));
+      ).map((item) => new Uint8Array(Buffer.from(item)));
 
       // fetch verification method
       const verificationMethod = await this.getVerificationMethod({
         proof,
         document,
         documentLoader,
-        expansionMap
+        expansionMap,
       });
 
       // verify signature on data
@@ -241,7 +270,7 @@ export class BbsBlsSignature2020 {
         document,
         proof: { ...proof, proofValue },
         documentLoader,
-        expansionMap
+        expansionMap,
       });
 
       if (!verified) {
@@ -254,7 +283,7 @@ export class BbsBlsSignature2020 {
         suite: this,
         verificationMethod,
         documentLoader,
-        expansionMap
+        expansionMap,
       });
       if (!valid) {
         throw error;
