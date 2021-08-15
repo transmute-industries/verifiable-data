@@ -5,5 +5,5 @@ import { verify } from "./verify";
 export const credential = {
   create,
   derive,
-  verify,
+  verify
 };

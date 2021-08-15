@@ -18,7 +18,7 @@ const documentResolver = async (iri: string) => {
   if (iri.startsWith(controller.id)) {
     return {
       documentUrl: controller.id,
-      document: controller,
+      document: controller
     };
   }
 
@@ -27,7 +27,7 @@ const documentResolver = async (iri: string) => {
   ) {
     return {
       documentUrl: iri,
-      document: revocationList,
+      document: revocationList
     };
   }
   if (
@@ -35,20 +35,20 @@ const documentResolver = async (iri: string) => {
   ) {
     return {
       documentUrl: iri,
-      document: controller2,
+      document: controller2
     };
   }
 
   if (iri === "https://example.com/status/1") {
     return {
       documentUrl: iri,
-      document: revocationListCredential,
+      document: revocationListCredential
     };
   }
   if (iri === "https://example.com/status/2") {
     return {
       documentUrl: iri,
-      document: signedRevocationList2020,
+      document: signedRevocationList2020
     };
   }
 
@@ -57,7 +57,7 @@ const documentResolver = async (iri: string) => {
   ) {
     return {
       documentUrl: iri,
-      document: controller3,
+      document: controller3
     };
   }
   return undefined;

@@ -24,5 +24,5 @@ export const contexts: any = {
   ),
   "https://w3id.org/security/v1": sec.contexts.get(
     sec.constants.SECURITY_CONTEXT_V1_URL
-  ),
+  )
 };

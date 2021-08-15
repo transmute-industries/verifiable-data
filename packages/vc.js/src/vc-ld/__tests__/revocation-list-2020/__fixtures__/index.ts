@@ -20,5 +20,5 @@ export {
   controller,
   signedRevocationList2020,
   signedCredentialWithRevocationStatus,
-  documentLoader,
+  documentLoader
 };

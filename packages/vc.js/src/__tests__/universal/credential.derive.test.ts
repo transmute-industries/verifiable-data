@@ -14,7 +14,7 @@ it("can derive credentials", async () => {
           document: {
             "@context": [
               "https://www.w3.org/ns/did/v1",
-              "https://w3id.org/security/suites/bls12381-2020/v1",
+              "https://w3id.org/security/suites/bls12381-2020/v1"
             ],
             id:
               "did:key:z5TcCKfym9h8Vr6dmAgaebq4DBwxKM5Lm9pvt4E8JBqQz43HvtC3zGLrcyC3233fQz8h1T6w8kDzFepmAHA9cCYxTB2Gv3oSn5iazjj8wvYBweH8CQ5VnMoVnHS6Gqnchu5YBUnhRsUAfNymtG9CRfkC97TpbBQ6b1A2AfDvmC8tdYcLkDDA2Ehti5cY27PzG6DLGKF3P",
@@ -26,18 +26,18 @@ it("can derive credentials", async () => {
                 controller:
                   "did:key:z5TcCKfym9h8Vr6dmAgaebq4DBwxKM5Lm9pvt4E8JBqQz43HvtC3zGLrcyC3233fQz8h1T6w8kDzFepmAHA9cCYxTB2Gv3oSn5iazjj8wvYBweH8CQ5VnMoVnHS6Gqnchu5YBUnhRsUAfNymtG9CRfkC97TpbBQ6b1A2AfDvmC8tdYcLkDDA2Ehti5cY27PzG6DLGKF3P",
                 publicKeyBase58:
-                  "qRrw4XbgX4oTGJK56mkbE2kZkcbXuJRoR93UuHvoS6kGE5Ja9b3EBFMaEDXfSE6gCYPCEbHXeynAUHKxVr6dn5Hc9i1pi8sqAXRPYUUQMZwHQ4B9nZHLYpGjC4bNydDSeyP",
-              },
+                  "qRrw4XbgX4oTGJK56mkbE2kZkcbXuJRoR93UuHvoS6kGE5Ja9b3EBFMaEDXfSE6gCYPCEbHXeynAUHKxVr6dn5Hc9i1pi8sqAXRPYUUQMZwHQ4B9nZHLYpGjC4bNydDSeyP"
+              }
             ],
             assertionMethod: [
-              "did:key:z5TcCKfym9h8Vr6dmAgaebq4DBwxKM5Lm9pvt4E8JBqQz43HvtC3zGLrcyC3233fQz8h1T6w8kDzFepmAHA9cCYxTB2Gv3oSn5iazjj8wvYBweH8CQ5VnMoVnHS6Gqnchu5YBUnhRsUAfNymtG9CRfkC97TpbBQ6b1A2AfDvmC8tdYcLkDDA2Ehti5cY27PzG6DLGKF3P#zUC75GQp8DFusgffgEyvGiSoXL7UztujwGyjHXdJP9PcAz74dgGCrFSNyhKFPCsuxXeKLko5H19M2sL8RA45f7SMc2pKx3uvfn1KSB7nSh7GqX59kxWksVTSicghfFLGZBNK9ah",
-            ],
-          },
+              "did:key:z5TcCKfym9h8Vr6dmAgaebq4DBwxKM5Lm9pvt4E8JBqQz43HvtC3zGLrcyC3233fQz8h1T6w8kDzFepmAHA9cCYxTB2Gv3oSn5iazjj8wvYBweH8CQ5VnMoVnHS6Gqnchu5YBUnhRsUAfNymtG9CRfkC97TpbBQ6b1A2AfDvmC8tdYcLkDDA2Ehti5cY27PzG6DLGKF3P#zUC75GQp8DFusgffgEyvGiSoXL7UztujwGyjHXdJP9PcAz74dgGCrFSNyhKFPCsuxXeKLko5H19M2sL8RA45f7SMc2pKx3uvfn1KSB7nSh7GqX59kxWksVTSicghfFLGZBNK9ah"
+            ]
+          }
         } as any;
       }
       return fixtures.documentLoader(iri);
     },
-    suite: new BbsBlsSignatureProof2020(),
+    suite: new BbsBlsSignatureProof2020()
   });
   expect(result.items[0].proof.type).toBe("BbsBlsSignatureProof2020");
 });

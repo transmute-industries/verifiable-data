@@ -27,5 +27,5 @@ export const contexts: any = {
   ),
   [sec.constants.SECURITY_CONTEXT_V2_URL]: sec.contexts.get(
     sec.constants.SECURITY_CONTEXT_V2_URL
-  ),
+  )
 };

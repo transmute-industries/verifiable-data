@@ -4,7 +4,7 @@ export const derive = async (
   options: DeriveCredentialOptions
 ): Promise<DeriveCredentialResult> => {
   const result: DeriveCredentialResult = {
-    items: [],
+    items: []
   };
 
   if (!options.format) {
@@ -23,11 +23,11 @@ export const derive = async (
     document: document,
     proof: { ...proof, "@context": document["@context"] },
     revealDocument: frame,
-    documentLoader,
+    documentLoader
   });
   const derivedCredential = {
     ...derivationResult.document,
-    proof: derivationResult.proof,
+    proof: derivationResult.proof
   };
   delete derivedCredential.proof["@context"];
   result.items.push(derivedCredential);

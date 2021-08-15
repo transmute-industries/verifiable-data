@@ -1,20 +1,20 @@
 import { ld as vc } from "../../../";
 import {
   Ed25519Signature2018,
-  Ed25519VerificationKey2018,
+  Ed25519VerificationKey2018
 } from "@transmute/ed25519-signature-2018";
 
 import {
   createList,
   decodeList,
   createCredential,
-  checkStatus,
+  checkStatus
 } from "@transmute/vc-status-rl-2020";
 
 import {
   documentLoader,
   signedRevocationList2020,
-  signedCredentialWithRevocationStatus,
+  signedCredentialWithRevocationStatus
 } from "./__fixtures__";
 
 let suite: Ed25519Signature2018;
@@ -29,17 +29,17 @@ beforeAll(async () => {
       publicKeyJwk: {
         crv: "Ed25519",
         x: "TQY0tCyM0wMZhJbDQ9B-IoZXWN9hS8bCHkpwVXlVves",
-        kty: "OKP",
+        kty: "OKP"
       },
       privateKeyJwk: {
         crv: "Ed25519",
         d: "XbVr_jPdbQXCoH9hvO1YbSkH7f-FfVl90hH8MKYW44I",
         x: "TQY0tCyM0wMZhJbDQ9B-IoZXWN9hS8bCHkpwVXlVves",
-        kty: "OKP",
-      },
+        kty: "OKP"
+      }
     }),
     // adding date here makes this fixture stable
-    date: "2021-03-01T01:16:12.860Z",
+    date: "2021-03-01T01:16:12.860Z"
   });
 });
 
@@ -50,10 +50,10 @@ it("issuer can create signed revocation list", async () => {
     credential: {
       ...(await createCredential({ id, list })),
       issuer: suite.key.controller,
-      issuanceDate: "2021-03-01T01:16:12.860Z",
+      issuanceDate: "2021-03-01T01:16:12.860Z"
     },
     suite,
-    documentLoader,
+    documentLoader
   });
   expect(verifiableCredentialStatusList).toEqual(signedRevocationList2020);
 });
@@ -64,7 +64,7 @@ it("issuer can create credential with revocation status", async () => {
       credential: {
         "@context": [
           "https://www.w3.org/2018/credentials/v1",
-          "https://w3id.org/vc-revocation-list-2020/v1",
+          "https://w3id.org/vc-revocation-list-2020/v1"
         ],
         id: "https://example.com/credenials/123",
         type: ["VerifiableCredential"],
@@ -74,14 +74,14 @@ it("issuer can create credential with revocation status", async () => {
           id: "https://example.com/status/2#0",
           type: "RevocationList2020Status",
           revocationListIndex: "0",
-          revocationListCredential: "https://example.com/status/2",
+          revocationListCredential: "https://example.com/status/2"
         },
         credentialSubject: {
-          id: "did:example:123",
-        },
+          id: "did:example:123"
+        }
       },
       suite,
-      documentLoader,
+      documentLoader
     }
   );
 
@@ -95,7 +95,7 @@ it("verifier can check revocation status", async () => {
     credential: signedCredentialWithRevocationStatus,
     documentLoader: documentLoader as any,
     suite: [new Ed25519Signature2018()],
-    verifyRevocationListCredential: true,
+    verifyRevocationListCredential: true
   });
   expect(result.verified).toBe(true);
 });
@@ -105,7 +105,7 @@ it('verifier can verifer credential with "credentialStatus"', async () => {
     credential: signedCredentialWithRevocationStatus,
     documentLoader,
     suite: [new Ed25519Signature2018()],
-    checkStatus, // required
+    checkStatus // required
   });
   expect(result.verified).toBe(true);
 });
@@ -117,13 +117,13 @@ it("issuer can revoke credential by updating revocation status list", async () =
     credential: {
       ...(await createCredential({
         id: signedRevocationList2020.id,
-        list,
+        list
       })),
       issuer: suite.key.controller,
-      issuanceDate: "2021-03-01T01:16:12.860Z",
+      issuanceDate: "2021-03-01T01:16:12.860Z"
     },
     suite,
-    documentLoader,
+    documentLoader
   });
 
   const result = await vc.verifyVerifiableCredential({
@@ -132,13 +132,13 @@ it("issuer can revoke credential by updating revocation status list", async () =
       if (iri === "https://example.com/status/2") {
         return {
           documentUrl: iri,
-          document: verifiableCredentialStatusList,
+          document: verifiableCredentialStatusList
         };
       }
       return documentLoader(iri);
     },
     suite: [new Ed25519Signature2018()],
-    checkStatus, // required
+    checkStatus // required
   });
   expect(result.verified).toBe(false);
 });

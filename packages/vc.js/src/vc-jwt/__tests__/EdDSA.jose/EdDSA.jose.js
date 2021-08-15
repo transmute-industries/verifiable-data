@@ -6,7 +6,7 @@ const key = require("./__fixtures__/key.json");
 const credential = require("./__fixtures__/credential.json");
 
 const {
-  verifiableCredential,
+  verifiableCredential
 } = require("./__fixtures__/verifiableCredential.json");
 
 (async () => {

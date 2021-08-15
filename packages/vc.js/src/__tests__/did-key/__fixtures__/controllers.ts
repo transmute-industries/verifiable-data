@@ -16,12 +16,12 @@ const makeController = (key: any) => {
     "@context": [
       "https://www.w3.org/ns/did/v1",
       "https://w3id.org/security/suites/jws-2020/v1",
-      "https://w3id.org/security/suites/bls12381-2020/v1",
+      "https://w3id.org/security/suites/bls12381-2020/v1"
     ],
     id: vm.controller,
     verificationMethod: [vm],
     assertionMethod: [vm.id],
-    authentication: [vm.id],
+    authentication: [vm.id]
   };
 };
 
@@ -30,7 +30,7 @@ let controllers: any = {};
 allKeys.forEach((k: any) => {
   controllers = {
     ...controllers,
-    [k.controller]: makeController(k),
+    [k.controller]: makeController(k)
   };
 });
 

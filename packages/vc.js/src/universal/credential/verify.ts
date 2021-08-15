@@ -5,7 +5,7 @@ export const verify = async (
   options: VerifyCredentialOptions
 ): Promise<VerificationResult> => {
   const result: VerificationResult = {
-    verified: false,
+    verified: false
   };
 
   if (!options.format) {
@@ -19,7 +19,7 @@ export const verify = async (
     const res = await ld.verifyVerifiableCredential({
       credential: options.credential,
       suite: options.suite,
-      documentLoader: options.documentLoader,
+      documentLoader: options.documentLoader
     });
     result.verified = res.verified;
   }
@@ -43,10 +43,10 @@ export const verify = async (
     let suite = Array.isArray(options.suite) ? options.suite[0] : options.suite;
     const verificationMethod = await suite.getVerificationMethod({
       proof: {
-        verificationMethod: header.kid,
+        verificationMethod: header.kid
       },
       documentLoader: options.documentLoader,
-      instance: true, // need this to get the class instance
+      instance: true // need this to get the class instance
     });
 
     if (!verificationMethod || !verificationMethod.useJwa) {
@@ -55,11 +55,11 @@ export const verify = async (
       );
     }
     const k = await verificationMethod.useJwa({
-      detached: false,
+      detached: false
     });
     const verifier = k.verifier();
     const verified = await verifier.verify({
-      signature: options.credential,
+      signature: options.credential
     });
     result.verified = verified;
   }

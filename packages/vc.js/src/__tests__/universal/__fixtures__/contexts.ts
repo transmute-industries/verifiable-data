@@ -14,5 +14,5 @@ export const contexts: any = {
   ),
   [sec.constants.BLS12381_2020_V1_URL]: sec.contexts.get(
     sec.constants.BLS12381_2020_V1_URL
-  ),
+  )
 };

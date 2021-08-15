@@ -22,5 +22,5 @@ export {
   frame,
   key1,
   credential1,
-  documentLoader,
+  documentLoader
 };
