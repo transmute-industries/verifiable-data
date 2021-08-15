@@ -38,17 +38,6 @@ it("create proof", async () => {
     compactProof: true,
   });
   expect(proof1.type).toBe("sec:BbsBlsSignature2020");
-
-  // console.log(
-  //   JSON.stringify(
-  //     {
-  //       ...document1,
-  //       proof: proof1,
-  //     },
-  //     null,
-  //     2
-  //   )
-  // );
 });
 
 it("verify proof", async () => {
