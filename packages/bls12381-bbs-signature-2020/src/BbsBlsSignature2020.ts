@@ -150,7 +150,6 @@ export class BbsBlsSignature2020 {
     const signer: any = await this.key?.signer();
     const proofValue = await signer.sign({ data: verifyData });
     proof.proofValue = Buffer.from(proofValue).toString("base64");
-    delete proof["@context"];
     return proof;
   }
 
@@ -212,9 +211,9 @@ export class BbsBlsSignature2020 {
     options: VerifyProofOptions
   ): Promise<{ verified: boolean; error?: any }> {
     const { proof, document, documentLoader, expansionMap, purpose } = options;
-
     const { proofValue } = proof;
     delete proof.proofValue;
+
     try {
       // create data to verify
       const verifyData = (

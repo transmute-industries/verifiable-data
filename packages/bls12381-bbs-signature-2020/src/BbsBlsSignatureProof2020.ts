@@ -19,28 +19,6 @@ const suiteContexts = [
   "https://w3id.org/security/suites/bls12381-2020/v1",
 ];
 
-// const debugMessages = (data: any) => {
-//   console.log(
-//     "messages:\n" +
-//       JSON.stringify(
-//         data.map((i: any) => {
-//           return (
-//             Buffer.from(i)
-//               .toString()
-//               .substring(0, 128) + "..."
-//           );
-//         }),
-//         null,
-//         2
-//       )
-//   );
-// };
-
-// const debugBlsCreateProof = ({ messages, revealed }: any) => {
-//   debugMessages(messages);
-//   console.log(revealed);
-// };
-
 export class BbsBlsSignatureProof2020 {
   public static type = "BbsBlsSignatureProof2020";
 
