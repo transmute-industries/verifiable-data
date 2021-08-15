@@ -69,7 +69,7 @@ it("mattr derive", async () => {
 it("transmute verify", async () => {
   delete proof2["@context"];
   proof2.type = "BbsBlsSignatureProof2020";
-  console.log(proof2);
+
   const suite = new transmute.BbsBlsSignatureProof2020();
   const result = await suite.verifyProof({
     document: document2,

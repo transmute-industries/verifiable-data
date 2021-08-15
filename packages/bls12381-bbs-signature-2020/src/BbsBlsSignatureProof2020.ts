@@ -202,8 +202,14 @@ export class BbsBlsSignatureProof2020 {
     derivedProof.proofPurpose = proof.proofPurpose;
     derivedProof.created = proof.created;
 
+    const compactedRevealedDocument = await jsonld.compact(
+      { ...revealDocumentResult },
+      document["@context"],
+      { documentLoader }
+    );
+
     return {
-      document: { ...revealDocumentResult },
+      document: { ...compactedRevealedDocument },
       proof: derivedProof,
     };
   }
