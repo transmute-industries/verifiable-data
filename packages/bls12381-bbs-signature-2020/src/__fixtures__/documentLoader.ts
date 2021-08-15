@@ -16,6 +16,7 @@ const contexts: any = {
   [sec.constants.BLS12381_2020_V1_URL]: sec.contexts.get(
     sec.constants.BLS12381_2020_V1_URL
   ),
+  // these are required for interop with mattr suite.
   "https://w3id.org/security/bbs/v1": sec.contexts.get(
     sec.constants.BLS12381_2020_V1_URL
   ),
