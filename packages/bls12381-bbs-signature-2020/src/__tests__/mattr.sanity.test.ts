@@ -38,6 +38,17 @@ it("create proof", async () => {
     compactProof: true,
   });
   expect(proof1.type).toBe("sec:BbsBlsSignature2020");
+
+  // console.log(
+  //   JSON.stringify(
+  //     {
+  //       ...document1,
+  //       proof: proof1,
+  //     },
+  //     null,
+  //     2
+  //   )
+  // );
 });
 
 it("verify proof", async () => {
@@ -70,9 +81,20 @@ it("derive proof", async () => {
   expect(result.proof).toBeDefined();
   proof2 = result.proof;
   document2 = result.document;
+
+  // console.log(
+  //   JSON.stringify(
+  //     {
+  //       ...document2,
+  //       proof: proof2,
+  //     },
+  //     null,
+  //     2
+  //   )
+  // );
 });
 
-it("verify derived  proof", async () => {
+it("verify derived proof", async () => {
   const result = await suite2.verifyProof({
     document: document2,
     proof: proof2,

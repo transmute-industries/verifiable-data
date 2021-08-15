@@ -1,12 +1,18 @@
 import jsonld from "jsonld";
 import { randomBytes } from "@stablelib/random";
-import { DeriveProofOptions } from "./types";
+import {
+  DeriveProofOptions,
+  VerifyProofOptions,
+  CreateVerifyDataOptions,
+  CanonizeOptions,
+  VerifyProofResult,
+} from "./types";
 import { BbsBlsSignature2020 } from "./BbsBlsSignature2020";
 
 import { BbsBlsSignatureProof2020ProofType } from "./types";
 import { Bls12381G2KeyPair } from "@transmute/bls12381-key-pair";
 
-import { blsCreateProof } from "@mattrglobal/bbs-signatures";
+import { blsCreateProof, blsVerifyProof } from "@mattrglobal/bbs-signatures";
 
 const suiteContexts = [
   "https://w3id.org/security/suites/jws-2020/v1",
@@ -28,6 +34,11 @@ const suiteContexts = [
 //         2
 //       )
 //   );
+// };
+
+// const debugBlsCreateProof = ({ messages, revealed }: any) => {
+//   debugMessages(messages);
+//   console.log(revealed);
 // };
 
 export class BbsBlsSignatureProof2020 {
@@ -92,6 +103,7 @@ export class BbsBlsSignatureProof2020 {
     }
 
     const signature = Uint8Array.from(Buffer.from(proof.proofValue, "base64"));
+    delete proof.proofValue;
     const suite = new BbsBlsSignature2020();
 
     const derivedProof: BbsBlsSignatureProof2020ProofType = {
@@ -164,7 +176,6 @@ export class BbsBlsSignatureProof2020 {
       .concat(documentStatements)
       .map((item) => new Uint8Array(Buffer.from(item)));
 
-    // debugMessages(allInputStatements);
     // Fetch the verification method
     const verificationMethod = await this.getVerificationMethod({
       proof,
@@ -178,9 +189,9 @@ export class BbsBlsSignatureProof2020 {
     const outputProof = await blsCreateProof({
       messages: allInputStatements,
       revealed: revealIndicies,
-      signature,
+      signature: new Uint8Array(signature),
       nonce: nonce,
-      publicKey: key.publicKey,
+      publicKey: new Uint8Array(key.publicKey),
     });
 
     // Set the proof value on the derived proof
@@ -195,5 +206,153 @@ export class BbsBlsSignatureProof2020 {
       document: { ...revealDocumentResult },
       proof: derivedProof,
     };
+  }
+
+  async canonize(input: any, options: CanonizeOptions): Promise<string> {
+    const { documentLoader, expansionMap, skipExpansion } = options;
+    return jsonld.canonize(input, {
+      algorithm: "URDNA2015",
+      format: "application/n-quads",
+      documentLoader,
+      expansionMap,
+      skipExpansion,
+      useNative: false,
+    });
+  }
+
+  async canonizeProof(proof: any, options: CanonizeOptions): Promise<string> {
+    const { documentLoader, expansionMap } = options;
+    proof = { ...proof };
+
+    delete proof.nonce;
+    delete proof.proofValue;
+
+    return this.canonize(proof, {
+      documentLoader,
+      expansionMap,
+      skipExpansion: false,
+    });
+  }
+
+  /**
+   * @param document {CreateVerifyDataOptions} options to create verify data
+   *
+   * @returns {Promise<{string[]>}.
+   */
+  async createVerifyData(options: CreateVerifyDataOptions): Promise<string[]> {
+    const { proof, document, documentLoader, expansionMap } = options;
+
+    const proofStatements = await this.createVerifyProofData(proof, {
+      documentLoader,
+      expansionMap,
+    });
+    const documentStatements = await this.createVerifyDocumentData(document, {
+      documentLoader,
+      expansionMap,
+    });
+
+    // concatenate c14n proof options and c14n document
+    return proofStatements.concat(documentStatements);
+  }
+
+  /**
+   * @param proof to canonicalize
+   * @param options to create verify data
+   *
+   * @returns {Promise<{string[]>}.
+   */
+  async createVerifyProofData(
+    proof: any,
+    { documentLoader, expansionMap }: any
+  ): Promise<string[]> {
+    const c14nProofOptions = await this.canonizeProof(proof, {
+      documentLoader,
+      expansionMap,
+    });
+
+    return c14nProofOptions.split("\n").filter((_) => _.length > 0);
+  }
+
+  /**
+   * @param document to canonicalize
+   * @param options to create verify data
+   *
+   * @returns {Promise<{string[]>}.
+   */
+  async createVerifyDocumentData(
+    document: any,
+    { documentLoader, expansionMap }: any
+  ): Promise<string[]> {
+    const c14nDocument = await this.canonize(document, {
+      documentLoader,
+      expansionMap,
+    });
+
+    return c14nDocument.split("\n").filter((_) => _.length > 0);
+  }
+
+  async verifyProof(options: VerifyProofOptions): Promise<VerifyProofResult> {
+    const { document, documentLoader, expansionMap, purpose } = options;
+    const { proof } = options;
+
+    try {
+      proof.type = "BbsBlsSignature2020";
+
+      // Get the proof statements
+      const proofStatements = await this.createVerifyProofData(proof, {
+        documentLoader,
+        expansionMap,
+      });
+
+      // Get the document statements
+      const documentStatements = await this.createVerifyProofData(document, {
+        documentLoader,
+        expansionMap,
+      });
+
+      // Transform the blank node identifier placeholders for the document statements
+      // back into actual blank node identifiers
+      const transformedDocumentStatements = documentStatements.map(
+        (element: any) => element.replace(/<urn:bnid:(_:c14n[0-9]+)>/g, "$1")
+      );
+
+      // Combine all the statements to be verified
+      const statementsToVerify: Uint8Array[] = proofStatements
+        .concat(transformedDocumentStatements)
+        .map((item: any) => new Uint8Array(Buffer.from(item)));
+
+      const verificationMethod = await this.getVerificationMethod({
+        proof,
+        document,
+        documentLoader,
+        expansionMap,
+      });
+
+      const key = await Bls12381G2KeyPair.from(verificationMethod);
+
+      // Verify the proof
+      const verified = await blsVerifyProof({
+        proof: new Uint8Array(Buffer.from(proof.proofValue, "base64")),
+        publicKey: new Uint8Array(key.publicKey),
+        messages: statementsToVerify,
+        nonce: new Uint8Array(Buffer.from(proof.nonce as string, "base64")),
+      });
+
+      // Ensure proof was performed for a valid purpose
+      const { valid, error } = await purpose.validate(proof, {
+        document,
+        suite: this,
+        verificationMethod,
+        documentLoader,
+        expansionMap,
+      });
+      if (!valid) {
+        throw error;
+      }
+
+      return verified;
+    } catch (error) {
+      return { verified: false, error };
+    }
   }
 }

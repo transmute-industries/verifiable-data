@@ -1,12 +1,27 @@
-const Environment = require("jest-environment-jsdom");
+const NodeEnvironment = require("jest-environment-node");
 
-module.exports = class CustomTestEnvironment extends Environment {
-  async setup() {
-    await super.setup();
-    if (typeof this.global.TextEncoder === "undefined") {
-      const { TextEncoder, TextDecoder } = require("util");
-      this.global.TextEncoder = TextEncoder;
-      this.global.TextDecoder = TextDecoder;
-    }
+// const WebEnvironment = require("jest-environment-jsdom");
+
+const { TextEncoder, TextDecoder } = require("util");
+
+class MyEnvironment extends NodeEnvironment {
+  constructor(config) {
+    super(
+      Object.assign({}, config, {
+        globals: Object.assign({}, config.globals, {
+          Uint32Array: Uint32Array,
+          Uint8Array: Uint8Array,
+          ArrayBuffer: ArrayBuffer,
+          TextEncoder: TextEncoder,
+          TextDecoder: TextDecoder,
+        }),
+      })
+    );
   }
-};
+
+  async setup() {}
+
+  async teardown() {}
+}
+
+module.exports = MyEnvironment;
