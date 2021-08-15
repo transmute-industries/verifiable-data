@@ -54,18 +54,4 @@ it("can verify", async () => {
     documentLoader,
   });
   expect(result.verified).toBe(true);
-
-  console.log(
-    JSON.stringify(
-      {
-        ...credentials.credential0,
-        proof: {
-          "@context": credentials.credential0["@context"],
-          ...proof,
-        },
-      },
-      null,
-      2
-    )
-  );
 });
