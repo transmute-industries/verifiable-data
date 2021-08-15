@@ -33,6 +33,8 @@
     "pairing"
   ],
   "devDependencies": {
+    "@mattrglobal/bls12381-key-pair": "^0.7.0",
+    "@mattrglobal/jsonld-signatures-bbs": "^0.10.1-unstable.0cec1f1",
     "@transmute/credentials-context": "^0.7.0-unstable.6",
     "@transmute/did-context": "^0.7.0-unstable.6",
     "@transmute/security-context": "^0.7.0-unstable.6",
@@ -42,6 +44,7 @@
   },
   "dependencies": {
     "@mattrglobal/bbs-signatures": "^0.6.0",
+    "@stablelib/random": "^1.0.1",
     "@transmute/bls12381-key-pair": "^0.7.0-unstable.6",
     "jsonld": "^5.2.0"
   }
