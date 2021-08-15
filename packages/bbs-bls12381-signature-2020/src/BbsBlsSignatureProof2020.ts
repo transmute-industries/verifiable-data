@@ -5,7 +5,7 @@ import {
   VerifyProofOptions,
   CreateVerifyDataOptions,
   CanonizeOptions,
-  VerifyProofResult,
+  VerifyProofResult
 } from "./types";
 import { BbsBlsSignature2020 } from "./BbsBlsSignature2020";
 
@@ -16,7 +16,7 @@ import { blsCreateProof, blsVerifyProof } from "@mattrglobal/bbs-signatures";
 
 const suiteContexts = [
   "https://w3id.org/security/suites/jws-2020/v1",
-  "https://w3id.org/security/suites/bls12381-2020/v1",
+  "https://w3id.org/security/suites/bls12381-2020/v1"
 ];
 
 export class BbsBlsSignatureProof2020 {
@@ -40,12 +40,12 @@ export class BbsBlsSignatureProof2020 {
       {
         "@context": suiteContexts,
         "@embed": "@always",
-        id: verificationMethod,
+        id: verificationMethod
       },
       {
         documentLoader,
         compactToRelative: false,
-        expandContext: suiteContexts,
+        expandContext: suiteContexts
       }
     );
     if (!result) {
@@ -68,7 +68,7 @@ export class BbsBlsSignatureProof2020 {
       proof,
       revealDocument,
       documentLoader,
-      expansionMap,
+      expansionMap
     } = options;
     let { nonce } = options;
 
@@ -86,23 +86,23 @@ export class BbsBlsSignatureProof2020 {
 
     const derivedProof: BbsBlsSignatureProof2020ProofType = {
       "@context": document["@context"],
-      type: BbsBlsSignatureProof2020.type,
+      type: BbsBlsSignatureProof2020.type
     };
 
     const documentStatements = await suite.createVerifyDocumentData(document, {
       documentLoader,
       expansionMap,
-      compactProof: true,
+      compactProof: true
     });
 
     const proofStatements = await suite.createVerifyProofData(proof, {
       documentLoader,
       expansionMap,
-      compactProof: true,
+      compactProof: true
     });
 
-    const transformedInputDocumentStatements = documentStatements.map(
-      (element) => element.replace(/(_:c14n[0-9]+)/g, "<urn:bnid:$1>")
+    const transformedInputDocumentStatements = documentStatements.map(element =>
+      element.replace(/(_:c14n[0-9]+)/g, "<urn:bnid:$1>")
     );
 
     const compactInputProofDocument = await jsonld.fromRDF(
@@ -119,7 +119,7 @@ export class BbsBlsSignatureProof2020 {
       revealDocumentResult,
       {
         documentLoader,
-        expansionMap,
+        expansionMap
       }
     );
 
@@ -130,7 +130,7 @@ export class BbsBlsSignatureProof2020 {
     );
 
     const documentRevealIndicies = revealDocumentStatements.map(
-      (key) =>
+      key =>
         transformedInputDocumentStatements.indexOf(key) +
         numberOfProofStatements
     );
@@ -152,14 +152,14 @@ export class BbsBlsSignatureProof2020 {
 
     const allInputStatements: Uint8Array[] = proofStatements
       .concat(documentStatements)
-      .map((item) => new Uint8Array(Buffer.from(item)));
+      .map(item => new Uint8Array(Buffer.from(item)));
 
     // Fetch the verification method
     const verificationMethod = await this.getVerificationMethod({
       proof,
       document,
       documentLoader,
-      expansionMap,
+      expansionMap
     });
 
     const key = await Bls12381G2KeyPair.from(verificationMethod);
@@ -169,7 +169,7 @@ export class BbsBlsSignatureProof2020 {
       revealed: revealIndicies,
       signature: new Uint8Array(signature),
       nonce: nonce,
-      publicKey: new Uint8Array(key.publicKey),
+      publicKey: new Uint8Array(key.publicKey)
     });
 
     // Set the proof value on the derived proof
@@ -188,7 +188,7 @@ export class BbsBlsSignatureProof2020 {
 
     return {
       document: { ...compactedRevealedDocument },
-      proof: derivedProof,
+      proof: derivedProof
     };
   }
 
@@ -200,7 +200,7 @@ export class BbsBlsSignatureProof2020 {
       documentLoader,
       expansionMap,
       skipExpansion,
-      useNative: false,
+      useNative: false
     });
   }
 
@@ -214,7 +214,7 @@ export class BbsBlsSignatureProof2020 {
     return this.canonize(proof, {
       documentLoader,
       expansionMap,
-      skipExpansion: false,
+      skipExpansion: false
     });
   }
 
@@ -228,11 +228,11 @@ export class BbsBlsSignatureProof2020 {
 
     const proofStatements = await this.createVerifyProofData(proof, {
       documentLoader,
-      expansionMap,
+      expansionMap
     });
     const documentStatements = await this.createVerifyDocumentData(document, {
       documentLoader,
-      expansionMap,
+      expansionMap
     });
 
     // concatenate c14n proof options and c14n document
@@ -251,10 +251,10 @@ export class BbsBlsSignatureProof2020 {
   ): Promise<string[]> {
     const c14nProofOptions = await this.canonizeProof(proof, {
       documentLoader,
-      expansionMap,
+      expansionMap
     });
 
-    return c14nProofOptions.split("\n").filter((_) => _.length > 0);
+    return c14nProofOptions.split("\n").filter(_ => _.length > 0);
   }
 
   /**
@@ -269,10 +269,10 @@ export class BbsBlsSignatureProof2020 {
   ): Promise<string[]> {
     const c14nDocument = await this.canonize(document, {
       documentLoader,
-      expansionMap,
+      expansionMap
     });
 
-    return c14nDocument.split("\n").filter((_) => _.length > 0);
+    return c14nDocument.split("\n").filter(_ => _.length > 0);
   }
 
   async verifyProof(options: VerifyProofOptions): Promise<VerifyProofResult> {
@@ -285,13 +285,13 @@ export class BbsBlsSignatureProof2020 {
       // Get the proof statements
       const proofStatements = await this.createVerifyProofData(proof, {
         documentLoader,
-        expansionMap,
+        expansionMap
       });
 
       // Get the document statements
       const documentStatements = await this.createVerifyProofData(document, {
         documentLoader,
-        expansionMap,
+        expansionMap
       });
 
       // Transform the blank node identifier placeholders for the document statements
@@ -309,7 +309,7 @@ export class BbsBlsSignatureProof2020 {
         proof,
         document,
         documentLoader,
-        expansionMap,
+        expansionMap
       });
 
       const key = await Bls12381G2KeyPair.from(verificationMethod);
@@ -319,7 +319,7 @@ export class BbsBlsSignatureProof2020 {
         proof: new Uint8Array(Buffer.from(proof.proofValue, "base64")),
         publicKey: new Uint8Array(key.publicKey),
         messages: statementsToVerify,
-        nonce: new Uint8Array(Buffer.from(proof.nonce as string, "base64")),
+        nonce: new Uint8Array(Buffer.from(proof.nonce as string, "base64"))
       });
 
       // Ensure proof was performed for a valid purpose
@@ -328,7 +328,7 @@ export class BbsBlsSignatureProof2020 {
         suite: this,
         verificationMethod,
         documentLoader,
-        expansionMap,
+        expansionMap
       });
       if (!valid) {
         throw error;

@@ -4,6 +4,6 @@ export const getSuite = async (
   SuiteClass: any
 ): Promise<any> => {
   return new SuiteClass({
-    key: await KeyClass.from(keyJson),
+    key: await KeyClass.from(keyJson)
   });
 };

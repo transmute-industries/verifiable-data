@@ -15,7 +15,7 @@ it("can parse jwks", async () => {
   expect(k.privateKey).toBeInstanceOf(Uint8Array);
   suite = new BbsBlsSignature2020({
     key: k,
-    date: document1.issuanceDate,
+    date: document1.issuanceDate
   });
 });
 
@@ -26,9 +26,9 @@ it("can sign", async () => {
       update: (proof: any) => {
         proof.proofPurpose = "assertionMethod";
         return proof;
-      },
+      }
     },
-    documentLoader,
+    documentLoader
   });
   expect(proof1.type).toBe("BbsBlsSignature2020");
   expect(proof1.created).toBe(document1.issuanceDate);
@@ -49,9 +49,9 @@ it("can verify", async () => {
       update: (proof: any) => {
         proof.proofPurpose = "assertionMethod";
         return proof;
-      },
+      }
     },
-    documentLoader,
+    documentLoader
   });
   expect(result.verified).toBe(true);
 });

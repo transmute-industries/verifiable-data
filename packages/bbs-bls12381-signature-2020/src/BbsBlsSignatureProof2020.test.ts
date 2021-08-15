@@ -13,7 +13,7 @@ it("can derive", async () => {
     document: document,
     proof: proof,
     revealDocument: frames.frame0,
-    documentLoader,
+    documentLoader
   });
 
   derivedDocument = result.document;
@@ -35,9 +35,9 @@ it("can verify derived proof", async () => {
       update: (proof: any) => {
         proof.proofPurpose = "assertionMethod";
         return proof;
-      },
+      }
     },
-    documentLoader,
+    documentLoader
   });
   expect(result.verified).toBe(true);
 });

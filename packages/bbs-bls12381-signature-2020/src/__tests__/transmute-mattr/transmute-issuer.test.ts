@@ -25,10 +25,10 @@ it("transmute issue", async () => {
       update: (proof: any) => {
         proof.proofPurpose = "assertionMethod";
         return proof;
-      },
+      }
     },
     documentLoader: fixtures.documentLoader,
-    compactProof: true,
+    compactProof: true
   });
   expect(proof1).toBeDefined();
 });
@@ -40,7 +40,7 @@ it("mattr verify", async () => {
     proof: {
       ...proof1,
       type: "sec:BbsBlsSignature2020",
-      "@context": "https://w3id.org/security/v2",
+      "@context": "https://w3id.org/security/v2"
     },
     purpose: {
       // ignore validation of dates and such...
@@ -50,9 +50,9 @@ it("mattr verify", async () => {
       update: (proof: any) => {
         proof.proofPurpose = "assertionMethod";
         return proof;
-      },
+      }
     },
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expect(result.verified).toBe(true);
 });
@@ -63,10 +63,10 @@ it("transmute derive", async () => {
     proof: {
       ...proof1,
       type: "BbsBlsSignature2020",
-      "@context": document1["@context"],
+      "@context": document1["@context"]
     },
     revealDocument: fixtures.frames.frame0,
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   document2 = result.document;
   proof2 = result.proof;
@@ -81,7 +81,7 @@ it("mattr verify", async () => {
     proof: {
       ...proof2,
       type: "sec:BbsBlsSignatureProof2020",
-      "@context": "https://w3id.org/security/v2",
+      "@context": "https://w3id.org/security/v2"
     },
     purpose: {
       // ignore validation of dates and such...
@@ -91,9 +91,9 @@ it("mattr verify", async () => {
       update: (proof: any) => {
         proof.proofPurpose = "assertionMethod";
         return proof;
-      },
+      }
     },
-    documentLoader: fixtures.documentLoader,
+    documentLoader: fixtures.documentLoader
   });
   expect(result.verified).toBe(true);
 });

@@ -25,28 +25,28 @@ const contexts: any = {
   ),
   "https://w3id.org/security/v1": sec.contexts.get(
     sec.constants.SECURITY_CONTEXT_V1_URL
-  ),
+  )
 };
 
 export const documentLoader = (iri: string) => {
   if (contexts[iri]) {
     return {
       documentUrl: iri,
-      document: contexts[iri],
+      document: contexts[iri]
     };
   }
 
   if (iri.startsWith(controller0.id)) {
     return {
       documentUrl: iri,
-      document: controller0,
+      document: controller0
     };
   }
 
   if (iri.startsWith(controller1.id)) {
     return {
       documentUrl: iri,
-      document: controller1,
+      document: controller1
     };
   }
 
