@@ -24,12 +24,11 @@ it("issue", async () => {
       update: (proof: any) => {
         proof.proofPurpose = "assertionMethod";
         return proof;
-      }
+      },
     },
     documentLoader: fixtures.documentLoader,
-    compactProof: true
+    compactProof: true,
   });
-  console.log(JSON.stringify({ ...document1, proof: proof1 }));
   expect(proof1).toBeDefined();
 });
 
@@ -39,7 +38,7 @@ it("derive", async () => {
     document: { ...document1 },
     proof: { ...proof1 },
     revealDocument: fixtures.frames.frame1,
-    documentLoader: fixtures.documentLoader
+    documentLoader: fixtures.documentLoader,
   });
   document2 = result.document;
   proof2 = result.proof;
@@ -60,9 +59,9 @@ it("verify", async () => {
       update: (proof: any) => {
         proof.proofPurpose = "assertionMethod";
         return proof;
-      }
+      },
     },
-    documentLoader: fixtures.documentLoader
+    documentLoader: fixtures.documentLoader,
   });
   expect(result.verified).toBe(true);
 
