@@ -1,13 +1,13 @@
 import {
   JsonWebKey,
   JsonWebSignature,
-  JsonWebKey2020,
+  JsonWebKey2020
 } from "@transmute/json-web-signature";
 
 import { verifiable } from "../..";
 import * as fixtures from "./__fixtures__";
 
-fixtures.presentationCreate.items.forEach((vp) => {
+fixtures.presentationCreate.items.forEach(vp => {
   it("can verify presentations", async () => {
     const result = await verifiable.presentation.verify({
       presentation: vp,
@@ -16,8 +16,8 @@ fixtures.presentationCreate.items.forEach((vp) => {
       challenge: "123", // this is supplied by the verifier / presentation recipient
       suite: new JsonWebSignature({
         key: await JsonWebKey.from(fixtures.key as JsonWebKey2020),
-        date: fixtures.credential.issuanceDate, // make signature stable
-      }),
+        date: fixtures.credential.issuanceDate // make signature stable
+      })
     });
     expect(result.verified).toBe(true);
   });

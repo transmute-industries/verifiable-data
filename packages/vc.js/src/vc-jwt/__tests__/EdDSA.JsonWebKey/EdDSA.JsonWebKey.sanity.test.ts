@@ -15,8 +15,8 @@ beforeAll(async () => {
   key2 = await JsonWebKey.from(fixtures.key as any, {
     detached: false,
     header: {
-      kid: "123",
-    },
+      kid: "123"
+    }
   });
   credential = {
     "@context": ["https://www.w3.org/2018/credentials/v1"],
@@ -25,28 +25,28 @@ beforeAll(async () => {
     issuer: key.controller,
     issuanceDate: "2010-01-01T19:23:24Z",
     credentialSubject: {
-      id: "did:example:123",
-    },
+      id: "did:example:123"
+    }
   };
   payload = {
     iss: credential.issuer,
     sub: credential.credentialSubject.id,
     vc: credential,
     jti: credential.id,
-    nbf: 1262373804,
+    nbf: 1262373804
   };
 });
 
 it("sign / verify", async () => {
   const signer = JWS.createSigner(key.signer(rawSuiteType), JWA_ALG, {
     header: {
-      kid: "123",
-    },
+      kid: "123"
+    }
   });
   const verifier = JWS.createVerifier(key.verifier(rawSuiteType), JWA_ALG);
   const signatureFromEd25519KeyPair = await signer.sign({ data: payload });
   const verified = await verifier.verify({
-    signature: signatureFromEd25519KeyPair,
+    signature: signatureFromEd25519KeyPair
   });
   expect(verified).toBe(true);
   // Note that JSON Web Key signer's already produce JWS.
@@ -55,7 +55,7 @@ it("sign / verify", async () => {
   expect(signatureFromJsonWebKey).toBe(signatureFromEd25519KeyPair);
   const verifier2 = key2.verifier();
   const verified2 = await verifier2.verify({
-    signature: signatureFromJsonWebKey,
+    signature: signatureFromJsonWebKey
   });
   expect(verified2).toBe(true);
 });

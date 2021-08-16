@@ -6,14 +6,14 @@
   "id": "did:example:123",
   "assertionMethod": [
     {
-      "id": "did:example:123#key",
+      "id": "did:example:123#key-0",
       "type": "JsonWebKey2020",
       "controller": "did:example:123",
       "publicKeyJwk": {
         "kty": "EC",
-        "crv": "P-384",
-        "x": "dMtj6RjwQK4G5HP3iwOD94RwbzPhS4wTZHO1luk_0Wz89chqV6uJyb51KaZzK0tk",
-        "y": "viPKF7Zbc4FxKegoupyVRcBr8TZHFxUrKQq4huOAyMuhTYJbFpAwMhIrWppql02E"
+        "crv": "P-256",
+        "x": "bVO1McLAy8FsmGZS-C_BuSZ-4sMDYISRGurRPkXPR_U",
+        "y": "hcc_meQuZEQq7EM0wN6gcVsnJwY0gLXsOyQWFBzZd7o"
       }
     }
   ]

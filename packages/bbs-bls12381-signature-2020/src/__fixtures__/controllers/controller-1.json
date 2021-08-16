@@ -1,0 +1,15 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/bls12381-2020/v1"
+  ],
+  "id": "did:example:345",
+  "assertionMethod": [
+    {
+      "id": "did:example:345#key-1",
+      "type": "Bls12381G2Key2020",
+      "controller": "did:example:345",
+      "publicKeyBase58": "24urEcrYHvx6eReCPRdvTLHUictArUTQpENSGwTRB1KosFNKLdN9cDVvbX5KMWnR2omGpSeJuT2q9uUGrasKWqht9YyMSd5aukprRGVFFNYrzxgCd137PwsdSXhbxxWoCmga"
+    }
+  ]
+}

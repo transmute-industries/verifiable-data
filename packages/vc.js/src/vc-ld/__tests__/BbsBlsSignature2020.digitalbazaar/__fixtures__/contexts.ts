@@ -13,6 +13,10 @@ export const contexts: any = {
     did.constants.DID_CONTEXT_V1_URL
   ),
 
+  [sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL]: sec.contexts.get(
+    sec.constants.JSON_WEB_SIGNATURE_2020_V1_URL
+  ),
+
   // these should not be needed....
   "https://w3id.org/security/bbs/v1": sec.contexts.get(
     sec.constants.BLS12381_2020_V1_URL
@@ -22,5 +26,5 @@ export const contexts: any = {
   ),
   [sec.constants.SECURITY_CONTEXT_V2_URL]: sec.contexts.get(
     sec.constants.SECURITY_CONTEXT_V2_URL
-  )
+  ),
 };

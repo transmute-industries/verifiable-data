@@ -7,19 +7,19 @@ export const create = async (
   options: CreateCredentialOptions
 ): Promise<CreateCredentialResult> => {
   const result: CreateCredentialResult = {
-    items: [],
+    items: []
   };
 
   if (!options.format) {
     options.format = ["vc"];
   }
-  
+
   if (options.format.includes("vc")) {
     result.items.push(
       await ld.createVerifiableCredential({
         credential: options.credential,
         suite: options.suite,
-        documentLoader: options.documentLoader,
+        documentLoader: options.documentLoader
       })
     );
   }
@@ -36,8 +36,8 @@ export const create = async (
     const k = await key.useJwa({
       detached: false,
       header: {
-        kid: key.id,
-      },
+        kid: key.id
+      }
     });
     const signer = k.signer();
     const payload: any = await jwt.createVcPayload(options.credential, options);

@@ -22,7 +22,7 @@ export const createVpPayload = async (
     documentLoader,
     strict,
     domain,
-    challenge,
+    challenge
   });
 
   const payload: any = {};

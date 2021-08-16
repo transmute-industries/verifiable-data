@@ -1,0 +1,7 @@
+{
+  "id": "did:example:345#key-1",
+  "type": "Bls12381G2Key2020",
+  "controller": "did:example:345",
+  "publicKeyBase58": "24urEcrYHvx6eReCPRdvTLHUictArUTQpENSGwTRB1KosFNKLdN9cDVvbX5KMWnR2omGpSeJuT2q9uUGrasKWqht9YyMSd5aukprRGVFFNYrzxgCd137PwsdSXhbxxWoCmga",
+  "privateKeyBase58": "4j14s2ctugGQeDVSnSzjMk4MvU6ovMJm8HHyrMKWGHWg"
+}

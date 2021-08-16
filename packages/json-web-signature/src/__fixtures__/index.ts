@@ -1,3 +1,7 @@
-import didDocument from './didDocument.json';
+import * as keys from './keys';
+import * as credentials from './credentials';
+import * as controllers from './controllers';
+
 export * from './documentLoader';
-export { didDocument };
+
+export { keys, credentials, controllers };
