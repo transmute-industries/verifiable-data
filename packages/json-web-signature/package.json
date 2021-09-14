@@ -51,7 +51,7 @@
     "@size-limit/preset-small-lib": "^4.9.2",
     "@transmute/credentials-context": "^0.7.0-unstable.7",
     "@transmute/did-context": "^0.7.0-unstable.7",
-    "jose": "^2.0.5",
+    "jose": "^3.17.0",
     "size-limit": "^4.9.2",
     "ts-jest": "^26.5.0",
     "tsdx": "^0.14.1",
