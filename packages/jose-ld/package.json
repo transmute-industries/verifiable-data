@@ -53,7 +53,7 @@
     "@transmute/secp256k1-key-pair": "^0.7.0-unstable.7",
     "@transmute/web-crypto-key-pair": "^0.7.0-unstable.7",
     "@transmute/x25519-key-pair": "^0.7.0-unstable.7",
-    "jose": "^2.0.3",
+    "jose": "^3.17.0",
     "size-limit": "^4.9.2",
     "ts-jest": "^26.5.0",
     "tsdx": "^0.14.1",
