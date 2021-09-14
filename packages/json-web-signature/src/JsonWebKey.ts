@@ -153,15 +153,22 @@ export class JsonWebKey {
   public controller!: string;
 
   static generate = async (
-    options: any = { kty: 'OKP', crv: 'Ed25519', detached: true }
+    options: any = {
+      kty: 'OKP',
+      crv: 'Ed25519',
+      detached: true,
+    }
   ) => {
     const KeyPair = getKeyPairForKtyAndCrv(options.kty, options.crv);
+    if (!options.secureRandom) {
+      options.secureRandom = () => {
+        return crypto.randomBytes(32);
+      };
+    }
     const kp = await KeyPair.generate({
       kty: options.kty,
       crvOrSize: options.crv,
-      secureRandom: () => {
-        return crypto.randomBytes(32);
-      },
+      secureRandom: options.secureRandom,
     });
     const { detached } = options;
     return useJwa(kp, { detached });
