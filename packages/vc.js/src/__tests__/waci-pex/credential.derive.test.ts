@@ -61,6 +61,5 @@ it("can derive credentials", async () => {
     },
     suite: new BbsBlsSignatureProof2020(),
   });
-  console.log(JSON.stringify(result));
   expect(result.items[0].proof.type).toBe("BbsBlsSignatureProof2020");
 });
