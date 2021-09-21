@@ -1,5 +1,5 @@
 import { contexts } from "./contexts";
-import controller from "./controller";
+import dids from "./dids";
 
 const contextResolver = async (iri: string) => {
   if (contexts[iri]) {
@@ -14,8 +14,8 @@ export const documentLoader = async (iri: string) => {
     return context;
   }
 
-  if (iri.startsWith(controller.id)) {
-    return { document: controller };
+  if (iri.startsWith("did:key:z5TcDJg")) {
+    return { document: dids.bls };
   }
 
   const message = "Unsupported iri: " + iri;

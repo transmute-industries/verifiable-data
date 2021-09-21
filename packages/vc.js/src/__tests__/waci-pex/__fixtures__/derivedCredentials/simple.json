@@ -1,0 +1,23 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/bls12381-2020/v1",
+    { "alsoKnownAs": "https://www.w3.org/ns/activitystreams#alsoKnownAs" }
+  ],
+  "id": "http://example.edu/credentials/3732",
+  "type": "VerifiableCredential",
+  "credentialSubject": {
+    "id": "urn:bnid:_:c14n0",
+    "alsoKnownAs": "did:example:ebfeb1f712ebc6f1c276e12ec21"
+  },
+  "issuanceDate": "2010-01-01T19:23:24Z",
+  "issuer": "did:key:z5TcDJgBp1A6iGQkpyDP4LZmsgpWVBqBVs3KoqNDMLKH7nK8UETzM6V1Js28Awuzzd4pJQSsLofZvNNwLmpFDfbzZmMXJNEFT4EriZ1NXjGK7q96781MsG1S3J9f2AiPez6Ne7eCFVtgfR4GPAarS4RWuzPmbi1egGwWrykaft98UcKQucirFv9s2x5D32K54sjwSC2yM",
+  "proof": {
+    "type": "BbsBlsSignatureProof2020",
+    "nonce": "rBDe3iLZZBJR9kD0vbKt9ze0y/Sq2LC3gZOaSPsYrA0LQuBlGysxEtPQhKBHS/Dtamg=",
+    "proofValue": "AAkB/4beVCtHfYJPSCyb5Ss/BhVSQrgecNjZXhKEMP5ZmjpYuSkaetl5SgGf2K3EBqxE6KPdrLqslio19RDX48V5uuRjf7UzEGC/RtDRuz68vDif26hmjiykGFm4HGs9Y7FW/42hy2znqss10fFMUwCEt3RrGtykGsBfnfqefuQQ7RhmxPdsv5jl63jqqnKhaoA95AAAAHSrm8D5y8qfZIJhnXjcG/CC9uYAyMoGz6scNA0kJdt/xW0Dg7DOlDCQTIBnEeykYOgAAAACBpRjirwZG21LlOV5ii/Lx+p08r3rPRI8GXPnSOD0k3QV4SHth23QpIRH4A6Y7fhLPYDeswPwUWlM2chg063aoKL6AOXO4IdB9+vUN72BPwm3V1rm1VHlQS1/IvN5BRh3zzthiY+Ka8M09e61KA3dTwAAAAIlnAT7ahwM3RwauS7QJZsLjc2NZfrzFLtmiv1O70aLOCSW30wu0u6btM0yO8C7YtUZa/BrIQFj1E1+rxMUGTVK",
+    "verificationMethod": "did:key:z5TcDJgBp1A6iGQkpyDP4LZmsgpWVBqBVs3KoqNDMLKH7nK8UETzM6V1Js28Awuzzd4pJQSsLofZvNNwLmpFDfbzZmMXJNEFT4EriZ1NXjGK7q96781MsG1S3J9f2AiPez6Ne7eCFVtgfR4GPAarS4RWuzPmbi1egGwWrykaft98UcKQucirFv9s2x5D32K54sjwSC2yM#zUC7KbUZckosdKwDffzDeYDQSb8sbYyfhZ96gA3tCSYqgv4G1pq6A8pvY1kJGV6dr8w8ScuqKGXL16KxsRDL7FGgoEJ2Z4udTMVMcfGrSgUH3chPAmJNk6TBQ5hgimjBGY68icw",
+    "proofPurpose": "assertionMethod",
+    "created": "2010-01-01T19:23:24Z"
+  }
+}

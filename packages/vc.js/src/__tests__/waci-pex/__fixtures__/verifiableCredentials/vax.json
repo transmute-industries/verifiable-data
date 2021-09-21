@@ -11,7 +11,7 @@
   "issuanceDate": "2019-12-03T12:19:52Z",
   "expirationDate": "2029-12-03T12:19:52Z",
   "issuer": {
-    "id": "did:key:z5TcDVRemCWTd6qwxxhFeYDpQhK4pUYtuutodKP2MSDjzcqokf6cNCARsaF8JNZQ8FzWAYfFZbUqUCUDMWeWp8xVkRSr9z5Tf5k2tJgpjsqNM23E4VjHsCzN6WcSvLGKSA9VEMTc1d2F81mCCauerPY1VC8vPTkvtmEQZfmaZ54x15PJwbhkBxaEbydWjd7D2CWHbkFg9"
+    "id": "did:key:z5TcDJgBp1A6iGQkpyDP4LZmsgpWVBqBVs3KoqNDMLKH7nK8UETzM6V1Js28Awuzzd4pJQSsLofZvNNwLmpFDfbzZmMXJNEFT4EriZ1NXjGK7q96781MsG1S3J9f2AiPez6Ne7eCFVtgfR4GPAarS4RWuzPmbi1egGwWrykaft98UcKQucirFv9s2x5D32K54sjwSC2yM"
   },
   "credentialSubject": {
     "type": "VaccinationEvent",
@@ -36,9 +36,9 @@
   },
   "proof": {
     "type": "BbsBlsSignature2020",
-    "created": "2021-07-31T17:33:53Z",
-    "verificationMethod": "did:key:z5TcDVRemCWTd6qwxxhFeYDpQhK4pUYtuutodKP2MSDjzcqokf6cNCARsaF8JNZQ8FzWAYfFZbUqUCUDMWeWp8xVkRSr9z5Tf5k2tJgpjsqNM23E4VjHsCzN6WcSvLGKSA9VEMTc1d2F81mCCauerPY1VC8vPTkvtmEQZfmaZ54x15PJwbhkBxaEbydWjd7D2CWHbkFg9#zUC7GEUemCyub4Q5mAhXkNZVcVrCWz57UvxaYrd2o8iBfDMhJhAVc5U47x5J55kYHVhud5oWFXC4DyeywbcKLaqi2NjbyMgTREk8J6ypRU9drJBnVXXboReHLhhd1T4QU21Gzhb",
+    "created": "2019-12-03T12:19:52Z",
+    "verificationMethod": "did:key:z5TcDJgBp1A6iGQkpyDP4LZmsgpWVBqBVs3KoqNDMLKH7nK8UETzM6V1Js28Awuzzd4pJQSsLofZvNNwLmpFDfbzZmMXJNEFT4EriZ1NXjGK7q96781MsG1S3J9f2AiPez6Ne7eCFVtgfR4GPAarS4RWuzPmbi1egGwWrykaft98UcKQucirFv9s2x5D32K54sjwSC2yM#zUC7KbUZckosdKwDffzDeYDQSb8sbYyfhZ96gA3tCSYqgv4G1pq6A8pvY1kJGV6dr8w8ScuqKGXL16KxsRDL7FGgoEJ2Z4udTMVMcfGrSgUH3chPAmJNk6TBQ5hgimjBGY68icw",
     "proofPurpose": "assertionMethod",
-    "proofValue": "ghaf5h63MoeyKkT3VOnjCV2Ai7wDzf10JjU1aNvAuRItK7zGEwi/fHtY/P4WGs9PGvDq7KOFz5BkoUWw6TPDA+p1hAA9LHsHi8AI9L1TjldfUwvksb3WohCTSaTTmV/rylKxnHCAWSv5fp/L0svIAg=="
+    "proofValue": "qppvTwTOLL0LVv1avzSonEeigFPQV7CjACrqkhWCUnaWv1yq/xZ3cvVUx5eOMc+sHxYtyamS6UZqH3w0uwzVI9Ofp8uBzh4IGN+/E/vVcvkKpHFaXodNVyHSVZg9FTzHuJxtqr/5vPAIWbpRwsFLfg=="
   }
 }

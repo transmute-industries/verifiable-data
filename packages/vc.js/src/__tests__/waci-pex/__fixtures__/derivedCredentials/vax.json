@@ -1,0 +1,27 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/bls12381-2020/v1",
+    "https://w3id.org/vaccination/v1"
+  ],
+  "id": "urn:uvci:af5vshde843jf831j128fj",
+  "type": ["VaccinationCertificate", "VerifiableCredential"],
+  "description": "COVID-19 Vaccination Certificate",
+  "name": "COVID-19 Vaccination Certificate",
+  "credentialSubject": {
+    "id": "urn:bnid:_:c14n2",
+    "type": "VaccinationEvent",
+    "countryOfVaccination": "NZ"
+  },
+  "expirationDate": "2029-12-03T12:19:52Z",
+  "issuanceDate": "2019-12-03T12:19:52Z",
+  "issuer": "did:key:z5TcDJgBp1A6iGQkpyDP4LZmsgpWVBqBVs3KoqNDMLKH7nK8UETzM6V1Js28Awuzzd4pJQSsLofZvNNwLmpFDfbzZmMXJNEFT4EriZ1NXjGK7q96781MsG1S3J9f2AiPez6Ne7eCFVtgfR4GPAarS4RWuzPmbi1egGwWrykaft98UcKQucirFv9s2x5D32K54sjwSC2yM",
+  "proof": {
+    "type": "BbsBlsSignatureProof2020",
+    "nonce": "valpOPqIx2TaGcy+icwT6YIBUGyd/VsxJr3FcM5r0WZm4vtVZd+acrQHUXo9L2B5XF8=",
+    "proofValue": "AB0EQA//tMc2/pCZKRksMNhSIhpL70ryxkccBBCcoGmhRJQBo/FzMehcfpekS+d2D8DqRBNqk1pCCtKhEFZRoCESAJwH07dvYwiR5AS/G281jBkxEvkdWD7nz3f+sxrDX3QJEIkUjOE48C2vPuF9SL3+fzmuKQS78Fjko9jqGShJ+cui4yX8oAUDocV9e+rRFXuF/+NfAAAAdKimn6/Y7vy6e9xElD3cHuowAf8DQCEefK7JsJEAhEVUhnd1GjYi/rWSmZjbDoew1AAAAAJeKqQy34UTVb0ipsxIvLSEUguCRhDIDuSPCImhfVJKLA8bMiXN7zUe5MQs6BKmQzqiOaZMVFRPvS/7LIOrnJuYqdT0mODWvIs3vYLyHjokeKNMw5hamluw4qjKQ8MK0AQ3nXXQyeyzWx4jlNwYwFFJAAAAET2XYWkqDy7Mg2+9dfG1PhqmLXSPv2lisy9SSuhQIjbsVudyYdL8R8EOwX39pe5l8+gsxh7r16J65VVLH97aci4jNFQwG4W5WRpRAiowoUFNgd3ZHIN7BohJLumps/UhDgd2lV/dMpUSd0l+MXx1b0y4RhvlWaKJGpgklA0+fPUzOxECzWWVV29LrTXOUkiBKJk8Q9V6kTEmdrmqc3rCc9tzqySqrf+d2uQXCxDzvcgHrTLorhuWRylrmocbBMw89lsVE2A94p3TQLYxr/sqaHP2mao/fGn1/8PP++JCkF6OCd5/oPlK0xErLyY3X/8To2f9gpZVCqt/dB+uiXuAYJQGI+/ebz4NbPh66sbgY1VDMhvDezrV8NBtHggYfrQ0gFY2TJjcwKLphYUpgYoOnkT7zG3b60hQcnvFJZocfDByQtkreUCsV1x67mggFNhdAMyF+aDt+7jAxEqheVXhNItYwDzlPMNRsZD1YdBCwrw4J11d/FwvsZMIZK2JOBfUE0L4Wmyg8iYqs63FdMQCpSH5omC+9JM0lgL71b+ZutzlRWrdpgp59igqvsdYdL5KFEjrqOfjPCXUVny+2cQC7Sw2By/3WDGIgdJkjgvNi0UcgP9UF+EcR0SYmxsFg3G8Plqa7iAeLfdMjqPO9AMzEZSX6WvYVAkAuW5p/gwOtM//LTk9OQ/c1bJGi84FkOnwxXLxaUm1XHduXEc0PIH9tSI=",
+    "verificationMethod": "did:key:z5TcDJgBp1A6iGQkpyDP4LZmsgpWVBqBVs3KoqNDMLKH7nK8UETzM6V1Js28Awuzzd4pJQSsLofZvNNwLmpFDfbzZmMXJNEFT4EriZ1NXjGK7q96781MsG1S3J9f2AiPez6Ne7eCFVtgfR4GPAarS4RWuzPmbi1egGwWrykaft98UcKQucirFv9s2x5D32K54sjwSC2yM#zUC7KbUZckosdKwDffzDeYDQSb8sbYyfhZ96gA3tCSYqgv4G1pq6A8pvY1kJGV6dr8w8ScuqKGXL16KxsRDL7FGgoEJ2Z4udTMVMcfGrSgUH3chPAmJNk6TBQ5hgimjBGY68icw",
+    "proofPurpose": "assertionMethod",
+    "created": "2019-12-03T12:19:52Z"
+  }
+}
