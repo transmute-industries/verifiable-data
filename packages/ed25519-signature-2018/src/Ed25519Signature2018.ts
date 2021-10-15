@@ -261,6 +261,9 @@ export class Ed25519Signature2018 {
     expansionMap,
     compactProof
   }: any) {
+    if (!proof["@context"]) {
+      proof["@context"] = document["@context"];
+    }
     try {
       // create data to verify
       const verifyData = await this.createVerifyData({
