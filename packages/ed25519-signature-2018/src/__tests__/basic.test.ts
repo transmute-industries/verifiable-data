@@ -13,8 +13,8 @@ const credential = {
   issuer: rawKeyJson.controller,
   issuanceDate: "2010-01-01T19:23:24Z",
   credentialSubject: {
-    id: "did:example:ebfeb1f712ebc6f1c276e12ec21",
-  },
+    id: "did:example:ebfeb1f712ebc6f1c276e12ec21"
+  }
 };
 describe("create and verify proof", () => {
   it("import key", async () => {
@@ -26,7 +26,7 @@ describe("create and verify proof", () => {
     //
     suite = new Ed25519Signature2018({
       key: keyPair,
-      date: credential.issuanceDate,
+      date: credential.issuanceDate
     });
     expect(suite.verificationMethod).toBe(rawKeyJson.id);
   });
@@ -42,11 +42,11 @@ describe("create and verify proof", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        },
+        }
       },
       documentLoader,
       // expansionMap,
-      compactProof: false,
+      compactProof: false
     });
   });
 
@@ -68,11 +68,11 @@ describe("create and verify proof", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        },
+        }
       },
       documentLoader,
       // expansionMap,
-      compactProof: false,
+      compactProof: false
     });
     expect(result.verified).toBeTruthy();
   });
