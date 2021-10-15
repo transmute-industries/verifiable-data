@@ -50,10 +50,15 @@ describe("create and verify proof", () => {
     });
   });
 
+  it("should match fixture", () => {
+    //
+    expect(expectedProof).toEqual(proof);
+  });
+
   it("verify proof", async () => {
     //
     const result = await suite.verifyProof({
-      proof: { ...proof, "@context": credential["@context"] },
+      proof: expectedProof,
       document: credential,
       purpose: {
         // ignore validation of dates and such...
@@ -70,9 +75,5 @@ describe("create and verify proof", () => {
       compactProof: false,
     });
     expect(result.verified).toBeTruthy();
-  });
-  it("should match fixture", () => {
-    //
-    expect(expectedProof).toEqual(proof);
   });
 });

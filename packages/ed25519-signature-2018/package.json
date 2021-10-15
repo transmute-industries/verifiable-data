@@ -25,11 +25,14 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
+    "pretest": "node scripts/digitalbazaar.fixture.js",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint src --fix",
     "prepare": "tsdx build"
   },
   "devDependencies": {
+    "@digitalbazaar/ed25519-signature-2018": "^2.0.1",
+    "@digitalbazaar/ed25519-verification-key-2018": "^3.1.1",
     "@transmute/credentials-context": "^0.7.0-unstable.8",
     "ts-jest": "^27.0.3",
     "tsdx": "^0.14.1",
