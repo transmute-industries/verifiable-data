@@ -74,6 +74,7 @@ describe("create and verify proof", () => {
       // expansionMap,
       compactProof: false
     });
+    expect((expectedProof as any)["@context"]).toBeFalsy();
     expect(result.verified).toBeTruthy();
   });
 });
