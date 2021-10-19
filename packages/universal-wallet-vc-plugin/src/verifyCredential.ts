@@ -1,15 +1,17 @@
-import { ld } from "@transmute/vc.js";
+import { verifiable } from "@transmute/vc.js";
 
 import { VerifyCredential } from "./types";
 
-const vcjs = ld;
-
-const verifyCredential = ({ credential, options }: VerifyCredential) => {
-  return vcjs.verifyCredential({
+const verifyCredential = async ({
+  credential,
+  options
+}: VerifyCredential): Promise<any> => {
+  const result = await verifiable.credential.verify({
     credential,
     suite: options.suite,
     documentLoader: options.documentLoader
   });
+  return result;
 };
 
 export { verifyCredential };

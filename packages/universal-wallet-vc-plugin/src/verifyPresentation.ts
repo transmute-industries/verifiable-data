@@ -1,10 +1,11 @@
-import { ld } from "@transmute/vc.js";
+import { verifiable } from "@transmute/vc.js";
 import { checkStatus } from "@transmute/vc-status-rl-2020";
 import { VerifyPresentation } from "./types";
 
-const vcjs = ld;
-
-const verifyPresentation = ({ presentation, options }: VerifyPresentation) => {
+const verifyPresentation = async ({
+  presentation,
+  options
+}: VerifyPresentation): Promise<any> => {
   let opts = {
     ...options,
     checkStatus
@@ -20,7 +21,8 @@ const verifyPresentation = ({ presentation, options }: VerifyPresentation) => {
       ...opts
     };
   }
-  return vcjs.verify(opts);
+  const result = await verifiable.presentation.verify(opts);
+  return result;
 };
 
 export { verifyPresentation };

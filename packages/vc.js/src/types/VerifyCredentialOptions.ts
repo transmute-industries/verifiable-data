@@ -11,4 +11,5 @@ export interface VerifyCredentialOptions {
   documentLoader: DocumentLoader;
 
   format?: Array<CredentialFormat>;
+  checkStatus?: (args: any) => Promise<any>;
 }
