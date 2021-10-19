@@ -1,6 +1,6 @@
 {
   "name": "did-web",
-  "version": "0.7.0-unstable.11",
+  "version": "0.7.0-unstable.12",
   "description": "",
   "private": true,
   "main": "index.js",
