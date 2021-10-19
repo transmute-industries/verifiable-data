@@ -5,35 +5,26 @@ const defineClassPropertiesFromComment = (
   description: string
 ) => {
   if (classProperties[comment['@id']]) {
-    if (Array.isArray(classProperties[comment['@id']])) {
-      classProperties[comment['@id']] = [
-        ...classProperties[comment['@id']],
-        {
-          $comment: comment,
-          title: title,
-          description: description,
-        },
-      ];
-    } else {
-      classProperties[comment['@id']] = [
-        classProperties[comment['@id']],
-        {
-          $comment: comment,
-          title: title,
-          description: description,
-        },
-      ];
-    }
+    classProperties[comment['@id']] = [
+      ...classProperties[comment['@id']],
+      {
+        $comment: comment,
+        title: title,
+        description: description,
+      },
+    ];
   } else {
-    classProperties[comment['@id']] = {
-      $comment: comment,
-      title: title,
-      description: description,
-    };
+    classProperties[comment['@id']] = [
+      {
+        $comment: comment,
+        title: title,
+        description: description,
+      }
+    ];
   }
 };
 
-const getIntermediateFromDirectory = (files: any[]) => {
+export const schemasToIntermediate = (files: any[]) => {
   const intermediate: any = {};
 
   files.forEach((file: any) => {
@@ -69,31 +60,20 @@ const getIntermediateFromDirectory = (files: any[]) => {
   return intermediate;
 };
 
-const getContextFromIntermediate = (intermediate: any) => {
+export const intermediateToContext = (intermediate: any, version: number, rootTerms: any) => {
   let partialContext = {};
   Object.values(intermediate).forEach((classDefinition: any) => {
     let propertDefinitionPartialContext = {};
-    Object.values(classDefinition.classProperties).forEach(
-      (classProperty: any) => {
-        if (Array.isArray(classProperty)) {
-          classProperty.forEach(classProp => {
-            propertDefinitionPartialContext = {
-              ...propertDefinitionPartialContext,
-              [classProp.$comment.term]: {
-                '@id': classProp.$comment['@id'],
-              },
-            };
-          });
-        } else {
-          propertDefinitionPartialContext = {
-            ...propertDefinitionPartialContext,
-            [classProperty.$comment.term]: {
-              '@id': classProperty.$comment['@id'],
-            },
-          };
-        }
-      }
-    );
+    Object.values(classDefinition.classProperties).forEach((classPropertyArray: any) => {
+      classPropertyArray.forEach((classProperty: any) => {
+        propertDefinitionPartialContext = {
+          ...propertDefinitionPartialContext,
+          [classProperty.$comment.term]: {
+            '@id': classProperty.$comment['@id'],
+          },
+        };
+      });
+    });
 
     partialContext = {
       ...partialContext,
@@ -107,17 +87,16 @@ const getContextFromIntermediate = (intermediate: any) => {
   });
   return {
     '@context': {
-      '@version': 1.1,
+      '@version': version,
       id: '@id',
       type: '@type',
+      ...rootTerms,
       ...partialContext,
     },
   };
 };
 
-export const schemasToIntermediate = getIntermediateFromDirectory;
-
-export const schemasToContext = (schemas: any[]) => {
-  const intermediate = getIntermediateFromDirectory(schemas);
-  return getContextFromIntermediate(intermediate);
+export const schemasToContext = (schemas: any[], version: number, rootTerms: any) => {
+  const intermediate = schemasToIntermediate(schemas);
+  return intermediateToContext(intermediate, version, rootTerms);
 };
