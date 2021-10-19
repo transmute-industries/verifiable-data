@@ -1,10 +1,8 @@
-import { ld } from "@transmute/vc.js";
+import { verifiable } from "@transmute/vc.js";
 
 import { PresentCredentials } from "./types";
 
-const vcjs = ld;
-
-const createVerifiablePresentation = ({
+const createVerifiablePresentation = async ({
   presentation,
   verifiableCredential,
   options
@@ -18,14 +16,14 @@ const createVerifiablePresentation = ({
       verifiableCredential
     };
   }
-
-  return vcjs.signPresentation({
+  const result = await verifiable.presentation.create({
     presentation,
     suite: options.suite,
     challenge: options.challenge,
     domain: options.domain,
     documentLoader: options.documentLoader
   });
+  return result.items[0];
 };
 
 export { createVerifiablePresentation };

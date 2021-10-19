@@ -1,16 +1,14 @@
-import { ld } from "@transmute/vc.js";
+import { verifiable } from "@transmute/vc.js";
 
 import { IssueCredential } from "./types";
 
-const vcjs = ld;
-
 const issue = async ({ credential, options }: IssueCredential) => {
-  const signedVC = await vcjs.issue({
+  const result = await verifiable.credential.create({
     credential,
     suite: options.suite,
     documentLoader: options.documentLoader
   });
-  return signedVC;
+  return result.items[0];
 };
 
 export { issue };
