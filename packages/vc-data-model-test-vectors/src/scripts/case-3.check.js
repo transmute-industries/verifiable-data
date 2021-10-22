@@ -76,13 +76,37 @@ const createCase = async () => {
   tampered3.credentialSubject.manufacturer.name = "FOO BAR";
   result = await suite.verifyProof({
     proof,
-    document: tampered2,
+    document: tampered3,
     purpose,
     documentLoader,
     compactProof: false,
   });
   checks.tests[group(!result.verified)].push(
     "should fail to verify when manufacturer name is changed"
+  );
+
+  const tampered4 = JSON.parse(
+    JSON.stringify({
+      type: ["VerifiableCredential"],
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://w3id.org/traceability/v1",
+      ],
+      credentialSubject: {},
+      id: "http://localhost:8080/credentials/61858f5a-682a-4857-b759-f3487bae0658",
+      issuanceDate: "2010-01-01T19:23:24Z",
+    })
+  );
+
+  result = await suite.verifyProof({
+    proof,
+    document: tampered4,
+    purpose,
+    documentLoader,
+    compactProof: false,
+  });
+  checks.tests[group(!result.verified)].push(
+    "should fail to verify when credential is wildly different"
   );
 
   const vectorName = "credential-3--key-0--check";
