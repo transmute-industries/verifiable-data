@@ -7,10 +7,13 @@ const {
 const rawKeyJson = require("../src/__fixtures__/keys/key.json");
 const documentLoader = require("./documentLoader");
 const credential = require("../src/__fixtures__/credentials/case-3.json");
+const credential2 = require("../src/__fixtures__/credentials/case-5.json");
 
 let keyPair;
 let suite;
+let suite2;
 let proof;
+let proof2;
 
 const purpose = {
   // ignore validation of dates and such...
@@ -64,6 +67,16 @@ const createProof = async () => {
   });
   proof = await suite.createProof({
     document: credential,
+    purpose,
+    documentLoader,
+    compactProof: false,
+  });
+  suite2 = new Ed25519Signature2018({
+    key: keyPair,
+    date: credential2.issuanceDate,
+  });
+  proof2 = await suite2.createProof({
+    document: credential2,
     purpose,
     documentLoader,
     compactProof: false,
@@ -198,6 +211,83 @@ const case5 = async () => {
   }
 };
 
+const case6 = async () => {
+  const result = await suite2.verifyProof({
+    proof: proof2,
+    document: credential2,
+    purpose,
+    documentLoader,
+    compactProof: false,
+  });
+  //   note a "verified === false" is a failure here..
+  if (!result.verified) {
+    throw new Error("unable to verify trivial proof");
+  }
+};
+
+const case7 = async () => {
+  expect(credential2.issuanceDate).toBeDefined();
+  const tampered = JSON.parse(JSON.stringify(credential2));
+  delete tampered.issuanceDate;
+  expect(tampered.issuanceDate).toBeUndefined();
+  expect(tampered).not.toEqual(credential2);
+  const result = await suite2.verifyProof({
+    proof: proof2,
+    document: tampered,
+    purpose,
+    documentLoader,
+    compactProof: false,
+  });
+  //   note a "verified === true" is a failure here..
+  if (result.verified) {
+    throw new Error(
+      "expected tampering at layer 1 to cause credential verification to fail."
+    );
+  }
+};
+
+const case8 = async () => {
+  expect(credential2.issuanceDate).toBeDefined();
+  const tampered = JSON.parse(JSON.stringify(credential2));
+  tampered.issuanceDate = '2021-10-25T20:49:45Z';
+  expect(tampered.issuanceDate).toBeDefined();
+  expect(tampered).not.toEqual(credential2);
+  const result = await suite2.verifyProof({
+    proof: proof2,
+    document: tampered,
+    purpose,
+    documentLoader,
+    compactProof: false,
+  });
+  //   note a "verified === true" is a failure here..
+  if (result.verified) {
+    throw new Error(
+      "expected tampering at layer 1 to cause credential verification to fail."
+    );
+  }
+};
+
+const case9 = async () => {
+  expect(credential2.credentialSubject.referenceNumber).toBeUndefined();
+  const tampered = JSON.parse(JSON.stringify(credential2));
+  tampered.referenceNumber = 83294847;
+  expect(tampered.referenceNumber).toBeDefined();
+  expect(tampered).not.toEqual(credential2);
+  const result = await suite2.verifyProof({
+    proof: proof2,
+    document: tampered,
+    purpose,
+    documentLoader,
+    compactProof: false,
+  });
+  //   note a "verified === true" is a failure here..
+  if (!result.verified) {
+    throw new Error(
+      "expected proof to verify since added field not in context."
+    );
+  }
+};
+
 (async () => {
   await createProof();
   await case0();
@@ -206,4 +296,8 @@ const case5 = async () => {
   await case3();
   await case4();
   await case5();
+  await case6();
+  await case7();
+  await case8();
+  await case9();
 })();

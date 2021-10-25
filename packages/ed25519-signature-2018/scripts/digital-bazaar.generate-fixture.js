@@ -13,12 +13,14 @@ const credential2 = require("../src/__fixtures__/credentials/case-2.json");
 const credential3 = require("../src/__fixtures__/credentials/case-3.json");
 const credential4 = require("../src/__fixtures__/credentials/case-4.json");
 const credential5 = require("../src/__fixtures__/credentials/case-5.json");
+const credential6 = require("../src/__fixtures__/credentials/case-6.json");
 const credentials = [
   credential1,
   credential2,
   credential3,
   credential4,
   credential5,
+  credential6,
 ];
 
 let keyPair;

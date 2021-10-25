@@ -13,3 +13,7 @@ Cases
 1. Level 2 drop failure
 1. Level 3 drop failure
 1. Level 1 add failure
+1. Another credential baseline
+1. Remove issuance date and fails
+1. Change issuance date and fails
+1. Add new field outside credential subject to pass since not in context

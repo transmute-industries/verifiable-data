@@ -7,6 +7,7 @@ const contexts = {
   "https://w3id.org/security/v1": require("../src/__fixtures__/contexts/security-v1.json"),
   "https://w3id.org/security/v2": require("../src/__fixtures__/contexts/security-v2.json"),
   "https://w3id.org/traceability/v1": require("../src/__fixtures__/contexts/trace-v1.json"),
+  "https://w3id.org/vc-revocation-list-2020/v1": require("../src/__fixtures__/contexts/vc-revocation-list-2020-v1.json"),
 };
 const documentLoader = (iri) => {
   if (contexts[iri]) {

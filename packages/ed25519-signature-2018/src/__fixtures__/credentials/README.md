@@ -4,3 +4,4 @@
 1. A nested credential with any context, has issuer
 1. Same but has issuer as id attribute
 1. Simple with issuer
+1. A MTR with a revocation list context and credential status
