@@ -23,6 +23,17 @@ const credentials = [
   credential6,
 ];
 
+const purpose = {
+  // ignore validation of dates and such...
+  validate: () => {
+    return { valid: true };
+  },
+  update: (proof) => {
+    proof.proofPurpose = "assertionMethod";
+    return proof;
+  },
+};
+
 let keyPair;
 let suite;
 let proof;
@@ -40,16 +51,7 @@ let proof;
 
     proof = await suite.createProof({
       document: credential,
-      purpose: {
-        // ignore validation of dates and such...
-        validate: () => {
-          return { valid: true };
-        },
-        update: (proof) => {
-          proof.proofPurpose = "assertionMethod";
-          return proof;
-        },
-      },
+      purpose,
       documentLoader,
       // expansionMap,
       compactProof: false,
@@ -58,16 +60,7 @@ let proof;
     const result = await suite.verifyProof({
       proof,
       document: credential,
-      purpose: {
-        // ignore validation of dates and such...
-        validate: () => {
-          return { valid: true };
-        },
-        update: (proof) => {
-          proof.proofPurpose = "assertionMethod";
-          return proof;
-        },
-      },
+      purpose,
       documentLoader,
       // expansionMap,
       compactProof: false,
@@ -80,6 +73,10 @@ let proof;
           `../src/__fixtures__/proofs/digital-bazaar/case-${idx}.json`
         ),
         JSON.stringify(proof, null, 2)
+      );
+    } else {
+      throw new Error(
+        `Expected proof for case-${idx}.json to verify`
       );
     }
   }
