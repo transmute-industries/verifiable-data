@@ -1,5 +1,5 @@
 import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "..";
-import rawKeyJson from "../__fixtures__/key.json";
+import rawKeyJson from "../__fixtures__/keys/key.json";
 import documentLoader from "../__fixtures__/documentLoader";
 // import expectedProof from "../__fixtures__/proof.json";
 

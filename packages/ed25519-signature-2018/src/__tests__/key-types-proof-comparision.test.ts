@@ -1,19 +1,10 @@
 import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "..";
-import rawKeyJson from "../__fixtures__/key.json";
-import rawKeyJson2 from "../__fixtures__/key2.json";
+import rawKeyJson from "../__fixtures__/keys/key.json";
+import rawKeyJson2 from "../__fixtures__/keys/key2.json";
 import documentLoader from "../__fixtures__/documentLoader";
-import expectedProof from "../__fixtures__/proof.json";
+import expectedProof from "../__fixtures__/proofs/digital-bazaar/case-2.json";
+import credential from "../__fixtures__/credentials/case-2.json";
 
-const credential = {
-  "@context": ["https://www.w3.org/2018/credentials/v1"],
-  id: "https://example.com/credentials/1872",
-  type: ["VerifiableCredential"],
-  issuer: rawKeyJson.controller,
-  issuanceDate: "2010-01-01T19:23:24Z",
-  credentialSubject: {
-    id: "did:example:ebfeb1f712ebc6f1c276e12ec21"
-  }
-};
 let keyPair: Ed25519VerificationKey2018;
 let keyPair2: Ed25519VerificationKey2018;
 let suite: Ed25519Signature2018;
@@ -32,11 +23,11 @@ describe("proof same with different key type", () => {
   it("define suite", async () => {
     suite = new Ed25519Signature2018({
       key: keyPair,
-      date: credential.issuanceDate
+      date: credential.issuanceDate,
     });
     suite2 = new Ed25519Signature2018({
       key: keyPair2,
-      date: credential.issuanceDate
+      date: credential.issuanceDate,
     });
     expect(suite.verificationMethod).toBe(rawKeyJson.id);
     expect(suite2.verificationMethod).toBe(rawKeyJson.id);
@@ -52,11 +43,11 @@ describe("proof same with different key type", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        }
+        },
       },
       documentLoader,
       // expansionMap,
-      compactProof: false
+      compactProof: false,
     });
     proof2 = await suite2.createProof({
       document: credential,
@@ -68,11 +59,11 @@ describe("proof same with different key type", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        }
+        },
       },
       documentLoader,
       // expansionMap,
-      compactProof: false
+      compactProof: false,
     });
     expect(proof).toEqual(expectedProof);
     expect(proof2).toEqual(expectedProof);

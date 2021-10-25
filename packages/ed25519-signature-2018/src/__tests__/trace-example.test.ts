@@ -1,5 +1,5 @@
 import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "..";
-import rawKeyJson from "../__fixtures__/key.json";
+import rawKeyJson from "../__fixtures__/keys/key.json";
 import rawCredentialJson from "../__fixtures__/credentials/case-1.json";
 import documentLoader from "../__fixtures__/documentLoader";
 import canonicalize from "canonicalize";

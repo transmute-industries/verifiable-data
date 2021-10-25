@@ -1,21 +1,12 @@
 import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "..";
-import rawKeyJson from "../__fixtures__/key.json";
+import rawKeyJson from "../__fixtures__/keys/key.json";
 import documentLoader from "../__fixtures__/documentLoader";
-import expectedProof from "../__fixtures__/proof.json";
-
+import expectedProof from "../__fixtures__/proofs/digital-bazaar/case-5.json";
+import credential from "../__fixtures__/credentials/case-5.json";
 let keyPair: Ed25519VerificationKey2018;
 let suite: Ed25519Signature2018;
 let proof: any;
-const credential = {
-  "@context": ["https://www.w3.org/2018/credentials/v1"],
-  id: "https://example.com/credentials/1872",
-  type: ["VerifiableCredential"],
-  issuer: rawKeyJson.controller,
-  issuanceDate: "2010-01-01T19:23:24Z",
-  credentialSubject: {
-    id: "did:example:ebfeb1f712ebc6f1c276e12ec21"
-  }
-};
+
 describe("create and verify proof", () => {
   it("import key", async () => {
     //
@@ -26,7 +17,7 @@ describe("create and verify proof", () => {
     //
     suite = new Ed25519Signature2018({
       key: keyPair,
-      date: credential.issuanceDate
+      date: credential.issuanceDate,
     });
     expect(suite.verificationMethod).toBe(rawKeyJson.id);
   });
@@ -42,11 +33,11 @@ describe("create and verify proof", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        }
+        },
       },
       documentLoader,
       // expansionMap,
-      compactProof: false
+      compactProof: false,
     });
   });
 
@@ -68,11 +59,11 @@ describe("create and verify proof", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        }
+        },
       },
       documentLoader,
       // expansionMap,
-      compactProof: false
+      compactProof: false,
     });
     expect((expectedProof as any)["@context"]).toBeFalsy();
     expect(result.verified).toBeTruthy();
