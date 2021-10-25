@@ -2,7 +2,7 @@
   "name": "@transmute/cli",
   "author": "Orie Steele",
   "module": "dist/cli.esm.js",
-  "version": "0.7.0-unstable.15",
+  "version": "0.7.0-unstable.16",
   "private": true,
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/cli",
@@ -63,8 +63,8 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "@transmute/universal-wallet": "^0.7.0-unstable.15",
-    "@transmute/universal-wallet-did-key-plugin": "^0.7.0-unstable.15",
+    "@transmute/universal-wallet": "^0.7.0-unstable.16",
+    "@transmute/universal-wallet-did-key-plugin": "^0.7.0-unstable.16",
     "factory.ts": "^0.5.1",
     "yargs": "^16.2.0"
   }
