@@ -2,7 +2,7 @@
   "name": "@transmute/jose-ld",
   "author": "Orie Steele",
   "module": "dist/jose-ld.esm.js",
-  "version": "0.7.0-unstable.12",
+  "version": "0.7.0-unstable.13",
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/jose-ld",
   "repository": {
@@ -49,10 +49,10 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.2",
-    "@transmute/ed25519-key-pair": "^0.7.0-unstable.12",
-    "@transmute/secp256k1-key-pair": "^0.7.0-unstable.12",
-    "@transmute/web-crypto-key-pair": "^0.7.0-unstable.12",
-    "@transmute/x25519-key-pair": "^0.7.0-unstable.12",
+    "@transmute/ed25519-key-pair": "^0.7.0-unstable.13",
+    "@transmute/secp256k1-key-pair": "^0.7.0-unstable.13",
+    "@transmute/web-crypto-key-pair": "^0.7.0-unstable.13",
+    "@transmute/x25519-key-pair": "^0.7.0-unstable.13",
     "jose": "^3.17.0",
     "size-limit": "^4.9.2",
     "ts-jest": "^26.5.0",
