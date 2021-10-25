@@ -7,7 +7,7 @@ import pointer from "json-pointer";
 
 const objectToMessages = (obj: any) => {
   const dict = pointer.dict(obj);
-  const messages = Object.keys(dict).map((key) => {
+  const messages = Object.keys(dict).map(key => {
     return `{"${key}": "${dict[key]}"}`;
   });
   return messages;
@@ -16,10 +16,10 @@ const objectToMessages = (obj: any) => {
 const messagesToObject = (messages: string[]) => {
   const obj = {};
   messages
-    .map((m) => {
+    .map(m => {
       return JSON.parse(m);
     })
-    .forEach((m) => {
+    .forEach(m => {
       const [key] = Object.keys(m);
       const value = m[key];
       pointer.set(obj, key, value);
@@ -38,7 +38,7 @@ const purpose = {
   update: (proof: any) => {
     proof.proofPurpose = "assertionMethod";
     return proof;
-  },
+  }
 };
 
 const expectUntamperedSuccess = async (tampered: any) => {
@@ -52,7 +52,7 @@ const expectUntamperedSuccess = async (tampered: any) => {
     document: JSON.parse(JSON.stringify(tampered)),
     purpose,
     documentLoader,
-    compactProof: false,
+    compactProof: false
   });
   // ensure the credential verifies when it matches the original document
   expect(result.verified).toBe(true);
@@ -69,7 +69,7 @@ const expectTamperFailure = async (tampered: any) => {
     document: JSON.parse(JSON.stringify(tampered)),
     purpose,
     documentLoader,
-    compactProof: false,
+    compactProof: false
   });
   // ensure the credential fails to verify
   expect(result.verified).toBe(false);
@@ -89,15 +89,14 @@ it("should create proof with many terms", async () => {
   const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
   const suite = new Ed25519Signature2018({
     key: keyPair,
-    date: rawCredentialJson.issuanceDate,
+    date: rawCredentialJson.issuanceDate
   });
   proof = await suite.createProof({
     document: rawCredentialJson,
     purpose,
     documentLoader,
-    compactProof: false,
+    compactProof: false
   });
-  
 });
 
 describe("verification should PASS", () => {
@@ -122,8 +121,7 @@ describe("verification should FAIL (when modified)", () => {
   const tampered = JSON.parse(JSON.stringify(rawCredentialJson));
   const messages = objectToMessages(tampered);
 
-  messages.forEach((m) => {
-
+  messages.forEach(m => {
     const parsed = JSON.parse(m);
     const [value] = Object.values(parsed);
     const getObjectWithNewValueForKey = (m: string) => {
@@ -134,7 +132,7 @@ describe("verification should FAIL (when modified)", () => {
       const [key1] = Object.keys(JSON.parse(m));
       const [value1] = Object.values(JSON.parse(m));
       tamperedMessages[messageIndex] = JSON.stringify({
-        [key1]: tamperType(value1),
+        [key1]: tamperType(value1)
       });
       const tampered = messagesToObject(tamperedMessages);
       return tampered;
@@ -145,17 +143,14 @@ describe("verification should FAIL (when modified)", () => {
       const tampered = getObjectWithNewValueForKey(m);
       await expectTamperFailure(tampered);
     });
-
   });
 });
-
 
 describe("verification should FAIL (when deleted)", () => {
   const tampered = JSON.parse(JSON.stringify(rawCredentialJson));
   const messages = objectToMessages(tampered);
 
-  messages.forEach((m) => {
-
+  messages.forEach(m => {
     const parsed = JSON.parse(m);
     const [value] = Object.values(parsed);
 
@@ -166,47 +161,26 @@ describe("verification should FAIL (when deleted)", () => {
       });
       const [key1] = Object.keys(JSON.parse(m));
       // We check if see if the key is an array value
-      const key1Path = key1.split('/');
+      const key1Path = key1.split("/").filter( value => {
+        return value.length;
+      });
       const key1Leaf = key1Path.pop();
-      
-      // Remove the value from the list of messages
-      tamperedMessages.splice(messageIndex, 1);
 
-      // Check so see if the leaf is a digit, so we can 'shift' values if needed
-      if(/^\d+$/.test(key1Leaf!)) {
-        const key1PathStr = key1Path.join('/');
-        const key1LeafVal = parseInt(key1Leaf!);
-
-        for(let i = 0; i < tamperedMessages.length; i++){
-          const [key2] = Object.keys(JSON.parse(tamperedMessages[i]));
-          const [value2] = Object.values(JSON.parse(tamperedMessages[i]));
-
-          const key2Path = key2.split('/');
-          const key2Leaf = key2Path.pop();
-          const key2PathStr = key2Path.join('/');
-
-          if(key1PathStr !== key2PathStr){
-            continue;
-          }
-
-          const key2LeafVal = parseInt(key2Leaf!);
-          if(key1LeafVal > key2LeafVal){
-            continue;
-          }
-
-          key2Path.push((key2LeafVal-1).toString());
-          const updatedKey2 = key2Path.join('/');
-
-          if (typeof value === "number") {
-            tamperedMessages[i] = `{"${updatedKey2}":${value2}}`
-          }else if (typeof value === "string") {
-            tamperedMessages[i] = `{"${updatedKey2}":"${value2}"}`
-          } 
+      if (!/^\d+$/.test(key1Leaf!)) {
+        // If not an array value, we simply remove it
+        tamperedMessages.splice(messageIndex, 1);
+        const tampered = messagesToObject(tamperedMessages);
+        return tampered;
+      } else {
+        // Otherwise we should splice the value from the JSON object
+        const tampered = JSON.parse(JSON.stringify(rawCredentialJson));
+        let ref = tampered;
+        while(key1Path.length){
+          ref = ref[key1Path.shift()!];
         }
+        ref.splice(parseInt(key1Leaf!), 1);
+        return tampered;
       }
-    
-      const tampered = messagesToObject(tamperedMessages);
-      return tampered;
     };
 
     it(`when ${value} is removed`, async () => {
@@ -214,6 +188,5 @@ describe("verification should FAIL (when deleted)", () => {
       const tampered = getObjectWithDroppedKey(m);
       await expectTamperFailure(tampered);
     });
-
   });
 });
