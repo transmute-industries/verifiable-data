@@ -4,8 +4,9 @@ const {
 const {
   Ed25519Signature2018,
 } = require("@digitalbazaar/ed25519-signature-2018");
-const rawKeyJson = require("../src/__fixtures__/key.json");
+const rawKeyJson = require("../src/__fixtures__/keys/key.json");
 const documentLoader = require("./documentLoader");
+const credential = require("../src/__fixtures__/credentials/case-3.json");
 
 let keyPair;
 let suite;
@@ -53,30 +54,6 @@ const expect = (value) => {
       },
     },
   };
-};
-
-const credential = {
-  "@context": [
-    "https://www.w3.org/2018/credentials/v1",
-    {
-      "@vocab": "http://example.com/terms#",
-    },
-  ],
-  id: "https://example.com/credentials/1872",
-  type: ["VerifiableCredential"],
-  issuer: rawKeyJson.controller,
-  issuanceDate: "2010-01-01T19:23:24Z",
-  credentialSubject: {
-    level1: "level1",
-    type: "Foo",
-    bar: {
-      id: "urn:uuid:456",
-      level2: "level2",
-      baz: {
-        level3: "level3",
-      },
-    },
-  },
 };
 
 const createProof = async () => {
@@ -129,7 +106,7 @@ const case1 = async () => {
   }
 };
 
-// case 2 - we see if dropping terms on layer 2 causes a failure
+// case 2 - we see if dropping terms on layer 1 causes a failure
 // we expect to prove that such tampering breaks verification.
 const case2 = async () => {
   expect(credential.credentialSubject.bar).toBeDefined();
@@ -147,12 +124,12 @@ const case2 = async () => {
   //   note a "verified === true" is a failure here..
   if (result.verified) {
     throw new Error(
-      "expected tampering at layer 2 to cause credential verification to fail."
+      "expected tampering at layer 1 to cause credential verification to fail."
     );
   }
 };
 
-// case 3 - we see if dropping terms on layer 3 causes a failure
+// case 3 - we see if dropping terms on layer 2 causes a failure
 // we expect to prove that such tampering breaks verification.
 const case3 = async () => {
   expect(credential.credentialSubject.bar.baz).toBeDefined();
@@ -170,7 +147,53 @@ const case3 = async () => {
   //   note a "verified === true" is a failure here..
   if (result.verified) {
     throw new Error(
+      "expected tampering at layer 2 to cause credential verification to fail."
+    );
+  }
+};
+
+// case 4 - we see if dropping terms on layer 3 causes a failure
+// we expect to prove that such tampering breaks verification.
+const case4 = async () => {
+  expect(credential.credentialSubject.bar.baz.level3).toBeDefined();
+  const tampered = JSON.parse(JSON.stringify(credential));
+  delete tampered.credentialSubject.bar.baz.level3;
+  expect(tampered.credentialSubject.bar.baz.level3).toBeUndefined();
+  expect(tampered).not.toEqual(credential);
+  const result = await suite.verifyProof({
+    proof,
+    document: tampered,
+    purpose,
+    documentLoader,
+    compactProof: false,
+  });
+  //   note a "verified === true" is a failure here..
+  if (result.verified) {
+    throw new Error(
       "expected tampering at layer 3 to cause credential verification to fail."
+    );
+  }
+};
+
+// case 5 - we see if adding terms on layer 1 causes a failure
+// we expect to prove that such tampering breaks verification.
+const case5 = async () => {
+  expect(credential.credentialSubject.thingamajig).toBeUndefined();
+  const tampered = JSON.parse(JSON.stringify(credential));
+  tampered.credentialSubject.thingamajig = 'thingamabob';
+  expect(tampered.credentialSubject.thingamajig).toBeDefined();
+  expect(tampered).not.toEqual(credential);
+  const result = await suite.verifyProof({
+    proof,
+    document: tampered,
+    purpose,
+    documentLoader,
+    compactProof: false,
+  });
+  //   note a "verified === true" is a failure here..
+  if (result.verified) {
+    throw new Error(
+      "expected tampering at layer 1 to cause credential verification to fail."
     );
   }
 };
@@ -181,4 +204,6 @@ const case3 = async () => {
   await case1();
   await case2();
   await case3();
+  await case4();
+  await case5();
 })();
