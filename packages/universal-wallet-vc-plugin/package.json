@@ -2,7 +2,7 @@
   "name": "@transmute/universal-wallet-vc-plugin",
   "author": "Orie Steele",
   "module": "dist/universal-wallet-vc-plugin.esm.js",
-  "version": "0.7.0-unstable.16",
+  "version": "0.7.0-unstable.17",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -31,13 +31,13 @@
   },
   "devDependencies": {
     "@mattrglobal/jsonld-signatures-bbs": "^0.10.1-unstable.3000f3c",
-    "@transmute/credentials-context": "^0.7.0-unstable.16",
-    "@transmute/did-context": "^0.7.0-unstable.16",
+    "@transmute/credentials-context": "^0.7.0-unstable.17",
+    "@transmute/did-context": "^0.7.0-unstable.17",
     "@transmute/did-key-ed25519": "^0.2.1-unstable.37",
-    "@transmute/ed25519-signature-2018": "^0.7.0-unstable.16",
+    "@transmute/ed25519-signature-2018": "^0.7.0-unstable.17",
     "@transmute/json-web-signature": "0.7.0-unstable.2",
-    "@transmute/security-context": "^0.7.0-unstable.16",
-    "@transmute/universal-wallet": "^0.7.0-unstable.16",
+    "@transmute/security-context": "^0.7.0-unstable.17",
+    "@transmute/universal-wallet": "^0.7.0-unstable.17",
     "ts-jest": "^26.5.4",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
@@ -45,8 +45,8 @@
   },
   "dependencies": {
     "@transmute/linked-data-proof": "0.2.1-unstable.10",
-    "@transmute/vc-status-rl-2020": "^0.7.0-unstable.16",
-    "@transmute/vc.js": "^0.7.0-unstable.16",
+    "@transmute/vc-status-rl-2020": "^0.7.0-unstable.17",
+    "@transmute/vc.js": "^0.7.0-unstable.17",
     "factory.ts": "^0.5.1"
   },
   "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
