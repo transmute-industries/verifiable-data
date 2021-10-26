@@ -5,7 +5,10 @@
   ],
   "id": "http://localhost:8080/credentials/61858f5a-682a-4857-b759-f3487bae0658",
   "issuanceDate": "2010-01-01T19:23:24Z",
-  "type": ["VerifiableCredential", "MillTestReportCertificate"],
+  "type": [
+    "VerifiableCredential",
+    "MillTestReportCertificate"
+  ],
   "relatedLink": [
     {
       "type": "LinkRole",
@@ -22,13 +25,19 @@
   ],
   "issuer": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
   "credentialSubject": {
-    "type": ["MillTestReport"],
+    "type": [
+      "MillTestReport"
+    ],
     "manufacturer": {
-      "type": ["Organization"],
+      "type": [
+        "Organization"
+      ],
       "name": "Langworth, McGlynn and Koch",
       "description": "Exclusive motivating concept",
       "address": {
-        "type": ["PostalAddress"],
+        "type": [
+          "PostalAddress"
+        ],
         "streetAddress": "67663 Roob Highway",
         "addressLocality": "O'Connellmouth",
         "addressRegion": "New York",
@@ -40,48 +49,70 @@
       "faxNumber": "555-948-7194"
     },
     "product": {
-      "type": ["SteelProduct"],
+      "type": [
+        "SteelProduct"
+      ],
       "heatNumber": "4732",
       "specification": "ASTM-91357",
       "grade": "4122",
       "originalCountryOfMeltAndPour": "Madagascar",
       "inspection": {
-        "type": ["InspectionReport"],
+        "type": [
+          "InspectionReport"
+        ],
         "observation": [
           {
-            "type": ["Observation"],
+            "type": [
+              "Observation"
+            ],
             "property": {
-              "type": ["ChemicalProperty"],
+              "type": [
+                "ChemicalProperty"
+              ],
               "name": "Actinium"
             },
             "measurement": {
-              "type": ["MeasuredValue"],
+              "type": [
+                "MeasuredValue"
+              ],
               "value": "62.813",
               "unitCode": "P1"
             }
           },
           {
-            "type": ["Observation"],
+            "type": [
+              "Observation"
+            ],
             "property": {
-              "type": ["MechanicalProperty"],
+              "type": [
+                "MechanicalProperty"
+              ],
               "identifier": "ISO 1352",
               "name": "Torque-controlled fatigue testing",
               "description": "ISO 1352:2011 specifies the conditions for performing torsional, constant-amplitude, nominally elastic stress fatigue tests on metallic specimens without deliberately introducing stress concentrations. The tests are carried out at ambient temperature (ideally at between 10 °C and 35 °C) in air by applying a pure couple to the specimen about its longitudinal axis."
             },
             "measurement": {
-              "type": ["MeasuredValue"],
+              "type": [
+                "MeasuredValue"
+              ],
               "value": "00.00",
               "unitCode": "UNKNOWN"
             }
           },
           {
-            "type": ["Observation"],
+            "type": [
+              "Observation"
+            ],
             "property": {
-              "type": ["ChemicalProperty"],
+              "type": [
+                "ChemicalProperty"
+              ],
               "name": "Oxygen"
             },
             "measurement": {
-              "type": ["MeasuredValue"],
+              "type": [
+                "MeasuredValue"
+              ],
               "value": "37.187",
               "unitCode": "P1"
             }
@@ -90,17 +121,25 @@
       }
     },
     "purchase": {
-      "type": ["Purchase"],
+      "type": [
+        "Purchase"
+      ],
       "customer": {
-        "type": ["Person"],
+        "type": [
+          "Person"
+        ],
         "email": "Savannah_Homenick@example.com",
         "phoneNumber": "555-536-5801"
       }
     },
     "shipment": {
-      "type": ["ParcelDelivery"],
+      "type": [
+        "ParcelDelivery"
+      ],
       "deliveryAddress": {
-        "type": ["PostalAddress"],
+        "type": [
+          "PostalAddress"
+        ],
         "organizationName": "Cassin, Kautzer and Bauch",
         "streetAddress": "2723 Alana Park",
         "addressLocality": "South Millie",
@@ -109,7 +148,9 @@
         "addressCountry": "Cote d'Ivoire"
       },
       "originAddress": {
-        "type": ["PostalAddress"],
+        "type": [
+          "PostalAddress"
+        ],
         "organizationName": "Conn and Sons",
         "streetAddress": "9424 Alexa Locks",
         "addressLocality": "West Josefina",
@@ -120,5 +161,12 @@
       "deliveryMethod": "Truck transport",
       "trackingNumber": "547132175583"
     }
+  },
+  "proof": {
+    "type": "Ed25519Signature2018",
+    "created": "2010-01-01T19:23:24Z",
+    "verificationMethod": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk#z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
+    "proofPurpose": "assertionMethod",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..M5DWqdH00x4l_b-I9UnG-3vFpizdiploi77tlUe2-iw8Eg5mRMpVUWEwZZ7duNIOk4waXXvonCSJz2kMgjkZDQ"
   }
 }
