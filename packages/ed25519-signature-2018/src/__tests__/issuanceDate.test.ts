@@ -30,6 +30,10 @@ import expectedProofNegOne from "../__fixtures__/proofs/digital-bazaar/case-12.j
 import credentialEmpty from "../__fixtures__/credentials/case-13.json";
 import expectedProofEmpty from "../__fixtures__/proofs/digital-bazaar/case-13.json";
 
+// Test 8 "issuanceDate": "04 Dec 1995 00:12:00 GMT"
+import credentialGMT from "../__fixtures__/credentials/case-14.json";
+import expectedProofGMT from "../__fixtures__/proofs/digital-bazaar/case-14.json";
+
 let keyPair: Ed25519VerificationKey2018;
 let suite: Ed25519Signature2018;
 let proof: any;
@@ -81,6 +85,10 @@ const expectProofsToMatch = async (credential: any, expectedProof: any) => {
   expect(result.verified).toBeTruthy();
 };
 
+const diffInSeconds = ( dateA:string, dateB:string):number => {
+  return Math.floor( Math.abs(new Date(dateA).getTime() - new Date(dateB).getTime()) / 1000 );
+}
+
 const expectProofsToBeSimilar = async (credential: any, expectedProof: any) => {
   suite = new Ed25519Signature2018({
     key: keyPair,
@@ -108,8 +116,12 @@ const expectProofsToBeSimilar = async (credential: any, expectedProof: any) => {
   const xmlDatetime = new RegExp(
     "^([0-9]{4})-([0-1][0-9])-([0-3][0-9]T[0-2][0-9]:[0-6][0-9]:[0-6][0-9](Z)?)$"
   );
+  // Created Proof Should be XML Datetime
   expect(xmlDatetime.test(proof.created)).toBeTruthy();
+  // Expected Proof should be XML Datetime 
   expect(xmlDatetime.test(expectedProof.created)).toBeTruthy();
+  // Should be less than 10 seconds apart 
+  expect(diffInSeconds(proof.created, expectedProof.created)).toBeLessThan(10);
 
   const result = await suite.verifyProof({
     proof: proof,
@@ -179,4 +191,11 @@ describe("regarding issuanceDate Handling", () => {
     // pass through the empty string as-is
     await expectProofsToMatch(credentialEmpty, expectedProofEmpty);
   });
+
+  it("8. issuanceDate is GMT date time", async () => {
+    // Expected behavior is that proofs should
+    // pass through the empty string as-is
+    await expectProofsToMatch(credentialGMT, expectedProofGMT);
+  });
+
 });
