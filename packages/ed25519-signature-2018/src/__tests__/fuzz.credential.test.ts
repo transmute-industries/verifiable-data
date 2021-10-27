@@ -161,7 +161,7 @@ describe("verification should FAIL (when deleted)", () => {
       });
       const [key1] = Object.keys(JSON.parse(m));
       // We check if see if the key is an array value
-      const key1Path = key1.split("/").filter( value => {
+      const key1Path = key1.split("/").filter(value => {
         return value.length;
       });
       const key1Leaf = key1Path.pop();
@@ -175,7 +175,7 @@ describe("verification should FAIL (when deleted)", () => {
         // Otherwise we should splice the value from the JSON object
         const tampered = JSON.parse(JSON.stringify(rawCredentialJson));
         let ref = tampered;
-        while(key1Path.length){
+        while (key1Path.length) {
           ref = ref[key1Path.shift()!];
         }
         ref.splice(parseInt(key1Leaf!), 1);

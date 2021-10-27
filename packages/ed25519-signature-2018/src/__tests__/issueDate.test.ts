@@ -108,11 +108,11 @@ const expectProofsToBeSimilar = async (credential: any, expectedProof: any) => {
   });
 
   const outParts = proof.created.split("");
-  outParts[17] = 'x';
-  outParts[18] = 'x';
+  outParts[17] = "x";
+  outParts[18] = "x";
   let expectedParts = expectedProof.created.split("");
-  expectedParts[17] = 'x';
-  expectedParts[18] = 'x';
+  expectedParts[17] = "x";
+  expectedParts[18] = "x";
   expect(outParts.join("")).toEqual(expectedParts.join(""));
 
   const result = await suite.verifyProof({

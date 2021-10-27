@@ -13,7 +13,7 @@ const purpose = {
   update: (proof: any) => {
     proof.proofPurpose = "assertionMethod";
     return proof;
-  },
+  }
 };
 
 const expectUntamperedSuccess = async (tampered: any) => {
@@ -27,7 +27,7 @@ const expectUntamperedSuccess = async (tampered: any) => {
     document: JSON.parse(JSON.stringify(tampered)),
     purpose,
     documentLoader,
-    compactProof: false,
+    compactProof: false
   });
   // ensure the credential verifies when it matches the original document
   expect(result.verified).toBe(true);
@@ -44,7 +44,7 @@ const expectTamperFailure = async (tampered: any) => {
     document: JSON.parse(JSON.stringify(tampered)),
     purpose,
     documentLoader,
-    compactProof: false,
+    compactProof: false
   });
   // ensure the credential fails to verify
   expect(result.verified).toBe(false);
@@ -54,13 +54,13 @@ it("should create proof with many terms", async () => {
   const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
   const suite = new Ed25519Signature2018({
     key: keyPair,
-    date: rawCredentialJson.issuanceDate,
+    date: rawCredentialJson.issuanceDate
   });
   proof = await suite.createProof({
     document: rawCredentialJson,
     purpose,
     documentLoader,
-    compactProof: false,
+    compactProof: false
   });
   // console.log(JSON.stringify(proof, null, 2));
 });

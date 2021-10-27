@@ -17,7 +17,7 @@ describe("create and verify proof", () => {
     //
     suite = new Ed25519Signature2018({
       key: keyPair,
-      date: credential.issuanceDate,
+      date: credential.issuanceDate
     });
     expect(suite.verificationMethod).toBe(rawKeyJson.id);
   });
@@ -33,11 +33,11 @@ describe("create and verify proof", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        },
+        }
       },
       documentLoader,
       // expansionMap,
-      compactProof: false,
+      compactProof: false
     });
   });
 
@@ -59,11 +59,11 @@ describe("create and verify proof", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        },
+        }
       },
       documentLoader,
       // expansionMap,
-      compactProof: false,
+      compactProof: false
     });
     expect((expectedProof as any)["@context"]).toBeFalsy();
     expect(result.verified).toBeTruthy();

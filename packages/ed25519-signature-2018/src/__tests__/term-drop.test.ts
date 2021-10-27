@@ -7,8 +7,8 @@ const credential = {
   "@context": [
     "https://www.w3.org/2018/credentials/v1",
     {
-      "@vocab": "http://example.com/terms#",
-    },
+      "@vocab": "http://example.com/terms#"
+    }
   ],
   id: "https://example.com/credentials/1872",
   type: ["VerifiableCredential"],
@@ -21,10 +21,10 @@ const credential = {
       id: "urn:uuid:456",
       level2: "level2",
       baz: {
-        level3: "level3",
-      },
-    },
-  },
+        level3: "level3"
+      }
+    }
+  }
 };
 let proof: any;
 const purpose = {
@@ -35,20 +35,20 @@ const purpose = {
   update: (proof: any) => {
     proof.proofPurpose = "assertionMethod";
     return proof;
-  },
+  }
 };
 describe("suite", () => {
   it("should create proof with many terms", async () => {
     const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
     const suite = new Ed25519Signature2018({
       key: keyPair,
-      date: credential.issuanceDate,
+      date: credential.issuanceDate
     });
     proof = await suite.createProof({
       document: credential,
       purpose,
       documentLoader,
-      compactProof: false,
+      compactProof: false
     });
     // console.log(JSON.stringify(proof, null, 2));
   });
@@ -59,7 +59,7 @@ describe("suite", () => {
       document: credential,
       purpose,
       documentLoader,
-      compactProof: false,
+      compactProof: false
     });
     expect(result.verified).toBeTruthy();
   });
@@ -73,7 +73,7 @@ describe("suite", () => {
       document: tampered,
       purpose,
       documentLoader,
-      compactProof: false,
+      compactProof: false
     });
     expect(result.verified).toBe(false);
   });
@@ -87,7 +87,7 @@ describe("suite", () => {
       document: tampered,
       purpose,
       documentLoader,
-      compactProof: false,
+      compactProof: false
     });
     expect(result.verified).toBe(false);
   });
@@ -101,7 +101,7 @@ describe("suite", () => {
       document: tampered,
       purpose,
       documentLoader,
-      compactProof: false,
+      compactProof: false
     });
     expect(result.verified).toBe(false);
   });
