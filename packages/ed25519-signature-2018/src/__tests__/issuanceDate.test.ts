@@ -2,33 +2,33 @@ import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "..";
 import rawKeyJson from "../__fixtures__/keys/key.json";
 import documentLoader from "../__fixtures__/documentLoader";
 
-// 1
+// Test 1 "issuanceDate": "2021-10-19T14:47:38-05:00"
 import credentialISO from "../__fixtures__/credentials/case-7.json";
 import expectedProofISO from "../__fixtures__/proofs/digital-bazaar/case-7.json";
 
-// 2
+// Test 2 "issuanceDate": "2021-10-19T19:47:38Z"
 import credentialXML from "../__fixtures__/credentials/case-8.json";
 import expectedProofXML from "../__fixtures__/proofs/digital-bazaar/case-8.json";
 
-// 3
-import credentialNull from "../__fixtures__/credentials/case-10.json";
-import expectedProofNull from "../__fixtures__/proofs/digital-bazaar/case-10.json";
+// Test 3 "issuanceDate": null
+import credentialNull from "../__fixtures__/credentials/case-9.json";
+import expectedProofNull from "../__fixtures__/proofs/digital-bazaar/case-9.json";
 
-// 4
-import credentialRemoved from "../__fixtures__/credentials/case-11.json";
-import expectedProofRemoved from "../__fixtures__/proofs/digital-bazaar/case-11.json";
+// Test 4 "issuanceDate": (term does not exist in credential)
+import credentialRemoved from "../__fixtures__/credentials/case-10.json";
+import expectedProofRemoved from "../__fixtures__/proofs/digital-bazaar/case-10.json";
 
-// 5
-import credentialUnix from "../__fixtures__/credentials/case-12.json";
-import expectedProofUnix from "../__fixtures__/proofs/digital-bazaar/case-12.json";
+// Test 5 "issuanceDate": 1635338341313
+import credentialUnix from "../__fixtures__/credentials/case-11.json";
+import expectedProofUnix from "../__fixtures__/proofs/digital-bazaar/case-11.json";
 
-// 6
-import credentialNegOne from "../__fixtures__/credentials/case-14.json";
-import expectedProofNegOne from "../__fixtures__/proofs/digital-bazaar/case-14.json";
+// Test 6 "issuanceDate": -1
+import credentialNegOne from "../__fixtures__/credentials/case-12.json";
+import expectedProofNegOne from "../__fixtures__/proofs/digital-bazaar/case-12.json";
 
-// 7
-import credentialEmpty from "../__fixtures__/credentials/case-15.json";
-import expectedProofEmpty from "../__fixtures__/proofs/digital-bazaar/case-15.json";
+// Test 7 "issuanceDate": ""
+import credentialEmpty from "../__fixtures__/credentials/case-13.json";
+import expectedProofEmpty from "../__fixtures__/proofs/digital-bazaar/case-13.json";
 
 let keyPair: Ed25519VerificationKey2018;
 let suite: Ed25519Signature2018;
@@ -55,7 +55,6 @@ const expectProofsToMatch = async (credential: any, expectedProof: any) => {
       }
     },
     documentLoader,
-    // expansionMap,
     compactProof: false
   });
 
@@ -103,17 +102,14 @@ const expectProofsToBeSimilar = async (credential: any, expectedProof: any) => {
       }
     },
     documentLoader,
-    // expansionMap,
     compactProof: false
   });
 
-  const outParts = proof.created.split("");
-  outParts[17] = "x";
-  outParts[18] = "x";
-  let expectedParts = expectedProof.created.split("");
-  expectedParts[17] = "x";
-  expectedParts[18] = "x";
-  expect(outParts.join("")).toEqual(expectedParts.join(""));
+  const xmlDatetime = new RegExp(
+    "^([0-9]{4})-([0-1][0-9])-([0-3][0-9]T[0-2][0-9]:[0-6][0-9]:[0-6][0-9](Z)?)$"
+  );
+  expect(xmlDatetime.test(proof.created)).toBeTruthy();
+  expect(xmlDatetime.test(expectedProof.created)).toBeTruthy();
 
   const result = await suite.verifyProof({
     proof: proof,
@@ -136,49 +132,49 @@ const expectProofsToBeSimilar = async (credential: any, expectedProof: any) => {
   expect(result.verified).toBeTruthy();
 };
 
-describe("regarding isseuDate Handling", () => {
+describe("regarding issuanceDate Handling", () => {
   it("import key", async () => {
     keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
     expect(keyPair.controller).toBe(rawKeyJson.controller);
   });
 
-  it("1. issueDate as iso string", async () => {
+  it("1. issuanceDate as iso string", async () => {
     // Expected behavior is that proofs should use
     // existing ISO string as is
     await expectProofsToMatch(credentialISO, expectedProofISO);
   });
 
-  it("2. issueDate as xml string", async () => {
+  it("2. issuanceDate as xml string", async () => {
     // Expected behavior is that proofs should use
     // existing XML string as is
     await expectProofsToMatch(credentialXML, expectedProofXML);
   });
 
-  it("3. issueDate when null", async () => {
+  it("3. issuanceDate when null", async () => {
     // Expected behavior is that proofs should use
     // 1970-01-01T00:00:00Z as the date
     await expectProofsToMatch(credentialNull, expectedProofNull);
   });
 
-  it("4. issueDate term is removed", async () => {
+  it("4. issuanceDate term is removed", async () => {
     // Expected behavior is that date should be created
     // with current time in format 2021-10-27T14:58:16Z
     await expectProofsToBeSimilar(credentialRemoved, expectedProofRemoved);
   });
 
-  it("5. issueDate is a unix timestamp", async () => {
+  it("5. issuanceDate is a unix timestamp", async () => {
     // Expected behavior is that proofs should be
     // converted to 2021-10-27T12:39:01Z format
     await expectProofsToMatch(credentialUnix, expectedProofUnix);
   });
 
-  it("6. issueDate is negative one", async () => {
+  it("6. issuanceDate is negative one", async () => {
     // Expected behavior is that proofs should be
     // converted to 1969-12-31T23:59:59Z format
     await expectProofsToMatch(credentialNegOne, expectedProofNegOne);
   });
 
-  it("7. issueDate is empty string", async () => {
+  it("7. issuanceDate is empty string", async () => {
     // Expected behavior is that proofs should
     // pass through the empty string as-is
     await expectProofsToMatch(credentialEmpty, expectedProofEmpty);
