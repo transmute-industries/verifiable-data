@@ -6,17 +6,17 @@
   "type": [
     "VerifiableCredential"
   ],
-  "issuanceDate": 123,
-  "expirationDate": 123,
+  "issuanceDate": null,
+  "expirationDate": null,
   "issuer": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
   "credentialSubject": {
     "id": "did:example:ebfeb1f712ebc6f1c276e12ec21"
   },
   "proof": {
     "type": "Ed25519Signature2018",
-    "created": "1970-01-01T00:00:00Z",
+    "created": "2010-01-01T19:23:24Z",
     "verificationMethod": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk#z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
     "proofPurpose": "assertionMethod",
-    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..-c3Axfdvja7sRdifVPc31k5WMwQhJAy3KPYJZtOfKoVXcKrJ1nxU5ih2GIv6fzeVyhgTvcghcBIRy-fsxCxuDg"
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..uCeDWQ3TgbdQVdXnszoHPXADdBh_YpMe0o1AGDsTCY1k3IQy2lQtYg_omJjvs2pOiUJUCTgZ7dWERb-Qy1iCBQ"
   }
 }

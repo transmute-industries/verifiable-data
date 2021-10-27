@@ -6,17 +6,17 @@
   "type": [
     "VerifiableCredential"
   ],
-  "issuanceDate": "foobar",
-  "expirationDate": "foobar",
+  "issuanceDate": "2010-10-19T14:47:38.123Z",
+  "expirationDate": "2010-10-19T14:47:38.123Z",
   "issuer": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
   "credentialSubject": {
     "id": "did:example:ebfeb1f712ebc6f1c276e12ec21"
   },
   "proof": {
     "type": "Ed25519Signature2018",
-    "created": "2010-01-01T19:23:24Z",
+    "created": "2010-10-19T14:47:38Z",
     "verificationMethod": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk#z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
     "proofPurpose": "assertionMethod",
-    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..D_IW9cq7sVnt3Pr-zFd1DU0SAAUkwUH6eeGrgeRiuE6jqrjIrXnLJMmJAhqqMgRcB_9K4jdT2XxkW4QDEodODA"
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..nK5amToDmQ14TzjKJELN_ANeewzhzUd0iKc13bKyco_6Y7eObV43bZLSZPFXFGsGuhzudL87rEJMrsI1UkCBCw"
   }
 }

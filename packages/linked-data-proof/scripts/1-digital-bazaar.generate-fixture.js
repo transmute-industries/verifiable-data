@@ -53,10 +53,18 @@ const purpose = {
     const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
     let suite;
     try {
-      suite = new Ed25519Signature2018({
-        key: keyPair,
-        date: credential.issuanceDate,
-      });
+      if (credential.issuanceDate !== "" && credential.issuanceDate) {
+        suite = new Ed25519Signature2018({
+          key: keyPair,
+          date: credential.issuanceDate,
+        });
+      } else {
+        // fallback default date
+        suite = new Ed25519Signature2018({
+          key: keyPair,
+          date: "2010-01-01T19:23:24Z",
+        });
+      }
     } catch (e) {
       // This will happen for invalid dates
       // Then we fallback on another date
