@@ -42,7 +42,6 @@ import expectedProofUndefined from "../__fixtures__/proofs/digital-bazaar/case-1
 import credentialNeg from "../__fixtures__/credentials/case-16.json";
 import expectedProofNeg from "../__fixtures__/proofs/digital-bazaar/case-16.json";
 
-
 let keyPair: Ed25519VerificationKey2018;
 let suite: Ed25519Signature2018;
 let proof: any;
@@ -223,5 +222,4 @@ describe("regarding issuanceDate Handling", () => {
     // pass through the empty string as-is
     await expectProofsToMatch(credentialNeg, expectedProofNeg);
   });
-
 });

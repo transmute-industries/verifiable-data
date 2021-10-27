@@ -152,9 +152,9 @@ export class Ed25519Signature2018 {
 
     // set default `now` date if not given in `proof` or `options`
     let date = this.date;
-    if(typeof date === 'number' && Math.abs(date) > 1000) {
+    if (typeof date === "number" && Math.abs(date) > 1000) {
       date = new Date(Math.floor(date / 1000) * 1000);
-    } else if(isNaN(Date.parse(date))) {
+    } else if (isNaN(Date.parse(date))) {
       date = new Date();
     } else {
       date = new Date(date);
