@@ -1,0 +1,7 @@
+{
+  "type": "Ed25519Signature2018",
+  "created": "2021-10-19T19:47:38Z",
+  "verificationMethod": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk#z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
+  "proofPurpose": "assertionMethod",
+  "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..I4FetF1jfoi7S1Xheu5yGLagm1m4XWRo1gGXt6QVC_f0qcN8qZoQWjNVz45jVKs3nvQpBMW5gCl6OaekMQENDQ"
+}
