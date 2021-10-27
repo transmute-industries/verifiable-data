@@ -14,6 +14,17 @@ const credential3 = require("../src/__fixtures__/credentials/case-3.json");
 const credential4 = require("../src/__fixtures__/credentials/case-4.json");
 const credential5 = require("../src/__fixtures__/credentials/case-5.json");
 const credential6 = require("../src/__fixtures__/credentials/case-6.json");
+const credential7 = require("../src/__fixtures__/credentials/case-7.json");
+const credential8 = require("../src/__fixtures__/credentials/case-8.json");
+// const credential9 = require("../src/__fixtures__/credentials/case-9.json");
+const credential10 = require("../src/__fixtures__/credentials/case-10.json");
+const credential11 = require("../src/__fixtures__/credentials/case-11.json");
+const credential12 = require("../src/__fixtures__/credentials/case-12.json");
+// const credential13 = require("../src/__fixtures__/credentials/case-13.json");
+const credential14 = require("../src/__fixtures__/credentials/case-14.json");
+const credential15 = require("../src/__fixtures__/credentials/case-15.json");
+const credential16 = require("../src/__fixtures__/credentials/case-16.json");
+
 const credentials = [
   credential1,
   credential2,
@@ -21,6 +32,16 @@ const credentials = [
   credential4,
   credential5,
   credential6,
+  credential7,
+  credential8,
+  null, // credential9, (error thrown for object date)
+  credential10,
+  credential11,
+  credential12,
+  null, // credential13,(error thrown for 'yesterday' string)
+  credential14,
+  credential15,
+  null, // credential16, (error thrown for 'foobar' string)
 ];
 
 const purpose = {
@@ -43,6 +64,10 @@ let proof;
   for (const credential of credentials) {
     idx++;
     keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
+
+    if(credential === null) {
+      continue;
+    }
 
     suite = new Ed25519Signature2018({
       key: keyPair,
