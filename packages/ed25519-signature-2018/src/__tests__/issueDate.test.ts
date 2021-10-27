@@ -59,8 +59,6 @@ const expectProofsToMatch = async (credential: any, expectedProof: any) => {
     compactProof: false
   });
 
-  console.log(proof);
-  console.log(expectedProof);
   expect(proof).toEqual(expectedProof);
 
   const result = await suite.verifyProof({
@@ -109,13 +107,13 @@ const expectProofsToBeSimilar = async (credential: any, expectedProof: any) => {
     compactProof: false
   });
 
-  const outParts = proof.created.split(":");
-  outParts.pop();
-  outParts.push("00Z");
-  let expectedParts = expectedProof.created.split(":");
-  expectedParts.pop();
-  expectedParts.push("00Z");
-  expect(outParts.join(":")).toEqual(expectedParts.join(":"));
+  const outParts = proof.created.split("");
+  outParts[17] = 'x';
+  outParts[18] = 'x';
+  let expectedParts = expectedProof.created.split("");
+  expectedParts[17] = 'x';
+  expectedParts[18] = 'x';
+  expect(outParts.join("")).toEqual(expectedParts.join(""));
 
   const result = await suite.verifyProof({
     proof: proof,
