@@ -5,13 +5,13 @@
 4. Same but has issuer as id attribute
 5. Simple with issuer
 6. A MTR with a revocation list context and credential status
-7. MTR with ISO string issue date
-8. MTR with XML Datetime issue date
-9. MTR with an Object issue date
-10. MTR with a null issue date
-11. MTR where issues date term does not exist
-12. MTR with unix timestamp for issue date
-13. MTR with "yesterday" for issue date
-14. MTR with -1 for issue date
-15. MTR with empty string for issue date
-16. MTR with "foobar" for issue date
+7. MTR with ISO string issue date // 1
+8. MTR with XML Datetime issue date // 2
+9. MTR with an Object issue date // untestable
+10. MTR with a null issue date // 3
+11. MTR where issues date term does not exist // 4
+12. MTR with unix timestamp for issue date // 5
+13. MTR with "yesterday" for issue date // untestable
+14. MTR with -1 for issue date // 6
+15. MTR with empty string for issue date // 7
+16. MTR with "foobar" for issue date // untestable
