@@ -1,6 +1,6 @@
 import {
   Ed25519Signature2018,
-  Ed25519VerificationKey2018,
+  Ed25519VerificationKey2018
 } from "@transmute/ed25519-signature-2018";
 import fs from "fs";
 import path from "path";
@@ -11,7 +11,7 @@ import documentLoader from "../__fixtures__/documentLoader";
 
 describe("credential comparisons", () => {
   let credentialsPath: string;
-  let files: string[] = ["1"];
+  let files: string[] = [];
 
   beforeAll(async () => {
     credentialsPath = path.join(__dirname, "..", "__fixtures__/1-credentials");
@@ -44,22 +44,21 @@ describe("credential comparisons", () => {
         },
         match: async (proof: any, _options: any) => {
           return proof.proofPurpose === "assertionMethod";
-        },
+        }
       };
-      // let verifiableCredential;
       const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
       expect(keyPair.controller).toBe(rawKeyJson.controller);
       let suite;
       if (credential.issuanceDate !== undefined) {
         suite = new Ed25519Signature2018({
           key: keyPair,
-          date: credential.issuanceDate,
+          date: credential.issuanceDate
         });
       } else {
         // fallback default date
         suite = new Ed25519Signature2018({
           key: keyPair,
-          date: "2010-01-01T19:23:24Z",
+          date: "2010-01-01T19:23:24Z"
         });
       }
       expect(suite.verificationMethod).toBe(rawKeyJson.id);
@@ -68,9 +67,8 @@ describe("credential comparisons", () => {
         purpose,
         documentLoader,
         expansionMap: false,
-        compactProof: false,
+        compactProof: false
       });
-      // console.log(verifiableCredential);
       const verifiableCredentialsPath = path.join(
         __dirname,
         "..",
@@ -91,7 +89,7 @@ describe("credential comparisons", () => {
           "case-4.json",
           "case-6.json",
           "case-7.json",
-          "case-8.json",
+          "case-8.json"
         ].includes(filename)
       ) {
         expect(expectedVerifiableCredential).not.toEqual(verifiableCredential);
@@ -103,7 +101,7 @@ describe("credential comparisons", () => {
         purpose,
         documentLoader,
         expansionMap: false,
-        compactProof: false,
+        compactProof: false
       });
       expect(verifiableCredential.proof["@context"]).toBeFalsy();
       expect(result.verified).toBeTruthy();
