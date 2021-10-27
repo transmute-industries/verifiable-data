@@ -85,9 +85,11 @@ const expectProofsToMatch = async (credential: any, expectedProof: any) => {
   expect(result.verified).toBeTruthy();
 };
 
-const diffInSeconds = ( dateA:string, dateB:string):number => {
-  return Math.floor( Math.abs(new Date(dateA).getTime() - new Date(dateB).getTime()) / 1000 );
-}
+const diffInSeconds = (dateA: string, dateB: string): number => {
+  return Math.floor(
+    Math.abs(new Date(dateA).getTime() - new Date(dateB).getTime()) / 1000
+  );
+};
 
 const expectProofsToBeSimilar = async (credential: any, expectedProof: any) => {
   suite = new Ed25519Signature2018({
@@ -118,9 +120,9 @@ const expectProofsToBeSimilar = async (credential: any, expectedProof: any) => {
   );
   // Created Proof Should be XML Datetime
   expect(xmlDatetime.test(proof.created)).toBeTruthy();
-  // Expected Proof should be XML Datetime 
+  // Expected Proof should be XML Datetime
   expect(xmlDatetime.test(expectedProof.created)).toBeTruthy();
-  // Should be less than 10 seconds apart 
+  // Should be less than 10 seconds apart
   expect(diffInSeconds(proof.created, expectedProof.created)).toBeLessThan(10);
 
   const result = await suite.verifyProof({
@@ -197,5 +199,4 @@ describe("regarding issuanceDate Handling", () => {
     // pass through the empty string as-is
     await expectProofsToMatch(credentialGMT, expectedProofGMT);
   });
-
 });
