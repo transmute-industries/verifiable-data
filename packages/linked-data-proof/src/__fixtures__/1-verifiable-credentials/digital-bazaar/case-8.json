@@ -1,0 +1,22 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1"
+  ],
+  "id": "https://example.com/credentials/1872",
+  "type": [
+    "VerifiableCredential"
+  ],
+  "issuanceDate": 123,
+  "expirationDate": 123,
+  "issuer": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
+  "credentialSubject": {
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21"
+  },
+  "proof": {
+    "type": "Ed25519Signature2018",
+    "created": "1970-01-01T00:00:00Z",
+    "verificationMethod": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk#z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
+    "proofPurpose": "assertionMethod",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..-c3Axfdvja7sRdifVPc31k5WMwQhJAy3KPYJZtOfKoVXcKrJ1nxU5ih2GIv6fzeVyhgTvcghcBIRy-fsxCxuDg"
+  }
+}
