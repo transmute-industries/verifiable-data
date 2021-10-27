@@ -34,6 +34,15 @@ import expectedProofEmpty from "../__fixtures__/proofs/digital-bazaar/case-13.js
 import credentialGMT from "../__fixtures__/credentials/case-14.json";
 import expectedProofGMT from "../__fixtures__/proofs/digital-bazaar/case-14.json";
 
+// Test 9 "issuanceDate": undefined
+import credentialUndefined from "../__fixtures__/credentials/case-15.json";
+import expectedProofUndefined from "../__fixtures__/proofs/digital-bazaar/case-15.json";
+
+// Test 10 "issuanceDate": -5299144972
+import credentialNeg from "../__fixtures__/credentials/case-16.json";
+import expectedProofNeg from "../__fixtures__/proofs/digital-bazaar/case-16.json";
+
+
 let keyPair: Ed25519VerificationKey2018;
 let suite: Ed25519Signature2018;
 let proof: any;
@@ -167,7 +176,7 @@ describe("regarding issuanceDate Handling", () => {
   it("3. issuanceDate when null", async () => {
     // Expected behavior is that proofs should use
     // 1970-01-01T00:00:00Z as the date
-    await expectProofsToMatch(credentialNull, expectedProofNull);
+    await expectProofsToBeSimilar(credentialNull, expectedProofNull);
   });
 
   it("4. issuanceDate term is removed", async () => {
@@ -191,7 +200,7 @@ describe("regarding issuanceDate Handling", () => {
   it("7. issuanceDate is empty string", async () => {
     // Expected behavior is that proofs should
     // pass through the empty string as-is
-    await expectProofsToMatch(credentialEmpty, expectedProofEmpty);
+    await expectProofsToBeSimilar(credentialEmpty, expectedProofEmpty);
   });
 
   it("8. issuanceDate is GMT date time", async () => {
@@ -199,4 +208,20 @@ describe("regarding issuanceDate Handling", () => {
     // pass through the empty string as-is
     await expectProofsToMatch(credentialGMT, expectedProofGMT);
   });
+
+  it("9. issuanceDate is undefined", async () => {
+    // Expected behavior is that date should be created
+    // with current time in format 2021-10-27T14:58:16Z
+
+    // @ts-ignore
+    credentialUndefined.issuanceDate = undefined;
+    await expectProofsToBeSimilar(credentialUndefined, expectedProofUndefined);
+  });
+
+  it("10. issuanceDate is large negative", async () => {
+    // Expected behavior is that proofs should
+    // pass through the empty string as-is
+    await expectProofsToMatch(credentialNeg, expectedProofNeg);
+  });
+
 });

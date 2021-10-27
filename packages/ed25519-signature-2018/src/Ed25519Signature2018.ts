@@ -152,15 +152,15 @@ export class Ed25519Signature2018 {
 
     // set default `now` date if not given in `proof` or `options`
     let date = this.date;
-    if (proof.created === undefined && date === undefined) {
+    if(typeof date === 'number' && Math.abs(date) > 1000) {
+      date = new Date(Math.floor(date / 1000) * 1000);
+    } else if(isNaN(Date.parse(date))) {
       date = new Date();
+    } else {
+      date = new Date(date);
     }
-
-    // ensure date is in string format
-    if (date !== undefined && typeof date !== "string") {
-      date = new Date(date).toISOString();
-      date = date.substr(0, date.length - 5) + "Z";
-    }
+    date = date.toISOString();
+    date = date.substr(0, date.length - 5) + "Z";
 
     // add API overrides
     if (date !== undefined) {

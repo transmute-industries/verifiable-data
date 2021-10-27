@@ -22,7 +22,9 @@ const credential11 = require("../src/__fixtures__/credentials/case-11.json");
 const credential12 = require("../src/__fixtures__/credentials/case-12.json");
 const credential13 = require("../src/__fixtures__/credentials/case-13.json");
 const credential14 = require("../src/__fixtures__/credentials/case-14.json");
-
+const credential15 = require("../src/__fixtures__/credentials/case-15.json");
+const credential16 = require("../src/__fixtures__/credentials/case-16.json");
+credential15.issuanceDate = undefined;
 
 const credentials = [
   credential1,
@@ -39,6 +41,8 @@ const credentials = [
   credential12,
   credential13,
   credential14,
+  credential15,
+  credential16,
 ];
 
 const purpose = {
