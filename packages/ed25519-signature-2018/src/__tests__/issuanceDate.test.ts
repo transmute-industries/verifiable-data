@@ -207,11 +207,10 @@ const expectProofsToBeSimilar = async (credential: any, expectedProof: any) => {
 };
 
 describe("1. proof should create XML datetime for missing issuanceDate", () => {
-
   // Import Key before starting (async)
   (async () => {
     keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
-  })()
+  })();
 
   it("1.1 issuanceDate is null", async () => {
     await expectProofsToBeSimilar(credentialNull, expectedProofNull);
@@ -235,11 +234,9 @@ describe("1. proof should create XML datetime for missing issuanceDate", () => {
   it("1.5 issuanceDate is zero ", async () => {
     await expectProofsToBeSimilar(credentialZero, expectedProofZero);
   });
-
 });
 
 describe("2. proof should give same XML datetime for given issuanceDate int", () => {
-
   it("2.1 issuanceDate is 1635338341313", async () => {
     await expectProofsToMatch(credentialUnix, expectedProofUnix);
   });
@@ -259,7 +256,7 @@ describe("2. proof should give same XML datetime for given issuanceDate int", ()
   it("2.5 issuanceDate is 123", async () => {
     await expectProofsToMatch(credential123, expectedProof123);
   });
-  
+
   it("2.6 issuanceDate is 12345", async () => {
     await expectProofsToMatch(credential12345, expectedProof12345);
   });
@@ -267,15 +264,13 @@ describe("2. proof should give same XML datetime for given issuanceDate int", ()
   it("2.7 issuanceDate is -123", async () => {
     await expectProofsToMatch(credentialNeg123, expectedProofNeg123);
   });
-  
+
   it("2.8 issuanceDate is -12345", async () => {
     await expectProofsToMatch(credentialNeg12345, expectedProofNeg12345);
   });
-
 });
 
 describe("3. proof should give same XML datetime for given issuanceDate string", () => {
-
   it("3.1 issuanceDate is '2021-10-19T14:47:38-05:00' (ISO)", async () => {
     await expectProofsToMatch(credentialISO, expectedProofISO);
   });
@@ -315,5 +310,4 @@ describe("3. proof should give same XML datetime for given issuanceDate string",
   it("3.10 issuanceDate is 'Wed, 09 Aug 1995 00:00:00' ", async () => {
     await expectProofsToMatch(credentialMonthNoTZ, expectedProofMonthNoTZ);
   });
-
 });
