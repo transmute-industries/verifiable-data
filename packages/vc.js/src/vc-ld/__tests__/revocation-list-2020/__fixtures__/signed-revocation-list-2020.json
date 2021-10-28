@@ -14,8 +14,8 @@
   "issuanceDate": "2021-03-01T01:16:12.860Z",
   "proof": {
     "type": "Ed25519Signature2018",
-    "created": "2021-03-01T01:16:12.860Z",
-    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..IeI2jmhcb4wzfBZQKr2GgtF01Qynq3gdPfl5Ir7S8huKx12qLUojaJiWLpzpSXdRrun4ng-FzPHPX03dTjuoBw",
+    "created": "2021-03-01T01:16:12Z",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..DMl04FWTFJwCyl_cs_PbzYd01RfxAJnKfl--w-tiYZ436WbaoQVTYj0v4RZrIjmkNzn1jC4f4y-G04u6i-UyCg",
     "proofPurpose": "assertionMethod",
     "verificationMethod": "did:key:z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4#z6MkjdvvhidKavKoWwkdf4Sb8JkHTvnFUsGxvbmNMJUBPJs4"
   }
