@@ -183,7 +183,7 @@ const expectProofsToBeSimilar = async (credential: any, expectedProof: any) => {
   // Expected Proof should be XML Datetime
   expect(xmlDatetime.test(expectedProof.created)).toBeTruthy();
   // Should be less than 10 seconds apart
-  expect(diffInSeconds(proof.created, expectedProof.created)).toBeLessThan(10);
+  expect(diffInSeconds(proof.created, expectedProof.created)).toBeLessThan(30);
 
   const result = await suite.verifyProof({
     proof: proof,
