@@ -2,45 +2,97 @@ import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "..";
 import rawKeyJson from "../__fixtures__/keys/key.json";
 import documentLoader from "../__fixtures__/documentLoader";
 
-// Test 1 "issuanceDate": "2021-10-19T14:47:38-05:00"
+// "issuanceDate": "2021-10-19T14:47:38-05:00"
 import credentialISO from "../__fixtures__/credentials/case-7.json";
 import expectedProofISO from "../__fixtures__/proofs/digital-bazaar/case-7.json";
 
-// Test 2 "issuanceDate": "2021-10-19T19:47:38Z"
+// "issuanceDate": "2021-10-19T19:47:38Z"
 import credentialXML from "../__fixtures__/credentials/case-8.json";
 import expectedProofXML from "../__fixtures__/proofs/digital-bazaar/case-8.json";
 
-// Test 3 "issuanceDate": null
+// "issuanceDate": null
 import credentialNull from "../__fixtures__/credentials/case-9.json";
 import expectedProofNull from "../__fixtures__/proofs/digital-bazaar/case-9.json";
 
-// Test 4 "issuanceDate": (term does not exist in credential)
+// "issuanceDate": (term does not exist in credential)
 import credentialRemoved from "../__fixtures__/credentials/case-10.json";
 import expectedProofRemoved from "../__fixtures__/proofs/digital-bazaar/case-10.json";
 
-// Test 5 "issuanceDate": 1635338341313
+// "issuanceDate": 1635338341313
 import credentialUnix from "../__fixtures__/credentials/case-11.json";
 import expectedProofUnix from "../__fixtures__/proofs/digital-bazaar/case-11.json";
 
-// Test 6 "issuanceDate": -1
+// "issuanceDate": -1
 import credentialNegOne from "../__fixtures__/credentials/case-12.json";
 import expectedProofNegOne from "../__fixtures__/proofs/digital-bazaar/case-12.json";
 
-// Test 7 "issuanceDate": ""
+// "issuanceDate": ""
 import credentialEmpty from "../__fixtures__/credentials/case-13.json";
 import expectedProofEmpty from "../__fixtures__/proofs/digital-bazaar/case-13.json";
 
-// Test 8 "issuanceDate": "04 Dec 1995 00:12:00 GMT"
+// "issuanceDate": "04 Dec 1995 00:12:00 GMT"
 import credentialGMT from "../__fixtures__/credentials/case-14.json";
 import expectedProofGMT from "../__fixtures__/proofs/digital-bazaar/case-14.json";
 
-// Test 9 "issuanceDate": undefined
+// "issuanceDate": undefined
 import credentialUndefined from "../__fixtures__/credentials/case-15.json";
 import expectedProofUndefined from "../__fixtures__/proofs/digital-bazaar/case-15.json";
 
-// Test 10 "issuanceDate": -5299144972
+// "issuanceDate": -5299144972
 import credentialNeg from "../__fixtures__/credentials/case-16.json";
 import expectedProofNeg from "../__fixtures__/proofs/digital-bazaar/case-16.json";
+
+// "issuanceDate": 123
+import credential123 from "../__fixtures__/credentials/case-17.json";
+import expectedProof123 from "../__fixtures__/proofs/digital-bazaar/case-17.json";
+
+// "issuanceDate": 12345
+import credential12345 from "../__fixtures__/credentials/case-18.json";
+import expectedProof12345 from "../__fixtures__/proofs/digital-bazaar/case-18.json";
+
+// "issuanceDate": -123
+import credentialNeg123 from "../__fixtures__/credentials/case-19.json";
+import expectedProofNeg123 from "../__fixtures__/proofs/digital-bazaar/case-19.json";
+
+// "issuanceDate": -12345
+import credentialNeg12345 from "../__fixtures__/credentials/case-20.json";
+import expectedProofNeg12345 from "../__fixtures__/proofs/digital-bazaar/case-20.json";
+
+// "issuanceDate": 0
+import credentialZero from "../__fixtures__/credentials/case-21.json";
+import expectedProofZero from "../__fixtures__/proofs/digital-bazaar/case-21.json";
+
+// "issuanceDate": "10 06 2014"
+import credentialMonDayYear from "../__fixtures__/credentials/case-22.json";
+import expectedProofMonDayYear from "../__fixtures__/proofs/digital-bazaar/case-22.json";
+
+// "issuanceDate": "2019-05-30"
+import credentialYearMonDay from "../__fixtures__/credentials/case-23.json";
+import expectedProofYearMonDay from "../__fixtures__/proofs/digital-bazaar/case-23.json";
+
+// "issuanceDate": "2019-05-30T01:23:45.678Z"
+import credentialXmlMs from "../__fixtures__/credentials/case-24.json";
+import expectedProofXmlMs from "../__fixtures__/proofs/digital-bazaar/case-24.json";
+
+// "issuanceDate": "2019-01-01T01:33:44.456+09:00"
+import credentialTMs from "../__fixtures__/credentials/case-25.json";
+import expectedProofTMs from "../__fixtures__/proofs/digital-bazaar/case-25.json";
+
+// "issuanceDate": "2021-04-19T01:23:45"
+import credentialNoTZ from "../__fixtures__/credentials/case-26.json";
+import expectedProofNoTZ from "../__fixtures__/proofs/digital-bazaar/case-26.json";
+
+// "issuanceDate": "Aug 9, 1995"
+import credentialMonth from "../__fixtures__/credentials/case-27.json";
+import expectedProofMonth from "../__fixtures__/proofs/digital-bazaar/case-27.json";
+
+// "issuanceDate": "Wed, 09 Aug 1995 00:00:00"
+import credentialMonthNoTZ from "../__fixtures__/credentials/case-28.json";
+import expectedProofMonthNoTZ from "../__fixtures__/proofs/digital-bazaar/case-28.json";
+
+// "issuanceDate": 0
+import credentialOne from "../__fixtures__/credentials/case-29.json";
+import expectedProofOne from "../__fixtures__/proofs/digital-bazaar/case-29.json";
 
 let keyPair: Ed25519VerificationKey2018;
 let suite: Ed25519Signature2018;
@@ -154,72 +206,114 @@ const expectProofsToBeSimilar = async (credential: any, expectedProof: any) => {
   expect(result.verified).toBeTruthy();
 };
 
-describe("regarding issuanceDate Handling", () => {
-  it("import key", async () => {
+describe("1. proof should create XML datetime for missing issuanceDate", () => {
+
+  // Import Key before starting (async)
+  (async () => {
     keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
-    expect(keyPair.controller).toBe(rawKeyJson.controller);
-  });
+  })()
 
-  it("1. issuanceDate as iso string", async () => {
-    // Expected behavior is that proofs should use
-    // existing ISO string as is
-    await expectProofsToMatch(credentialISO, expectedProofISO);
-  });
-
-  it("2. issuanceDate as xml string", async () => {
-    // Expected behavior is that proofs should use
-    // existing XML string as is
-    await expectProofsToMatch(credentialXML, expectedProofXML);
-  });
-
-  it("3. issuanceDate when null", async () => {
-    // Expected behavior is that proofs should use
-    // 1970-01-01T00:00:00Z as the date
+  it("1.1 issuanceDate is null", async () => {
     await expectProofsToBeSimilar(credentialNull, expectedProofNull);
   });
 
-  it("4. issuanceDate term is removed", async () => {
-    // Expected behavior is that date should be created
-    // with current time in format 2021-10-27T14:58:16Z
+  it("1.2 issuanceDate term is not in credential", async () => {
     await expectProofsToBeSimilar(credentialRemoved, expectedProofRemoved);
   });
 
-  it("5. issuanceDate is a unix timestamp", async () => {
-    // Expected behavior is that proofs should be
-    // converted to 2021-10-27T12:39:01Z format
-    await expectProofsToMatch(credentialUnix, expectedProofUnix);
-  });
-
-  it("6. issuanceDate is negative one", async () => {
-    // Expected behavior is that proofs should be
-    // converted to 1969-12-31T23:59:59Z format
-    await expectProofsToMatch(credentialNegOne, expectedProofNegOne);
-  });
-
-  it("7. issuanceDate is empty string", async () => {
-    // Expected behavior is that proofs should
-    // pass through the empty string as-is
+  it("1.3 issuanceDate is empty string", async () => {
     await expectProofsToBeSimilar(credentialEmpty, expectedProofEmpty);
   });
 
-  it("8. issuanceDate is GMT date time", async () => {
-    // Expected behavior is that proofs should
-    // pass through the empty string as-is
-    await expectProofsToMatch(credentialGMT, expectedProofGMT);
-  });
-
-  it("9. issuanceDate is undefined", async () => {
-    // Expected behavior is that date should be created
-    // with current time in format 2021-10-27T14:58:16Z
-
+  it("1.4 issuanceDate is undefined", async () => {
+    // TypeScript ignore line is required to run test for undefined
     // @ts-ignore
     credentialUndefined.issuanceDate = undefined;
     await expectProofsToBeSimilar(credentialUndefined, expectedProofUndefined);
   });
 
-  it("10. issuanceDate is large negative", async () => {
-    // Expected behavior is that proofs should
-    // pass through the empty string as-is
+  it("1.5 issuanceDate is zero ", async () => {
+    await expectProofsToBeSimilar(credentialZero, expectedProofZero);
+  });
+
+});
+
+describe("2. proof should give same XML datetime for given issuanceDate int", () => {
+
+  it("2.1 issuanceDate is 1635338341313", async () => {
+    await expectProofsToMatch(credentialUnix, expectedProofUnix);
+  });
+
+  it("2.2 issuanceDate is -1635338341313", async () => {
     await expectProofsToMatch(credentialNeg, expectedProofNeg);
   });
+
+  it("2.3 issuanceDate is 1", async () => {
+    await expectProofsToMatch(credentialOne, expectedProofOne);
+  });
+
+  it("2.4 issuanceDate is -1", async () => {
+    await expectProofsToMatch(credentialNegOne, expectedProofNegOne);
+  });
+
+  it("2.5 issuanceDate is 123", async () => {
+    await expectProofsToMatch(credential123, expectedProof123);
+  });
+  
+  it("2.6 issuanceDate is 12345", async () => {
+    await expectProofsToMatch(credential12345, expectedProof12345);
+  });
+
+  it("2.7 issuanceDate is -123", async () => {
+    await expectProofsToMatch(credentialNeg123, expectedProofNeg123);
+  });
+  
+  it("2.8 issuanceDate is -12345", async () => {
+    await expectProofsToMatch(credentialNeg12345, expectedProofNeg12345);
+  });
+
+});
+
+describe("3. proof should give same XML datetime for given issuanceDate string", () => {
+
+  it("3.1 issuanceDate is '2021-10-19T14:47:38-05:00' (ISO)", async () => {
+    await expectProofsToMatch(credentialISO, expectedProofISO);
+  });
+
+  it("3.2 issuanceDate is '2021-10-19T19:47:38Z' (XML)", async () => {
+    await expectProofsToMatch(credentialXML, expectedProofXML);
+  });
+
+  it("3.3 issuanceDate is '04 Dec 1995 00:12:00 GMT'", async () => {
+    await expectProofsToMatch(credentialGMT, expectedProofGMT);
+  });
+
+  it("3.4 issuanceDate is '10 06 2014' ", async () => {
+    await expectProofsToMatch(credentialMonDayYear, expectedProofMonDayYear);
+  });
+
+  it("3.5 issuanceDate is '2019-05-30' ", async () => {
+    await expectProofsToMatch(credentialYearMonDay, expectedProofYearMonDay);
+  });
+
+  it("3.6 issuanceDate is '2019-05-30T01:23:45.678Z' ", async () => {
+    await expectProofsToMatch(credentialXmlMs, expectedProofXmlMs);
+  });
+
+  it("3.7 issuanceDate is '2019-01-01T01:33:44.456+09:00' ", async () => {
+    await expectProofsToMatch(credentialTMs, expectedProofTMs);
+  });
+
+  it("3.8 issuanceDate is '2021-04-19T01:23:45' ", async () => {
+    await expectProofsToMatch(credentialNoTZ, expectedProofNoTZ);
+  });
+
+  it("3.9 issuanceDate is 'Aug 9, 1995' ", async () => {
+    await expectProofsToMatch(credentialMonth, expectedProofMonth);
+  });
+
+  it("3.10 issuanceDate is 'Wed, 09 Aug 1995 00:00:00' ", async () => {
+    await expectProofsToMatch(credentialMonthNoTZ, expectedProofMonthNoTZ);
+  });
+
 });

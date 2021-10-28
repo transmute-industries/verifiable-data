@@ -1,7 +1,7 @@
 {
   "type": "Ed25519Signature2018",
-  "created": "1969-10-31T16:00:55Z",
+  "created": "1918-03-07T11:20:58Z",
   "verificationMethod": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk#z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
   "proofPurpose": "assertionMethod",
-  "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..M70AGBkBMx7xlja68J3aivRrwv_MX9R1rvg-h8BKn5lrYPE93djV3-JcQ9USn1J1lGIoXrqOrABG2n8K-AZBBg"
+  "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..J2VevaAX-eeGmY0oxsJJARwTZqGUfdWGliOXgi3S2CN9gLZiQCbq6K3uLjCLLe0fPp93FgvdoUEbrxPevoujBQ"
 }
