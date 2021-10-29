@@ -31,20 +31,7 @@ const credentials = [
   credential9,
 ];
 
-// TODO: use actual values
-const purpose = {
-  // ignore validation of dates and such...
-  validate: () => {
-    return { valid: true };
-  },
-  update: (proof) => {
-    proof.proofPurpose = "assertionMethod";
-    return proof;
-  },
-  match: async (proof, _options) => {
-    return proof.proofPurpose === "assertionMethod";
-  },
-};
+const purpose = new jsigs.purposes.AssertionProofPurpose();
 
 (async () => {
   let idx = 0;
