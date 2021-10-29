@@ -2,7 +2,7 @@
   "name": "@transmute/ed25519-signature-2018",
   "author": "Orie Steele",
   "module": "dist/ed25519-signature-2018.esm.js",
-  "version": "0.7.0-unstable.17",
+  "version": "0.7.0-unstable.18",
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/ed25519-signature-2018",
   "repository": {
@@ -33,7 +33,7 @@
   "devDependencies": {
     "@digitalbazaar/ed25519-signature-2018": "^2.0.1",
     "@digitalbazaar/ed25519-verification-key-2018": "^3.1.1",
-    "@transmute/credentials-context": "^0.7.0-unstable.17",
+    "@transmute/credentials-context": "^0.7.0-unstable.18",
     "json-pointer": "^0.6.1",
     "ts-jest": "^27.0.3",
     "tsdx": "^0.14.1",
@@ -42,8 +42,8 @@
   },
   "dependencies": {
     "@transmute/ed25519-key-pair": "0.7.0-unstable.2",
-    "@transmute/jose-ld": "^0.7.0-unstable.17",
-    "@transmute/security-context": "^0.7.0-unstable.17",
+    "@transmute/jose-ld": "^0.7.0-unstable.18",
+    "@transmute/security-context": "^0.7.0-unstable.18",
     "jsonld": "5.2.0"
   },
   "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
