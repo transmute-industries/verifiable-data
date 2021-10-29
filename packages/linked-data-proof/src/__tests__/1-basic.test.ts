@@ -1,6 +1,6 @@
 import {
   Ed25519Signature2018,
-  Ed25519VerificationKey2018,
+  Ed25519VerificationKey2018
 } from "@transmute/ed25519-signature-2018";
 
 import * as ldp from "..";
@@ -9,19 +9,7 @@ import credential from "../__fixtures__/1-credentials/case-1.json";
 import documentLoader from "../__fixtures__/documentLoader";
 import expectedVerifiableCredential from "../__fixtures__/1-verifiable-credentials/digital-bazaar/case-1.json";
 
-const purpose = {
-  // ignore validation of dates and such...
-  validate: () => {
-    return { valid: true };
-  },
-  update: (proof: any) => {
-    proof.proofPurpose = "assertionMethod";
-    return proof;
-  },
-  match: async (proof: any, _options: any) => {
-    return proof.proofPurpose === "assertionMethod";
-  },
-};
+const purpose = new ldp.purposes.AssertionProofPurpose();
 let keyPair: Ed25519VerificationKey2018;
 let suite: Ed25519Signature2018;
 let verifiableCredential: any;
@@ -34,7 +22,7 @@ describe("create and verify verifiable credential", () => {
   it("define suite", async () => {
     suite = new Ed25519Signature2018({
       key: keyPair,
-      date: credential.issuanceDate,
+      date: credential.issuanceDate
     });
     expect(suite.verificationMethod).toBe(rawKeyJson.id);
   });
@@ -44,7 +32,7 @@ describe("create and verify verifiable credential", () => {
       purpose,
       documentLoader,
       expansionMap: false,
-      compactProof: false,
+      compactProof: false
     });
   });
   it("should match fixture", () => {
@@ -57,7 +45,7 @@ describe("create and verify verifiable credential", () => {
       purpose,
       documentLoader,
       expansionMap: false,
-      compactProof: false,
+      compactProof: false
     });
     expect(verifiableCredential.proof["@context"]).toBeFalsy();
     expect(result.verified).toBeTruthy();
