@@ -9,19 +9,7 @@ import credential from "../__fixtures__/1-credentials/case-1.json";
 import documentLoader from "../__fixtures__/documentLoader";
 import expectedVerifiableCredential from "../__fixtures__/1-verifiable-credentials/digital-bazaar/case-1.json";
 
-const purpose = {
-  // ignore validation of dates and such...
-  validate: () => {
-    return { valid: true };
-  },
-  update: (proof: any) => {
-    proof.proofPurpose = "assertionMethod";
-    return proof;
-  },
-  match: async (proof: any, _options: any) => {
-    return proof.proofPurpose === "assertionMethod";
-  }
-};
+const purpose = new ldp.purposes.AssertionProofPurpose();
 let keyPair: Ed25519VerificationKey2018;
 let suite: Ed25519Signature2018;
 let verifiableCredential: any;

@@ -9,6 +9,8 @@ import * as ldp from "..";
 import rawKeyJson from "../__fixtures__/1-keys/key.json";
 import documentLoader from "../__fixtures__/documentLoader";
 
+const purpose = new ldp.purposes.AssertionProofPurpose();
+
 describe("credential comparisons", () => {
   let credentialsPath: string;
   let files: string[] = [];
@@ -33,19 +35,6 @@ describe("credential comparisons", () => {
       const credential = JSON.parse(
         fs.readFileSync(credentialsPath + "/" + filename).toString()
       );
-      const purpose = {
-        // ignore validation of dates and such...
-        validate: () => {
-          return { valid: true };
-        },
-        update: (proof: any) => {
-          proof.proofPurpose = "assertionMethod";
-          return proof;
-        },
-        match: async (proof: any, _options: any) => {
-          return proof.proofPurpose === "assertionMethod";
-        }
-      };
       const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
       expect(keyPair.controller).toBe(rawKeyJson.controller);
       let suite;
