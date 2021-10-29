@@ -84,7 +84,7 @@ const purpose = new jsigs.purposes.AssertionProofPurpose();
       );
     } else {
       throw new Error(
-        "Expected verifiable credential for case-1.json to verify"
+        `Expected verifiable credential for case-${idx}.json to verify`
       );
     }
   }
