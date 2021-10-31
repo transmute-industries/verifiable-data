@@ -6,7 +6,7 @@ export const verify = async (
   options: VerifyPresentationOptions
 ): Promise<VerificationResult> => {
   const result: any = {
-    verified: false
+    verified: false,
   };
 
   if (!options.format) {
@@ -17,14 +17,14 @@ export const verify = async (
     options.format.includes("vp") &&
     (options.presentation as any)["@context"]
   ) {
-    const res = await ld.verifyVerifiablePresentation({
+    return ld.verifyVerifiablePresentation({
       presentation: options.presentation,
       suite: options.suite,
       domain: options.domain,
       challenge: options.challenge,
-      documentLoader: options.documentLoader
+      checkStatus: options.checkStatus,
+      documentLoader: options.documentLoader,
     });
-    result.verified = res.verified;
   }
 
   // vp-jwt's are strings with an encoded vp member that conforms to the data model
@@ -46,10 +46,10 @@ export const verify = async (
     let suite = Array.isArray(options.suite) ? options.suite[0] : options.suite;
     const verificationMethod = await suite.getVerificationMethod({
       proof: {
-        verificationMethod: header.kid
+        verificationMethod: header.kid,
       },
       documentLoader: options.documentLoader,
-      instance: true // need this to get the class instance
+      instance: true, // need this to get the class instance
     });
 
     if (!verificationMethod || !verificationMethod.useJwa) {
@@ -58,11 +58,11 @@ export const verify = async (
       );
     }
     const k = await verificationMethod.useJwa({
-      detached: false
+      detached: false,
     });
     const verifier = k.verifier();
     const verified = await verifier.verify({
-      signature: options.presentation
+      signature: options.presentation,
     });
     result.verified = verified;
   }

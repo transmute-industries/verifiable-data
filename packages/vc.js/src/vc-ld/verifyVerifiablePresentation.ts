@@ -1,8 +1,46 @@
 import * as ldp from "@transmute/linked-data-proof";
-import jsonld from "jsonld";
+// import jsonld from "jsonld";
 import { checkPresentation } from "../checkPresentation";
-
+import { PresentationVerification } from "../types/PresentationVerification";
 import { verifyVerifiableCredential } from "./verifyVerifiableCredential";
+import { getVerifierForJwt } from "../vc-jwt/getVerifierForJwt";
+import { decodeJwt } from "../vc-jwt/decodeJwt";
+import { verifyVerifiableCredential as verifyJwt } from "../vc-jwt/verifyVerifiableCredential";
+const verifyCredentialsInPresentation = async (
+  presentation: any,
+  options: any
+) => {
+  let result: any = { verified: false };
+  const results = await Promise.all(
+    presentation.verifiableCredential.map(async (credential: any) => {
+      if (!credential["@context"]) {
+        const verifier = await getVerifierForJwt(credential, options);
+        const res = await verifyJwt(credential, { ...options, verifier });
+        const decoded = decodeJwt(credential);
+        return {
+          credentialId: decoded.payload.vc.id || undefined,
+          verified: res,
+        };
+      }
+      if (credential.credentialStatus && !options.checkStatus) {
+        throw new Error(
+          "options.checkStatus is required to verify presentation of revocable credentials."
+        );
+      }
+      const res = await verifyVerifiableCredential({
+        credential,
+        ...options,
+      });
+      return {
+        credentialId: credential.id,
+        ...res,
+      };
+    })
+  );
+  result.verified = results.every((r: any) => r.verified);
+  result.results = results;
+  return result;
+};
 
 export const verifyVerifiablePresentation = async (options: any) => {
   const { documentLoader, domain, challenge } = options;
@@ -24,7 +62,7 @@ export const verifyVerifiablePresentation = async (options: any) => {
   } catch (e) {
     return {
       verified: false,
-      errors: [e]
+      presentation: e,
     };
   }
 
@@ -48,42 +86,45 @@ export const verifyVerifiablePresentation = async (options: any) => {
     }
   }
 
-  const result: { verified: boolean; errors?: any } = {
-    verified: false
+  const result: PresentationVerification = {
+    verified: false,
   };
 
-  if (!presentation.proof) {
-    const credentials = await Promise.all(
-      jsonld
-        .getValues(presentation, "verifiableCredential")
-        .map(async (credential: any) => {
-          const res = await verifyVerifiableCredential({
-            credential,
-            ...options
-          });
-          return {
-            credentialId: credential.id,
-            ...res
-          };
-        })
+  if (
+    presentation.verifiableCredential &&
+    presentation.verifiableCredential.length
+  ) {
+    const credentials = await verifyCredentialsInPresentation(
+      presentation,
+      options
     );
-    result.verified = credentials.every((r: any) => r.verified);
-    if (!result.verified) {
-      result.errors = credentials;
+    result.credentials = credentials;
+    if (!credentials.verified) {
+      result.verified = false;
     }
-  } else {
+  }
+
+  if (presentation.proof) {
     const purpose = new ldp.purposes.AuthenticationProofPurpose({
       domain,
-      challenge
+      challenge,
     });
-    const res = await ldp.verify(presentation, {
+    const verification = await ldp.verify(presentation, {
       ...options,
-      purpose
+      purpose,
     });
-    result.verified = res.verified;
-    if (!result.verified) {
-      result.errors = [res];
-    }
+    result.presentation = verification;
+  } else {
+    result.presentation = result.credentials;
+  }
+
+  if (result.presentation && !result.credentials) {
+    result.verified = result.presentation.verified;
+  }
+
+  if (result.presentation && result.credentials) {
+    result.verified =
+      result.presentation.verified && result.credentials.verified;
   }
   return result;
 };
