@@ -126,6 +126,10 @@ Promise.all(
       return fs.writeFileSync(filename, fileContent);
     }
 
+    if (typeof suite.date === "undefined") {
+      suite.date = new Date(CREATED_ON);
+    }
+    
     try {
       signedCredential = await jsigs.sign(unsignedCredential, {
         suite,
@@ -179,8 +183,63 @@ Promise.all(
     const fileContent = JSON.stringify(signedCredential, null, 2);
     fs.writeFileSync(filename, fileContent);
 
-  })
-  
+  }),
+
+  // For the fourth set of 
+  TESTS.map( async (date, index) => {
+ 
+    const unsignedCredential = { ...credential };
+    switch (date) {
+      case "removed":
+        delete unsignedCredential.issuanceDate;
+        break;
+      default:
+        unsignedCredential.issuanceDate = date;
+        break;
+    }
+
+    const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
+    const filename = path.resolve( __dirname, `../src/__fixtures__/credentials/issuanceDateSuite/case-${index}.json`);
+
+    let suite, signedCredential;
+    try {
+      suite = new Ed25519Signature2018({
+        key: keyPair,
+        date: date,
+      });
+    } catch(err) {
+      const fileContent = JSON.stringify({
+        type: 'error',
+        thrownOn : 'suite',
+        reason : err.toString()
+      }, null, 2);
+      return fs.writeFileSync(filename, fileContent);
+    }
+
+    if (typeof suite.date === "undefined") {
+      suite.date = new Date(CREATED_ON);
+    }
+    
+    try {
+      signedCredential = await jsigs.sign(unsignedCredential, {
+        suite,
+        purpose: new AssertionProofPurpose(),
+        documentLoader,
+      });
+    } catch(err) {
+      const fileContent = JSON.stringify({
+        type: 'error',
+        thrownOn : 'sign',
+        reason : err.toString()
+      }, null, 2);
+      return fs.writeFileSync(filename, fileContent);
+    }
+
+    const fileContent = JSON.stringify(signedCredential, null, 2);
+    fs.writeFileSync(filename, fileContent);
+
+  }),
+
 ).then(function() {
   console.log("Wrote the fixtures!!!");
 });
