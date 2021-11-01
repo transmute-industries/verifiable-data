@@ -20,7 +20,9 @@ export const verify = async (
       credential: options.credential,
       suite: options.suite,
       documentLoader: options.documentLoader,
-      checkStatus: options.checkStatus
+      checkStatus: options.checkStatus,
+      compactProof: options.compactProof,
+      expansionMap: options.expansionMap
     });
     result.verified = res.verified;
     if (!result.verified) {

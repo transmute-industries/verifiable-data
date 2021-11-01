@@ -187,7 +187,7 @@ export class ProofSet {
       purpose,
       documentLoader,
       expansionMap,
-      compactProof = true // consider not supporting anything else...
+      compactProof = false // digital bazaar doesn't have this option
     }: any = {}
   ) => {
     if (!suite) {
