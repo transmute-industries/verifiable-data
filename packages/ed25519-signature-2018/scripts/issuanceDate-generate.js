@@ -57,6 +57,8 @@ const TESTS = [
   "1996-09-29T15:01:23.456Z",
   "1996-09-29T15:01:23Z",
   "1996-09-29T15:01:23-05:00",
+  moment(ISSUED_ON).toArray(),
+  // moment(ISSUED_ON).toObject(),
 ];
 
 /*
@@ -70,6 +72,7 @@ results in failure to verify
 // initialize them all asynchronously
 Promise.all(
 
+  // First set of tests, we set various issuanceDate's for the same credential
   TESTS.map( async (date, index) => {
  
     const unsignedCredential = { ...credential };
@@ -99,7 +102,49 @@ Promise.all(
     const fileContent = JSON.stringify(signedCredential, null, 2);
     fs.writeFileSync(filename, fileContent);
 
-  })
+  }),
+
+  // For the second set of tests, we have a fixed credential and we change what we pass what date we have into the suite constructor
+  TESTS.map( async (date, index) => {
+ 
+    const unsignedCredential = { ...credential };
+    const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
+    const filename = path.resolve( __dirname, `../src/__fixtures__/credentials/suiteConstructor/case-${index}.json`);
+
+    let suite, signedCredential;
+    try {
+      suite = new Ed25519Signature2018({
+        key: keyPair,
+        date: date,
+      });
+    } catch(err) {
+      const fileContent = JSON.stringify({
+        type: 'error',
+        thrownOn : 'suite',
+        reason : err.toString()
+      }, null, 2);
+      return fs.writeFileSync(filename, fileContent);
+    }
+
+    try {
+      signedCredential = await jsigs.sign(unsignedCredential, {
+        suite,
+        purpose: new AssertionProofPurpose(),
+        documentLoader,
+      });
+    } catch(err) {
+      const fileContent = JSON.stringify({
+        type: 'error',
+        thrownOn : 'suite',
+        reason : err.toString()
+      }, null, 2);
+      return fs.writeFileSync(filename, fileContent);
+    }
+
+    const fileContent = JSON.stringify(signedCredential, null, 2);
+    fs.writeFileSync(filename, fileContent);
+
+  });
   
 ).then(function() {
   console.log("Wrote the fixtures!!!");
