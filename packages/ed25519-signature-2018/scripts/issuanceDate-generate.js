@@ -135,7 +135,7 @@ Promise.all(
     } catch(err) {
       const fileContent = JSON.stringify({
         type: 'error',
-        thrownOn : 'suite',
+        thrownOn : 'sign',
         reason : err.toString()
       }, null, 2);
       return fs.writeFileSync(filename, fileContent);
@@ -144,7 +144,42 @@ Promise.all(
     const fileContent = JSON.stringify(signedCredential, null, 2);
     fs.writeFileSync(filename, fileContent);
 
-  });
+  }),
+
+  // For the third set of tests, we have a fixed credential and we change what we pass what date directly into the suite after creation
+  TESTS.map( async (date, index) => {
+ 
+    const unsignedCredential = { ...credential };
+    const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
+    const filename = path.resolve( __dirname, `../src/__fixtures__/credentials/suiteDirect/case-${index}.json`);
+
+    console.log(index, date);
+
+    const suite = new Ed25519Signature2018({
+      key: keyPair
+    });
+    suite.date = date;
+
+    let signedCredential;
+    try {
+      signedCredential = await jsigs.sign(unsignedCredential, {
+        suite,
+        purpose: new AssertionProofPurpose(),
+        documentLoader,
+      });
+    } catch(err) {
+      const fileContent = JSON.stringify({
+        type: 'error',
+        thrownOn : 'sign',
+        reason : err.toString()
+      }, null, 2);
+      return fs.writeFileSync(filename, fileContent);
+    }
+    
+    const fileContent = JSON.stringify(signedCredential, null, 2);
+    fs.writeFileSync(filename, fileContent);
+
+  })
   
 ).then(function() {
   console.log("Wrote the fixtures!!!");
