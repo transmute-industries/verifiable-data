@@ -8,6 +8,6 @@ export const decodeJwt = (jwt: string) => {
   return {
     header,
     payload,
-    signature: encodedSignature,
+    signature: encodedSignature
   };
 };

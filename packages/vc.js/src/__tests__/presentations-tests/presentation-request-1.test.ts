@@ -13,7 +13,7 @@ describe("presentations of revocable credentials", () => {
       challenge: fixture.options.challenge,
       suite,
       checkStatus,
-      documentLoader,
+      documentLoader
     });
     expect(res.verified).toBe(true);
     expect(res.presentation.verified).toBe(true);
@@ -28,7 +28,7 @@ describe("presentations of revocable credentials", () => {
         presentation: fixture.verifiablePresentation,
         challenge: fixture.options.challenge,
         suite,
-        documentLoader,
+        documentLoader
       });
     } catch (e) {
       expect(e.message).toBe(

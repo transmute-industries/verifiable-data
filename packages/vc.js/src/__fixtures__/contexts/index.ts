@@ -8,5 +8,5 @@ export const contexts: any = {
 
   // required by revocation lists, ... should not be required....
   "https://w3id.org/security/v1": require("./sec-v1.json"),
-  "https://w3id.org/security/v2": require("./sec-v2.json"),
+  "https://w3id.org/security/v2": require("./sec-v2.json")
 };

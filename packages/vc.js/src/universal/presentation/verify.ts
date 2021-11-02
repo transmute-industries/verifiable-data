@@ -6,7 +6,7 @@ export const verify = async (
   options: VerifyPresentationOptions
 ): Promise<VerificationResult> => {
   const result: any = {
-    verified: false,
+    verified: false
   };
 
   if (!options.format) {
@@ -23,7 +23,7 @@ export const verify = async (
       domain: options.domain,
       challenge: options.challenge,
       checkStatus: options.checkStatus,
-      documentLoader: options.documentLoader,
+      documentLoader: options.documentLoader
     });
   }
 
@@ -46,10 +46,10 @@ export const verify = async (
     let suite = Array.isArray(options.suite) ? options.suite[0] : options.suite;
     const verificationMethod = await suite.getVerificationMethod({
       proof: {
-        verificationMethod: header.kid,
+        verificationMethod: header.kid
       },
       documentLoader: options.documentLoader,
-      instance: true, // need this to get the class instance
+      instance: true // need this to get the class instance
     });
 
     if (!verificationMethod || !verificationMethod.useJwa) {
@@ -58,11 +58,11 @@ export const verify = async (
       );
     }
     const k = await verificationMethod.useJwa({
-      detached: false,
+      detached: false
     });
     const verifier = k.verifier();
     const verified = await verifier.verify({
-      signature: options.presentation,
+      signature: options.presentation
     });
     result.verified = verified;
   }

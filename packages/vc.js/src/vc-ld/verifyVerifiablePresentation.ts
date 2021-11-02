@@ -19,7 +19,7 @@ const verifyCredentialsInPresentation = async (
         const decoded = decodeJwt(credential);
         return {
           credentialId: decoded.payload.vc.id || undefined,
-          verified: res,
+          verified: res
         };
       }
       if (credential.credentialStatus && !options.checkStatus) {
@@ -29,11 +29,11 @@ const verifyCredentialsInPresentation = async (
       }
       const res = await verifyVerifiableCredential({
         credential,
-        ...options,
+        ...options
       });
       return {
         credentialId: credential.id,
-        ...res,
+        ...res
       };
     })
   );
@@ -62,7 +62,7 @@ export const verifyVerifiablePresentation = async (options: any) => {
   } catch (e) {
     return {
       verified: false,
-      presentation: e,
+      presentation: e
     };
   }
 
@@ -87,7 +87,7 @@ export const verifyVerifiablePresentation = async (options: any) => {
   }
 
   const result: PresentationVerification = {
-    verified: false,
+    verified: false
   };
 
   if (
@@ -107,11 +107,11 @@ export const verifyVerifiablePresentation = async (options: any) => {
   if (presentation.proof) {
     const purpose = new ldp.purposes.AuthenticationProofPurpose({
       domain,
-      challenge,
+      challenge
     });
     const verification = await ldp.verify(presentation, {
       ...options,
-      purpose,
+      purpose
     });
     result.presentation = verification;
   } else {

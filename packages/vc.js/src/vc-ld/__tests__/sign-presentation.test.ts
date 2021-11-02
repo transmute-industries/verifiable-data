@@ -1,6 +1,6 @@
 import {
   Ed25519Signature2018,
-  Ed25519VerificationKey2018,
+  Ed25519VerificationKey2018
 } from "@transmute/ed25519-signature-2018";
 import documentLoader from "./__fixtures__/documentLoader";
 const { verifiable } = require("../../universal/index");
@@ -26,10 +26,10 @@ const presentation = {
           "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn#z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
         proofPurpose: "assertionMethod",
         jws:
-          "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..puetBYS3pkYlYzAecBiT-WkigYAlVbslrz9wPFnk9JW4AwjrpJvcsSdZJPhZtNy_myMJUNzC_QaYyw3ni1V0BA",
-      },
-    },
-  ],
+          "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..puetBYS3pkYlYzAecBiT-WkigYAlVbslrz9wPFnk9JW4AwjrpJvcsSdZJPhZtNy_myMJUNzC_QaYyw3ni1V0BA"
+      }
+    }
+  ]
 };
 let key: Ed25519VerificationKey2018;
 let suite: Ed25519Signature2018;
@@ -39,7 +39,7 @@ describe("sign presentation with edd25519 2018 signature", () => {
     key = await Ed25519VerificationKey2018.from(rawKeyJson);
     suite = new Ed25519Signature2018({
       key,
-      date: presentation.verifiableCredential[0].issuanceDate,
+      date: presentation.verifiableCredential[0].issuanceDate
     });
   });
   it("signs and verifies with challenge", async () => {
@@ -48,14 +48,14 @@ describe("sign presentation with edd25519 2018 signature", () => {
       format: ["vp"],
       documentLoader,
       challenge: "ca978b61-1439-4845-8e29-a89e58200ec1", // this is supplied by the verifier / presentation recipient
-      suite,
+      suite
     });
     const result2 = await verifiable.presentation.verify({
       presentation: result.items[0],
       format: ["vp"],
       documentLoader: documentLoader,
       challenge: "ca978b61-1439-4845-8e29-a89e58200ec1", // this is supplied by the verifier / presentation recipient
-      suite: new Ed25519Signature2018(),
+      suite: new Ed25519Signature2018()
     });
     expect(result2.verified).toBeTruthy();
   });
@@ -66,7 +66,7 @@ describe("sign presentation with edd25519 2018 signature", () => {
       documentLoader,
       challenge: "ca978b61-1439-4845-8e29-a89e58200ec1", // this is supplied by the verifier / presentation recipient
       domain: "supplier",
-      suite,
+      suite
     });
     const result2 = await verifiable.presentation.verify({
       presentation: result.items[0],
@@ -74,7 +74,7 @@ describe("sign presentation with edd25519 2018 signature", () => {
       documentLoader: documentLoader,
       challenge: "ca978b61-1439-4845-8e29-a89e58200ec1", // this is supplied by the verifier / presentation recipient
       domain: "supplier",
-      suite: new Ed25519Signature2018(),
+      suite: new Ed25519Signature2018()
     });
     expect(result2.verified).toBeTruthy();
   });

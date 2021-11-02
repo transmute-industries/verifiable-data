@@ -13,7 +13,7 @@ describe("verify presentation request 0", () => {
       domain: fixture.options.domain,
       challenge: fixture.options.challenge,
       suite,
-      documentLoader,
+      documentLoader
     });
     expect(res.verified).toBe(true);
     expect(res.presentation.verified).toBe(true);
@@ -26,7 +26,7 @@ describe("verify presentation request 0", () => {
       domain: fixture.options.domain + "foo",
       challenge: fixture.options.challenge,
       suite,
-      documentLoader,
+      documentLoader
     });
     expect(res.verified).toBe(false);
     expect(res.presentation.verified).toBe(false);
@@ -40,7 +40,7 @@ describe("verify presentation request 0", () => {
       domain: fixture.options.domain,
       challenge: fixture.options.challenge + "foo",
       suite,
-      documentLoader,
+      documentLoader
     });
     expect(res.verified).toBe(false);
     expect(res.presentation.verified).toBe(false);
@@ -56,7 +56,7 @@ describe("verify presentation request 0", () => {
       domain: fixture.options.domain,
       challenge: fixture.options.challenge,
       suite,
-      documentLoader,
+      documentLoader
     });
     expect(res.verified).toBe(false);
     expect(res.presentation.verified).toBe(false);

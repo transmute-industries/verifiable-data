@@ -47,10 +47,7 @@ describe("create and verify verifiable credentials", () => {
       documentLoader,
       suite: [new Ed25519Signature2018()]
     });
-    // FIXME: https://github.com/transmute-industries/verifiable-data/issues/102
-    // Error: The property "grade" in the input was not defined in the context.
-    // This should verify like digital bazaar does.
     expect(verifiableCredential.proof["@context"]).toBeFalsy();
-    expect(result.verified).toBeFalsy();
+    expect(result.verified).toBeTruthy();
   });
 });

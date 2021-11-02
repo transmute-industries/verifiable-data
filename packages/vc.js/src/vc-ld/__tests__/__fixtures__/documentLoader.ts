@@ -7,7 +7,7 @@ const contexts: any = {
   "https://w3id.org/security/suites/x25519-2019/v1": require("./contexts/x25519-2019-v1.json"),
   // ["https://w3id.org/security/v2"]: require("./contexts/security-v2.json"),
   // ["https://w3id.org/security/v1"]: require("./contexts/security-v1.json"),
-  "https://w3id.org/security/suites/jws-2020/v1": require("./contexts/jws-2020-v1.json"),
+  "https://w3id.org/security/suites/jws-2020/v1": require("./contexts/jws-2020-v1.json")
 };
 
 const documentLoader = (iri: string) => {

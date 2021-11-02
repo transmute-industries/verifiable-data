@@ -8,7 +8,8 @@ const documentLoader = (iri: string): any => {
   }
 
   if (dids[iri.split("#")[0]]) {
-    return { document: dids[iri.split("#")[0]] };
+    const document = dids[iri.split("#")[0]];
+    return { document };
   }
 
   if (revocationLists[iri.split("#")[0]]) {
@@ -16,7 +17,6 @@ const documentLoader = (iri: string): any => {
   }
 
   console.warn(iri);
-  console.log(JSON.stringify(dids, null, 2));
   throw new Error(`iri ${iri} not supported`);
 };
 
