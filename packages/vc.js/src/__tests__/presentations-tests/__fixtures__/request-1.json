@@ -1,0 +1,47 @@
+{
+  "verifiablePresentation": {
+    "@context": ["https://www.w3.org/2018/credentials/v1"],
+    "type": ["VerifiablePresentation"],
+    "holder": "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+    "verifiableCredential": [
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/vc-revocation-list-2020/v1"
+        ],
+        "id": "urn:uuid:07aa969e-b40d-4c1b-ab46-ded252003ded",
+        "type": ["VerifiableCredential"],
+        "issuer": "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+        "issuanceDate": "2010-01-01T19:23:24Z",
+        "credentialStatus": {
+          "id": "https://api.did.actor/revocation-lists/1.json#0",
+          "type": "RevocationList2020Status",
+          "revocationListIndex": 0,
+          "revocationListCredential": "https://api.did.actor/revocation-lists/1.json"
+        },
+        "credentialSubject": {
+          "id": "did:example:123"
+        },
+        "proof": {
+          "type": "Ed25519Signature2018",
+          "created": "2021-10-31T19:14:41Z",
+          "verificationMethod": "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn#z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+          "proofPurpose": "assertionMethod",
+          "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..zH7YvO8ihoDO4NWgzPu4kvvdQJjWAPOUlz7D1551U4uSMqOGjRmEGef6NSbIdxqCy5FxXwOD49KyPRU66LpwBA"
+        }
+      }
+    ],
+    "id": "urn:uuid:07aa969e-b40d-4c1b-ab46-ded252003ded",
+    "proof": {
+      "type": "Ed25519Signature2018",
+      "created": "2021-10-31T19:15:10Z",
+      "verificationMethod": "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn#z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+      "proofPurpose": "authentication",
+      "challenge": "e42ab41a-06c3-45f5-878a-b27928aab8bd",
+      "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..QdPVT5CramMhVx09RJ57IZD2WA4i2Hw0oG9_-i8r4BEyMS36bWSsrnwNd9ERyLEqeo4-6mwUD-swu3Bxsj7lDg"
+    }
+  },
+  "options": {
+    "challenge": "e42ab41a-06c3-45f5-878a-b27928aab8bd"
+  }
+}
