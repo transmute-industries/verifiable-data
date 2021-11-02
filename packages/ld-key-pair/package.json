@@ -1,6 +1,6 @@
 {
   "name": "@transmute/ld-key-pair",
-  "version": "0.7.0-unstable.19",
+  "version": "0.7.0-unstable.20",
   "description": "Linked Data Key Pair Interfaces, common methods, and tests",
   "author": "mprorock@mesur.io",
   "license": "Apache-2.0",
