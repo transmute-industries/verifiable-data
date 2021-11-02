@@ -88,7 +88,7 @@ const TESTS = [
   moment(ISSUED_ON).format(),
   moment(ISSUED_ON).format("dddd, MMMM Do YYYY, h:mm:ss a"),
   moment(ISSUED_ON).format("Do dddd MMMM gggg"),
-  moment(ISSUED_ON).format("MMMM Qo DD YYYY"),
+  moment(ISSUED_ON).format("dddd MMMM DD, YYYY"),
   moment(ISSUED_ON).format("D MMM YYYY"),
   moment(ISSUED_ON).format("YYYY-MM-DD"),
   moment(ISSUED_ON).format("ddd, DD MMM YYYY HH:mm:ss z"),
