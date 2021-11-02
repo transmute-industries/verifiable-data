@@ -12,5 +12,6 @@ export interface VerifyPresentationOptions {
   challenge: string;
 
   domain?: string;
+  checkStatus?: any;
   format?: Array<PresentationFormat>;
 }
