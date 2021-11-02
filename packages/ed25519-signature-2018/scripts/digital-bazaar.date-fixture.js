@@ -281,9 +281,7 @@ Promise.all(
 
     // Per test, set value of date after constructor
     // Duplicated 'removed' keyword for null test
-    console.log(date);
     suite.date = date === "removed" ? null : date;
-    console.log(suite.date);
 
     // Check for Suite Errors
     if (suiteError) {
