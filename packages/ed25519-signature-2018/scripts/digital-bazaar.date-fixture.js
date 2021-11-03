@@ -20,17 +20,17 @@ const credential = require("../src/__fixtures__/credentials/case-7.json");
 const rawKeyJson = require("../src/__fixtures__/keys/key.json");
 
 /* 
-Abstract:
-We are using this script to generate fixtures for a series of tests. 
-Each one of the tests will use the same inputs to test how dates are
-treated with respect to credentials and proofs in two locations.
+  Abstract:
+  We are using this script to generate fixtures for a series of tests. 
+  Each one of the tests will use the same inputs to test how dates are
+  treated with respect to credentials and proofs in two locations.
 
-First we have the `issuanceDate` property in the credential, and
-then we have the `created` term on the resulting proof. The purpose
-of these tests is to test posible values as applied to each one of
-these locations, and isolate reasons why they might fail, cause a
-change in the way the `jws` is created on the proof, or otherwise
-cause a proof to not be verifable. 
+  First we have the `issuanceDate` property in the credential, and
+  then we have the `created` term on the resulting proof. The purpose
+  of these tests is to test posible values as applied to each one of
+  these locations, and isolate reasons why they might fail, cause a
+  change in the way the `jws` is created on the proof, or otherwise
+  cause a proof to not be verifable. 
 */
 
 /*
@@ -100,9 +100,7 @@ const TESTS = [
   moment(ISSUED_ON).format("YYYY-MM-DD[T]HH:mmZ"),
   moment(ISSUED_ON).toJSON(),
   moment(ISSUED_ON).toArray(),
-  // This value results in an UnhandledPromiseRejectionWarning
-  // issue open on: https://github.com/digitalbazaar/ed25519-signature-2018/pull/7
-  // moment(ISSUED_ON).toObject(),
+  moment(ISSUED_ON).toObject(),
 ];
 
 const writeResult = (filename, result) => {
@@ -168,6 +166,7 @@ const signCredential = async (suite, unsignedCredential) => {
 
   return { signedCredential, signedError };
 };
+
 
 Promise.all(
   /*
