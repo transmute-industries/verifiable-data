@@ -39,4 +39,37 @@ const credential = require("../src/__fixtures__/credentials/case-1.json");
   } else {
     throw new Error("Expected verifiable credential for case-1.json to verify");
   }
+  const presentation = vc.createPresentation({
+    verifiableCredential,
+    holder: credential.issuer,
+  });
+  const challenge = "fcc8b78e-ecca-426a-a69f-8e7c927b845f";
+  const domain = "org_123";
+  const verifiablePresentation = await vc.signPresentation({
+    presentation,
+    suite,
+    challenge,
+    domain,
+    documentLoader,
+  });
+  const result2 = await vc.verify({
+    presentation: verifiablePresentation,
+    challenge,
+    domain,
+    suite: new Ed25519Signature2018({ key: keyPair }),
+    documentLoader,
+  });
+  if (result2.verified) {
+    fs.writeFileSync(
+      path.resolve(
+        __dirname,
+        `../src/__fixtures__/verifiable-presentations/digital-bazaar/case-1.json`
+      ),
+      JSON.stringify(verifiablePresentation, null, 2)
+    );
+  } else {
+    throw new Error(
+      "Expected verifiable presentation for case-1.json to verify"
+    );
+  }
 })();

@@ -8,9 +8,20 @@ export const verifyVerifiableCredential = async (options: {
   suite: any;
   checkStatus?: any;
   documentLoader: any;
+  compactProof?: boolean;
+  expansionMap?: boolean;
 }) => {
   const { credential, checkStatus, documentLoader } = options;
-
+  const compactProof =
+    options.compactProof === undefined ? false : options.compactProof;
+  if (
+    options.expansionMap !== undefined ||
+    options.compactProof !== undefined
+  ) {
+    console.warn(
+      "The default options are not being used, digital bazaar interop may not be possible."
+    );
+  }
   try {
     if (!credential) {
       throw new TypeError('A "credential" property is required for verifying.');
@@ -34,7 +45,8 @@ export const verifyVerifiableCredential = async (options: {
 
     const result = await ldp.verify(credential, {
       ...options,
-      purpose
+      purpose,
+      compactProof
     });
 
     // if verification has already failed, skip status check

@@ -43,9 +43,7 @@ describe("create and verify verifiable credential", () => {
     const result = await ldp.verify(verifiableCredential, {
       suite: new Ed25519Signature2018(),
       purpose,
-      documentLoader,
-      expansionMap: false,
-      compactProof: false
+      documentLoader
     });
     expect(verifiableCredential.proof["@context"]).toBeFalsy();
     expect(result.verified).toBeTruthy();

@@ -1,35 +1,39 @@
-// import { JsonWebKey, JsonWebSignature } from "@transmute/json-web-signature";
-
 import {
   Ed25519Signature2018,
   Ed25519VerificationKey2018
 } from "@transmute/ed25519-signature-2018";
+import documentLoader from "./__fixtures__/documentLoader";
 const { verifiable } = require("../../universal/index");
 const rawKeyJson = require("./__fixtures__/key.json");
-const documentLoader = require("./__fixtures__/documentLoader");
 
 const presentation = {
-  "@context": [
-    "https://www.w3.org/2018/credentials/v1",
-    "https://w3id.org/security/suites/jws-2020/v1"
-  ],
+  "@context": ["https://www.w3.org/2018/credentials/v1"],
   type: ["VerifiablePresentation"],
-  holder: "did:key:z6MkseJscFN8FdoZ9nWj5auotCoEAUvqtYrehdLfzXu8qidp",
+  holder: rawKeyJson.controller,
   verifiableCredential: [
     {
       "@context": ["https://www.w3.org/2018/credentials/v1"],
-      id: "https://example.com/credentials/1872",
+      id: "urn:uuid:07aa969e-b40d-4c1b-ab46-ded252003ded",
       type: ["VerifiableCredential"],
-      issuer: rawKeyJson.controller,
+      issuer: "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
       issuanceDate: "2010-01-01T19:23:24Z",
-      credentialSubject: {
-        id: "did:example:ebfeb1f712ebc6f1c276e12ec21"
+      credentialSubject:
+        "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+      proof: {
+        type: "Ed25519Signature2018",
+        created: "2021-10-30T19:16:30Z",
+        verificationMethod:
+          "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn#z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn",
+        proofPurpose: "assertionMethod",
+        jws:
+          "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..puetBYS3pkYlYzAecBiT-WkigYAlVbslrz9wPFnk9JW4AwjrpJvcsSdZJPhZtNy_myMJUNzC_QaYyw3ni1V0BA"
       }
     }
   ]
 };
 let key: Ed25519VerificationKey2018;
 let suite: Ed25519Signature2018;
+
 describe("sign presentation with edd25519 2018 signature", () => {
   beforeAll(async () => {
     key = await Ed25519VerificationKey2018.from(rawKeyJson);
