@@ -17,14 +17,14 @@ export const verify = async (
     options.format.includes("vp") &&
     (options.presentation as any)["@context"]
   ) {
-    const res = await ld.verifyVerifiablePresentation({
+    return ld.verifyVerifiablePresentation({
       presentation: options.presentation,
       suite: options.suite,
       domain: options.domain,
       challenge: options.challenge,
+      checkStatus: options.checkStatus,
       documentLoader: options.documentLoader
     });
-    result.verified = res.verified;
   }
 
   // vp-jwt's are strings with an encoded vp member that conforms to the data model

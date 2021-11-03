@@ -187,7 +187,9 @@ export class ProofSet {
       purpose,
       documentLoader,
       expansionMap,
-      compactProof = true // consider not supporting anything else...
+      // digital bazaar doesn't have this option as of version 8.0.0
+      // https://github.com/digitalbazaar/jsonld-signatures/blob/9a665c5b712ca997b9ca8205de11fb6f6ae15fe0/CHANGELOG.md#removed
+      compactProof = false
     }: any = {}
   ) => {
     if (!suite) {

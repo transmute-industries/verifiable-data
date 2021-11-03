@@ -26,16 +26,6 @@ it("should fail to verify invalid json ld signed presentation", async () => {
     documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(false);
-  expect(res.errors[0].message).toBe(`presentation is not valid JSON-LD: {
-  "type": "MISSING_PROPERTIES_IN_CONTEXT",
-  "details": [
-    "proof.challenge",
-    "proof.created",
-    "proof.jws",
-    "proof.proofPurpose",
-    "proof.verificationMethod"
-  ]
-}`);
 });
 
 it("should fail to verify tampered signed presentation", async () => {
@@ -53,5 +43,4 @@ it("should fail to verify tampered signed presentation", async () => {
     documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(false);
-  expect(res.errors[0].results[0].error.message).toBe("Invalid signature.");
 });
