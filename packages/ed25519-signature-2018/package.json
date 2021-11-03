@@ -25,7 +25,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "pretest": "node scripts/digital-bazaar.generate-fixture.js && node scripts/digital-bazaar.term-test.js",
+    "pretest": "node scripts/digital-bazaar.generate-fixture.js && node scripts/digital-bazaar.term-test.js && node scripts/digital-bazaar.date-fixture.js",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint src --fix",
     "prepare": "tsdx build"
@@ -35,6 +35,8 @@
     "@digitalbazaar/ed25519-verification-key-2018": "^3.1.1",
     "@transmute/credentials-context": "^0.7.0-unstable.22",
     "json-pointer": "^0.6.1",
+    "jsonld-signatures": "^9.3.0",
+    "moment": "^2.29.1",
     "ts-jest": "^27.0.3",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
