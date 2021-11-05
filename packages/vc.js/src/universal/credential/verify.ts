@@ -19,9 +19,15 @@ export const verify = async (
     const res = await ld.verifyVerifiableCredential({
       credential: options.credential,
       suite: options.suite,
-      documentLoader: options.documentLoader
+      documentLoader: options.documentLoader,
+      checkStatus: options.checkStatus,
+      compactProof: options.compactProof,
+      expansionMap: options.expansionMap
     });
     result.verified = res.verified;
+    if (!result.verified) {
+      result.error = res.error;
+    }
   }
 
   // vc-jwt's are strings with an encoded vc member that conforms to the data model

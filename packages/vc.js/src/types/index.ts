@@ -10,3 +10,4 @@ export * from "./VerificationResult";
 
 export * from "./DeriveCredentialOptions";
 export * from "./DeriveCredentialResult";
+export * from "./PresentationVerification";

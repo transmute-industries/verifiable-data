@@ -1,0 +1,124 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/traceability/v1"
+  ],
+  "id": "http://localhost:8080/credentials/61858f5a-682a-4857-b759-f3487bae0658",
+  "issuanceDate": "2010-01-01T19:23:24Z",
+  "type": ["VerifiableCredential", "MillTestReportCertificate"],
+  "relatedLink": [
+    {
+      "type": "LinkRole",
+      "target": "http://localhost:8080/templates/1a0d2c30-02a0-44cf-b1dc-9fe32652e90d",
+      "linkRelationship": "template",
+      "name": "Template"
+    },
+    {
+      "type": "LinkRole",
+      "target": "http://localhost:8080/batches/a76e12e2-b495-4a03-a32a-5952d14a9798",
+      "linkRelationship": "batch",
+      "name": "Batch"
+    }
+  ],
+  "issuer": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
+  "credentialSubject": {
+    "type": ["MillTestReport"],
+    "manufacturer": {
+      "type": ["Organization"],
+      "name": "Langworth, McGlynn and Koch",
+      "description": "Exclusive motivating concept",
+      "address": {
+        "type": ["PostalAddress"],
+        "streetAddress": "67663 Roob Highway",
+        "addressLocality": "O'Connellmouth",
+        "addressRegion": "New York",
+        "postalCode": "56036",
+        "addressCountry": "Philippines"
+      },
+      "email": "Eva_Macejkovic@example.net",
+      "phoneNumber": "555-438-8521",
+      "faxNumber": "555-948-7194"
+    },
+    "product": {
+      "type": ["SteelProduct"],
+      "heatNumber": "4732",
+      "specification": "ASTM-91357",
+      "grade": "4122",
+      "originalCountryOfMeltAndPour": "Madagascar",
+      "inspection": {
+        "type": ["InspectionReport"],
+        "observation": [
+          {
+            "type": ["Observation"],
+            "property": {
+              "type": ["ChemicalProperty"],
+              "name": "Actinium"
+            },
+            "measurement": {
+              "type": ["MeasuredValue"],
+              "value": "62.813",
+              "unitCode": "P1"
+            }
+          },
+          {
+            "type": ["Observation"],
+            "property": {
+              "type": ["MechanicalProperty"],
+              "identifier": "ISO 1352",
+              "name": "Torque-controlled fatigue testing",
+              "description": "ISO 1352:2011 specifies the conditions for performing torsional, constant-amplitude, nominally elastic stress fatigue tests on metallic specimens without deliberately introducing stress concentrations. The tests are carried out at ambient temperature (ideally at between 10 °C and 35 °C) in air by applying a pure couple to the specimen about its longitudinal axis."
+            },
+            "measurement": {
+              "type": ["MeasuredValue"],
+              "value": "00.00",
+              "unitCode": "UNKNOWN"
+            }
+          },
+          {
+            "type": ["Observation"],
+            "property": {
+              "type": ["ChemicalProperty"],
+              "name": "Oxygen"
+            },
+            "measurement": {
+              "type": ["MeasuredValue"],
+              "value": "37.187",
+              "unitCode": "P1"
+            }
+          }
+        ]
+      }
+    },
+    "purchase": {
+      "type": ["Purchase"],
+      "customer": {
+        "type": ["Person"],
+        "email": "Savannah_Homenick@example.com",
+        "phoneNumber": "555-536-5801"
+      }
+    },
+    "shipment": {
+      "type": ["ParcelDelivery"],
+      "deliveryAddress": {
+        "type": ["PostalAddress"],
+        "organizationName": "Cassin, Kautzer and Bauch",
+        "streetAddress": "2723 Alana Park",
+        "addressLocality": "South Millie",
+        "addressRegion": "Maryland",
+        "postalCode": "58776",
+        "addressCountry": "Cote d'Ivoire"
+      },
+      "originAddress": {
+        "type": ["PostalAddress"],
+        "organizationName": "Conn and Sons",
+        "streetAddress": "9424 Alexa Locks",
+        "addressLocality": "West Josefina",
+        "addressRegion": "New Hampshire",
+        "postalCode": "99598",
+        "addressCountry": "Gabon"
+      },
+      "deliveryMethod": "Truck transport",
+      "trackingNumber": "547132175583"
+    }
+  }
+}

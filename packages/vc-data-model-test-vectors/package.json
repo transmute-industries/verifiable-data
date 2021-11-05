@@ -1,0 +1,15 @@
+{
+  "name": "vc-data-model-test-vectors",
+  "version": "0.7.0-unstable.23",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./src/scripts/index.js"
+  },
+  "author": "Orie Steele",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@digitalbazaar/ed25519-signature-2018": "^2.0.1",
+    "@digitalbazaar/ed25519-verification-key-2018": "^3.1.1"
+  }
+}

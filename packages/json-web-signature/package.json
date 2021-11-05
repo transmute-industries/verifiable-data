@@ -2,7 +2,7 @@
   "name": "@transmute/json-web-signature",
   "author": "Orie Steele",
   "module": "dist/json-web-signature.esm.js",
-  "version": "0.7.0-unstable.8",
+  "version": "0.7.0-unstable.23",
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/json-web-signature",
   "repository": {
@@ -49,8 +49,8 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.2",
-    "@transmute/credentials-context": "^0.7.0-unstable.8",
-    "@transmute/did-context": "^0.7.0-unstable.8",
+    "@transmute/credentials-context": "^0.7.0-unstable.23",
+    "@transmute/did-context": "^0.7.0-unstable.23",
     "jose": "^3.17.0",
     "size-limit": "^4.9.2",
     "ts-jest": "^26.5.0",
@@ -61,7 +61,7 @@
   "dependencies": {
     "@transmute/bls12381-key-pair": "0.7.0-unstable.2",
     "@transmute/ed25519-key-pair": "0.7.0-unstable.2",
-    "@transmute/jose-ld": "^0.7.0-unstable.8",
+    "@transmute/jose-ld": "^0.7.0-unstable.23",
     "@transmute/secp256k1-key-pair": "0.7.0-unstable.2",
     "@transmute/security-context": "0.7.0-unstable.2",
     "@transmute/web-crypto-key-pair": "0.7.0-unstable.2",

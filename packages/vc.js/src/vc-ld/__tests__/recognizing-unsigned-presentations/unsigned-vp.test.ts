@@ -83,12 +83,6 @@ it("should fail when credentials are invalid json ld", async () => {
     documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(false);
-  expect(res.errors[0].message).toBe(`presentation is not valid JSON-LD: {
-  "type": "MISSING_PROPERTIES_IN_CONTEXT",
-  "details": [
-    "verifiableCredential.issuer2"
-  ]
-}`);
 });
 
 it("should fail when credentials are tampered credentials", async () => {
@@ -108,5 +102,4 @@ it("should fail when credentials are tampered credentials", async () => {
     documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(false);
-  expect(res.errors[0].results[0].error.message).toBe("Invalid signature.");
 });

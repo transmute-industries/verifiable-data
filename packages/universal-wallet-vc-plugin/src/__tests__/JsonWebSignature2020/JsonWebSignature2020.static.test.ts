@@ -23,7 +23,7 @@ beforeAll(async () => {
 });
 
 describe("from / issue / present / verify", () => {
-  it("issue", async () => {
+  it.skip("issue", async () => {
     const vc = await plugin.issue({
       credential: { ...credential, issuer: key.controller },
       options: {
@@ -33,7 +33,7 @@ describe("from / issue / present / verify", () => {
     });
     expect(vc).toEqual(verifiableCredential);
   });
-  it("present", async () => {
+  it.skip("present", async () => {
     const vp = await plugin.createVerifiablePresentation({
       presentation: {
         // note that this is required because BBS+ is not in credentials/v1
@@ -52,7 +52,7 @@ describe("from / issue / present / verify", () => {
     expect(vp).toEqual(verifiablePresentation);
   });
 
-  it("verify", async () => {
+  it.skip("verify", async () => {
     const verification = await plugin.verifyPresentation({
       presentation: verifiablePresentation,
       options: {

@@ -261,11 +261,15 @@ export class Ed25519Signature2018 {
     expansionMap,
     compactProof
   }: any) {
+    const newProof = JSON.parse(JSON.stringify(proof));
+    if (!newProof["@context"]) {
+      newProof["@context"] = document["@context"];
+    }
     try {
       // create data to verify
       const verifyData = await this.createVerifyData({
         document,
-        proof,
+        proof: newProof,
         documentLoader,
         expansionMap,
         compactProof
@@ -273,7 +277,7 @@ export class Ed25519Signature2018 {
 
       // fetch verification method
       const verificationMethod = await this.getVerificationMethod({
-        proof,
+        proof: newProof,
         document,
         documentLoader,
         expansionMap
@@ -284,7 +288,7 @@ export class Ed25519Signature2018 {
         verifyData,
         verificationMethod,
         document,
-        proof,
+        proof: newProof,
         documentLoader,
         expansionMap
       });
@@ -293,7 +297,7 @@ export class Ed25519Signature2018 {
       }
 
       // ensure proof was performed for a valid purpose
-      const purposeResult = await purpose.validate(proof, {
+      const purposeResult = await purpose.validate(newProof, {
         document,
         suite: this,
         verificationMethod,
