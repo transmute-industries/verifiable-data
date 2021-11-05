@@ -24,6 +24,9 @@ export const checkCredential = async (
 ) => {
   const { documentLoader } = options;
   const strict = options.strict || "warn";
+  if (options.strict === "ignore") {
+    return undefined;
+  }
 
   if (typeof credential === "string") {
     let [encodedHeader, encodedPayload] = credential.split(".");
@@ -148,4 +151,5 @@ export const checkCredential = async (
       throw new Error(`"evidence" id must be a URL: ${evidence}`);
     }
   });
+  return undefined;
 };
