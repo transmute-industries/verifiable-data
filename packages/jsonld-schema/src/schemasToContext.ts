@@ -19,7 +19,7 @@ const defineClassPropertiesFromComment = (
         $comment: comment,
         title: title,
         description: description,
-      }
+      },
     ];
   }
 };
@@ -60,20 +60,22 @@ export const schemasToIntermediate = (files: any[]) => {
   return intermediate;
 };
 
-export const intermediateToContext = (intermediate: any, version: number, rootTerms: any) => {
+export const intermediateToPartialContext = (intermediate: any) => {
   let partialContext = {};
   Object.values(intermediate).forEach((classDefinition: any) => {
     let propertDefinitionPartialContext = {};
-    Object.values(classDefinition.classProperties).forEach((classPropertyArray: any) => {
-      classPropertyArray.forEach((classProperty: any) => {
-        propertDefinitionPartialContext = {
-          ...propertDefinitionPartialContext,
-          [classProperty.$comment.term]: {
-            '@id': classProperty.$comment['@id'],
-          },
-        };
-      });
-    });
+    Object.values(classDefinition.classProperties).forEach(
+      (classPropertyArray: any) => {
+        classPropertyArray.forEach((classProperty: any) => {
+          propertDefinitionPartialContext = {
+            ...propertDefinitionPartialContext,
+            [classProperty.$comment.term]: {
+              '@id': classProperty.$comment['@id'],
+            },
+          };
+        });
+      }
+    );
 
     partialContext = {
       ...partialContext,
@@ -85,18 +87,35 @@ export const intermediateToContext = (intermediate: any, version: number, rootTe
       },
     };
   });
+  return partialContext;
+};
+
+export const schemasToContext = (
+  schemas: any[],
+  {
+    version = 1.1,
+    vocab = 'https://w3id.org/traceability/#undefinedTerm',
+    id = '@id',
+    type = '@type',
+    rootTerms = {},
+  }: {
+    version?: number;
+    vocab?: string;
+    id?: string;
+    type?: string;
+    rootTerms?: any;
+  } = {}
+) => {
+  const intermediate = schemasToIntermediate(schemas);
+  const partialContext = intermediateToPartialContext(intermediate);
   return {
     '@context': {
       '@version': version,
-      id: '@id',
-      type: '@type',
+      '@vocab': vocab,
+      id,
+      type,
       ...rootTerms,
       ...partialContext,
     },
   };
-};
-
-export const schemasToContext = (schemas: any[], version: number, rootTerms: any) => {
-  const intermediate = schemasToIntermediate(schemas);
-  return intermediateToContext(intermediate, version, rootTerms);
 };
