@@ -1,7 +1,7 @@
 import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "..";
-import moment from 'moment';
-import fs from 'fs';
-import path from 'path';
+import moment from "moment";
+import fs from "fs";
+import path from "path";
 import rawKeyJson from "../__fixtures__/keys/key.json";
 import documentLoader from "../__fixtures__/documentLoader";
 import credential from "../__fixtures__/credentials/case-7.json";
@@ -43,7 +43,7 @@ const TESTS = [
     moment(ISSUED_ON).format("YYYY-MM-DD[T]HH:mmZ"),
     moment(ISSUED_ON).toJSON(),
     moment(ISSUED_ON).toArray(),
-    moment(ISSUED_ON).toObject(),
+    moment(ISSUED_ON).toObject()
 ];
 
 const createSuite = async (suiteDate: any) => {
@@ -53,14 +53,14 @@ const createSuite = async (suiteDate: any) => {
     try {
         suite = new Ed25519Signature2018({
             key: keyPair,
-            date: suiteDate,
+            date: suiteDate
         });
     } catch (err) {
         const error = err as Error;
         suiteError = {
             type: "error",
             thrownOn: "suite",
-            reason: error.toString(),
+            reason: error.toString()
         };
         return { suite, suiteError };
     }
@@ -72,9 +72,12 @@ const createSuite = async (suiteDate: any) => {
     return { suite, suiteError };
 };
 
-const signCredential = async (suite: Ed25519Signature2018, unsignedCredential: any) => {
+const signCredential = async (
+    suite: Ed25519Signature2018,
+    unsignedCredential: any
+) => {
     let signedError;
-    const signedCredential = {...unsignedCredential}
+    const signedCredential = { ...unsignedCredential };
 
     try {
         signedCredential.proof = await suite.createProof({
@@ -87,27 +90,25 @@ const signCredential = async (suite: Ed25519Signature2018, unsignedCredential: a
                 update: (proof: any) => {
                     proof.proofPurpose = "assertionMethod";
                     return proof;
-                },
+                }
             },
             documentLoader,
-            compactProof: false,
+            compactProof: false
         });
     } catch (err) {
         let error = err as Error;
         signedError = {
             type: "error",
             thrownOn: "sign",
-            reason: error.toString(),
+            reason: error.toString()
         };
         return { signedCredential, signedError };
     }
-    
+
     return { signedCredential, signedError };
 };
 
-
-const verifyProof = async (document: any, proof:any) => {
-
+const verifyProof = async (document: any, proof: any) => {
     const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
     const suite = new Ed25519Signature2018({
         key: keyPair,
@@ -125,24 +126,21 @@ const verifyProof = async (document: any, proof:any) => {
             update: (proof: any) => {
                 proof.proofPurpose = "assertionMethod";
                 return proof;
-            },
+            }
         },
         documentLoader,
-        compactProof: false,
+        compactProof: false
     });
 
     return result;
-
-}
-
+};
 
 const getFixture = (testNum: number, index: number) => {
-
     const dirs = [
         "issuanceDate",
         "suiteConstructor",
         "suiteDirect",
-        "issuanceDateSuite",
+        "issuanceDateSuite"
     ];
 
     const filename = path.resolve(
@@ -150,21 +148,19 @@ const getFixture = (testNum: number, index: number) => {
         `../__fixtures__/credentials/${dirs[testNum - 1]}/case-${index}.json`
     );
 
-    const data = fs.readFileSync(filename, 'utf-8');
+    const data = fs.readFileSync(filename, "utf-8");
     return JSON.parse(data);
+};
 
-}
-
-const compareResults = async (output: any, fixture:any) => {
-
+const compareResults = async (output: any, fixture: any) => {
     // Option 1, The fixture has an error and we don't
-    if(fixture.type === 'error' && output.type !== 'error') {
+    if (fixture.type === "error" && output.type !== "error") {
         return expect(output).toBe(fixture);
-    } else if(fixture.type !== 'error' && output.type === 'error') {
+    } else if (fixture.type !== "error" && output.type === "error") {
         return expect(output).toBe(fixture);
-    } else if(fixture.type === 'error' && output.type !== 'error'){
-        console.warn('Fixure: ', fixture.reason);
-        console.warn('Output: ', output.reason);
+    } else if (fixture.type === "error" && output.type !== "error") {
+        console.warn("Fixure: ", fixture.reason);
+        console.warn("Output: ", output.reason);
         return expect(output.thrownOn).toBe(fixture.thrownOn);
     }
 
@@ -173,7 +169,7 @@ const compareResults = async (output: any, fixture:any) => {
 
     const fixtureProof = fixture.proof;
     delete fixture.proof;
-    
+
     // We make sure the input documents are the same
     expect(output).toEqual(fixture);
 
@@ -184,16 +180,15 @@ const compareResults = async (output: any, fixture:any) => {
     // We also expect that the signed credentials are verifiable
     const result = await verifyProof(fixture, fixtureProof);
     expect(result.verified).toBeTruthy();
-}
+};
 
-describe("confirm behavior of suite dates", () => {
+describe("Test 1. Confirm behavior of issuanceDate", () => {
 
+    const testNum = 1;
     for (let i = 0; i < TESTS.length; i++) {
         const date = TESTS[i];
-
         it(`1. case-${i} should match the verifiable credential`, async () => {
-
-            const fixture = getFixture(1, i);
+            const fixture = getFixture(testNum, i);
             const { suite, suiteError } = await createSuite(CREATED_ON);
             if (suiteError) {
                 return compareResults(suiteError, fixture);
@@ -212,15 +207,43 @@ describe("confirm behavior of suite dates", () => {
                     break;
             }
 
-            const { signedCredential, signedError } = await signCredential(suite!, unsignedCredential);
-            if(signedError) {
+            const { signedCredential, signedError } = await signCredential(
+                suite!,
+                unsignedCredential
+            );
+            if (signedError) {
                 return compareResults(suiteError, fixture);
             }
 
             await compareResults(signedCredential, fixture);
+        });
+    }
 
-        })
+});
 
+describe("Test 2. Confirm behavior of suite date constructor", () => {
+
+    const testNum = 2;
+    for (let i = 0; i < TESTS.length; i++) {
+        const date = TESTS[i];
+        it(`2. case-${i} should match the verifiable credential`, async () => {
+            const fixture = getFixture(testNum, i);
+            const { suite, suiteError } = await createSuite(date === "removed" ? null : date);
+            if (suiteError) {
+                return compareResults(suiteError, fixture);
+            }
+
+            const unsignedCredential = { ...credential };
+            const { signedCredential, signedError } = await signCredential(
+                suite!,
+                unsignedCredential
+            );
+            if (signedError) {
+                return compareResults(suiteError, fixture);
+            }
+
+            await compareResults(signedCredential, fixture);
+        });
     }
 
 });
