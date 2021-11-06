@@ -1,7 +1,7 @@
 import { verify } from '../../__fixtures__/jose-help';
 const privateKeyJwk = require('./__fixtures__/transmute.privateKeyJwk.json');
 
-describe('jose EdDSA', () => {
+describe('jose ES256K', () => {
   it('can verify simple string', async () => {
     const {
       jws,
