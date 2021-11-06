@@ -29,7 +29,7 @@ describe("verify a microsoft vc", () => {
     expect(payload.vc).toBeDefined();
   });
 
-  it("can verify vc-jwt issued by ION with transmute", async () => {
+  it.skip("can verify vc-jwt issued by ION with transmute", async () => {
     const result = await verifiable.credential.verify({
       credential: compact,
       documentLoader: documentLoader as any,
