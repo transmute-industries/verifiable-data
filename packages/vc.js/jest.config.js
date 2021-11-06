@@ -14,4 +14,7 @@ module.exports = {
     "^.+\\.(ts|tsx)$": "./node_modules/ts-jest",
   },
   testMatch: ["**/*.(int.test|test).(ts)"],
+  moduleNameMapper: {
+    "^jose/(.*)$": "<rootDir>/node_modules/jose/dist/node/cjs/$1",
+  },
 };

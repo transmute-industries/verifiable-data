@@ -1,0 +1,45 @@
+{
+  "@context": "https://w3id.org/did-resolution/v1",
+  "didDocument": {
+    "id": "did:ion:EiBfnZWHcFzvwqU7bQZQtejiRioO6g4-JL3yS3qE6Gmu7g:eyJkZWx0YSI6eyJwYXRjaGVzIjpbeyJhY3Rpb24iOiJyZXBsYWNlIiwiZG9jdW1lbnQiOnsicHVibGljS2V5cyI6W3siaWQiOiJzaWdfNjBjZTMwMTUiLCJwdWJsaWNLZXlKd2siOnsiY3J2Ijoic2VjcDI1NmsxIiwia3R5IjoiRUMiLCJ4IjoiWkRrRUwwV3hRWGM4SGFobmxiYUdBQTV2dzNIdUNsQnhkZW9obXpkblVLayIsInkiOiJuR2xJeTJZanRFWmhHSnhPY3ZRUzNlRm8td2tlZVF5YTNIMzhFNnJmd2tBIn0sInB1cnBvc2VzIjpbImF1dGhlbnRpY2F0aW9uIiwiYXNzZXJ0aW9uTWV0aG9kIl0sInR5cGUiOiJFY2RzYVNlY3AyNTZrMVZlcmlmaWNhdGlvbktleTIwMTkifV0sInNlcnZpY2VzIjpbeyJpZCI6ImxpbmtlZGRvbWFpbnMiLCJzZXJ2aWNlRW5kcG9pbnQiOnsib3JpZ2lucyI6WyJodHRwczovL2NyZWRpdmVyYS5pby8iXX0sInR5cGUiOiJMaW5rZWREb21haW5zIn1dfX1dLCJ1cGRhdGVDb21taXRtZW50IjoiRWlCZVdwTC1SZC1hbmdDYlZ2enU3dUFxLWtxa243RGc0ekJLMVJEUHVUX1BIdyJ9LCJzdWZmaXhEYXRhIjp7ImRlbHRhSGFzaCI6IkVpREVYTHFHcXR2ai1NWmoyWUhLRHlFRlduanVPZHo0bWpGTExYZkN1dWpSQUEiLCJyZWNvdmVyeUNvbW1pdG1lbnQiOiJFaUNJS2xMMXpiS09JXzlEWmRNc3VxZEdoZ2dHbVlmNkJUNTA2SloyekwyRkR3In19",
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      {
+        "@base": "did:ion:EiBfnZWHcFzvwqU7bQZQtejiRioO6g4-JL3yS3qE6Gmu7g:eyJkZWx0YSI6eyJwYXRjaGVzIjpbeyJhY3Rpb24iOiJyZXBsYWNlIiwiZG9jdW1lbnQiOnsicHVibGljS2V5cyI6W3siaWQiOiJzaWdfNjBjZTMwMTUiLCJwdWJsaWNLZXlKd2siOnsiY3J2Ijoic2VjcDI1NmsxIiwia3R5IjoiRUMiLCJ4IjoiWkRrRUwwV3hRWGM4SGFobmxiYUdBQTV2dzNIdUNsQnhkZW9obXpkblVLayIsInkiOiJuR2xJeTJZanRFWmhHSnhPY3ZRUzNlRm8td2tlZVF5YTNIMzhFNnJmd2tBIn0sInB1cnBvc2VzIjpbImF1dGhlbnRpY2F0aW9uIiwiYXNzZXJ0aW9uTWV0aG9kIl0sInR5cGUiOiJFY2RzYVNlY3AyNTZrMVZlcmlmaWNhdGlvbktleTIwMTkifV0sInNlcnZpY2VzIjpbeyJpZCI6ImxpbmtlZGRvbWFpbnMiLCJzZXJ2aWNlRW5kcG9pbnQiOnsib3JpZ2lucyI6WyJodHRwczovL2NyZWRpdmVyYS5pby8iXX0sInR5cGUiOiJMaW5rZWREb21haW5zIn1dfX1dLCJ1cGRhdGVDb21taXRtZW50IjoiRWlCZVdwTC1SZC1hbmdDYlZ2enU3dUFxLWtxa243RGc0ekJLMVJEUHVUX1BIdyJ9LCJzdWZmaXhEYXRhIjp7ImRlbHRhSGFzaCI6IkVpREVYTHFHcXR2ai1NWmoyWUhLRHlFRlduanVPZHo0bWpGTExYZkN1dWpSQUEiLCJyZWNvdmVyeUNvbW1pdG1lbnQiOiJFaUNJS2xMMXpiS09JXzlEWmRNc3VxZEdoZ2dHbVlmNkJUNTA2SloyekwyRkR3In19"
+      }
+    ],
+    "service": [
+      {
+        "id": "#linkeddomains",
+        "type": "LinkedDomains",
+        "serviceEndpoint": {
+          "origins": ["https://credivera.io/"]
+        }
+      }
+    ],
+    "verificationMethod": [
+      {
+        "id": "#sig_60ce3015",
+        "controller": "",
+        "type": "EcdsaSecp256k1VerificationKey2019",
+        "publicKeyJwk": {
+          "kty": "EC",
+          "crv": "secp256k1",
+          "x": "ZDkEL0WxQXc8HahnlbaGAA5vw3HuClBxdeohmzdnUKk",
+          "y": "nGlIy2YjtEZhGJxOcvQS3eFo-wkeeQya3H38E6rfwkA"
+        }
+      }
+    ],
+    "authentication": ["#sig_60ce3015"],
+    "assertionMethod": ["#sig_60ce3015"]
+  },
+  "didDocumentMetadata": {
+    "method": {
+      "published": true,
+      "recoveryCommitment": "EiCIKlL1zbKOI_9DZdMsuqdGhggGmYf6BT506JZ2zL2FDw",
+      "updateCommitment": "EiBeWpL-Rd-angCbVvzu7uAq-kqkn7Dg4zBK1RDPuT_PHw"
+    },
+    "equivalentId": ["did:ion:EiBfnZWHcFzvwqU7bQZQtejiRioO6g4-JL3yS3qE6Gmu7g"],
+    "canonicalId": "did:ion:EiBfnZWHcFzvwqU7bQZQtejiRioO6g4-JL3yS3qE6Gmu7g"
+  }
+}

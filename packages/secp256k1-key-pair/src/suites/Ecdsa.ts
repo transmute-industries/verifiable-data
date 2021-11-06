@@ -1,6 +1,6 @@
 import crypto from '../crypto';
 import secp256k1 from 'secp256k1';
-
+import { instantiateSecp256k1 } from '@bitauth/libauth';
 export const signer = (privateKey: Uint8Array) => {
   return {
     async sign({ data }: any) {
@@ -20,16 +20,17 @@ export const signer = (privateKey: Uint8Array) => {
 export const verifier = (publicKey: Uint8Array) => {
   return {
     async verify({ data, signature }: any) {
-      const messageHashUInt8Array = crypto
-        .createHash('sha256')
-        .update(data)
-        .digest();
+      const instance = await instantiateSecp256k1();
       let verified = false;
       try {
-        verified = secp256k1.ecdsaVerify(
+        const msgHash = crypto
+          .createHash('sha256')
+          .update(data)
+          .digest();
+        verified = await instance.verifySignatureCompact(
           signature,
-          messageHashUInt8Array,
-          new Uint8Array(publicKey)
+          publicKey,
+          msgHash
         );
       } catch (e) {
         // console.error('An error occurred when verifying signature: ', e);
