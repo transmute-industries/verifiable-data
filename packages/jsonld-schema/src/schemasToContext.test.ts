@@ -5,13 +5,12 @@ import rootTerms from './__fixtures__/rootTerms.json';
 
 const schemas = [Person];
 
-const version = 1.1
-
 it('create context from json schema', () => {
-  const context = schemasToContext(schemas, version, rootTerms);
+  const context = schemasToContext(schemas, { rootTerms });
   expect(context).toEqual({
     '@context': {
-      '@version': version,
+      '@version': 1.1,
+      '@vocab': 'https://w3id.org/traceability/#undefinedTerm',
       id: '@id',
       type: '@type',
       ...rootTerms,

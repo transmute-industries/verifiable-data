@@ -3,13 +3,12 @@ import { schemasToContext } from '../schemasToContext';
 import dupSchema from '../__fixtures__/DuplicateTerm.json';
 import rootTerms from '../__fixtures__/rootTerms.json';
 
-const version = 1.1
-
 it('can handle dups', async () => {
-  const context = schemasToContext([dupSchema], version, rootTerms);
+  const context = schemasToContext([dupSchema], { rootTerms });
   expect(context).toEqual({
     '@context': {
-      '@version': version,
+      '@version': 1.1,
+      '@vocab': 'https://w3id.org/traceability/#undefinedTerm',
       id: '@id',
       type: '@type',
       ...rootTerms,
