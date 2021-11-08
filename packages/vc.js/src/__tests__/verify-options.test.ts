@@ -51,7 +51,6 @@ describe("create and verify verifiable credentials", () => {
       expansionMap: true,
       compactProof: true,
     });
-    // FIXME: https://github.com/transmute-industries/verifiable-data/issues/112
     expect(result.error.errors[0].message).toBe(
       'The property "grade" in the input was not defined in the context.'
     );
@@ -65,7 +64,6 @@ describe("create and verify verifiable credentials", () => {
       suite: [new Ed25519Signature2018()],
       compactProof: true,
     });
-    // FIXME: https://github.com/transmute-industries/verifiable-data/issues/112
     expect(result.error.errors[0].message).toBe(
       'The property "grade" in the input was not defined in the context.'
     );
