@@ -1,6 +1,6 @@
 import {
   Ed25519Signature2018,
-  Ed25519VerificationKey2018
+  Ed25519VerificationKey2018,
 } from "@transmute/ed25519-signature-2018";
 
 import * as vcjs from "..";
@@ -12,6 +12,12 @@ let keyPair: Ed25519VerificationKey2018;
 let suite: Ed25519Signature2018;
 let verifiableCredential: any;
 
+// We found an edge case where pre-processing broke the signature.
+// Here are some tests that show this.
+// These tests won't ever pass (failure is expected) and the failure is related to pre-processing the credential.
+// Eventually we should remove the compactProof option so that these tests are no longer needed.
+// https://github.com/transmute-industries/verifiable-data/issues/112#issuecomment-963292075
+// FIXME: https://github.com/transmute-industries/verifiable-data/issues/112
 describe("create and verify verifiable credentials", () => {
   it("import key", async () => {
     keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
@@ -21,7 +27,7 @@ describe("create and verify verifiable credentials", () => {
   it("define suite", async () => {
     suite = new Ed25519Signature2018({
       key: keyPair,
-      date: credential.issuanceDate
+      date: credential.issuanceDate,
     });
     expect(suite.verificationMethod).toBe(rawKeyJson.id);
   });
@@ -31,7 +37,7 @@ describe("create and verify verifiable credentials", () => {
       format: ["vc"],
       credential,
       suite,
-      documentLoader
+      documentLoader,
     });
     verifiableCredential = result.items[0];
   });
@@ -43,10 +49,12 @@ describe("create and verify verifiable credentials", () => {
       documentLoader,
       suite: [new Ed25519Signature2018()],
       expansionMap: true,
-      compactProof: true
+      compactProof: true,
     });
     // FIXME: https://github.com/transmute-industries/verifiable-data/issues/112
-    expect(result.error.errors[0].message).toBe('The property "grade" in the input was not defined in the context.');
+    expect(result.error.errors[0].message).toBe(
+      'The property "grade" in the input was not defined in the context.'
+    );
   });
 
   it("expansionMap undefined / compactProof true - Fails to verify verifiable credential", async () => {
@@ -55,10 +63,12 @@ describe("create and verify verifiable credentials", () => {
       format: ["vc"],
       documentLoader,
       suite: [new Ed25519Signature2018()],
-      compactProof: true
+      compactProof: true,
     });
     // FIXME: https://github.com/transmute-industries/verifiable-data/issues/112
-    expect(result.error.errors[0].message).toBe('The property "grade" in the input was not defined in the context.');
+    expect(result.error.errors[0].message).toBe(
+      'The property "grade" in the input was not defined in the context.'
+    );
   });
 
   it("expansionMap false / compactProof true - Fails to verify verifiable credential", async () => {
@@ -68,9 +78,8 @@ describe("create and verify verifiable credentials", () => {
       documentLoader,
       suite: [new Ed25519Signature2018()],
       expansionMap: false,
-      compactProof: true
+      compactProof: true,
     });
-    // FIXME: https://github.com/transmute-industries/verifiable-data/issues/112
-    expect(result.error.errors[0].message).toBe('Invalid signature.');
+    expect(result.error.errors[0].message).toBe("Invalid signature.");
   });
 });
