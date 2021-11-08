@@ -153,7 +153,6 @@ const getFixture = (testNum: number, index: number) => {
 };
 
 const compareResults = async (output: any, fixture: any) => {
-
   // Option 1, The fixture has an error and we don't
   if (fixture.type === "error" && output.type !== "error") {
     return expect(output).toBe(fixture);
@@ -184,7 +183,6 @@ const compareResults = async (output: any, fixture: any) => {
 
   const result2 = await verifyProof(output, outputProof);
   expect(result2.verified).toBeTruthy();
-
 };
 
 describe("Test 1. Confirm behavior of issuanceDate", () => {
@@ -218,7 +216,7 @@ describe("Test 1. Confirm behavior of issuanceDate", () => {
       );
 
       if (signedError) {
-        return compareResults(suiteError, fixture);
+        return compareResults(signedError, fixture);
       }
 
       await compareResults(signedCredential, fixture);
@@ -234,7 +232,7 @@ describe("Test 2. Confirm behavior of suite date constructor", () => {
       const fixture = getFixture(testNum, i);
 
       let dateParam = date;
-      if(date === "removed") {
+      if (date === "removed") {
         dateParam = null;
       }
 
@@ -250,7 +248,7 @@ describe("Test 2. Confirm behavior of suite date constructor", () => {
       );
 
       if (signedError) {
-        return compareResults(suiteError, fixture);
+        return compareResults(signedError, fixture);
       }
 
       await compareResults(signedCredential, fixture);
@@ -270,8 +268,8 @@ describe("Test 3. Confirm behavior of suite date set directly", () => {
         return compareResults(suiteError, fixture);
       }
 
-      switch(date){
-        case 'removed':
+      switch (date) {
+        case "removed":
           // Per test we duplicate the null test
           suite!.date = null;
           break;
@@ -279,7 +277,7 @@ describe("Test 3. Confirm behavior of suite date set directly", () => {
           // This will generate a new date
           break;
         default:
-          suite!.date = date
+          suite!.date = date;
           break;
       }
 
@@ -290,7 +288,7 @@ describe("Test 3. Confirm behavior of suite date set directly", () => {
       );
 
       if (signedError) {
-        return compareResults(suiteError, fixture);
+        return compareResults(signedError, fixture);
       }
 
       await compareResults(signedCredential, fixture);
@@ -320,6 +318,7 @@ describe("Test 4. Confirm behavior of issuanceDate", () => {
       const { suite, suiteError } = await createSuite(
         unsignedCredential.issuanceDate
       );
+
       if (suiteError) {
         return compareResults(suiteError, fixture);
       }
@@ -329,7 +328,7 @@ describe("Test 4. Confirm behavior of issuanceDate", () => {
         unsignedCredential
       );
       if (signedError) {
-        return compareResults(suiteError, fixture);
+        return compareResults(signedError, fixture);
       }
 
       await compareResults(signedCredential, fixture);
