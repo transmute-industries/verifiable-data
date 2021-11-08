@@ -46,7 +46,7 @@ const TESTS = [
   moment(ISSUED_ON).toObject()
 ];
 
-const createSuite = async (suiteDate: any) => {
+const createSuite = async (suiteDate?: any) => {
   const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
 
   let suite, suiteError;
@@ -233,6 +233,71 @@ describe("Test 2. Confirm behavior of suite date constructor", () => {
       }
 
       const unsignedCredential = { ...credential };
+      const { signedCredential, signedError } = await signCredential(
+        suite!,
+        unsignedCredential
+      );
+      if (signedError) {
+        return compareResults(suiteError, fixture);
+      }
+
+      await compareResults(signedCredential, fixture);
+    });
+  }
+});
+
+describe("Test 3. Confirm behavior of suite date constructor", () => {
+  const testNum = 3;
+  for (let i = 0; i < TESTS.length; i++) {
+    const date = TESTS[i];
+    it(`3. case-${i} should match the verifiable credential`, async () => {
+      const fixture = getFixture(testNum, i);
+      const { suite, suiteError } = await createSuite();
+      
+      if (suiteError) {
+        return compareResults(suiteError, fixture);
+      }
+      suite!.date = date === "removed" ? null : date;
+
+      const unsignedCredential = { ...credential };
+      const { signedCredential, signedError } = await signCredential(
+        suite!,
+        unsignedCredential
+      );
+      if (signedError) {
+        return compareResults(suiteError, fixture);
+      }
+
+      await compareResults(signedCredential, fixture);
+    });
+  }
+});
+
+describe("Test 4. Confirm behavior of issuanceDate", () => {
+  const testNum = 4;
+  for (let i = 0; i < TESTS.length; i++) {
+    const date = TESTS[i];
+    it(`4. case-${i} should match the verifiable credential`, async () => {
+      const fixture = getFixture(testNum, i);
+    
+      const unsignedCredential = { ...credential };
+      switch (date) {
+        case "removed":
+          // @ts-ignore
+          delete unsignedCredential.issuanceDate;
+          break;
+        default:
+          // @ts-ignore
+          unsignedCredential.issuanceDate = date;
+          break;
+      }
+
+      const { suite, suiteError } = await createSuite(unsignedCredential.issuanceDate);
+      if (suiteError) {
+        return compareResults(suiteError, fixture);
+      }
+      suite!.date = date === "removed" ? null : date;
+
       const { signedCredential, signedError } = await signCredential(
         suite!,
         unsignedCredential
