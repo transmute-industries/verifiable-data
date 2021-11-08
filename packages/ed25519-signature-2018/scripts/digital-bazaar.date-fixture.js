@@ -279,8 +279,18 @@ Promise.all(
     const { suite, suiteError } = await createSuite();
 
     // Per test, set value of date after constructor
-    // Duplicated 'removed' keyword for null test
-    suite.date = date === "removed" ? null : date;
+    switch(date){
+      case 'removed':
+        // Duplicated 'removed' keyword for null test
+        suite.date = null;
+        break;
+      case undefined:
+        // This will generate a new date
+        break;
+      default:
+        suite.date = date
+        break;
+    }
 
     // Check for Suite Errors
     if (suiteError) {

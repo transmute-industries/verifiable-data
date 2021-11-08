@@ -153,6 +153,7 @@ const getFixture = (testNum: number, index: number) => {
 };
 
 const compareResults = async (output: any, fixture: any) => {
+
   // Option 1, The fixture has an error and we don't
   if (fixture.type === "error" && output.type !== "error") {
     return expect(output).toBe(fixture);
@@ -178,14 +179,19 @@ const compareResults = async (output: any, fixture: any) => {
   expect(outputProof.jws).toEqual(fixtureProof.jws);
 
   // We also expect that the signed credentials are verifiable
-  const result = await verifyProof(fixture, fixtureProof);
-  expect(result.verified).toBeTruthy();
+  const result1 = await verifyProof(fixture, fixtureProof);
+  expect(result1.verified).toBeTruthy();
+
+  const result2 = await verifyProof(output, outputProof);
+  expect(result2.verified).toBeTruthy();
+
 };
 
 describe("Test 1. Confirm behavior of issuanceDate", () => {
   const testNum = 1;
   for (let i = 0; i < TESTS.length; i++) {
     const date = TESTS[i];
+
     it(`1. case-${i} should match the verifiable credential`, async () => {
       const fixture = getFixture(testNum, i);
       const { suite, suiteError } = await createSuite(CREATED_ON);
@@ -210,6 +216,7 @@ describe("Test 1. Confirm behavior of issuanceDate", () => {
         suite!,
         unsignedCredential
       );
+
       if (signedError) {
         return compareResults(suiteError, fixture);
       }
@@ -225,9 +232,13 @@ describe("Test 2. Confirm behavior of suite date constructor", () => {
     const date = TESTS[i];
     it(`2. case-${i} should match the verifiable credential`, async () => {
       const fixture = getFixture(testNum, i);
-      const { suite, suiteError } = await createSuite(
-        date === "removed" ? null : date
-      );
+
+      let dateParam = date;
+      if(date === "removed") {
+        dateParam = null;
+      }
+
+      const { suite, suiteError } = await createSuite(dateParam);
       if (suiteError) {
         return compareResults(suiteError, fixture);
       }
@@ -237,6 +248,7 @@ describe("Test 2. Confirm behavior of suite date constructor", () => {
         suite!,
         unsignedCredential
       );
+
       if (signedError) {
         return compareResults(suiteError, fixture);
       }
@@ -246,24 +258,37 @@ describe("Test 2. Confirm behavior of suite date constructor", () => {
   }
 });
 
-describe("Test 3. Confirm behavior of suite date constructor", () => {
+describe("Test 3. Confirm behavior of suite date set directly", () => {
   const testNum = 3;
   for (let i = 0; i < TESTS.length; i++) {
     const date = TESTS[i];
     it(`3. case-${i} should match the verifiable credential`, async () => {
       const fixture = getFixture(testNum, i);
       const { suite, suiteError } = await createSuite();
-      
+
       if (suiteError) {
         return compareResults(suiteError, fixture);
       }
-      suite!.date = date === "removed" ? null : date;
+
+      switch(date){
+        case 'removed':
+          // Per test we duplicate the null test
+          suite!.date = null;
+          break;
+        case undefined:
+          // This will generate a new date
+          break;
+        default:
+          suite!.date = date
+          break;
+      }
 
       const unsignedCredential = { ...credential };
       const { signedCredential, signedError } = await signCredential(
         suite!,
         unsignedCredential
       );
+
       if (signedError) {
         return compareResults(suiteError, fixture);
       }
@@ -279,7 +304,7 @@ describe("Test 4. Confirm behavior of issuanceDate", () => {
     const date = TESTS[i];
     it(`4. case-${i} should match the verifiable credential`, async () => {
       const fixture = getFixture(testNum, i);
-    
+
       const unsignedCredential = { ...credential };
       switch (date) {
         case "removed":
@@ -292,11 +317,12 @@ describe("Test 4. Confirm behavior of issuanceDate", () => {
           break;
       }
 
-      const { suite, suiteError } = await createSuite(unsignedCredential.issuanceDate);
+      const { suite, suiteError } = await createSuite(
+        unsignedCredential.issuanceDate
+      );
       if (suiteError) {
         return compareResults(suiteError, fixture);
       }
-      suite!.date = date === "removed" ? null : date;
 
       const { signedCredential, signedError } = await signCredential(
         suite!,
