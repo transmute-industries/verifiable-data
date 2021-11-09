@@ -15,4 +15,5 @@ export interface CreateVerifiablePresentationOptions {
 
   domain?: string;
   format?: Array<PresentationFormat>;
+  strict?: "ignore" | "warn" | "throw";
 }

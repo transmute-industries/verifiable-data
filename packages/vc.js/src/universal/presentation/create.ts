@@ -2,14 +2,14 @@ import * as ld from "../../vc-ld";
 import * as jwt from "../../vc-jwt";
 import {
   CreateVerifiablePresentationOptions,
-  CreatePresentationResult
+  CreatePresentationResult,
 } from "../../types";
-
+import { JsonWebKey } from "@transmute/json-web-signature";
 export const create = async (
   options: CreateVerifiablePresentationOptions
 ): Promise<CreatePresentationResult> => {
   const result: CreatePresentationResult = {
-    items: []
+    items: [],
   };
 
   if (!options.format) {
@@ -23,7 +23,7 @@ export const create = async (
         suite: options.suite,
         domain: options.domain,
         challenge: options.challenge,
-        documentLoader: options.documentLoader
+        documentLoader: options.documentLoader,
       })
     );
   }
@@ -39,13 +39,16 @@ export const create = async (
         "Cannot create credential when suite does not contain a key that supports useJwa."
       );
     }
-    const k = await key.useJwa({
-      detached: false,
-      header: {
-        kid: key.id
+    const k2 = await JsonWebKey.from(
+      await (key as any).export({ type: "JsonWebKey2020", privateKey: true }),
+      {
+        detached: false,
+        header: {
+          kid: key.id,
+        },
       }
-    });
-    const signer = k.signer();
+    );
+    const signer = k2.signer();
     const payload: any = await jwt.createVpPayload(
       options.presentation,
       options
