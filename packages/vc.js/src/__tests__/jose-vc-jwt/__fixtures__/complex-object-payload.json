@@ -1,0 +1,32 @@
+{
+  "vc": {
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://beta.did.msidentity.com/v1.0/43066757-7f7e-4bfa-847f-27ce9a066532/verifiableCredential/contracts/Credivera Inspector ID"
+    ],
+    "type": ["VerifiableCredential", "CrediveraInspectorID"],
+    "credentialSubject": {
+      "firstName": "FIRSTNAME",
+      "lastName": "LASTNAME",
+      "employeeTitle": "Quality Inspector",
+      "employeeNumber": "ABC1234"
+    },
+    "credentialStatus": {
+      "id": "https://beta.did.msidentity.com/v1.0/43066757-7f7e-4bfa-847f-27ce9a066532/verifiableCredential/card/status",
+      "type": "PortableIdentityCardServiceCredentialStatus2020"
+    },
+    "exchangeService": {
+      "id": "https://beta.did.msidentity.com/v1.0/43066757-7f7e-4bfa-847f-27ce9a066532/verifiableCredential/card/exchange",
+      "type": "PortableIdentityCardServiceExchange2020"
+    },
+    "revokeService": {
+      "id": "https://beta.did.msidentity.com/v1.0/43066757-7f7e-4bfa-847f-27ce9a066532/verifiableCredential/card/revoke",
+      "type": "PortableIdentityCardServiceRevoke2020"
+    }
+  },
+  "jti": "urn:pic:9f9edadbec644268bcba77e1e9cb191c",
+  "iss": "did:ion:EiBfnZWHcFzvwqU7bQZQtejiRioO6g4-JL3yS3qE6Gmu7g:eyJkZWx0YSI6eyJwYXRjaGVzIjpbeyJhY3Rpb24iOiJyZXBsYWNlIiwiZG9jdW1lbnQiOnsicHVibGljS2V5cyI6W3siaWQiOiJzaWdfNjBjZTMwMTUiLCJwdWJsaWNLZXlKd2siOnsiY3J2Ijoic2VjcDI1NmsxIiwia3R5IjoiRUMiLCJ4IjoiWkRrRUwwV3hRWGM4SGFobmxiYUdBQTV2dzNIdUNsQnhkZW9obXpkblVLayIsInkiOiJuR2xJeTJZanRFWmhHSnhPY3ZRUzNlRm8td2tlZVF5YTNIMzhFNnJmd2tBIn0sInB1cnBvc2VzIjpbImF1dGhlbnRpY2F0aW9uIiwiYXNzZXJ0aW9uTWV0aG9kIl0sInR5cGUiOiJFY2RzYVNlY3AyNTZrMVZlcmlmaWNhdGlvbktleTIwMTkifV0sInNlcnZpY2VzIjpbeyJpZCI6ImxpbmtlZGRvbWFpbnMiLCJzZXJ2aWNlRW5kcG9pbnQiOnsib3JpZ2lucyI6WyJodHRwczovL2NyZWRpdmVyYS5pby8iXX0sInR5cGUiOiJMaW5rZWREb21haW5zIn1dfX1dLCJ1cGRhdGVDb21taXRtZW50IjoiRWlCZVdwTC1SZC1hbmdDYlZ2enU3dUFxLWtxa243RGc0ekJLMVJEUHVUX1BIdyJ9LCJzdWZmaXhEYXRhIjp7ImRlbHRhSGFzaCI6IkVpREVYTHFHcXR2ai1NWmoyWUhLRHlFRlduanVPZHo0bWpGTExYZkN1dWpSQUEiLCJyZWNvdmVyeUNvbW1pdG1lbnQiOiJFaUNJS2xMMXpiS09JXzlEWmRNc3VxZEdoZ2dHbVlmNkJUNTA2SloyekwyRkR3In19",
+  "sub": "did:ion:EiCJPZVzfc8pp8o2WSIYkzXFAd8UTOI1-0HbutN9jPlR9g:eyJkZWx0YSI6eyJwYXRjaGVzIjpbeyJhY3Rpb24iOiJyZXBsYWNlIiwiZG9jdW1lbnQiOnsicHVibGljS2V5cyI6W3siaWQiOiIyM2NiNmMxNGJiMjI0Y2IzODA4NjhmM2NiYzliNjYyMiIsInB1YmxpY0tleUp3ayI6eyJjcnYiOiJzZWNwMjU2azEiLCJraWQiOiIyM2NiNmMxNGJiMjI0Y2IzODA4NjhmM2NiYzliNjYyMiIsImt0eSI6IkVDIiwieCI6IkdtQVg4OTBhWEZWU0p1aGR4b1FsY3RoeHl5STU5YlpfZFlKTGxBY0t2ejAiLCJ5IjoiaWUwaTF3RGx3eVQ1ZEM3QVJ3dk9hYkdyNGtwWGo2V3ZmZFFhdFIzOXZCNCJ9LCJwdXJwb3NlcyI6WyJhdXRoZW50aWNhdGlvbiJdLCJ0eXBlIjoiRWNkc2FTZWNwMjU2azFWZXJpZmljYXRpb25LZXkyMDE5In1dfX1dLCJ1cGRhdGVDb21taXRtZW50IjoiRWlEQkFEc0k0Ny1DNXhQaVVwNmdHRXRqcE5JNkVKWTJlOHRkWGk5aGl3cXlhUSJ9LCJzdWZmaXhEYXRhIjp7ImRlbHRhSGFzaCI6IkVpQ1JlZEdZb2RoY0M2ME8xSkdibDZjcERSVlBHd191YmJBdHpOUTVZNHMtdEEiLCJyZWNvdmVyeUNvbW1pdG1lbnQiOiJFaUJnZ0NoSTdJSnpDbXpQYlNVbWV4SWxIQ1VQc2FiTVdHLUhWS1ZyLUN1T2FnIn19",
+  "iat": 1635986029,
+  "exp": 1638578029
+}

@@ -10,7 +10,13 @@ export const createVcPayload = async (
 ) => {
   const { documentLoader } = options;
   const strict = options.strict || "warn";
+
+  if (!credential.issuer) {
+    throw new Error("Issuer is a required field.");
+  }
+
   await checkCredential(credential, { documentLoader, strict });
+
   const issuer = credential.issuer.id
     ? credential.issuer.id
     : credential.issuer;
@@ -22,7 +28,7 @@ export const createVcPayload = async (
     sub: subject,
     vc: credential,
     jti: credential.id,
-    nbf: moment(credential.issuanceDate).unix()
+    nbf: moment(credential.issuanceDate).unix(),
   };
   if (credential.expirationDate) {
     payload.exp = moment(credential.expirationDate).unix();

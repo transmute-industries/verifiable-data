@@ -13,4 +13,5 @@ export interface CreateCredentialOptions {
   documentLoader: DocumentLoader;
 
   format?: Array<CredentialFormat>;
+  strict?: "ignore" | "warn" | "throw";
 }
