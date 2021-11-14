@@ -1,61 +1,109 @@
+const embeddingAttributeNames = ['$comment', '$linkedData'];
+
+const extractEmbedding = (embedding: any, attribute = '$comment') => {
+  if (attribute === '$comment') {
+    return JSON.parse(embedding[attribute]);
+  }
+  if (attribute === '$linkedData') {
+    return embedding[attribute];
+  }
+  throw new Error('Cannot extract unsupported embedding: ' + attribute);
+};
+
 const defineClassPropertiesFromComment = (
   classProperties: any,
-  comment: any,
+  linkedData: any,
   title: string,
   description: string
 ) => {
-  if (classProperties[comment['@id']]) {
-    classProperties[comment['@id']] = [
-      ...classProperties[comment['@id']],
+  if (classProperties[linkedData['@id']]) {
+    classProperties[linkedData['@id']] = [
+      ...classProperties[linkedData['@id']],
       {
-        $comment: comment,
         title: title,
         description: description,
+        linkedData: linkedData,
       },
     ];
   } else {
-    classProperties[comment['@id']] = [
+    classProperties[linkedData['@id']] = [
       {
-        $comment: comment,
         title: title,
         description: description,
+        linkedData: linkedData,
       },
     ];
   }
 };
 
-export const schemasToIntermediate = (files: any[]) => {
-  const intermediate: any = {};
+const handleClassEmbeddings = (
+  file: any,
+  intermediate: any,
+  classEmbedding: string
+) => {
+  const embeddedLinkedDataClass = extractEmbedding(file, classEmbedding);
+  if (!intermediate[embeddedLinkedDataClass['@id']]) {
+    intermediate[embeddedLinkedDataClass['@id']] = {
+      $id: file.$id,
+      $schema: file.$schema,
+      linkedData: embeddedLinkedDataClass,
+      title: file.title,
+      description: file.description,
+      classProperties: {},
+      schema: file,
+    };
+  }
+  return embeddedLinkedDataClass;
+};
 
-  files.forEach((file: any) => {
-    if (file.$comment) {
-      const $classComment = JSON.parse(file.$comment);
-      if (!intermediate[$classComment['@id']]) {
-        intermediate[$classComment['@id']] = {
-          $id: file.$id,
-          $schema: file.$schema,
-          $comment: $classComment,
-          title: file.title,
-          description: file.description,
-          classProperties: {},
-          schema: file,
-        };
+const handlePropertyEmbeddings = (
+  file: any,
+  intermediate: any,
+  classEmbedding: string,
+  embeddedLinkedDataClass: any
+) => {
+  Object.values(file.properties).forEach((prop: any) => {
+    embeddingAttributeNames.forEach(propertyEmbedding => {
+      if (prop[propertyEmbedding]) {
+        const embeddedLinkedDataProperty = extractEmbedding(
+          prop,
+          classEmbedding
+        );
+        defineClassPropertiesFromComment(
+          intermediate[embeddedLinkedDataClass['@id']].classProperties,
+          embeddedLinkedDataProperty,
+          prop.title,
+          prop.description
+        );
       }
+    });
+  });
+};
 
+const handleFileEmbeddings = (file: any, intermediate: any) => {
+  embeddingAttributeNames.forEach(classEmbedding => {
+    if (file[classEmbedding]) {
+      const embeddedLinkedDataClass = handleClassEmbeddings(
+        file,
+        intermediate,
+        classEmbedding
+      );
       if (file.properties) {
-        Object.values(file.properties).forEach((prop: any) => {
-          if (prop.$comment) {
-            const $propertyComment = JSON.parse(prop.$comment);
-            defineClassPropertiesFromComment(
-              intermediate[$classComment['@id']].classProperties,
-              $propertyComment,
-              prop.title,
-              prop.description
-            );
-          }
-        });
+        handlePropertyEmbeddings(
+          file,
+          intermediate,
+          classEmbedding,
+          embeddedLinkedDataClass
+        );
       }
     }
+  });
+};
+
+export const schemasToIntermediate = (files: any[]) => {
+  const intermediate: any = {};
+  files.forEach((file: any) => {
+    handleFileEmbeddings(file, intermediate);
   });
   return intermediate;
 };
@@ -69,8 +117,8 @@ export const intermediateToPartialContext = (intermediate: any) => {
         classPropertyArray.forEach((classProperty: any) => {
           propertDefinitionPartialContext = {
             ...propertDefinitionPartialContext,
-            [classProperty.$comment.term]: {
-              '@id': classProperty.$comment['@id'],
+            [classProperty.linkedData.term]: {
+              '@id': classProperty.linkedData['@id'],
             },
           };
         });
@@ -79,8 +127,8 @@ export const intermediateToPartialContext = (intermediate: any) => {
 
     partialContext = {
       ...partialContext,
-      [classDefinition.$comment.term]: {
-        '@id': classDefinition.$comment['@id'],
+      [classDefinition.linkedData.term]: {
+        '@id': classDefinition.linkedData['@id'],
         '@context': {
           ...propertDefinitionPartialContext,
         },
