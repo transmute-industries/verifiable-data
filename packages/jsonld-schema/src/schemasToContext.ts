@@ -10,7 +10,7 @@ const extractEmbedding = (embedding: any, attribute = '$comment') => {
   throw new Error('Cannot extract unsupported embedding: ' + attribute);
 };
 
-const defineClassPropertiesFromComment = (
+const defineAttributesFromLinkedData = (
   classProperties: any,
   linkedData: any,
   title: string,
@@ -69,7 +69,7 @@ const handlePropertyEmbeddings = (
           prop,
           classEmbedding
         );
-        defineClassPropertiesFromComment(
+        defineAttributesFromLinkedData(
           intermediate[embeddedLinkedDataClass['@id']].classProperties,
           embeddedLinkedDataProperty,
           prop.title,
@@ -88,6 +88,12 @@ const handleFileEmbeddings = (file: any, intermediate: any) => {
         intermediate,
         classEmbedding
       );
+
+      // Need to handle anyOf and oneOf better...
+      // if (file['anyOf']) {
+      //   console.log('here!', file, embeddedLinkedDataClass);
+      // }
+
       if (file.properties) {
         handlePropertyEmbeddings(
           file,
@@ -156,6 +162,8 @@ export const schemasToContext = (
 ) => {
   const intermediate = schemasToIntermediate(schemas);
   const partialContext = intermediateToPartialContext(intermediate);
+  // console.log('handle AnyOf for ');
+  // console.log(JSON.stringify(intermediate, null, 2));
   return {
     '@context': {
       '@version': version,

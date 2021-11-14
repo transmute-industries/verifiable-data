@@ -50,6 +50,7 @@
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.2",
     "@transmute/credentials-context": "^0.7.0-unstable.26",
+    "js-yaml": "^4.1.0",
     "size-limit": "^4.9.2",
     "ts-jest": "^26.5.0",
     "tsdx": "^0.14.1",

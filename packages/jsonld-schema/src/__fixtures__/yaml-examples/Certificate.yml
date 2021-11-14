@@ -1,0 +1,22 @@
+---
+title: Certificate
+description: A legal document
+$linkedData:
+  'term': 'Certificate'
+  '@id': 'https://schema.org/Certificate'
+type: object
+required:
+  - issuer
+  - credentialSubject
+properties:
+  issuer:
+    $linkedData:
+      'term': 'issuer'
+      '@id': 'https://schema.org/Entity'
+    $ref: '#Entity'
+  credentialSubject:
+    $linkedData:
+      'term': 'credentialSubject'
+      '@id': 'https://schema.org/Entity'
+    $ref: '#Entity'
+additionalProperties: false

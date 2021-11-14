@@ -1,0 +1,9 @@
+---
+title: Entity
+description: A person or organization
+$linkedData:
+  'term': 'Entity'
+  '@id': 'https://schema.org/Entity'
+anyOf:
+  - $ref: '#Person'
+  - $ref: '#Organization'
