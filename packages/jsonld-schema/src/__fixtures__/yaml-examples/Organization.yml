@@ -1,0 +1,24 @@
+---
+title: Organization
+description: A legal entity
+$linkedData:
+  'term': 'Organization'
+  '@id': 'https://schema.org/Organization'
+type: object
+required:
+  - id
+  - name
+properties:
+  id:
+    type: string
+  name:
+    type: string
+    $linkedData:
+      'term': 'name'
+      '@id': 'https://schema.org/name'
+  website:
+    type: string
+    $linkedData:
+      'term': 'website'
+      '@id': 'https://schema.org/website'
+additionalProperties: false

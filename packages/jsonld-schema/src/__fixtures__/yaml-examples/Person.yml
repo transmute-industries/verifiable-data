@@ -1,0 +1,25 @@
+---
+$id: https://w3id.org/traceability/schemas/Person.json
+title: Person
+description: A human
+$linkedData:
+  'term': 'Person'
+  '@id': 'https://schema.org/Person'
+type: object
+required:
+  - id
+  - age
+properties:
+  id:
+    type: string
+  name:
+    type: string
+    $linkedData:
+      'term': 'name'
+      '@id': 'https://schema.org/name'
+  age:
+    type: number
+    $linkedData:
+      'term': 'age'
+      '@id': 'https://schema.org/age'
+additionalProperties: false
