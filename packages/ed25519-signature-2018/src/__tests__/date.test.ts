@@ -97,6 +97,7 @@ const signCredential = async (
     });
   } catch (err) {
     let error = err as Error;
+    console.log('Error caught!!!!');
     signedError = {
       type: "error",
       thrownOn: "sign",
@@ -112,7 +113,7 @@ const verifyProof = async (document: any, proof: any) => {
   const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
   const suite = new Ed25519Signature2018({
     key: keyPair,
-    date: proof.created
+    //date: proof.created
   });
 
   const result = await suite.verifyProof({
@@ -153,15 +154,14 @@ const getFixture = (testNum: number, index: number) => {
 };
 
 const compareResults = async (output: any, fixture: any) => {
+
   // Option 1, The fixture has an error and we don't
   if (fixture.type === "error" && output.type !== "error") {
-    return expect(output).toBe(fixture);
+    return expect(output).toEqual(fixture);
   } else if (fixture.type !== "error" && output.type === "error") {
-    return expect(output).toBe(fixture);
-  } else if (fixture.type === "error" && output.type !== "error") {
-    console.warn("Fixure: ", fixture.reason);
-    console.warn("Output: ", output.reason);
-    return expect(output.thrownOn).toBe(fixture.thrownOn);
+    return expect(output).toEqual(fixture);
+  } else if (fixture.type === "error" && output.type === "error") {
+    return expect(output).toEqual(fixture);
   }
 
   const outputProof = output.proof;
@@ -183,6 +183,7 @@ const compareResults = async (output: any, fixture: any) => {
 
   const result2 = await verifyProof(output, outputProof);
   expect(result2.verified).toBeTruthy();
+
 };
 
 describe("Test 1. Confirm behavior of issuanceDate", () => {
@@ -224,12 +225,12 @@ describe("Test 1. Confirm behavior of issuanceDate", () => {
   }
 });
 
-/*
 describe("Test 2. Confirm behavior of suite date constructor", () => {
   const testNum = 2;
   for (let i = 0; i < TESTS.length; i++) {
     const date = TESTS[i];
-    it(`2. case-${i} should match the verifiable credential`, async () => {
+
+    it(`2. case-${i} ${date} should match the verifiable credential`, async () => {
       const fixture = getFixture(testNum, i);
 
       let dateParam = date;
@@ -258,13 +259,14 @@ describe("Test 2. Confirm behavior of suite date constructor", () => {
 });
 
 describe("Test 3. Confirm behavior of suite date set directly", () => {
+
   const testNum = 3;
   for (let i = 0; i < TESTS.length; i++) {
     const date = TESTS[i];
-    it(`3. case-${i} should match the verifiable credential`, async () => {
+    it(`3. case-${i} ${date} should match the verifiable credential`, async () => {
+
       const fixture = getFixture(testNum, i);
       const { suite, suiteError } = await createSuite();
-
       if (suiteError) {
         return compareResults(suiteError, fixture);
       }
@@ -291,10 +293,11 @@ describe("Test 3. Confirm behavior of suite date set directly", () => {
       if (signedError) {
         return compareResults(signedError, fixture);
       }
-
       await compareResults(signedCredential, fixture);
+
     });
   }
+
 });
 
 describe("Test 4. Confirm behavior of issuanceDate", () => {
@@ -336,4 +339,3 @@ describe("Test 4. Confirm behavior of issuanceDate", () => {
     });
   }
 });
-*/

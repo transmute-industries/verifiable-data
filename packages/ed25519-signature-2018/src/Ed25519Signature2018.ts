@@ -28,9 +28,9 @@ export class Ed25519Signature2018 {
   public verificationMethod?: string;
   constructor(options: IEd25519Signature2018Options = {}) {
     this.signer = options.signer;
-    if(options.date) {
+    if (options.date) {
       this.date = new Date(options.date);
-      if(isNaN(this.date)) {
+      if (isNaN(this.date)) {
         throw TypeError(`"date" "${options.date}" is not a valid date.`);
       }
     }
@@ -157,19 +157,19 @@ export class Ed25519Signature2018 {
 
     // set default `now` date if not given in `proof` or `options`
     let date = this.date;
-    if(proof.created === undefined && date === undefined) {
+    if (proof.created === undefined && date === undefined) {
       date = new Date();
     }
 
     // ensure date is in string format
-    if(date && typeof date !== 'string') {
-      if(date === undefined || date === null) {
+    if (date && typeof date !== "string") {
+      if (date === undefined || date === null) {
         date = new Date();
-      } else if(typeof date === 'number' || typeof date === 'string') {
+      } else if (typeof date === "number" || typeof date === "string") {
         date = new Date(date);
       }
       const str = date.toISOString();
-      date = str.substr(0, str.length - 5) + 'Z';
+      date = str.substr(0, str.length - 5) + "Z";
     }
 
     // add API overrides
