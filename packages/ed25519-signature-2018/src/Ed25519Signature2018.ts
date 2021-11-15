@@ -28,7 +28,12 @@ export class Ed25519Signature2018 {
   public verificationMethod?: string;
   constructor(options: IEd25519Signature2018Options = {}) {
     this.signer = options.signer;
-    this.date = options.date;
+    if(options.date) {
+      this.date = new Date(options.date);
+      if(isNaN(this.date)) {
+        throw TypeError(`"date" "${options.date}" is not a valid date.`);
+      }
+    }
     if (options.key) {
       this.key = options.key;
       this.verificationMethod = this.key.id;
@@ -152,20 +157,26 @@ export class Ed25519Signature2018 {
 
     // set default `now` date if not given in `proof` or `options`
     let date = this.date;
-    if (proof.created === undefined && date === undefined) {
+    if(proof.created === undefined && date === undefined) {
       date = new Date();
     }
 
     // ensure date is in string format
-    if (date !== undefined && typeof date !== "string") {
-      date = new Date(date).toISOString();
-      date = date.substr(0, date.length - 5) + "Z";
+    if(date && typeof date !== 'string') {
+      if(date === undefined || date === null) {
+        date = new Date();
+      } else if(typeof date === 'number' || typeof date === 'string') {
+        date = new Date(date);
+      }
+      const str = date.toISOString();
+      date = str.substr(0, str.length - 5) + 'Z';
     }
 
     // add API overrides
-    if (date !== undefined) {
+    if (date) {
       proof.created = date;
     }
+
     // `verificationMethod` is for newer suites, `creator` for legacy
     if (this.verificationMethod !== undefined) {
       proof.verificationMethod = this.verificationMethod;

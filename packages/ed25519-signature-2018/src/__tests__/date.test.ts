@@ -224,6 +224,7 @@ describe("Test 1. Confirm behavior of issuanceDate", () => {
   }
 });
 
+/*
 describe("Test 2. Confirm behavior of suite date constructor", () => {
   const testNum = 2;
   for (let i = 0; i < TESTS.length; i++) {
@@ -335,3 +336,4 @@ describe("Test 4. Confirm behavior of issuanceDate", () => {
     });
   }
 });
+*/
