@@ -46,7 +46,8 @@ it("should throw when RFC 3339 and ISO 8601 do not agree.", async () => {
   "1985-04-12 23:20:50.52Z is not a legal ISO 8601 Date Time.",
   "1985-04-12 23:20:50.52Z is not a W3C Date Time.",
   "1985-04-12 23:20:50.52Z could not be converted to unix timestamp and back."
-]`);
+]
+issuanceDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#issuance-date`);
   }
 });
 
@@ -68,7 +69,8 @@ it("should throw when not valid ISO 8601", async () => {
   "1985-04-12t23:20:50.52Z is not a legal ISO 8601 Date Time.",
   "1985-04-12t23:20:50.52Z is not a W3C Date Time.",
   "1985-04-12t23:20:50.52Z could not be converted to unix timestamp and back."
-]`);
+]
+issuanceDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#issuance-date`);
   }
 });
 
@@ -89,6 +91,7 @@ it("should throw when not W3C Date Time", async () => {
     expect(e.message).toBe(`issuanceDate is not valid: [
   "1937-01-01T12:00:27.87+00:20 is not a W3C Date Time.",
   "1937-01-01T12:00:27.87+00:20 could not be converted to unix timestamp and back."
-]`);
+]
+issuanceDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#issuance-date`);
   }
 });
