@@ -21,6 +21,7 @@ export class Ed25519Signature2018 {
   public key: any;
   public proof: any;
   public date: any;
+  public originalDate: any;
   public creator: any;
   public type: string = "Ed25519Signature2018";
   public signer: any;
@@ -28,6 +29,7 @@ export class Ed25519Signature2018 {
   public verificationMethod?: string;
   constructor(options: IEd25519Signature2018Options = {}) {
     this.signer = options.signer;
+    this.originalDate = options.date;
     if (options.date) {
       this.date = new Date(options.date);
       if (isNaN(this.date)) {
@@ -175,6 +177,15 @@ export class Ed25519Signature2018 {
     // add API overrides
     if (date) {
       proof.created = date;
+
+      if(this.originalDate && this.originalDate !== date) {
+        console.warn([
+          'The proof.created is of type xsd:dateTime(https://www.w3.org/TR/xmlschema-2/#dateTime), this is different from the input provided',
+          'Original Input: ' + JSON.stringify(this.originalDate),
+          'Current Proof.created value: ' + date,
+          'Please provide a conforming XML date string with format YYYY-MM-DDTHH:mm:ssZ to avoid seeing this message'
+        ].join('\n'))
+      }
     }
 
     // `verificationMethod` is for newer suites, `creator` for legacy
