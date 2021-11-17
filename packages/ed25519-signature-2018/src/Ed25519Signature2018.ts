@@ -175,7 +175,7 @@ export class Ed25519Signature2018 {
     }
 
     // add API overrides
-    if (date !== undefined) {
+    if (date) {
       proof.created = date;
 
       if (this.originalDate && this.originalDate !== date) {
