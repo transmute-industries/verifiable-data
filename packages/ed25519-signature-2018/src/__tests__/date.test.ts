@@ -217,9 +217,6 @@ describe("Test 1. Confirm behavior of issuanceDate", () => {
         unsignedCredential
       );
 
-      console.log(unsignedCredential);
-      console.log(signedCredential);
-
       if (signedError) {
         return compareResults(signedError, fixture);
       }
