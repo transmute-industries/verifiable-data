@@ -92,7 +92,10 @@ export const checkCredential = async (
     const res = checkDate(credential.issuanceDate);
     if (!res.valid) {
       const message =
-        "issuanceDate is not valid: " + JSON.stringify(res.warnings, null, 2);
+        [
+          "issuanceDate is not valid: " + JSON.stringify(res.warnings, null, 2),
+          "issuanceDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#issuance-date"
+        ].join('\n');
       if (strict == "warn") {
         console.warn(message);
       }
@@ -107,7 +110,10 @@ export const checkCredential = async (
     const res = checkDate(credential.expirationDate);
     if (!res.valid) {
       const message =
-        "expirationDate is not valid: " + JSON.stringify(res.warnings, null, 2);
+      [
+        "expirationDate is not valid: " + JSON.stringify(res.warnings, null, 2),
+        "expirationDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#expiration"
+      ].join('\n')
       if (strict == "warn") {
         console.warn(message);
       }
