@@ -37,18 +37,25 @@ describe("credential comparisons", () => {
       );
       const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
       expect(keyPair.controller).toBe(rawKeyJson.controller);
+
+
       let suite;
-      if (credential.issuanceDate !== undefined) {
-        suite = new Ed25519Signature2018({
-          key: keyPair,
-          date: credential.issuanceDate
-        });
-      } else {
-        // fallback default date
-        suite = new Ed25519Signature2018({
-          key: keyPair,
-          date: "2010-01-01T19:23:24Z"
-        });
+      switch(credential.issuanceDate) {
+        case undefined:
+        case '':
+        case null:
+        case 'foobar':
+          suite = new Ed25519Signature2018({
+            key: keyPair,
+            date: "2010-01-01T19:23:24Z"
+          });
+          break;
+        default:
+          suite = new Ed25519Signature2018({
+            key: keyPair,
+            date: credential.issuanceDate
+          });
+          break;
       }
       expect(suite.verificationMethod).toBe(rawKeyJson.id);
       const verifiableCredential = await ldp.sign(credential, {
@@ -66,25 +73,9 @@ describe("credential comparisons", () => {
       const expectedVerifiableCredential = JSON.parse(
         fs.readFileSync(verifiableCredentialsPath + "/" + filename).toString()
       );
-      // FIXME: https://github.com/transmute-industries/verifiable-data/issues/99
-      // We handle these dates variations differently than db does
-      // 3 and 4 we don't convert to datetime xml format
-      // 6 is a nonsense string we allowed and passed for the issuancedate to created
-      // 7 we allow and pass empty strings for issuancedate to created
-      // 8 for null issuancedate we use epoch time where db uses current time
-      if (
-        [
-          "case-3.json",
-          "case-4.json",
-          "case-6.json",
-          "case-7.json",
-          "case-8.json"
-        ].includes(filename)
-      ) {
-        expect(expectedVerifiableCredential).not.toEqual(verifiableCredential);
-      } else {
-        expect(expectedVerifiableCredential).toEqual(verifiableCredential);
-      }
+
+      expect(expectedVerifiableCredential).toEqual(verifiableCredential);
+
       const result = await ldp.verify(verifiableCredential, {
         suite: new Ed25519Signature2018(),
         purpose,

@@ -21,6 +21,7 @@ export class Ed25519Signature2018 {
   public key: any;
   public proof: any;
   public date: any;
+  public originalDate: any;
   public creator: any;
   public type: string = "Ed25519Signature2018";
   public signer: any;
@@ -28,7 +29,13 @@ export class Ed25519Signature2018 {
   public verificationMethod?: string;
   constructor(options: IEd25519Signature2018Options = {}) {
     this.signer = options.signer;
-    this.date = options.date;
+    this.originalDate = options.date;
+    if (options.date) {
+      this.date = new Date(options.date);
+      if (isNaN(this.date)) {
+        throw TypeError(`"date" "${options.date}" is not a valid date.`);
+      }
+    }
     if (options.key) {
       this.key = options.key;
       this.verificationMethod = this.key.id;
@@ -157,15 +164,32 @@ export class Ed25519Signature2018 {
     }
 
     // ensure date is in string format
-    if (date !== undefined && typeof date !== "string") {
-      date = new Date(date).toISOString();
-      date = date.substr(0, date.length - 5) + "Z";
+    if (date && typeof date !== "string") {
+      if (date === undefined || date === null) {
+        date = new Date();
+      } else if (typeof date === "number" || typeof date === "string") {
+        date = new Date(date);
+      }
+      const str = date.toISOString();
+      date = str.substr(0, str.length - 5) + "Z";
     }
 
     // add API overrides
-    if (date !== undefined) {
+    if (date) {
       proof.created = date;
+
+      if (this.originalDate && this.originalDate !== date) {
+        console.warn(
+          [
+            "The proof.created is of type xsd:dateTime(https://www.w3.org/TR/xmlschema-2/#dateTime), this is different from the input provided",
+            "Original Input: " + JSON.stringify(this.originalDate),
+            "Current Proof.created value: " + date,
+            "Please provide a conforming XML date string with format YYYY-MM-DDTHH:mm:ssZ to avoid seeing this message"
+          ].join("\n")
+        );
+      }
     }
+
     // `verificationMethod` is for newer suites, `creator` for legacy
     if (this.verificationMethod !== undefined) {
       proof.verificationMethod = this.verificationMethod;
