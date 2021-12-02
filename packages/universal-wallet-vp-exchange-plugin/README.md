@@ -1,5 +1,7 @@
 # @transmute/universal-wallet-vp-exchange-plugin
 
+Warning: This package relies on pinned older version and is subject to major breaking changes in the future. 
+
 ```
 npm i @transmute/universal-wallet-vp-exchange-plugin --save
 ```
