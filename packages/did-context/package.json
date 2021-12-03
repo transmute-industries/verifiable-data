@@ -1,6 +1,6 @@
 {
   "name": "@transmute/did-context",
-  "version": "0.7.0-unstable.29",
+  "version": "0.7.0-unstable.30",
   "description": "",
   "main": "index.js",
   "types": "typings.d.ts",
