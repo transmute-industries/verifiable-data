@@ -28,6 +28,8 @@ export const checkCredential = async (
     return undefined;
   }
 
+  let isJWT = false;
+
   if (typeof credential === "string") {
     let [encodedHeader, encodedPayload] = credential.split(".");
     const header = JSON.parse(Buffer.from(encodedHeader, "base64").toString());
@@ -38,6 +40,7 @@ export const checkCredential = async (
       Buffer.from(encodedPayload, "base64").toString()
     );
     credential = payload.vc;
+    isJWT = true;
   }
 
   if (!credential["@context"]) {
@@ -89,13 +92,12 @@ export const checkCredential = async (
   }
 
   if ("issuanceDate" in credential) {
-    const res = checkDate(credential.issuanceDate);
+    const res = checkDate(credential.issuanceDate, isJWT);
     if (!res.valid) {
-      const message =
-        [
-          "issuanceDate is not valid: " + JSON.stringify(res.warnings, null, 2),
-          "issuanceDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#issuance-date"
-        ].join('\n');
+      const message = [
+        "issuanceDate is not valid: " + JSON.stringify(res.warnings, null, 2),
+        "issuanceDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#issuance-date",
+      ].join("\n");
       if (strict == "warn") {
         console.warn(message);
       }
@@ -109,11 +111,10 @@ export const checkCredential = async (
   if ("expirationDate" in credential) {
     const res = checkDate(credential.expirationDate);
     if (!res.valid) {
-      const message =
-      [
+      const message = [
         "expirationDate is not valid: " + JSON.stringify(res.warnings, null, 2),
-        "expirationDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#expiration"
-      ].join('\n')
+        "expirationDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#expiration",
+      ].join("\n");
       if (strict == "warn") {
         console.warn(message);
       }

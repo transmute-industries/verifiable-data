@@ -37,11 +37,12 @@ export const isUnixTimestampStable = (datetime: string) => {
 // against RFC 3339 / ISO 8601 and moment.
 // see also: https://github.com/w3c/vc-data-model/issues/782
 export const checkDate = (
-  datetime: string
+  datetime: string,
+  isJWT: boolean = false
 ): { valid: boolean; warnings: string[] } => {
   const res: { valid: boolean; warnings: string[] } = {
     valid: false,
-    warnings: []
+    warnings: [],
   };
 
   if (!ISO_8601_FULL.test(datetime)) {
@@ -52,9 +53,6 @@ export const checkDate = (
     res.warnings.push(`${datetime} is not a legal RFC 3339 Date Time.`);
   }
 
-  if (!isW3CDate(datetime)) {
-    res.warnings.push(`${datetime} is not a W3C Date Time.`);
-  }
   moment.suppressDeprecationWarnings = true;
   if (moment(datetime).toISOString() === null) {
     res.warnings.push(
@@ -62,10 +60,12 @@ export const checkDate = (
     );
   }
 
-  if (!isUnixTimestampStable(datetime)) {
-    res.warnings.push(
-      `${datetime} could not be converted to unix timestamp and back.`
-    );
+  if (isJWT) {
+    if (!isUnixTimestampStable(datetime)) {
+      res.warnings.push(
+        `${datetime} could not be converted to unix timestamp and back.`
+      );
+    }
   }
   moment.suppressDeprecationWarnings = false;
 
