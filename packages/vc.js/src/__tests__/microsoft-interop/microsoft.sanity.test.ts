@@ -23,10 +23,16 @@ describe("verify a microsoft vc", () => {
     ({ publicKeyJwk } = document.verificationMethod[0]);
   });
 
-  it("can verify vc-jwt issued by ION with npm jose", async () => {
+  it("can not verify vc-jwt issued by ION with npm jose if jwt expired", async () => {
     const publicKey = await parseJwk(publicKeyJwk, "ES256K");
-    const { payload } = await jwtVerify(`${compact}`, publicKey);
-    expect(payload.vc).toBeDefined();
+    let failed = false;
+    try {
+      const { payload } = await jwtVerify(`${compact}`, publicKey);
+      expect(payload.vc).toBeDefined();
+    } catch(err) {
+      failed = true;
+    }
+    expect(failed).toBeTruthy();
   });
 
   it("can verify vc-jwt issued by ION with transmute", async () => {

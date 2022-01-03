@@ -67,9 +67,7 @@ it("should throw when RFC 3339 and ISO 8601 do not agree.", async () => {
     });
   } catch (e) {
     expect(e.message).toBe(`issuanceDate is not valid: [
-  "1985-04-12 23:20:50.52Z is not a legal ISO 8601 Date Time.",
-  "1985-04-12 23:20:50.52Z is not a W3C Date Time.",
-  "1985-04-12 23:20:50.52Z could not be converted to unix timestamp and back."
+  "1985-04-12 23:20:50.52Z is not a legal ISO 8601 Date Time."
 ]
 issuanceDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#issuance-date`);
   }

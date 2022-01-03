@@ -18,7 +18,6 @@ describe("checkCredential", () => {
     try {
       await checkCredential(vcJWt, { documentLoader, strict: "throw" });
     } catch (err) {
-      console.warn(err);
       warned = true;
     }
     expect(warned).toBeTruthy();
