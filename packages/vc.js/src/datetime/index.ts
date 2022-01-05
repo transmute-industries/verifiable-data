@@ -8,7 +8,10 @@ export const RFC_3339 = new RegExp(
     "(([Zz]|([+-])([0-9]{2}):([0-9]{2})))?"
 );
 
-export const ISO_8601_FULL = /^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
+// Tweaked to allow for leap seconds
+export const ISO_8601_FULL = /^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-6]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
+
+export const TIME_ZONE_OFFSET_MATCH = /[+-]\d\d:\d\d$/;
 
 // https://www.w3.org/TR/NOTE-datetime-970915
 export const isW3CDate = (datetime: string) => {
@@ -19,18 +22,6 @@ export const isW3CDate = (datetime: string) => {
   } catch (e) {
     return false;
   }
-};
-
-export const isUnixTimestampStable = (datetime: string) => {
-  const iso = moment(datetime)
-    .utc()
-    .format();
-  const timestamp = moment(iso).unix();
-  const backToIso = moment
-    .unix(timestamp)
-    .utc()
-    .format();
-  return backToIso === iso && iso === datetime;
 };
 
 // for the sake of safety, we check the date
@@ -54,17 +45,33 @@ export const checkDate = (
   }
 
   moment.suppressDeprecationWarnings = true;
-  if (moment(datetime).toISOString() === null) {
+  // If leap second (60 seconds) make it a valid date
+  let newDatetime = datetime;
+  let isLeapSecond = false;
+  try {
+    if (newDatetime.split(":")[2].substring(0, 2) === "60") {
+      newDatetime = newDatetime.replace("60", "59");
+      const newDate = new Date(newDatetime);
+      newDate.setSeconds(new Date(newDatetime).getSeconds() + 1);
+      newDatetime = newDate.toISOString();
+      isLeapSecond = true;
+    }
+  } catch (err) {}
+  if (moment(newDatetime).toISOString() === null) {
     res.warnings.push(
       `${datetime} could not be parsed and serialized as ISO 8601 Date Time.`
     );
   }
 
   if (isJWT) {
-    if (!isUnixTimestampStable(datetime)) {
-      res.warnings.push(
-        `${datetime} could not be converted to unix timestamp and back.`
-      );
+    if (isLeapSecond) {
+      res.warnings.push(`${datetime} lost leap second information.`);
+    }
+    if (TIME_ZONE_OFFSET_MATCH.test(datetime)) {
+      res.warnings.push(`${datetime} lost timezone offset information.`);
+    }
+    if(new Date(newDatetime).getMilliseconds()) {
+      res.warnings.push(`${datetime} lost millisecond information.`);
     }
   }
   moment.suppressDeprecationWarnings = false;
