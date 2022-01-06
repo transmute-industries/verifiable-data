@@ -109,7 +109,7 @@ export const checkCredential = async (
 
   // check expires is a date
   if ("expirationDate" in credential) {
-    const res = checkDate(credential.expirationDate);
+    const res = checkDate(credential.expirationDate, isJWT);
     if (!res.valid) {
       const message = [
         "expirationDate is not valid: " + JSON.stringify(res.warnings, null, 2),
