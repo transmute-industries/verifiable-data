@@ -1,0 +1,41 @@
+{
+  "name": "@transmute/merkle-proof",
+  "author": "Orie Steele",
+  "module": "dist/merkle-proof.esm.js",
+  "version": "0.7.0-unstable.32",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/merkle-proof",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
+    "directory": "packages/merkle-proof"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint src --fix",
+    "prepare": "tsdx build"
+  },
+  "devDependencies": {
+    "@settlemint/merkle-tools": "^1.0.7",
+    "ts-jest": "^27.1.2",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "@transmute/compressable-bitstring": "^0.7.0-unstable.30",
+    "pako": "^2.0.4",
+    "varint": "^6.0.0"
+  }
+}
