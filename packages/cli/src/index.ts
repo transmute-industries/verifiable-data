@@ -1,2 +1,3 @@
 import * as commands from './commands';
-export { commands };
+import * as util from './util';
+export { commands, util };
