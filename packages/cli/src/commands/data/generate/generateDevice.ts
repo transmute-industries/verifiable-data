@@ -1,10 +1,13 @@
 import faker from 'faker';
 import { generateKey } from '../../key/generate';
 import { sha256 } from '../../../util';
-const fs = require('fs');
-const path = require('path');
 
-export const generateDevice = async (seed?: number) => {
+export const generateDevice = async (argv: any) => {
+  const seed = argv.seed;
+  if (seed) {
+    faker.seed(seed);
+  }
+
   const keys = await generateKey({
     type: 'ed25519',
     seed: seed
@@ -32,29 +35,3 @@ export const generateDevice = async (seed?: number) => {
     ip: faker.internet.ipv6(),
   };
 };
-
-export const generateDeviceCommand = [
-  'data generate device [seed]',
-  'Generate device',
-  (yargs: any) => {
-    yargs.positional('seed', {
-      type: 'number',
-      describe: 'The seed used to generate the data. ',
-    });
-  },
-  async (argv: any) => {
-    const seed = argv.seed;
-    if (seed) {
-      faker.seed(seed);
-    }
-    let data = await generateDevice(seed);
-    if (argv.debug) {
-      console.log('generated data', data);
-    } else {
-      fs.writeFileSync(
-        path.resolve(process.cwd(), './data.json'),
-        JSON.stringify({ data }, null, 2)
-      );
-    }
-  },
-];

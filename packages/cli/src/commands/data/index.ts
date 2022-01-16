@@ -1,3 +1,1 @@
-import * as generate from './generate';
-export { generate };
-
+export * from './createData';

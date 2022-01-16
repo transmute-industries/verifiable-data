@@ -2,8 +2,7 @@ export * from './generateOrganization';
 export * from './generateProduct';
 export * from './generateDevice';
 
-//
-
-export * from './generateCertifiedSubjectTypeCredential';
-
+// vc
+export * from './generateCredential';
+// vp
 export * from './generatePresentation';

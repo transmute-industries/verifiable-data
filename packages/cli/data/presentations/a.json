@@ -1,0 +1,105 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/jws-2020/v1",
+    {
+      "@vocab": "https://ontology.example/vocab/#"
+    }
+  ],
+  "type": ["VerifiablePresentation"],
+  "holder": {
+    "id": "did:key:z6MksyqAyyoLDd1NinLWGxXt6FS1MkvMfbVcdLiVUCszj7Wp",
+    "type": "Organization",
+    "name": "Ratke, Grant and Keebler",
+    "description": "Enhanced needs-based knowledge user",
+    "logo": "http://placeimg.com/640/480/business",
+    "website": "miller.net"
+  },
+  "verifiableCredential": [
+    {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://w3id.org/security/suites/jws-2020/v1",
+        {
+          "@vocab": "https://ontology.example/vocab/#"
+        }
+      ],
+      "id": "urn:uuid:4x7fzuuv",
+      "type": ["VerifiableCredential", "CertifiedDevice"],
+      "issuer": {
+        "id": "did:key:z6MkoZrhfUbGsBFVqawVgyauvoTA8bsNJWyaAQeVkJYdpvXK",
+        "type": "Device",
+        "name": "55S Mobile Program",
+        "description": "Try to quantify the SAS alarm, maybe it will copy the virtual panel!",
+        "latitude": "69.4264",
+        "longitude": "-136.3105",
+        "mac": "cd:22:26:65:6a:9b",
+        "ip": "21a0:7698:a2bd:ae26:1331:085a:238a:d13d"
+      },
+      "issuanceDate": "2022-01-15T19:25:55.574Z",
+      "credentialSubject": {
+        "id": "did:key:z6MkoZrhfUbGsBFVqawVgyauvoTA8bsNJWyaAQeVkJYdpvXK",
+        "type": "Device",
+        "name": "55S Mobile Program",
+        "description": "Try to quantify the SAS alarm, maybe it will copy the virtual panel!",
+        "latitude": "69.4264",
+        "longitude": "-136.3105",
+        "mac": "cd:22:26:65:6a:9b",
+        "ip": "21a0:7698:a2bd:ae26:1331:085a:238a:d13d"
+      },
+      "proof": {
+        "type": "JsonWebSignature2020",
+        "created": "2022-01-15T19:25:55Z",
+        "verificationMethod": "did:key:z6MkoZrhfUbGsBFVqawVgyauvoTA8bsNJWyaAQeVkJYdpvXK#z6MkoZrhfUbGsBFVqawVgyauvoTA8bsNJWyaAQeVkJYdpvXK",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..IkEae_ErY_g3-g43665vgn0KkI_A4Ww_hlDWlL0MlWVy9cddewQFT_TGFeFsqtJREf_OiNyI4ALf5oom1aPcDg"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://w3id.org/security/suites/jws-2020/v1",
+        {
+          "@vocab": "https://ontology.example/vocab/#"
+        }
+      ],
+      "id": "urn:uuid:4x7fzuuv",
+      "type": ["VerifiableCredential", "CertifiedDevice"],
+      "issuer": {
+        "id": "did:key:z6MkqWX9W1bvuwAMSNzLcbWvC3xCfB7L9uVHMNf9G1y9eUZA",
+        "type": "Organization",
+        "name": "Ratke, Grant and Keebler",
+        "description": "Enhanced needs-based knowledge user",
+        "logo": "http://placeimg.com/640/480/business",
+        "website": "miller.net"
+      },
+      "issuanceDate": "2022-01-15T19:44:20.288Z",
+      "credentialSubject": {
+        "id": "did:key:z6MkoZrhfUbGsBFVqawVgyauvoTA8bsNJWyaAQeVkJYdpvXK",
+        "type": "Device",
+        "name": "55S Mobile Program",
+        "description": "Try to quantify the SAS alarm, maybe it will copy the virtual panel!",
+        "latitude": "69.4264",
+        "longitude": "-136.3105",
+        "mac": "cd:22:26:65:6a:9b",
+        "ip": "21a0:7698:a2bd:ae26:1331:085a:238a:d13d"
+      },
+      "proof": {
+        "type": "JsonWebSignature2020",
+        "created": "2022-01-15T19:44:20Z",
+        "verificationMethod": "did:key:z6MkqWX9W1bvuwAMSNzLcbWvC3xCfB7L9uVHMNf9G1y9eUZA#z6MkqWX9W1bvuwAMSNzLcbWvC3xCfB7L9uVHMNf9G1y9eUZA",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..Ucsdk2DjOBbMQMMyr7aswzSSKb20q4VQmbt3gC048EWpHsZ89sBCKw9QznCFEsK3ayEvKRxQrH2tI8LwoMRCCQ"
+      }
+    }
+  ],
+  "proof": {
+    "type": "JsonWebSignature2020",
+    "created": "2022-01-16T17:22:31Z",
+    "verificationMethod": "did:key:z6MkqWX9W1bvuwAMSNzLcbWvC3xCfB7L9uVHMNf9G1y9eUZA#z6MkqWX9W1bvuwAMSNzLcbWvC3xCfB7L9uVHMNf9G1y9eUZA",
+    "proofPurpose": "authentication",
+    "challenge": "123",
+    "domain": "ontology.example",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..51aD2YgYT0cY5bnHa4cmV0muDliy3JCjUqG-gJJCpcIBsvExFbQGf02xxBBsJ3e7k-oURX9BGkn3TRUgzCKxDw"
+  }
+}

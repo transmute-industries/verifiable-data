@@ -5,16 +5,14 @@ const { commands } = require('./dist/index');
 require('yargs')
   .scriptName('transmute')
   .usage('$0 <cmd> [args]')
+  // key
   .command(...commands.key.generate.generateKeyCommand)
-  .command(...commands.key.derive.deriveKeyFromMnemonicCommand)
-  .command(...commands.data.generate.generateOrganizationCommand)
-  .command(...commands.data.generate.generateProductCommand)
-  .command(...commands.data.generate.generateDeviceCommand)
-  //
-  .command(
-    ...commands.data.generate.generateCertifiedSubjectTypeCredentialCommand
-  )
 
-  .command(...commands.data.generate.generatePresentationCommand)
+  // vc
+  .command(...commands.credential.createCredentialCommand)
+  .command(...commands.presentation.createPresentationCommand)
+
+  // data
+  .command(...commands.data.createDataCommand)
 
   .help().argv;
