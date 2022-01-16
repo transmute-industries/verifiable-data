@@ -1,1 +1,2 @@
-export * from './createVc';
+export * from './createCredential';
+export * from './verifyCredential';

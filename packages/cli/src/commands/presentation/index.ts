@@ -1,1 +1,2 @@
-export * from './createVp';
+export * from './createPresentation';
+export * from './verifyPresentation';

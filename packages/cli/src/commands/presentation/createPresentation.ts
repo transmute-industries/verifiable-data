@@ -1,21 +1,29 @@
 import {
   documentLoader,
-  getCredentialFromFile,
   getKeyFromFile,
+  getPresentationFromFile,
+  handleCommandResponse,
 } from '../../util';
 
 import { verifiable } from '@transmute/vc.js';
 import { JsonWebKey, JsonWebSignature } from '@transmute/json-web-signature';
 
+import faker from 'faker';
+
 import { deriveKey } from '../key/derive';
 
-const fs = require('fs');
-const path = require('path');
-
-export const createVc = async (credential: any, key: any, format: any) => {
-  const result = await verifiable.credential.create({
-    credential: credential,
+export const createPresentation = async (
+  presentation: any,
+  key: any,
+  format: any,
+  domain = 'ontology.example',
+  challenge = faker.random.alphaNumeric(8)
+) => {
+  const result = await verifiable.presentation.create({
+    presentation: presentation,
     format: [format],
+    domain,
+    challenge,
     documentLoader,
     suite: new JsonWebSignature({
       key: await JsonWebKey.from(key),
@@ -24,9 +32,9 @@ export const createVc = async (credential: any, key: any, format: any) => {
   return result.items[0];
 };
 
-export const createCredentialCommand = [
-  'credential create',
-  'Create a verifiable credential',
+export const createPresentationCommand = [
+  'presentation create',
+  'Create a verifiable presentation',
   {
     input: {
       alias: 'i',
@@ -55,11 +63,21 @@ export const createCredentialCommand = [
       alias: 't',
       description: 'Type of key to derive',
     },
+    domain: {
+      alias: 'd',
+      type: 'string',
+      description: 'Domain of the verifier',
+    },
+    challenge: {
+      alias: 'c',
+      type: 'string',
+      description: 'Challenge from the verifier',
+    },
     format: {
       alias: 'f',
-      choices: ['vc', 'vc-jwt'],
+      choices: ['vp', 'vp-jwt'],
       description: 'Output format',
-      default: 'vc',
+      default: 'vp',
     },
   },
   async (argv: any) => {
@@ -67,7 +85,7 @@ export const createCredentialCommand = [
       console.log(argv);
     }
     let key;
-    let credential = getCredentialFromFile(argv.input);
+    let presentation = getPresentationFromFile(argv.input);
     if (argv.key) {
       key = getKeyFromFile(argv.key);
     }
@@ -75,19 +93,18 @@ export const createCredentialCommand = [
       const keys = await deriveKey(argv.type, argv.mnemonic, argv.hdpath);
       key = keys[0];
     }
-    if (credential.issuer.id) {
-      credential.issuer.id = key.controller;
+    if (presentation.holder.id) {
+      presentation.holder.id = key.controller;
     } else {
-      credential.issuer = key.controller;
+      presentation.holder = key.controller;
     }
-    const data = await createVc(credential, key, argv.format);
-    if (argv.debug) {
-      console.log('issued credential', data);
-    } else {
-      fs.writeFileSync(
-        path.resolve(process.cwd(), argv.output),
-        JSON.stringify({ data }, null, 2)
-      );
-    }
+    const data = await createPresentation(
+      presentation,
+      key,
+      argv.format,
+      argv.domain,
+      argv.challenge
+    );
+    handleCommandResponse(argv, data, argv.output);
   },
 ];

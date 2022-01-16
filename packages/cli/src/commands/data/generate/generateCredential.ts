@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { generateKey } from '../../key/generate';
 import { sha256 } from '../../../util';
-import { createVc } from '../../credential';
+import { createCredential } from '../../credential';
 
 export const generateCredential = async (argv: any, typeGenerators: any) => {
   const subjectType = argv.type.split('Certified').pop();
@@ -33,6 +33,6 @@ export const generateCredential = async (argv: any, typeGenerators: any) => {
     // for testing purposes only.
     seed: sha256(Buffer.from(argv.issuerSeed.toString())).toString('hex'),
   });
-  const data = await createVc(credential, issuerKeys[0], 'vc');
+  const data = await createCredential(credential, issuerKeys[0], 'vc');
   return data;
 };

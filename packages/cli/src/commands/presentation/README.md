@@ -31,3 +31,14 @@ presentation create \
 --format "vp" \
 --debug
 ```
+
+### Verify Presentation
+
+```
+npm run transmute -- \
+presentation verify \
+--input  "./data/presentations/b.json"  \
+--output "./data/verifications/b.json" \
+--endpoint "https://api.did.actor/api/presentations/verify" \
+--debug
+```

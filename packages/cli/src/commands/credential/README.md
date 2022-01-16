@@ -31,3 +31,14 @@ credential create \
 --format "vc" \
 --debug
 ```
+
+### Verify a Credential
+
+```
+npm run transmute -- \
+credential verify \
+--input  "./data/credentials/c.json"  \
+--output "./data/verifications/a.json" \
+--endpoint "https://api.did.actor/api/credentials/verify" \
+--debug
+```

@@ -10,7 +10,10 @@ require('yargs')
 
   // vc
   .command(...commands.credential.createCredentialCommand)
+  .command(...commands.credential.verifyCredentialCommand)
+  // vp
   .command(...commands.presentation.createPresentationCommand)
+  .command(...commands.presentation.verifyPresentationCommand)
 
   // data
   .command(...commands.data.createDataCommand)

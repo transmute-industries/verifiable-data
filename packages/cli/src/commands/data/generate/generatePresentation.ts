@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { generateKey } from '../../key/generateKey';
 import { sha256, getAllCredentialsInDirectory } from '../../../util';
-import { createVp } from '../../presentation';
+import { createPresentation } from '../../presentation';
 
 export const generatePresentation = async (argv: any, typeGenerators: any) => {
   if (argv.debug) {
@@ -34,7 +34,7 @@ export const generatePresentation = async (argv: any, typeGenerators: any) => {
     presentation.verifiableCredential = credentials;
   }
 
-  return createVp(
+  return createPresentation(
     presentation,
     holderKeys[0],
     'vp',
