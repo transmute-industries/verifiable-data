@@ -101,6 +101,6 @@ export const createDataCommand = [
       console.log(argv);
     }
     const data = await typeGenerators[argv.type](argv, typeGenerators);
-    handleCommandResponse(argv, data);
+    handleCommandResponse(argv, data, argv.output);
   },
 ];
