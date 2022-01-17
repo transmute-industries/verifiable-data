@@ -4,16 +4,12 @@
 npm i @transmute/cli@latest --save
 ```
 
-### Development
-
 ```
-npm run transmute -- --debug
+npm i -g @transmute/cli@latest
 ```
 
-```
-npm run transmute -- wallet --action generate --password "elephant" --debug
-```
+### Usage
 
 ```
-npm run transmute -- wallet --action unlock --password "elephant" --debug
+transmute --help
 ```

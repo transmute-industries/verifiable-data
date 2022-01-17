@@ -1,0 +1,10 @@
+{
+  "id": "did:key:z6MkqWX9W1bvuwAMSNzLcbWvC3xCfB7L9uVHMNf9G1y9eUZA",
+  "type": "Device",
+  "name": "AF8 Wireless Feed",
+  "description": "The EXE sensor is down, parse the wireless system so we can index the SMS application!",
+  "latitude": "33.2694",
+  "longitude": "28.6900",
+  "mac": "72:66:5a:b5:73:0b",
+  "ip": "69ba:2721:8b86:a4d7:bb95:b65a:5533:4fac"
+}

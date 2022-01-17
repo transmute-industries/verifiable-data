@@ -55,6 +55,7 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.2",
+    "@types/faker": "^5.5.9",
     "jose": "^2.0.3",
     "size-limit": "^4.9.2",
     "ts-jest": "^26.5.0",
@@ -63,9 +64,18 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "@transmute/universal-wallet": "^0.7.0-unstable.35",
-    "@transmute/universal-wallet-did-key-plugin": "^0.7.0-unstable.35",
+    "@transmute/credentials-context": "^0.7.0-unstable.35",
+    "@transmute/did-key.js": "^0.3.0-unstable.5",
+    "@transmute/json-web-signature": "^0.7.0-unstable.35",
+    "@transmute/security-context": "^0.7.0-unstable.35",
+    "@transmute/universal-wallet": "^0.7.0-unstable.33",
+    "@transmute/universal-wallet-did-key-plugin": "^0.7.0-unstable.33",
+    "@transmute/vc.js": "^0.7.0-unstable.35",
+    "axios": "^0.24.0",
+    "bip39": "^3.0.4",
     "factory.ts": "^0.5.1",
+    "faker": "5.5.3",
+    "hdkey": "^2.0.1",
     "yargs": "^16.2.0"
   }
 }
