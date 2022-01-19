@@ -1,6 +1,8 @@
 import * as secp256k1 from "@transmute/secp256k1-key-pair";
 import React from "react";
 
+import { credentialHelper } from "../../services/credentialHelper";
+
 export const Secp256k1KeyPairTest = () => {
   const [state, setState] = React.useState({ name: "secp256k1" });
 
@@ -57,7 +59,16 @@ export const Secp256k1KeyPairTest = () => {
           },
         });
 
-      setState({ ...state, matchesFixture1, matchesFixture2, k1, k2 });
+      const result = await credentialHelper(k2);
+
+      setState({
+        ...state,
+        matchesFixture1,
+        matchesFixture2,
+        k1,
+        k2,
+        k2Vc: result,
+      });
     })();
   }, []);
 
