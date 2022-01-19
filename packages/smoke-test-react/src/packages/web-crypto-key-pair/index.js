@@ -1,6 +1,8 @@
 import * as web from "@transmute/web-crypto-key-pair";
 import React from "react";
 
+import { credentialHelper } from "../../services/credentialHelper";
+
 export const WebCryptoKeyPairTest = () => {
   const [state, setState] = React.useState({ name: "web" });
 
@@ -16,7 +18,8 @@ export const WebCryptoKeyPairTest = () => {
         privateKey: true,
       });
 
-      setState({ ...state, k1 });
+      const result = await credentialHelper(k1);
+      setState({ ...state, k1, k1Vc: result });
     })();
   }, []);
 
