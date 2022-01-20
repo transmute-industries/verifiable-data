@@ -21,7 +21,6 @@ export const verify = async (
       suite: options.suite,
       documentLoader: options.documentLoader,
       checkStatus: options.checkStatus,
-      compactProof: options.compactProof,
       expansionMap: options.expansionMap,
     });
     result.verified = res.verified;
