@@ -4,9 +4,9 @@
 
 ### Node Verion
 
-Due to WASM compatibility issues, this repo is currently limited to node 14 and npm v6.
-
 ```
+nmv install 14
+nvm use 14
 npm i npm@6.14.16 -g
 ```
 

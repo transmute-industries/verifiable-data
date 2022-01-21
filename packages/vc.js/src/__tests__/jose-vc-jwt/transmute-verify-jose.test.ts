@@ -10,7 +10,7 @@ const signatures = [
   require("./__fixtures__/EdDSA.complex.signed.json"),
   //
   require("./__fixtures__/ES384.simple.signed.json"),
-  require("./__fixtures__/ES384.complex.signed.json"),
+  require("./__fixtures__/ES384.complex.signed.json")
 ];
 
 it("can verify", async () => {
@@ -18,7 +18,7 @@ it("can verify", async () => {
     credential: signatures[1].jws,
     format: ["vc-jwt"],
     documentLoader: documentLoader as any,
-    suite: new JsonWebSignature(),
+    suite: new JsonWebSignature()
   });
   expect(result.verified).toBe(true);
 });

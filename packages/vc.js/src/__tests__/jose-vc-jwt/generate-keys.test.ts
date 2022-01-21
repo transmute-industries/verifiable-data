@@ -6,7 +6,7 @@ const { fromKeyLike } = require("jose/jwk/from_key_like");
 const keyTypes = ["EdDSA", "ES256K", "ES384"];
 
 describe("Key Generation", () => {
-  keyTypes.forEach((keyType) => {
+  keyTypes.forEach(keyType => {
     it.skip(`can generate ${keyType}`, async () => {
       const { privateKey } = await generateKeyPair(keyType);
       const privateKeyJwk = await fromKeyLike(privateKey);

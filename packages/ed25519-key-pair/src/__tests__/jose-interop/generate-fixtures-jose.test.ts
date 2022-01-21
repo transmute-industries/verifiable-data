@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-const { generateKeyPair } = require('jose/util/generate_key_pair');
-const { fromKeyLike } = require('jose/jwk/from_key_like');
 
 import { sign, verify } from '../../__fixtures__/jose-help';
+const { generateKeyPair } = require('jose/util/generate_key_pair');
+const { fromKeyLike } = require('jose/jwk/from_key_like');
 const privateKeyJwk = require('./__fixtures__/jose.privateKeyJwk.json');
 describe('jose EdDSA', () => {
   it.skip('can generate key pair', async () => {

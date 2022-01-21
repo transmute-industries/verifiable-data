@@ -5,7 +5,7 @@ export const verify = async (
   options: VerifyCredentialOptions
 ): Promise<VerificationResult> => {
   const result: VerificationResult = {
-    verified: false,
+    verified: false
   };
 
   if (!options.format) {
@@ -21,7 +21,7 @@ export const verify = async (
       suite: options.suite,
       documentLoader: options.documentLoader,
       checkStatus: options.checkStatus,
-      expansionMap: options.expansionMap,
+      expansionMap: options.expansionMap
     });
     result.verified = res.verified;
     if (!result.verified) {
@@ -39,7 +39,7 @@ export const verify = async (
       options
     );
     const verified = await verifier.verify({
-      signature: options.credential,
+      signature: options.credential
     });
     result.verified = verified;
   }

@@ -38,13 +38,12 @@ describe("credential comparisons", () => {
       const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
       expect(keyPair.controller).toBe(rawKeyJson.controller);
 
-
       let suite;
-      switch(credential.issuanceDate) {
+      switch (credential.issuanceDate) {
         case undefined:
-        case '':
+        case "":
         case null:
-        case 'foobar':
+        case "foobar":
           suite = new Ed25519Signature2018({
             key: keyPair,
             date: "2010-01-01T19:23:24Z"

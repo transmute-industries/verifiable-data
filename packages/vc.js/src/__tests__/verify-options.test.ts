@@ -1,6 +1,6 @@
 import {
   Ed25519Signature2018,
-  Ed25519VerificationKey2018,
+  Ed25519VerificationKey2018
 } from "@transmute/ed25519-signature-2018";
 
 import * as vcjs from "..";
@@ -27,7 +27,7 @@ describe("create and verify verifiable credentials", () => {
   it("define suite", async () => {
     suite = new Ed25519Signature2018({
       key: keyPair,
-      date: credential.issuanceDate,
+      date: credential.issuanceDate
     });
     expect(suite.verificationMethod).toBe(rawKeyJson.id);
   });
@@ -37,7 +37,7 @@ describe("create and verify verifiable credentials", () => {
       format: ["vc"],
       credential,
       suite,
-      documentLoader,
+      documentLoader
     });
     verifiableCredential = result.items[0];
   });
@@ -49,7 +49,7 @@ describe("create and verify verifiable credentials", () => {
         format: ["vc"],
         documentLoader,
         suite: [new Ed25519Signature2018()],
-        expansionMap: true,
+        expansionMap: true
       });
     } catch (e) {
       expect((e as any).message).toBe(
@@ -65,7 +65,7 @@ describe("create and verify verifiable credentials", () => {
         format: ["vc"],
         documentLoader,
         suite: [new Ed25519Signature2018()],
-        expansionMap: false,
+        expansionMap: false
       });
     } catch (e) {
       expect((e as any).message).toBe(

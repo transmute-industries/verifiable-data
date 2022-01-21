@@ -1,9 +1,9 @@
 import jwt from "./jwt.json";
-const { compact } = jwt;
 import { JsonWebSignature } from "@transmute/json-web-signature";
 
 import { documentLoader } from "./documentLoader";
 import { verifiable } from "../../index";
+const { compact } = jwt;
 
 const { parseJwk } = require("jose/jwk/parse");
 const { jwtVerify } = require("jose/jwt/verify");
@@ -29,7 +29,7 @@ describe("verify a microsoft vc", () => {
     try {
       const { payload } = await jwtVerify(`${compact}`, publicKey);
       expect(payload.vc).toBeDefined();
-    } catch(err) {
+    } catch (err) {
       failed = true;
     }
     expect(failed).toBeTruthy();
@@ -40,7 +40,7 @@ describe("verify a microsoft vc", () => {
       credential: compact,
       documentLoader: documentLoader as any,
       suite: [new JsonWebSignature()],
-      format: ["vc-jwt"],
+      format: ["vc-jwt"]
     });
     expect(result.verified).toBe(true);
   });

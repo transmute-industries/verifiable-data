@@ -2,10 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import { Secp256k1KeyPair } from '../../index';
 
+import { base64url } from '../../encoding';
+
 const header = { alg: 'ES256K' };
 const privateKeyJwk = require('./__fixtures__/transmute.privateKeyJwk.json');
-
-import { base64url } from '../../encoding';
 
 describe('transmute ES256K', () => {
   it.skip('can generate key pair', async () => {

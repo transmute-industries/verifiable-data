@@ -1,8 +1,8 @@
 import crypto from '../../crypto';
 import { instantiateSecp256k1 } from '@bitauth/libauth';
-const publicKeyJwk = require('./__fixtures__/ms.publicKeyJwk.json');
 
 import { getPublicKeyFromPublicKeyJwk } from '../../getPublicKeyFromPublicKeyJwk';
+const publicKeyJwk = require('./__fixtures__/ms.publicKeyJwk.json');
 
 describe('raw ES256K verify from scratch', () => {
   it('can verify complex object', async () => {

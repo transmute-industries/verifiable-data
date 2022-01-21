@@ -7,7 +7,7 @@ export const verify = async (
   options: VerifyPresentationOptions
 ): Promise<VerificationResult> => {
   const result: any = {
-    verified: false,
+    verified: false
   };
 
   if (!options.format) {
@@ -24,7 +24,7 @@ export const verify = async (
       domain: options.domain,
       challenge: options.challenge,
       checkStatus: options.checkStatus,
-      documentLoader: options.documentLoader,
+      documentLoader: options.documentLoader
     });
   }
 
@@ -38,7 +38,7 @@ export const verify = async (
       options
     );
     const verified = await verifier.verify({
-      signature: options.presentation,
+      signature: options.presentation
     });
     result.verified = verified;
   }
