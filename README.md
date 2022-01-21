@@ -2,6 +2,14 @@
 
 ![CI](https://github.com/transmute-industries/verifiable-data/workflows/CI/badge.svg) ![CD](https://github.com/transmute-industries/verifiable-data/workflows/CD/badge.svg)
 
+### Node Verion
+
+Due to WASM compatibility issues, this repo is currently limited to node 14 and npm v6.
+
+```
+npm i npm@6.14.16 -g
+```
+
 ## Table of Contents
 
 - [contexts](#contexts)
