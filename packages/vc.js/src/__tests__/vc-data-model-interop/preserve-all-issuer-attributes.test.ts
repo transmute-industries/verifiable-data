@@ -1,7 +1,7 @@
 import {
   JsonWebKey,
   JsonWebSignature,
-  JsonWebKey2020,
+  JsonWebKey2020
 } from "@transmute/json-web-signature";
 
 import { verifiable } from "../..";
@@ -15,13 +15,13 @@ describe("VC Data Model", () => {
     ...fixtures.credential,
     "@context": [
       ...fixtures.credential["@context"],
-      { "@vocab": "https://example.com/vocab/#" },
+      { "@vocab": "https://example.com/vocab/#" }
     ],
     issuer: {
       id: fixtures.key.controller,
       name: "Example Corp.",
-      website: "https://example.com",
-    },
+      website: "https://example.com"
+    }
   };
 
   beforeAll(async () => {
@@ -31,8 +31,8 @@ describe("VC Data Model", () => {
       documentLoader: fixtures.documentLoader,
       suite: new JsonWebSignature({
         key: await JsonWebKey.from(fixtures.key as JsonWebKey2020),
-        date: credentialWithoutProof.issuanceDate, // make signature stable
-      }),
+        date: credentialWithoutProof.issuanceDate // make signature stable
+      })
     });
 
     [vcLd, vcJwt] = items;

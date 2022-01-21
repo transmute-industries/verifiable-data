@@ -2,14 +2,14 @@ import * as ld from "../../vc-ld";
 import * as jwt from "../../vc-jwt";
 import {
   CreateVerifiablePresentationOptions,
-  CreatePresentationResult,
+  CreatePresentationResult
 } from "../../types";
 import { JsonWebKey } from "@transmute/json-web-signature";
 export const create = async (
   options: CreateVerifiablePresentationOptions
 ): Promise<CreatePresentationResult> => {
   const result: CreatePresentationResult = {
-    items: [],
+    items: []
   };
 
   if (!options.format) {
@@ -23,7 +23,7 @@ export const create = async (
         suite: options.suite,
         domain: options.domain,
         challenge: options.challenge,
-        documentLoader: options.documentLoader,
+        documentLoader: options.documentLoader
       })
     );
   }
@@ -44,8 +44,8 @@ export const create = async (
       {
         detached: false,
         header: {
-          kid: key.id,
-        },
+          kid: key.id
+        }
       }
     );
     const signer = k2.signer();

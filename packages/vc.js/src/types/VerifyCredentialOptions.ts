@@ -13,5 +13,4 @@ export interface VerifyCredentialOptions {
   format?: Array<CredentialFormat>;
   checkStatus?: (args: any) => Promise<any>;
   expansionMap?: boolean;
-  compactProof?: boolean;
 }

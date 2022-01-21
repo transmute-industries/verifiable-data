@@ -4,11 +4,11 @@ import jwsv1 from "./contexts/jws-v1.json";
 
 const contexts: any = {
   "https://www.w3.org/ns/did/v1": didV1,
-  "https://w3id.org/security/suites/jws-2020/v1": jwsv1,
+  "https://w3id.org/security/suites/jws-2020/v1": jwsv1
 };
 
 const dids: any = {
-  [didResolution.didDocument.id]: didResolution.didDocument,
+  [didResolution.didDocument.id]: didResolution.didDocument
 };
 
 export const documentLoader = (iri: string) => {

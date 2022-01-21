@@ -14,7 +14,7 @@ describe("checkCredential", () => {
       try {
         await checkCredential(credentialWithMS, {
           documentLoader,
-          strict: "throw",
+          strict: "throw"
         });
       } catch (err) {
         console.log(err);
@@ -27,7 +27,7 @@ describe("checkCredential", () => {
       try {
         await checkCredential(credentialWithTZOffset, {
           documentLoader,
-          strict: "throw",
+          strict: "throw"
         });
       } catch (err) {
         console.log(err);
@@ -40,7 +40,7 @@ describe("checkCredential", () => {
       try {
         await checkCredential(credentialWithLeapSecond, {
           documentLoader,
-          strict: "throw",
+          strict: "throw"
         });
       } catch (err) {
         console.log(err);
@@ -62,7 +62,10 @@ describe("checkCredential", () => {
     it("should warn if nbf/exp loses info for timezone", async () => {
       let warned = false;
       try {
-        await checkCredential(vcJWTWithTZOffset, { documentLoader, strict: "throw" });
+        await checkCredential(vcJWTWithTZOffset, {
+          documentLoader,
+          strict: "throw"
+        });
       } catch (err) {
         warned = true;
       }
@@ -71,7 +74,10 @@ describe("checkCredential", () => {
     it("should warn if nbf/exp loses info for leap second", async () => {
       let warned = false;
       try {
-        await checkCredential(vcJWTWithLeapSecond, { documentLoader, strict: "throw" });
+        await checkCredential(vcJWTWithLeapSecond, {
+          documentLoader,
+          strict: "throw"
+        });
       } catch (err) {
         warned = true;
       }

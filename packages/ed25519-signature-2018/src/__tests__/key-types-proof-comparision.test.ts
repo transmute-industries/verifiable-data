@@ -23,11 +23,11 @@ describe("proof same with different key type", () => {
   it("define suite", async () => {
     suite = new Ed25519Signature2018({
       key: keyPair,
-      date: credential.issuanceDate,
+      date: credential.issuanceDate
     });
     suite2 = new Ed25519Signature2018({
       key: keyPair2,
-      date: credential.issuanceDate,
+      date: credential.issuanceDate
     });
     expect(suite.verificationMethod).toBe(rawKeyJson.id);
     expect(suite2.verificationMethod).toBe(rawKeyJson.id);
@@ -43,11 +43,11 @@ describe("proof same with different key type", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        },
+        }
       },
       documentLoader,
       // expansionMap,
-      compactProof: false,
+      compactProof: false
     });
     proof2 = await suite2.createProof({
       document: credential,
@@ -59,11 +59,11 @@ describe("proof same with different key type", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        },
+        }
       },
       documentLoader,
       // expansionMap,
-      compactProof: false,
+      compactProof: false
     });
     expect(proof).toEqual(expectedProof);
     expect(proof2).toEqual(expectedProof);

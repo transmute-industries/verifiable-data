@@ -33,7 +33,7 @@ export const checkDate = (
 ): { valid: boolean; warnings: string[] } => {
   const res: { valid: boolean; warnings: string[] } = {
     valid: false,
-    warnings: [],
+    warnings: []
   };
 
   if (!ISO_8601_FULL.test(datetime)) {
@@ -70,7 +70,7 @@ export const checkDate = (
     if (TIME_ZONE_OFFSET_MATCH.test(datetime)) {
       res.warnings.push(`${datetime} lost timezone offset information.`);
     }
-    if(new Date(newDatetime).getMilliseconds()) {
+    if (new Date(newDatetime).getMilliseconds()) {
       res.warnings.push(`${datetime} lost millisecond information.`);
     }
   }

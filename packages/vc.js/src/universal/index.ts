@@ -4,7 +4,7 @@ import { presentation } from "./presentation";
 import { decodeJwt } from "../vc-jwt/decodeJwt";
 
 const jwt = {
-  decode: decodeJwt,
+  decode: decodeJwt
 };
 
 export const verifiable = { credential, presentation, jwt };

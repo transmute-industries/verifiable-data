@@ -2,10 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import { Ed25519KeyPair } from '../../index';
 
+import { base64url } from '../../encoding';
+
 const header = { alg: 'EdDSA' };
 const privateKeyJwk = require('./__fixtures__/transmute.privateKeyJwk.json');
-
-import { base64url } from '../../encoding';
 
 describe('transmute EdDSA', () => {
   it.skip('can generate key pair', async () => {

@@ -6,6 +6,10 @@ npm i @transmute/vc.js --save
 
 ## Usage
 
+```
+npm run test
+```
+
 ### Create Verifiable Credential
 
 Also known as credential issuance.
@@ -22,8 +26,7 @@ import { documentLoader } from "path/somewhere";
 import { verifiable } from "@transmute/vc.js";
 
 const key = {
-  id:
-    "did:key:z6MkokrsVo8DbGDsnMAjnoHhJotMbDZiHfvxM4j65d8prXUr#z6MkokrsVo8DbGDsnMAjnoHhJotMbDZiHfvxM4j65d8prXUr",
+  id: "did:key:z6MkokrsVo8DbGDsnMAjnoHhJotMbDZiHfvxM4j65d8prXUr#z6MkokrsVo8DbGDsnMAjnoHhJotMbDZiHfvxM4j65d8prXUr",
   type: "JsonWebKey2020",
   controller: "did:key:z6MkokrsVo8DbGDsnMAjnoHhJotMbDZiHfvxM4j65d8prXUr",
   publicKeyJwk: {

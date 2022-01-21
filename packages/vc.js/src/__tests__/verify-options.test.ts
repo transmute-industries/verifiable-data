@@ -1,6 +1,6 @@
 import {
   Ed25519Signature2018,
-  Ed25519VerificationKey2018,
+  Ed25519VerificationKey2018
 } from "@transmute/ed25519-signature-2018";
 
 import * as vcjs from "..";
@@ -27,7 +27,7 @@ describe("create and verify verifiable credentials", () => {
   it("define suite", async () => {
     suite = new Ed25519Signature2018({
       key: keyPair,
-      date: credential.issuanceDate,
+      date: credential.issuanceDate
     });
     expect(suite.verificationMethod).toBe(rawKeyJson.id);
   });
@@ -37,47 +37,40 @@ describe("create and verify verifiable credentials", () => {
       format: ["vc"],
       credential,
       suite,
-      documentLoader,
+      documentLoader
     });
     verifiableCredential = result.items[0];
   });
 
-  it("expansionMap true / compactProof true - Fails to verify verifiable credential", async () => {
-    const result = await vcjs.verifiable.credential.verify({
-      credential: verifiableCredential,
-      format: ["vc"],
-      documentLoader,
-      suite: [new Ed25519Signature2018()],
-      expansionMap: true,
-      compactProof: true,
-    });
-    expect(result.error.errors[0].message).toBe(
-      'The property "grade" in the input was not defined in the context.'
-    );
+  it("expansionMap true - Fails to verify verifiable credential", async () => {
+    try {
+      await vcjs.verifiable.credential.verify({
+        credential: verifiableCredential,
+        format: ["vc"],
+        documentLoader,
+        suite: [new Ed25519Signature2018()],
+        expansionMap: true
+      });
+    } catch (e) {
+      expect((e as any).message).toBe(
+        "The default options are not being used."
+      );
+    }
   });
 
-  it("expansionMap undefined / compactProof true - Fails to verify verifiable credential", async () => {
-    const result = await vcjs.verifiable.credential.verify({
-      credential: verifiableCredential,
-      format: ["vc"],
-      documentLoader,
-      suite: [new Ed25519Signature2018()],
-      compactProof: true,
-    });
-    expect(result.error.errors[0].message).toBe(
-      'The property "grade" in the input was not defined in the context.'
-    );
-  });
-
-  it("expansionMap false / compactProof true - Fails to verify verifiable credential", async () => {
-    const result = await vcjs.verifiable.credential.verify({
-      credential: verifiableCredential,
-      format: ["vc"],
-      documentLoader,
-      suite: [new Ed25519Signature2018()],
-      expansionMap: false,
-      compactProof: true,
-    });
-    expect(result.error.errors[0].message).toBe("Invalid signature.");
+  it("expansionMap false - Fails to verify verifiable credential", async () => {
+    try {
+      await vcjs.verifiable.credential.verify({
+        credential: verifiableCredential,
+        format: ["vc"],
+        documentLoader,
+        suite: [new Ed25519Signature2018()],
+        expansionMap: false
+      });
+    } catch (e) {
+      expect((e as any).message).toBe(
+        "The default options are not being used."
+      );
+    }
   });
 });
