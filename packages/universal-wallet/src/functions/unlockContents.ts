@@ -12,18 +12,18 @@ export const unlockContents = async (
   const kp = await X25519KeyPair.generate({
     secureRandom: () => {
       return derivedKey;
-    }
+    },
   });
   kp.id = kp.controller + kp.id;
 
-  const cipher = new JWE.Cipher(X25519KeyPair);
+  const cipher = new JWE.Cipher();
 
   let decryptedContents = [];
   for (let i = 0; i < contents.length; i++) {
     const content = contents[i];
     const decryptedContent = await cipher.decryptObject({
       jwe: content,
-      keyAgreementKey: kp
+      keyAgreementKey: kp,
     });
     decryptedContents.push(decryptedContent);
   }
