@@ -10,7 +10,7 @@
 import { Cipher } from '../../JWE/Cipher';
 import { X25519KeyPair } from '@transmute/x25519-key-pair';
 
-const cipher = new Cipher(X25519KeyPair);
+const cipher = new Cipher();
 
 it('can encrypt / decrypt', async () => {
   const { publicKeyJwk, privateKeyJwk } = {

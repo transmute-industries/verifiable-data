@@ -7,8 +7,6 @@ import { EncryptTransformer } from './EncryptTransformer';
 import { alg } from './alg';
 
 export class Cipher {
-  constructor(public KeyPairClass: any) {}
-
   async createEncryptStream({ recipients, publicKeyResolver, chunkSize }: any) {
     const transformer = await this.createEncryptTransformer({
       recipients,
@@ -92,7 +90,6 @@ export class Cipher {
 
   async createDecryptTransformer({ keyAgreementKey }: any) {
     return new DecryptTransformer({
-      KeyPairClass: this.KeyPairClass,
       keyAgreementKey,
     });
   }

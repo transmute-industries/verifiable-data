@@ -23,7 +23,7 @@ beforeAll(async () => {
 
 describe(`ECDH-ES`, () => {
   it('encrypt / decrypt', async () => {
-    const cipher = new JWE.Cipher(X25519KeyPair);
+    const cipher = new JWE.Cipher();
     const document = { key1: 'value1', key2: 'value2' };
     const recipients = [
       {

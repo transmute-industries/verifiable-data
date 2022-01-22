@@ -2,7 +2,7 @@ import * as jose from 'jose';
 import { TextEncoder } from 'util';
 import { X25519KeyPair } from '@transmute/x25519-key-pair';
 import { Cipher } from '../../JWE/Cipher';
-const cipher = new Cipher(X25519KeyPair);
+const cipher = new Cipher();
 
 const encoder = new TextEncoder();
 

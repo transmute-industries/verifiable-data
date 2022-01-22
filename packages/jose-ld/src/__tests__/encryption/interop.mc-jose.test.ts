@@ -2,9 +2,9 @@ import * as jose from 'jose';
 import { TextDecoder } from 'util';
 
 const decoder = new TextDecoder();
-import { X25519KeyPair } from '@transmute/x25519-key-pair';
+
 import { Cipher } from '../../JWE/Cipher';
-const cipher = new Cipher(X25519KeyPair);
+const cipher = new Cipher();
 
 const alg = 'ECDH-ES+A256KW';
 

@@ -6,13 +6,12 @@ import * as jose from 'jose';
 import { enc } from './alg';
 export class DecryptTransformer {
   public keyAgreementKey: any;
-  public KeyPairClass: any;
 
-  constructor({ keyAgreementKey, KeyPairClass }: any = {}) {
+  constructor({ keyAgreementKey }: any = {}) {
     if (!keyAgreementKey) {
       throw new TypeError('"keyAgreementKey" is a required parameter.');
     }
-    this.KeyPairClass = KeyPairClass;
+
     this.keyAgreementKey = keyAgreementKey;
   }
 
