@@ -6,6 +6,8 @@ import rawKeyJson from "../__fixtures__/keys/key.json";
 import documentLoader from "../__fixtures__/documentLoader";
 import credential from "../__fixtures__/credentials/case-7.json";
 
+// don't clutter ci logs
+console.warn = () => {};
 const ISSUED_ON = new Date("1991-08-25T12:33:56.789Z").getTime();
 const CREATED_ON = new Date("2021-10-15T12:33:56.789Z").getTime();
 
@@ -43,7 +45,7 @@ const TESTS = [
   moment(ISSUED_ON).format("YYYY-MM-DD[T]HH:mmZ"),
   moment(ISSUED_ON).toJSON(),
   moment(ISSUED_ON).toArray(),
-  moment(ISSUED_ON).toObject()
+  moment(ISSUED_ON).toObject(),
 ];
 
 const createSuite = async (suiteDate?: any) => {
@@ -53,14 +55,14 @@ const createSuite = async (suiteDate?: any) => {
   try {
     suite = new Ed25519Signature2018({
       key: keyPair,
-      date: suiteDate
+      date: suiteDate,
     });
   } catch (err) {
     const error = err as Error;
     suiteError = {
       type: "error",
       thrownOn: "suite",
-      reason: error.toString()
+      reason: error.toString(),
     };
     return { suite, suiteError };
   }
@@ -90,17 +92,17 @@ const signCredential = async (
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        }
+        },
       },
       documentLoader,
-      compactProof: false
+      compactProof: false,
     });
   } catch (err) {
     let error = err as Error;
     signedError = {
       type: "error",
       thrownOn: "sign",
-      reason: error.toString()
+      reason: error.toString(),
     };
     return { signedCredential, signedError };
   }
@@ -111,7 +113,7 @@ const signCredential = async (
 const verifyProof = async (document: any, proof: any) => {
   const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
   const suite = new Ed25519Signature2018({
-    key: keyPair
+    key: keyPair,
   });
 
   const result = await suite.verifyProof({
@@ -125,10 +127,10 @@ const verifyProof = async (document: any, proof: any) => {
       update: (proof: any) => {
         proof.proofPurpose = "assertionMethod";
         return proof;
-      }
+      },
     },
     documentLoader,
-    compactProof: false
+    compactProof: false,
   });
 
   return result;
@@ -139,7 +141,7 @@ const getFixture = (testNum: number, index: number) => {
     "issuanceDate",
     "suiteConstructor",
     "suiteDirect",
-    "issuanceDateSuite"
+    "issuanceDateSuite",
   ];
 
   const filename = path.resolve(
