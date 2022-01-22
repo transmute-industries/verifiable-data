@@ -1,10 +1,17 @@
 /*!
  * Copyright (c) 2019-2020 Digital Bazaar, Inc. All rights reserved.
  */
-import { base64url } from '../encoding';
+// import { base64url } from '../encoding';
+import * as jose from 'jose';
+// import { TextEncoder } from 'util';
+
+// const encoder = new TextEncoder();
 
 // 1 MiB = 1048576
 const DEFAULT_CHUNK_SIZE = 1048576;
+
+const alg = 'ECDH-ES+A256KW';
+const enc = 'A256GCM';
 
 export class EncryptTransformer {
   public recipients: any;
@@ -17,8 +24,10 @@ export class EncryptTransformer {
   public totalOffset: any;
   public index: any;
   public buffer: any;
+  public publicKeyResolver: any;
 
   constructor({
+    publicKeyResolver,
     recipients,
     encodedProtectedHeader,
     cipher,
@@ -35,6 +44,7 @@ export class EncryptTransformer {
     this.offset = 0;
     this.totalOffset = 0;
     this.index = 0;
+    this.publicKeyResolver = publicKeyResolver;
   }
 
   start() {
@@ -95,22 +105,23 @@ export class EncryptTransformer {
     });
   }
 
-  async encrypt(data: any) {
-    const { cipher, additionalData, cek } = this;
-    const { ciphertext, iv, tag } = await cipher.encrypt({
-      data,
-      additionalData,
-      cek,
-    });
-
-    // represent encrypted data as JWE
-    const jwe = {
-      protected: this.encodedProtectedHeader,
-      recipients: this.recipients,
-      iv: base64url.encode(iv),
-      ciphertext: base64url.encode(ciphertext),
-      tag: base64url.encode(tag),
-    };
-    return jwe;
+  async encrypt(data: Uint8Array) {
+    const encryptor = new jose.GeneralEncrypt(data);
+    const recipientsWithKeys = await Promise.all(
+      this.recipients.map(async (r: any) => {
+        const publicKey = await this.publicKeyResolver(r.header.kid);
+        return { ...r, publicKey };
+      })
+    );
+    await Promise.all(
+      recipientsWithKeys.map(async (rwk: any) => {
+        return encryptor
+          .addRecipient(await jose.importJWK(rwk.publicKey.publicKeyJwk, alg))
+          .setUnprotectedHeader({ alg, kid: rwk.publicKey.id });
+      })
+    );
+    encryptor.setProtectedHeader({ enc });
+    const ciphertext = await encryptor.encrypt();
+    return ciphertext as any;
   }
 }

@@ -142,6 +142,7 @@ export class Cipher {
     const additionalData = stringToUint8Array(encodedProtectedHeader);
 
     return new EncryptTransformer({
+      publicKeyResolver,
       recipients,
       encodedProtectedHeader,
       cipher,
