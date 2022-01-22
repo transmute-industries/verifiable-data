@@ -2,7 +2,8 @@
  * Copyright (c) 2019-2020 Digital Bazaar, Inc. All rights reserved.
  */
 
-import * as cipher from './xc20p';
+// import * as cipher from './xc20p';
+import * as cipher from './a256gcm';
 
 import { stringToUint8Array } from './util';
 

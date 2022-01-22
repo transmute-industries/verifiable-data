@@ -6,7 +6,8 @@ import { TransformStream, stringToUint8Array } from './util';
 import { DecryptTransformer } from './DecryptTransformer';
 import { EncryptTransformer } from './EncryptTransformer';
 
-import * as cipher from './xc20p';
+// import * as cipher from './xc20p';
+import * as cipher from './a256gcm';
 
 import { crypto } from '../crypto';
 
