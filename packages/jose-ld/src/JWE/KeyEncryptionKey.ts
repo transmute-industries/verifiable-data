@@ -38,8 +38,10 @@ export class KeyEncryptionKey {
    *
    * @returns {string} - The base64url-encoded wrapped key bytes.
    */
-  wrapKey({ unwrappedKey }: WrapKeyOptions): string {
+  async wrapKey({ unwrappedKey }: WrapKeyOptions): Promise<string> {
+    // console.log('before wrapping: ', this.aeskw);
     const wrappedKey = this.aeskw.wrapKey(unwrappedKey);
+    this.aeskw.clean();
     return bs64.encode(Buffer.from(wrappedKey));
   }
 
@@ -53,10 +55,16 @@ export class KeyEncryptionKey {
    * @returns {Uint8Array} - Resolves to the key bytes or null if
    *   the unwrapping fails because the key does not match.
    */
-  unwrapKey({ wrappedKey }: UnwrapKeyOptions): Uint8Array | null {
-    const _wrappedKey = bs64.toBuffer(wrappedKey);
+  async unwrapKey({
+    wrappedKey,
+  }: UnwrapKeyOptions): Promise<Uint8Array | null> {
+    // console.log('wrappedKey: ', wrappedKey);
+    const _wrappedKey = Uint8Array.from(bs64.toBuffer(wrappedKey));
+
     try {
-      return this.aeskw.unwrapKey(_wrappedKey);
+      const unwrappedKey = this.aeskw.unwrapKey(_wrappedKey);
+      this.aeskw.clean();
+      return unwrappedKey;
     } catch (e) {
       // decryption failed
       console.error(e);

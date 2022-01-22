@@ -37,7 +37,6 @@ it('encrypt with jose, decrypt with mc', async () => {
     .setUnprotectedHeader({ alg, kid: 'did:example:123#key-1' });
   const ciphertext = await encryptor.encrypt();
 
-  // fails with AESKW: integrity check failed
   const decyptedPlaintext = await cipher.decrypt({
     jwe: ciphertext,
     keyAgreementKey: await X25519KeyPair.from({
@@ -48,6 +47,7 @@ it('encrypt with jose, decrypt with mc', async () => {
       privateKeyJwk,
     }),
   });
+
   expect(JSON.parse(Buffer.from(decyptedPlaintext).toString('utf-8'))).toEqual(
     message
   );

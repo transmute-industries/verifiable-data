@@ -41,7 +41,7 @@ export const kekFromStaticPeer = (KeyPair: any) => {
       kek: await KeyEncryptionKey.createKek({ keyData }),
       epk: ephemeralKeyPair.epk,
       apu: base64url.encode(producerInfo),
-      apv: base64url.encode(consumerInfo as any),
+      apv: base64url.encode(consumerInfo),
     };
   };
 };

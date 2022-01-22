@@ -51,6 +51,7 @@ it('encrypt with mc, decrypt with jose', async () => {
     jwe,
     await jose.importJWK(privateKeyJwk, alg)
   );
+  // console.log(decrypted); // maybe apu, apv to blame...
 
   expect(JSON.parse(decoder.decode(decrypted.plaintext))).toEqual(message);
 });

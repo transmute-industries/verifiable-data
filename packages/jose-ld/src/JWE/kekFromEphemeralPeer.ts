@@ -40,6 +40,7 @@ export const kekFromEphemeralPeer = (KeyPairClass: any) => {
     } as any);
 
     const keyData = await deriveKey({ secret, producerInfo, consumerInfo });
+    // console.log(keyData);
     return {
       kek: await KeyEncryptionKey.createKek({ keyData }),
     };
