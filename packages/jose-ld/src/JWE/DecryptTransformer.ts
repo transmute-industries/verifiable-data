@@ -2,15 +2,8 @@
  * Copyright (c) 2019-2020 Digital Bazaar, Inc. All rights reserved.
  */
 
-// import * as cipher from './xc20p';
-import * as cipher from './a256gcm';
-
 import * as jose from 'jose';
-
-const CIPHER_ALGORITHMS: any = {
-  [cipher.JWE_ENC]: cipher,
-};
-
+import { enc } from './alg';
 export class DecryptTransformer {
   public keyAgreementKey: any;
   public KeyPairClass: any;
@@ -68,8 +61,7 @@ export class DecryptTransformer {
     if (!(header.enc && typeof header.enc === 'string')) {
       throw new Error('Invalid JWE "enc" header.');
     }
-    const cipher = CIPHER_ALGORITHMS[header.enc];
-    if (!cipher) {
+    if (header.enc !== enc) {
       throw new Error(`Unsupported encryption algorithm "${header.enc}".`);
     }
     if (!Array.isArray(jwe.recipients)) {
