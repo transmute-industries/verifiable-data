@@ -2,8 +2,8 @@ import { CompactSign } from "jose/jws/compact/sign";
 import { parseJwk } from "jose/jwk/parse";
 
 import { compactVerify } from "jose/jws/compact/verify";
-import fs from "fs";
-import path from "path";
+// import fs from "fs";
+// import path from "path";
 
 const encoder = new TextEncoder();
 const privateKeys = [
