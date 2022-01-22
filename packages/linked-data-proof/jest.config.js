@@ -9,4 +9,5 @@ module.exports = {
     "^.+\\.(ts|tsx)$": "./node_modules/ts-jest",
   },
   testMatch: ["**/*.(int.test|test).(ts)"],
+  testEnvironment: "./custom-jest-node-environment.js",
 };

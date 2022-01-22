@@ -1,6 +1,6 @@
 import {
   Ed25519Signature2018,
-  Ed25519VerificationKey2018
+  Ed25519VerificationKey2018,
 } from "@transmute/ed25519-signature-2018";
 import fs from "fs";
 import path from "path";
@@ -10,7 +10,7 @@ import rawKeyJson from "../__fixtures__/1-keys/key.json";
 import documentLoader from "../__fixtures__/documentLoader";
 
 const purpose = new ldp.purposes.AssertionProofPurpose();
-
+console.warn = () => {};
 describe("credential comparisons", () => {
   let credentialsPath: string;
   let files: string[] = [];
@@ -46,13 +46,13 @@ describe("credential comparisons", () => {
         case "foobar":
           suite = new Ed25519Signature2018({
             key: keyPair,
-            date: "2010-01-01T19:23:24Z"
+            date: "2010-01-01T19:23:24Z",
           });
           break;
         default:
           suite = new Ed25519Signature2018({
             key: keyPair,
-            date: credential.issuanceDate
+            date: credential.issuanceDate,
           });
           break;
       }
@@ -62,7 +62,7 @@ describe("credential comparisons", () => {
         purpose,
         documentLoader,
         expansionMap: false,
-        compactProof: false
+        compactProof: false,
       });
       const verifiableCredentialsPath = path.join(
         __dirname,
@@ -80,7 +80,7 @@ describe("credential comparisons", () => {
         purpose,
         documentLoader,
         expansionMap: false,
-        compactProof: false
+        compactProof: false,
       });
       expect(verifiableCredential.proof["@context"]).toBeFalsy();
       expect(result.verified).toBeTruthy();
