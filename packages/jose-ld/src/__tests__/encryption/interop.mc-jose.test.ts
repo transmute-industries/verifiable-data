@@ -1,9 +1,9 @@
 import * as jose from 'jose';
 import { TextDecoder } from 'util';
 
-const decoder = new TextDecoder();
-
 import { Cipher } from '../../JWE/Cipher';
+
+const decoder = new TextDecoder();
 const cipher = new Cipher();
 
 const alg = 'ECDH-ES+A256KW';
