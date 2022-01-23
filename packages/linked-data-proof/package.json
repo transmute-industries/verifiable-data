@@ -25,7 +25,6 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "pretest": "node scripts/1-digital-bazaar.generate-fixture.js",
     "test": "tsdx test",
     "lint": "tsdx lint src --fix",
     "prepare": "tsdx build"

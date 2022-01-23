@@ -25,9 +25,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "generate:fixtures": "node scripts/digital-bazaar.generate-fixture.js",
     "test": "tsdx test",
-    "test:jose": "node ./src/vc-jwt/__tests__/EdDSA.jose/EdDSA.jose.js",
     "lint": "tsdx lint src --fix",
     "prepare": "tsdx build"
   },
