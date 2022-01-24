@@ -10,6 +10,15 @@ nvm use 14
 npm i npm@6.14.16 -g
 ```
 
+### Development
+
+Install build and run tests for all packages
+
+```
+npm i
+npm t
+```
+
 ## Table of Contents
 
 - [contexts](#contexts)
@@ -38,7 +47,3 @@ npm i npm@6.14.16 -g
 - [did-web](./packages/did-web)
 - [jsonld schema](./packages/jsonld-schema)
 - [browser smoke test](https://transmute-industries.github.io/verifiable-data/smoke-test-react/)
-
-## Development
-
-Requires node 14.
