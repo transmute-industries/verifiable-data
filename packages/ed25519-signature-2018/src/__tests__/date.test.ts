@@ -7,7 +7,7 @@ import documentLoader from "../__fixtures__/documentLoader";
 import credential from "../__fixtures__/credentials/case-7.json";
 
 // don't clutter ci logs
-console.warn = () => { };
+console.warn = () => {};
 const ISSUED_ON = new Date("1991-08-25T12:33:56.789Z").getTime();
 const CREATED_ON = new Date("2021-10-15T12:33:56.789Z").getTime();
 
@@ -156,20 +156,19 @@ const getFixture = (testNum: number, index: number) => {
 // The fixture has an error but we dont
 const isErrorInFixtureExpected = (output: any, fixture: any) => {
   return fixture.type === "error" && output.type !== "error";
-}
+};
 
 // We have an error, but the fixture doesn't
 const hasOurLibraryDriftedFromTheFixture = (output: any, fixture: any) => {
   return fixture.type !== "error" && output.type === "error";
-}
+};
 
 // We have an error, and the fixture has an error
 const doWeErrorWhenDigitalBazaarErrors = (output: any, fixture: any) => {
   return fixture.type === "error" && output.type === "error";
-}
+};
 
 const isOutputAndFixtureMatchingExpectations = (output: any, fixture: any) => {
-
   const clonedOutput = JSON.parse(JSON.stringify(output));
   const clonedFixture = JSON.parse(JSON.stringify(fixture));
 
@@ -187,19 +186,19 @@ const isOutputAndFixtureMatchingExpectations = (output: any, fixture: any) => {
   // Then we want to make that the created dates and hashes work
   // expect(outputProof.created).toEqual(fixtureProof.created);
   // expect(outputProof.jws).toEqual(fixtureProof.jws);
-}
+};
 
-// This function sucks
 const compareResults = async (output: any, fixture: any) => {
-
   // Option 1, The fixture has an error and we don't
   if (isErrorInFixtureExpected(output, fixture)) {
-    throw new Error('We expected an error given the fixture, but our code did not produce one');
+    throw new Error(
+      "We expected an error given the fixture, but our code did not produce one"
+    );
   }
 
   // Option 2, we have an error, the fixture doesn't
   if (hasOurLibraryDriftedFromTheFixture(output, fixture)) {
-    throw new Error('Our code is producing an error that we didn\'t expect');
+    throw new Error("Our code is producing an error that we didn't expect");
   }
 
   // Option 3. We both have errors, are they the same error?
