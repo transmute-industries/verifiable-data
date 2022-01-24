@@ -7,7 +7,14 @@ npm i @transmute/vc.js --save
 ## Usage
 
 ```
-npm run test
+npm t
+```
+
+This package generates a series of fixtures using Digital Bazaar's libraries.
+To freshly generate these fixtures, use the following command
+
+```
+npm run generate:fixtures
 ```
 
 ### Create Verifiable Credential
