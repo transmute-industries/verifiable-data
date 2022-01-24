@@ -76,6 +76,22 @@ const result2 = await verifiable.credential.verify({
 });
 ```
 
+## Development
+
+Install and run tests for this package
+
+```
+npm i
+npm t
+```
+
+This package contains interopability fixtures generated from Digital Bazaar libraries.
+The fixtures can be regenerated with the following command
+
+```
+npm run generate:fixtures
+```
+
 ## About
 
 This typescript module has been built to support direct substitutability with [digitalbazaar/jsonld-signatures](https://github.com/digitalbazaar/jsonld-signatures/blob/master/lib/suites/Ed25519Signature2018.js) for Linked Data Proofs.
