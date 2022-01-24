@@ -1,7 +1,4 @@
-import { CompactSign } from 'jose/jws/compact/sign';
-import { parseJwk } from 'jose/jwk/parse';
-import { compactVerify } from 'jose/jws/compact/verify';
-
+import * as jose from 'jose';
 const encoder = new TextEncoder();
 
 const crvToAlg: any = {
@@ -10,13 +7,13 @@ const crvToAlg: any = {
 
 export const sign = async (header: any, payload: any, privateKeyJwk: any) => {
   const alg = crvToAlg[privateKeyJwk.crv];
-  const jws = await new CompactSign(
+  const jws = await new jose.CompactSign(
     encoder.encode(
       typeof payload === 'string' ? payload : JSON.stringify(payload)
     )
   )
     .setProtectedHeader({ ...header, alg })
-    .sign(await parseJwk(privateKeyJwk, alg));
+    .sign(await jose.importJWK(privateKeyJwk, alg));
   return jws;
 };
 
@@ -24,9 +21,9 @@ export const verify = async (jws: string, publicKeyJwk: any) => {
   let verified = false;
   const alg = crvToAlg[publicKeyJwk.crv];
   try {
-    const { protectedHeader } = await compactVerify(
+    const { protectedHeader } = await jose.compactVerify(
       jws,
-      await parseJwk(publicKeyJwk, alg)
+      await jose.importJWK(publicKeyJwk, alg)
     );
     if (protectedHeader.alg !== alg) {
       throw new Error('Invalid alg.');

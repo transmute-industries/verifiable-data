@@ -2,25 +2,16 @@
  * Copyright (c) 2019-2020 Digital Bazaar, Inc. All rights reserved.
  */
 
-import * as cipher from './xc20p';
-
-import { stringToUint8Array } from './util';
-
-import { kekFromEphemeralPeer } from './kekFromEphemeralPeer';
-
-const CIPHER_ALGORITHMS: any = {
-  [cipher.JWE_ENC]: cipher,
-};
-
+import * as jose from 'jose';
+import { enc } from './alg';
 export class DecryptTransformer {
   public keyAgreementKey: any;
-  public KeyPairClass: any;
 
-  constructor({ keyAgreementKey, KeyPairClass }: any = {}) {
+  constructor({ keyAgreementKey }: any = {}) {
     if (!keyAgreementKey) {
       throw new TypeError('"keyAgreementKey" is a required parameter.');
     }
-    this.KeyPairClass = KeyPairClass;
+
     this.keyAgreementKey = keyAgreementKey;
   }
 
@@ -58,13 +49,10 @@ export class DecryptTransformer {
     if (typeof jwe.tag !== 'string') {
       throw new Error('Invalid or missing "tag".');
     }
-
     // validate encryption header
     let header;
-    let additionalData;
     try {
       // ASCII(BASE64URL(UTF8(JWE Protected Header)))
-      additionalData = stringToUint8Array(jwe.protected);
       header = JSON.parse(Buffer.from(jwe.protected, 'base64').toString());
     } catch (e) {
       throw new Error('Invalid JWE "protected" header.');
@@ -72,62 +60,21 @@ export class DecryptTransformer {
     if (!(header.enc && typeof header.enc === 'string')) {
       throw new Error('Invalid JWE "enc" header.');
     }
-    const cipher = CIPHER_ALGORITHMS[header.enc];
-    if (!cipher) {
+    if (header.enc !== enc) {
       throw new Error(`Unsupported encryption algorithm "${header.enc}".`);
     }
     if (!Array.isArray(jwe.recipients)) {
       throw new TypeError('"jwe.recipients" must be an array.');
     }
 
-    // find `keyAgreementKey` matching recipient
-    const { keyAgreementKey } = this;
-
-    const _findRecipient = (recipients: any, key: any) => {
-      return recipients.find(
-        (rec: any) =>
-          (rec.header && rec.header.kid === key.id) ||
-          rec.header.kid.split('#').pop() === key.id.split('#').pop()
-      );
-    };
-
-    const recipient = _findRecipient(jwe.recipients, keyAgreementKey);
-
-    if (!recipient) {
-      console.log(jwe.recipients, keyAgreementKey);
-      throw new Error('No matching recipient found for key agreement key.');
-    }
-    // get wrapped CEK
-    const { encrypted_key: wrappedKey } = recipient;
-    if (typeof wrappedKey !== 'string') {
-      throw new Error('Invalid or missing "encrypted_key".');
-    }
-
-    // TODO: consider a cache of encrypted_key => CEKs to reduce unwrapping
-    // calls which may even need to hit the network (e.g., Web KMS)
-
-    // derive KEK and unwrap CEK
-    const { epk } = recipient.header;
-
-    const { kek } = await kekFromEphemeralPeer(this.KeyPairClass)({
-      keyAgreementKey,
-      epk,
+    const { privateKeyJwk } = await this.keyAgreementKey.export({
+      type: 'JsonWebKey2020',
+      privateKey: true,
     });
-
-    const cek = await kek.unwrapKey({ wrappedKey });
-    if (!cek) {
-      // failed to unwrap key
-      return null;
-    }
-
-    // decrypt content
-    const { ciphertext, iv, tag } = jwe;
-    return cipher.decrypt({
-      ciphertext: Buffer.from(ciphertext, 'base64'),
-      iv: Buffer.from(iv, 'base64'),
-      tag: Buffer.from(tag, 'base64'),
-      additionalData,
-      cek,
-    });
+    const decrypted = await jose.generalDecrypt(
+      jwe,
+      await jose.importJWK(privateKeyJwk, 'ECDH-ES+A256KW')
+    );
+    return decrypted.plaintext;
   }
 }

@@ -23,9 +23,10 @@ beforeAll(async () => {
   })) as JsonWebKey2020;
 });
 
-describe(`ECDH-ES`, () => {
+// unsupported at this time.
+describe.skip(`ECDH-ES`, () => {
   it('encrypt / decrypt', async () => {
-    const cipher = new JWE.Cipher(Secp256k1KeyPair);
+    const cipher = new JWE.Cipher();
     const document = { key1: 'value1', key2: 'value2' };
     const recipients = [
       {

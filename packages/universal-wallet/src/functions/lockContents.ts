@@ -33,7 +33,7 @@ export const lockContents = async (
     throw new Error(`Key ${id} not found`);
   };
 
-  const cipher = new JWE.Cipher(X25519KeyPair);
+  const cipher = new JWE.Cipher();
 
   const encryptedContents = await Promise.all(
     contents.map(async content => {

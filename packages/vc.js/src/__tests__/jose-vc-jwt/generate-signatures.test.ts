@@ -2,8 +2,8 @@ import { CompactSign } from "jose/jws/compact/sign";
 import { parseJwk } from "jose/jwk/parse";
 
 import { compactVerify } from "jose/jws/compact/verify";
-import fs from "fs";
-import path from "path";
+// import fs from "fs";
+// import path from "path";
 
 const encoder = new TextEncoder();
 const privateKeys = [
@@ -61,10 +61,11 @@ describe("JWS", () => {
           const jws = await sign(header, payload, privateKeyJwk);
           const verified = await verify(jws, privateKeyJwk);
           expect(verified).toBe(true);
-          fs.writeFileSync(
-            path.resolve(__dirname, `./__fixtures__/${alg}.simple.signed.json`),
-            JSON.stringify({ jws }, null, 2)
-          );
+
+          // fs.writeFileSync(
+          //   path.resolve(__dirname, `./__fixtures__/${alg}.simple.signed.json`),
+          //   JSON.stringify({ jws }, null, 2)
+          // );
         });
 
         it(`complex`, async () => {
@@ -73,13 +74,13 @@ describe("JWS", () => {
           const jws = await sign(header, payload, privateKeyJwk);
           const verified = await verify(jws, privateKeyJwk);
           expect(verified).toBe(true);
-          fs.writeFileSync(
-            path.resolve(
-              __dirname,
-              `./__fixtures__/${alg}.complex.signed.json`
-            ),
-            JSON.stringify({ jws }, null, 2)
-          );
+          // fs.writeFileSync(
+          //   path.resolve(
+          //     __dirname,
+          //     `./__fixtures__/${alg}.complex.signed.json`
+          //   ),
+          //   JSON.stringify({ jws }, null, 2)
+          // );
         });
       });
     });

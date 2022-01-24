@@ -10,7 +10,7 @@ import rawKeyJson from "../__fixtures__/1-keys/key.json";
 import documentLoader from "../__fixtures__/documentLoader";
 
 const purpose = new ldp.purposes.AssertionProofPurpose();
-
+console.warn = () => {};
 describe("credential comparisons", () => {
   let credentialsPath: string;
   let files: string[] = [];

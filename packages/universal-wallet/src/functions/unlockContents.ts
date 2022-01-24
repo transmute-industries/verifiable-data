@@ -16,7 +16,7 @@ export const unlockContents = async (
   });
   kp.id = kp.controller + kp.id;
 
-  const cipher = new JWE.Cipher(X25519KeyPair);
+  const cipher = new JWE.Cipher();
 
   let decryptedContents = [];
   for (let i = 0; i < contents.length; i++) {

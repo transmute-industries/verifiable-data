@@ -6,6 +6,8 @@ import rawKeyJson from "../__fixtures__/keys/key.json";
 import documentLoader from "../__fixtures__/documentLoader";
 import credential from "../__fixtures__/credentials/case-7.json";
 
+// don't clutter ci logs
+console.warn = () => {};
 const ISSUED_ON = new Date("1991-08-25T12:33:56.789Z").getTime();
 const CREATED_ON = new Date("2021-10-15T12:33:56.789Z").getTime();
 

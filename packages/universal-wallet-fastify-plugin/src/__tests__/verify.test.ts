@@ -9,6 +9,7 @@ const supertest = require('supertest');
 let api: any;
 let fastify: any;
 
+console.error = () => {};
 beforeAll(async () => {
   fastify = getFastifyWithWalletOptions(walletOptions);
   await fastify.ready();
