@@ -120,7 +120,7 @@ const getFixture = (testNum: number, index: number) => {
 
   const filename = path.resolve(
     __dirname,
-    `../__fixtures__/credentials/${dirs[testNum - 1]}/case-${index}.json`
+    `../../__fixtures__/credentials/${dirs[testNum - 1]}/case-${index}.json`
   );
 
   const data = fs.readFileSync(filename, "utf-8");
