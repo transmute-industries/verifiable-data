@@ -2,7 +2,7 @@ import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "../..";
 import rawKeyJson from "../../__fixtures__/keys/key.json";
 import documentLoader from "../../__fixtures__/documentLoader";
 
-console.warn = () => { }
+console.warn = () => {};
 export const issuedOn = new Date("1991-08-25T12:33:56.789Z").getTime();
 export const createdOn = new Date("2021-10-15T12:33:56.789Z").getTime();
 
@@ -18,22 +18,24 @@ export const exampleCredential = {
     id: "https://example.edu/students/alice",
     alumniOf: "Example University"
   }
-}
+};
 
 export const isDateValidXmlSchema = (date: string) => {
   const xmlDateSchemaRegex = /-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?|(24:00:00(\.0+)?))(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?/;
   return xmlDateSchemaRegex.test(date);
-}
+};
 
 export const cloneCredential = (credential: CredentialType) => {
   return JSON.parse(JSON.stringify(credential));
-}
+};
 
 export const createCredential = (): CredentialType => {
   return cloneCredential(exampleCredential);
-}
+};
 
-export const createSuite = async (suiteDate: undefined | null | string | number) => {
+export const createSuite = async (
+  suiteDate: undefined | null | string | number
+) => {
   const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
 
   let suite: Ed25519Signature2018 | undefined;
@@ -60,7 +62,6 @@ export const signCredential = async (
   suite: Ed25519Signature2018,
   unsignedCredential: CredentialType
 ) => {
-
   let proof;
   let signError: DateErrorType | undefined;
 

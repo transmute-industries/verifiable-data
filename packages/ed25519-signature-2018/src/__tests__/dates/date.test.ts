@@ -5,7 +5,7 @@ import path from "path";
 import rawKeyJson from "../../__fixtures__/keys/key.json";
 import documentLoader from "../../__fixtures__/documentLoader";
 
-import { exampleCredential as credential, verifyProof } from './date-utils'
+import { exampleCredential as credential, verifyProof } from "./date-utils";
 export const ISSUED_ON = new Date("1991-08-25T12:33:56.789Z").getTime();
 export const CREATED_ON = new Date("2021-10-15T12:33:56.789Z").getTime();
 
@@ -107,8 +107,6 @@ const signCredential = async (
 
   return { signedCredential, signedError };
 };
-
-
 
 const getFixture = (testNum: number, index: number) => {
   const dirs = [
