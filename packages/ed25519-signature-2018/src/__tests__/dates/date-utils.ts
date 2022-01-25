@@ -2,7 +2,7 @@ import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "../..";
 import rawKeyJson from "../../__fixtures__/keys/key.json";
 import documentLoader from "../../__fixtures__/documentLoader";
 
-console.warn = () => { };
+console.warn = () => {};
 export const issuedOn = new Date("1991-08-25T12:33:56.789Z").getTime();
 export const createdOn = new Date("2021-10-15T12:33:56.789Z").getTime();
 
@@ -20,7 +20,9 @@ export const exampleCredential = {
   }
 };
 
-export const isDateValidXmlSchema = (date: undefined | null | string | number | Date) => {
+export const isDateValidXmlSchema = (
+  date: undefined | null | string | number | Date
+) => {
   const xmlDateSchemaRegex = /-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?|(24:00:00(\.0+)?))(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?/;
   return xmlDateSchemaRegex.test(date as string);
 };
@@ -29,7 +31,9 @@ export const cloneCredential = (credential: CredentialType) => {
   return JSON.parse(JSON.stringify(credential));
 };
 
-export const createCredential = (issuanceDate: undefined | null | string | number | Date): CredentialType => {
+export const createCredential = (
+  issuanceDate: undefined | null | string | number | Date
+): CredentialType => {
   const credential = cloneCredential(exampleCredential);
   credential.issuanceDate = issuanceDate;
   return credential;
@@ -93,7 +97,9 @@ export const signCredential = async (
   return { proof, signError };
 };
 
-export const verifyProof = async (credential: CredentialType): Promise<CredentialVerificationType> => {
+export const verifyProof = async (
+  credential: CredentialType
+): Promise<CredentialVerificationType> => {
   const { proof, ...document } = cloneCredential(credential);
   const suite = new Ed25519Signature2018();
 
@@ -112,5 +118,4 @@ export const verifyProof = async (credential: CredentialType): Promise<Credentia
     documentLoader,
     compactProof: false
   });
-
 };
