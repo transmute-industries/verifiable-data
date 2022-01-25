@@ -1,15 +1,13 @@
-import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "..";
+import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "../..";
 import moment from "moment";
 import fs from "fs";
 import path from "path";
-import rawKeyJson from "../__fixtures__/keys/key.json";
-import documentLoader from "../__fixtures__/documentLoader";
-import credential from "../__fixtures__/credentials/case-7.json";
+import rawKeyJson from "../../__fixtures__/keys/key.json";
+import documentLoader from "../../__fixtures__/documentLoader";
 
-// don't clutter ci logs
-console.warn = () => {};
-const ISSUED_ON = new Date("1991-08-25T12:33:56.789Z").getTime();
-const CREATED_ON = new Date("2021-10-15T12:33:56.789Z").getTime();
+import { exampleCredential as credential, verifyProof } from './date-utils'
+export const ISSUED_ON = new Date("1991-08-25T12:33:56.789Z").getTime();
+export const CREATED_ON = new Date("2021-10-15T12:33:56.789Z").getTime();
 
 const TESTS = [
   // Used as a flag to unset `issuanceDate` in the document for the 1st and 4th tests
@@ -110,31 +108,7 @@ const signCredential = async (
   return { signedCredential, signedError };
 };
 
-const verifyProof = async (document: any, proof: any) => {
-  const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
-  const suite = new Ed25519Signature2018({
-    key: keyPair
-  });
 
-  const result = await suite.verifyProof({
-    proof: proof,
-    document: document,
-    purpose: {
-      // ignore validation of dates and such...
-      validate: () => {
-        return { valid: true };
-      },
-      update: (proof: any) => {
-        proof.proofPurpose = "assertionMethod";
-        return proof;
-      }
-    },
-    documentLoader,
-    compactProof: false
-  });
-
-  return result;
-};
 
 const getFixture = (testNum: number, index: number) => {
   const dirs = [
@@ -266,6 +240,7 @@ describe("Test 1. Confirm behavior of issuanceDate", () => {
   }
 });
 
+/*
 describe("Test 2. Confirm behavior of suite date constructor", () => {
   const testNum = 2;
   for (let i = 0; i < TESTS.length; i++) {
@@ -300,7 +275,8 @@ describe("Test 2. Confirm behavior of suite date constructor", () => {
     });
   }
 });
-
+*/
+/*
 describe("Test 3. Confirm behavior of suite date set directly", () => {
   const testNum = 3;
   for (let i = 0; i < TESTS.length; i++) {
@@ -340,7 +316,8 @@ describe("Test 3. Confirm behavior of suite date set directly", () => {
     });
   }
 });
-
+*/
+/*
 describe("Test 4. Confirm behavior of issuanceDate", () => {
   const testNum = 4;
   for (let i = 0; i < TESTS.length; i++) {
@@ -382,3 +359,4 @@ describe("Test 4. Confirm behavior of issuanceDate", () => {
     });
   }
 });
+*/
