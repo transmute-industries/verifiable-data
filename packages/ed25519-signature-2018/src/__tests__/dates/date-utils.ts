@@ -2,7 +2,7 @@ import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "../..";
 import rawKeyJson from "../../__fixtures__/keys/key.json";
 import documentLoader from "../../__fixtures__/documentLoader";
 
-console.warn = () => {};
+console.warn = () => { };
 export const issuedOn = new Date("1991-08-25T12:33:56.789Z").getTime();
 export const createdOn = new Date("2021-10-15T12:33:56.789Z").getTime();
 
@@ -20,17 +20,19 @@ export const exampleCredential = {
   }
 };
 
-export const isDateValidXmlSchema = (date: string) => {
+export const isDateValidXmlSchema = (date: undefined | null | string | number | Date) => {
   const xmlDateSchemaRegex = /-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?|(24:00:00(\.0+)?))(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?/;
-  return xmlDateSchemaRegex.test(date);
+  return xmlDateSchemaRegex.test(date as string);
 };
 
 export const cloneCredential = (credential: CredentialType) => {
   return JSON.parse(JSON.stringify(credential));
 };
 
-export const createCredential = (): CredentialType => {
-  return cloneCredential(exampleCredential);
+export const createCredential = (issuanceDate: undefined | null | string | number | Date): CredentialType => {
+  const credential = cloneCredential(exampleCredential);
+  credential.issuanceDate = issuanceDate;
+  return credential;
 };
 
 export const createSuite = async (
@@ -52,7 +54,6 @@ export const createSuite = async (
       thrownOn: "suite",
       reason: (err as Error).toString()
     };
-    return { suite, suiteError };
   }
 
   return { suite, suiteError };
@@ -62,7 +63,7 @@ export const signCredential = async (
   suite: Ed25519Signature2018,
   unsignedCredential: CredentialType
 ) => {
-  let proof;
+  let proof: CredentialProofType | undefined;
   let signError: DateErrorType | undefined;
 
   try {
@@ -92,15 +93,13 @@ export const signCredential = async (
   return { proof, signError };
 };
 
-export const verifyProof = async (document: any, proof: any) => {
-  const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
-  const suite = new Ed25519Signature2018({
-    key: keyPair
-  });
+export const verifyProof = async (credential: CredentialType): Promise<CredentialVerificationType> => {
+  const { proof, ...document } = cloneCredential(credential);
+  const suite = new Ed25519Signature2018();
 
-  const result = await suite.verifyProof({
-    proof: proof,
-    document: document,
+  return await suite.verifyProof({
+    proof,
+    document,
     purpose: {
       validate: () => {
         return { valid: true };
@@ -114,5 +113,4 @@ export const verifyProof = async (document: any, proof: any) => {
     compactProof: false
   });
 
-  return result;
 };

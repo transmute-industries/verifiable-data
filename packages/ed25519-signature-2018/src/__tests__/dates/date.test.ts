@@ -182,15 +182,11 @@ const compareResults = async (output: any, fixture: any) => {
 
   isOutputAndFixtureMatchingExpectations(output, fixture);
 
-  let { proof, ...credential } = fixture;
-
   // We also expect that the signed credentials are verifiable
-  const result1 = await verifyProof(credential, proof);
+  const result1 = await verifyProof(output);
   expect(result1.verified).toBeTruthy();
 
-  ({ proof, ...credential } = output);
-
-  const result2 = await verifyProof(credential, proof);
+  const result2 = await verifyProof(fixture);
   expect(result2.verified).toBeTruthy();
 };
 
