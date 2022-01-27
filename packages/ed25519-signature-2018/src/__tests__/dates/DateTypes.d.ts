@@ -28,4 +28,15 @@ type CredentialVerificationType = {
   error?: unknown;
 };
 
-type Condition = string | number | undefined | null;
+type DateArray = number[];
+type DateObject = {
+  years: number,
+  months: number,
+  date: number,
+  hours: number,
+  milliseconds: number,
+  minutes: number,
+  seconds: number
+}
+type Condition = string | number | undefined | null | DateArray | DateObject;
+

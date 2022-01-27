@@ -6,6 +6,8 @@
  * libraries using fixtures generated from Digital Bazaar's library
  **/
 
+import moment from "moment";
+
 import undefinedSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-1.json";
 import nullSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-2.json";
 import zeroSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-3.json";
@@ -19,10 +21,9 @@ import timestamp4SuiteFixture from "../../__fixtures__/credentials/suiteConstruc
 import timestamp5SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-11.json";
 import timestamp6SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-12.json";
 import timestamp7SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-13.json";
+import dateString0SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-14.json";
 import dateString1SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-15.json";
 import dateString2SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-16.json";
-import dateString10SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-24.json";
-import dateString0SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-14.json";
 import dateString3SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-17.json";
 import dateString4SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-18.json";
 import dateString5SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-19.json";
@@ -30,9 +31,12 @@ import dateString6SuiteFixture from "../../__fixtures__/credentials/suiteConstru
 import dateString7SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-21.json";
 import dateString8SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-22.json";
 import dateString9SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-23.json";
+import dateString10SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-24.json";
 import dateString11SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-25.json";
 import dateString12SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-26.json";
 import dateString13SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-27.json";
+import dateArraySuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-28.json";
+import dateObjectSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-29.json";
 
 import {
   issuedOn,
@@ -68,16 +72,24 @@ const invalidDates = [
     fixture: foobarStringSuiteFixture
   },
   {
-    condition: "Sunday, August 25th 1991, 9:33:56 pm",
+    condition: moment(issuedOn).format("dddd, MMMM Do YYYY, h:mm:ss a"),
     fixture: dateString1SuiteFixture
   },
   {
-    condition: "25th Sunday August 1991",
+    condition: moment(issuedOn).format("Do dddd MMMM gggg"),
     fixture: dateString2SuiteFixture
   },
   {
-    condition: "1991-08-25T21:33:56:789+09:00",
+    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
     fixture: dateString10SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).toArray(),
+    fixture: dateArraySuiteFixture
+  },
+  {
+    condition: moment(issuedOn).toObject(),
+    fixture: dateObjectSuiteFixture
   }
 ];
 
@@ -115,47 +127,47 @@ const exactDates = [
     fixture: timestamp7SuiteFixture
   },
   {
-    condition: "1991-08-25T21:33:56+09:00",
+    condition: moment(issuedOn).format(),
     fixture: dateString0SuiteFixture
   },
   {
-    condition: "Sunday August 25, 1991",
+    condition: moment(issuedOn).format("dddd MMMM DD, YYYY"),
     fixture: dateString3SuiteFixture
   },
   {
-    condition: "25 Aug 1991",
+    condition: moment(issuedOn).format("D MMM YYYY"),
     fixture: dateString4SuiteFixture
   },
   {
-    condition: "1991-08-25",
+    condition: moment(issuedOn).format("YYYY-MM-DD"),
     fixture: dateString5SuiteFixture
   },
   {
-    condition: "Sun, 25 Aug 1991 21:33:56",
+    condition: moment(issuedOn).format("ddd, DD MMM YYYY HH:mm:ss z"),
     fixture: dateString6SuiteFixture
   },
   {
-    condition: "08 25 1991",
+    condition: moment(issuedOn).format("MM DD YYYY"),
     fixture: dateString7SuiteFixture
   },
   {
-    condition: "Aug 25, 1991",
+    condition: moment(issuedOn).format("MMM D, YYYY"),
     fixture: dateString8SuiteFixture
   },
   {
-    condition: "1991-08-25T21:33:56",
+    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss"),
     fixture: dateString9SuiteFixture
   },
   {
-    condition: "1991-08-25T21:33:56Z",
+    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
     fixture: dateString11SuiteFixture
   },
   {
-    condition: "1991-08-25T21:33+09:00",
+    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mmZ"),
     fixture: dateString12SuiteFixture
   },
   {
-    condition: "1991-08-25T12:33:56.789Z",
+    condition: moment(issuedOn).toJSON(),
     fixture: dateString13SuiteFixture
   }
 ];

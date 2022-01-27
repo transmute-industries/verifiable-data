@@ -2,7 +2,7 @@ import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "../..";
 import rawKeyJson from "../../__fixtures__/keys/key.json";
 import documentLoader from "../../__fixtures__/documentLoader";
 
-console.warn = () => {};
+console.warn = () => { };
 export const issuedOn = new Date("1991-08-25T12:33:56.789Z").getTime();
 export const createdOn = new Date("2021-10-15T12:33:56.789Z").getTime();
 
@@ -40,7 +40,7 @@ export const createCredential = (
 };
 
 export const createSuite = async (
-  suiteDate: undefined | null | string | number
+  suiteDate: Condition
 ) => {
   const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
 
