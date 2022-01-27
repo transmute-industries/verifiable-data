@@ -1,13 +1,16 @@
-import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "../..";
 import moment from "moment";
 import fs from "fs";
 import path from "path";
-import rawKeyJson from "../../__fixtures__/keys/key.json";
-import documentLoader from "../../__fixtures__/documentLoader";
 
-import { exampleCredential as credential, verifyProof } from "./date-utils";
-export const ISSUED_ON = new Date("1991-08-25T12:33:56.789Z").getTime();
-export const CREATED_ON = new Date("2021-10-15T12:33:56.789Z").getTime();
+import {
+  issuedOn,
+  createCredential,
+  createSuite,
+  signCredential,
+  verifyProof,
+  createdOn
+} from "./date-utils";
+
 
 const TESTS = [
   // Used as a flag to unset `issuanceDate` in the document for the 1st and 4th tests
@@ -28,90 +31,28 @@ const TESTS = [
   12345,
   -12345,
   // Date String conditions
-  moment(ISSUED_ON).format(),
-  moment(ISSUED_ON).format("dddd, MMMM Do YYYY, h:mm:ss a"),
-  moment(ISSUED_ON).format("Do dddd MMMM gggg"),
-  moment(ISSUED_ON).format("dddd MMMM DD, YYYY"),
-  moment(ISSUED_ON).format("D MMM YYYY"),
-  moment(ISSUED_ON).format("YYYY-MM-DD"),
-  moment(ISSUED_ON).format("ddd, DD MMM YYYY HH:mm:ss z"),
-  moment(ISSUED_ON).format("MM DD YYYY"),
-  moment(ISSUED_ON).format("MMM D, YYYY"),
-  moment(ISSUED_ON).format("YYYY-MM-DD[T]HH:mm:ss"),
-  moment(ISSUED_ON).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
-  moment(ISSUED_ON).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
-  moment(ISSUED_ON).format("YYYY-MM-DD[T]HH:mmZ"),
-  moment(ISSUED_ON).toJSON(),
-  moment(ISSUED_ON).toArray(),
-  moment(ISSUED_ON).toObject()
+  moment(issuedOn).format(),
+  moment(issuedOn).format("dddd, MMMM Do YYYY, h:mm:ss a"),
+  moment(issuedOn).format("Do dddd MMMM gggg"),
+  moment(issuedOn).format("dddd MMMM DD, YYYY"),
+  moment(issuedOn).format("D MMM YYYY"),
+  moment(issuedOn).format("YYYY-MM-DD"),
+  moment(issuedOn).format("ddd, DD MMM YYYY HH:mm:ss z"),
+  moment(issuedOn).format("MM DD YYYY"),
+  moment(issuedOn).format("MMM D, YYYY"),
+  moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss"),
+  moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
+  moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
+  moment(issuedOn).format("YYYY-MM-DD[T]HH:mmZ"),
+  moment(issuedOn).toJSON(),
+  moment(issuedOn).toArray(),
+  moment(issuedOn).toObject()
 ];
 
-const createSuite = async (suiteDate?: any) => {
-  const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
-
-  let suite, suiteError;
-  try {
-    suite = new Ed25519Signature2018({
-      key: keyPair,
-      date: suiteDate
-    });
-  } catch (err) {
-    const error = err as Error;
-    suiteError = {
-      type: "error",
-      thrownOn: "suite",
-      reason: error.toString()
-    };
-    return { suite, suiteError };
-  }
-
-  if (typeof suite.date === "undefined") {
-    suite.date = new Date(CREATED_ON);
-  }
-
-  return { suite, suiteError };
-};
-
-const signCredential = async (
-  suite: Ed25519Signature2018,
-  unsignedCredential: any
-) => {
-  let signedError;
-  const signedCredential = { ...unsignedCredential };
-
-  try {
-    signedCredential.proof = await suite.createProof({
-      document: unsignedCredential,
-      purpose: {
-        // ignore validation of dates and such...
-        validate: () => {
-          return { valid: true };
-        },
-        update: (proof: any) => {
-          proof.proofPurpose = "assertionMethod";
-          return proof;
-        }
-      },
-      documentLoader,
-      compactProof: false
-    });
-  } catch (err) {
-    let error = err as Error;
-    signedError = {
-      type: "error",
-      thrownOn: "sign",
-      reason: error.toString()
-    };
-    return { signedCredential, signedError };
-  }
-
-  return { signedCredential, signedError };
-};
 
 const getFixture = (testNum: number, index: number) => {
   const dirs = [
     "issuanceDate",
-    "suiteConstructor",
     "suiteDirect",
     "issuanceDateSuite"
   ];
@@ -202,12 +143,12 @@ describe("Test 1. Confirm behavior of issuanceDate", () => {
       date
     )} should match the verifiable credential`, async () => {
       const fixture = getFixture(testNum, i);
-      const { suite, suiteError } = await createSuite(CREATED_ON);
+      const { suite, suiteError } = await createSuite(createdOn);
       if (suiteError) {
         return compareResults(suiteError, fixture);
       }
 
-      const unsignedCredential = { ...credential };
+      const unsignedCredential = createCredential(undefined);
 
       switch (date) {
         case "removed":
@@ -215,71 +156,33 @@ describe("Test 1. Confirm behavior of issuanceDate", () => {
           delete unsignedCredential.issuanceDate;
           break;
         default:
-          // @ts-ignore
           unsignedCredential.issuanceDate = date;
           break;
       }
 
-      const { signedCredential, signedError } = await signCredential(
+      const { proof, signError } = await signCredential(
         suite!,
         unsignedCredential
       );
 
-      if (signedError) {
-        return compareResults(signedError, fixture);
+      if (signError) {
+        return await compareResults(signError, fixture);
       }
 
-      await compareResults(signedCredential, fixture);
+      await compareResults({ proof, ...unsignedCredential }, fixture);
     });
   }
 });
 
-/*
-describe("Test 2. Confirm behavior of suite date constructor", () => {
+describe("Test 2. Confirm behavior of suite date set directly", () => {
   const testNum = 2;
   for (let i = 0; i < TESTS.length; i++) {
     const date = TESTS[i];
-
-    it(`2. case-${i}  ${JSON.stringify(
+    it(`2. case-${i} ${JSON.stringify(
       date
     )} should match the verifiable credential`, async () => {
       const fixture = getFixture(testNum, i);
-
-      let dateParam = date;
-      if (date === "removed") {
-        dateParam = null;
-      }
-
-      const { suite, suiteError } = await createSuite(dateParam);
-      if (suiteError) {
-        return compareResults(suiteError, fixture);
-      }
-
-      const unsignedCredential = { ...credential };
-      const { signedCredential, signedError } = await signCredential(
-        suite!,
-        unsignedCredential
-      );
-
-      if (signedError) {
-        return compareResults(signedError, fixture);
-      }
-
-      await compareResults(signedCredential, fixture);
-    });
-  }
-});
-*/
-/*
-describe("Test 3. Confirm behavior of suite date set directly", () => {
-  const testNum = 3;
-  for (let i = 0; i < TESTS.length; i++) {
-    const date = TESTS[i];
-    it(`3. case-${i} ${JSON.stringify(
-      date
-    )} should match the verifiable credential`, async () => {
-      const fixture = getFixture(testNum, i);
-      const { suite, suiteError } = await createSuite();
+      const { suite, suiteError } = await createSuite(undefined);
       if (suiteError) {
         return compareResults(suiteError, fixture);
       }
@@ -297,31 +200,30 @@ describe("Test 3. Confirm behavior of suite date set directly", () => {
           break;
       }
 
-      const unsignedCredential = { ...credential };
-      const { signedCredential, signedError } = await signCredential(
+      const unsignedCredential = createCredential(undefined);
+      const { proof, signError } = await signCredential(
         suite!,
         unsignedCredential
       );
 
-      if (signedError) {
-        return compareResults(signedError, fixture);
+      if (signError) {
+        return await compareResults(signError, fixture);
       }
-      await compareResults(signedCredential, fixture);
+      await compareResults({ proof, ...unsignedCredential }, fixture);
     });
   }
 });
-*/
-/*
-describe("Test 4. Confirm behavior of issuanceDate", () => {
-  const testNum = 4;
+
+describe("Test 3. Confirm behavior of issuanceDate", () => {
+  const testNum = 3;
   for (let i = 0; i < TESTS.length; i++) {
     const date = TESTS[i];
-    it(`4. case-${i}  ${JSON.stringify(
+    it(`3. case-${i}  ${JSON.stringify(
       date
     )} should match the verifiable credential`, async () => {
       const fixture = getFixture(testNum, i);
 
-      const unsignedCredential = { ...credential };
+      const unsignedCredential = createCredential(undefined);
       switch (date) {
         case "removed":
           // @ts-ignore
@@ -341,16 +243,17 @@ describe("Test 4. Confirm behavior of issuanceDate", () => {
         return compareResults(suiteError, fixture);
       }
 
-      const { signedCredential, signedError } = await signCredential(
+      const { proof, signError } = await signCredential(
         suite!,
         unsignedCredential
       );
-      if (signedError) {
-        return compareResults(signedError, fixture);
+
+      if (signError) {
+        return await compareResults(signError, fixture);
       }
 
-      await compareResults(signedCredential, fixture);
+      await compareResults({ proof, ...unsignedCredential }, fixture);
     });
   }
 });
-*/
+

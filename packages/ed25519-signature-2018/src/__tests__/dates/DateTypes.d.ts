@@ -1,3 +1,5 @@
+type Condition = string | number | undefined | null | Date | DateArray | DateObject;
+
 type DateErrorType = {
   type: string;
   thrownOn: string;
@@ -6,7 +8,7 @@ type DateErrorType = {
 
 type CredentialProofType = {
   type: string;
-  created?: undefined | null | string | number | Date;
+  created?: Condition;
   verificationMethod: string;
   proofPurpose: string;
   jws: string;
@@ -18,7 +20,7 @@ type CredentialType = {
   type: string[];
   issuer: string;
   credentialSubject: any;
-  issuanceDate?: undefined | null | string | number | Date;
+  issuanceDate?: Condition;
   proof?: CredentialProofType;
 };
 
@@ -30,13 +32,12 @@ type CredentialVerificationType = {
 
 type DateArray = number[];
 type DateObject = {
-  years: number,
-  months: number,
-  date: number,
-  hours: number,
-  milliseconds: number,
-  minutes: number,
-  seconds: number
-}
-type Condition = string | number | undefined | null | DateArray | DateObject;
+  years: number;
+  months: number;
+  date: number;
+  hours: number;
+  milliseconds: number;
+  minutes: number;
+  seconds: number;
+};
 

@@ -21,7 +21,7 @@ export const exampleCredential = {
 };
 
 export const isDateValidXmlSchema = (
-  date: undefined | null | string | number | Date
+  date: Condition
 ) => {
   const xmlDateSchemaRegex = /-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?|(24:00:00(\.0+)?))(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?/;
   return xmlDateSchemaRegex.test(date as string);
@@ -39,9 +39,7 @@ export const createCredential = (
   return credential;
 };
 
-export const createSuite = async (
-  suiteDate: Condition
-) => {
+export const createSuite = async (suiteDate: Condition) => {
   const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
 
   let suite: Ed25519Signature2018 | undefined;
