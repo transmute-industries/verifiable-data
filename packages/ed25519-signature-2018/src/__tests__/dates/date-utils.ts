@@ -2,7 +2,6 @@ import { Ed25519Signature2018, Ed25519VerificationKey2018 } from "../..";
 import rawKeyJson from "../../__fixtures__/keys/key.json";
 import documentLoader from "../../__fixtures__/documentLoader";
 
-console.warn = () => { };
 export const issuedOn = new Date("1991-08-25T12:33:56.789Z").getTime();
 export const createdOn = new Date("2021-10-15T12:33:56.789Z").getTime();
 
@@ -20,9 +19,7 @@ export const exampleCredential = {
   }
 };
 
-export const isDateValidXmlSchema = (
-  date: Condition
-) => {
+export const isDateValidXmlSchema = (date: Condition) => {
   const xmlDateSchemaRegex = /-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?|(24:00:00(\.0+)?))(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?/;
   return xmlDateSchemaRegex.test(date as string);
 };

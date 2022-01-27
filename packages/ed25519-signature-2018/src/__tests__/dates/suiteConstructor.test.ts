@@ -1,7 +1,8 @@
 /**
- * In this test we want to confirm how issuanceDate values are
- * handled when irregular or incrrect values are provided to the
- * suite when signed.
+ * In this test we want to confirm how different date values are
+ * handled by the suite constructor. And what effect is has on the
+ * created attribute in the generated proof. 
+ * 
  * In this test we will confirm the operation of Transmute's
  * libraries using fixtures generated from Digital Bazaar's library
  **/
@@ -10,7 +11,6 @@
 import moment from "moment";
 
 // Import fixtures
-
 import undefinedSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-1.json";
 import nullSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-2.json";
 import zeroSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-3.json";
@@ -42,7 +42,6 @@ import dateArraySuiteFixture from "../../__fixtures__/credentials/suiteConstruct
 import dateObjectSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-29.json";
 
 // Import local functions
-
 import {
   issuedOn,
   createCredential,

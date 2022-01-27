@@ -11,6 +11,8 @@ import {
   createdOn
 } from "./date-utils";
 
+// Prevent console warnings from cluttering tests
+console.warn = () => { };
 
 const TESTS = [
   // Used as a flag to unset `issuanceDate` in the document for the 1st and 4th tests
@@ -49,13 +51,8 @@ const TESTS = [
   moment(issuedOn).toObject()
 ];
 
-
 const getFixture = (testNum: number, index: number) => {
-  const dirs = [
-    "issuanceDate",
-    "suiteDirect",
-    "issuanceDateSuite"
-  ];
+  const dirs = ["issuanceDate", "suiteDirect", "issuanceDateSuite"];
 
   const filename = path.resolve(
     __dirname,
@@ -256,4 +253,3 @@ describe("Test 3. Confirm behavior of issuanceDate", () => {
     });
   }
 });
-
