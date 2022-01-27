@@ -57,29 +57,29 @@ const undefinedDates = [
     fixture: zeroSuiteFixture
   },
   {
-    condition: '',
+    condition: "",
     fixture: emptyStringSuiteFixture
-  },
+  }
 ];
 
 const invalidDates = [
   {
-    condition: 'foobar',
+    condition: "foobar",
     fixture: foobarStringSuiteFixture
   },
   {
-    condition: 'Sunday, August 25th 1991, 9:33:56 pm',
+    condition: "Sunday, August 25th 1991, 9:33:56 pm",
     fixture: dateString1SuiteFixture
   },
   {
-    condition: '25th Sunday August 1991',
+    condition: "25th Sunday August 1991",
     fixture: dateString2SuiteFixture
   },
   {
-    condition: '1991-08-25T21:33:56:789+09:00',
+    condition: "1991-08-25T21:33:56:789+09:00",
     fixture: dateString10SuiteFixture
   }
-]
+];
 
 const exactDates = [
   {
@@ -115,52 +115,55 @@ const exactDates = [
     fixture: timestamp7SuiteFixture
   },
   {
-    condition: '1991-08-25T21:33:56+09:00',
+    condition: "1991-08-25T21:33:56+09:00",
     fixture: dateString0SuiteFixture
   },
   {
-    condition: 'Sunday August 25, 1991',
+    condition: "Sunday August 25, 1991",
     fixture: dateString3SuiteFixture
   },
   {
-    condition: '25 Aug 1991',
+    condition: "25 Aug 1991",
     fixture: dateString4SuiteFixture
   },
   {
-    condition: '1991-08-25',
+    condition: "1991-08-25",
     fixture: dateString5SuiteFixture
   },
   {
-    condition: 'Sun, 25 Aug 1991 21:33:56',
+    condition: "Sun, 25 Aug 1991 21:33:56",
     fixture: dateString6SuiteFixture
   },
   {
-    condition: '08 25 1991',
+    condition: "08 25 1991",
     fixture: dateString7SuiteFixture
   },
   {
-    condition: 'Aug 25, 1991',
+    condition: "Aug 25, 1991",
     fixture: dateString8SuiteFixture
   },
   {
-    condition: '1991-08-25T21:33:56',
+    condition: "1991-08-25T21:33:56",
     fixture: dateString9SuiteFixture
   },
   {
-    condition: '1991-08-25T21:33:56Z',
+    condition: "1991-08-25T21:33:56Z",
     fixture: dateString11SuiteFixture
   },
   {
-    condition: '1991-08-25T21:33+09:00',
+    condition: "1991-08-25T21:33+09:00",
     fixture: dateString12SuiteFixture
   },
   {
-    condition: '1991-08-25T12:33:56.789Z',
+    condition: "1991-08-25T12:33:56.789Z",
     fixture: dateString13SuiteFixture
   }
-]
+];
 
-const testUndefinedDatesThatCauseNewIssueDate = async (condition: Condition, fixture: CredentialType) => {
+const testUndefinedDatesThatCauseNewIssueDate = async (
+  condition: Condition,
+  fixture: CredentialType
+) => {
   // Create a suite using undefined for the date parameter that gets passed into the suite
   const { suite, suiteError } = await createSuite(condition);
 
@@ -188,16 +191,17 @@ const testUndefinedDatesThatCauseNewIssueDate = async (condition: Condition, fix
 
   // Both Transmute and Digital Bazaar should have valid dates
   expect(isDateValidXmlSchema(proof!.created)).toBeTruthy();
-  expect(
-    isDateValidXmlSchema(fixture.proof!.created)
-  ).toBeTruthy();
+  expect(isDateValidXmlSchema(fixture.proof!.created)).toBeTruthy();
 
   // We expect the proofs to verify for both our credential and for the digital bazaar fixture
   expect((await verifyProof(credential)).verified).toBeTruthy();
   expect((await verifyProof(fixture)).verified).toBeTruthy();
-}
+};
 
-const testInvalidDatesThatCauseErrorOnSuite = async (condition: Condition, fixture: DateErrorType) => {
+const testInvalidDatesThatCauseErrorOnSuite = async (
+  condition: Condition,
+  fixture: DateErrorType
+) => {
   // Create a suite using foobar for the date parameter that gets passed into the suite
   const { suite, suiteError } = await createSuite(condition);
 
@@ -213,9 +217,12 @@ const testInvalidDatesThatCauseErrorOnSuite = async (condition: Condition, fixtu
   // We expect both our library and digital bazaar's library to have thrown on suite
   expect(suiteError!.thrownOn).toBe("suite");
   expect(foobarStringSuiteFixture.thrownOn).toBe("suite");
-}
+};
 
-const testSpecificDateWhichProducesFixedResult = async (condition: Condition, fixture: CredentialType) => {
+const testSpecificDateWhichProducesFixedResult = async (
+  condition: Condition,
+  fixture: CredentialType
+) => {
   const { suite, suiteError } = await createSuite(condition);
   expect(suite).toBeDefined();
   expect(suite!.date).toBeDefined();
@@ -245,10 +252,9 @@ const testSpecificDateWhichProducesFixedResult = async (condition: Condition, fi
   // We expect the proofs to verify for both our credential and for the fixture
   expect((await verifyProof(credential)).verified).toBeTruthy();
   expect((await verifyProof(fixture)).verified).toBeTruthy();
-}
+};
 
 describe("Handling undefined date value provided into suite", () => {
-
   // Pattern 1, undefined date provided into suite
   for (let i = 0; i < undefinedDates.length; i++) {
     const { condition, fixture } = undefinedDates[i];
@@ -272,5 +278,4 @@ describe("Handling undefined date value provided into suite", () => {
       await testSpecificDateWhichProducesFixedResult(condition, fixture);
     });
   }
-
 });
