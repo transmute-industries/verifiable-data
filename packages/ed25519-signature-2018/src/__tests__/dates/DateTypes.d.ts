@@ -27,3 +27,5 @@ type CredentialVerificationType = {
   purposeResult?: any;
   error?: unknown;
 };
+
+type Condition = string | number | undefined | null;
