@@ -12,7 +12,7 @@ import {
 } from "./date-utils";
 
 // Prevent console warnings from cluttering tests
-console.warn = () => { };
+console.warn = () => {};
 
 const TESTS = [
   // Used as a flag to unset `issuanceDate` in the document for the 1st and 4th tests

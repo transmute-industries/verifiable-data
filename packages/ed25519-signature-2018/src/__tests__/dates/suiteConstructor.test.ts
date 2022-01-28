@@ -1,8 +1,8 @@
 /**
  * In this test we want to confirm how different date values are
  * handled by the suite constructor. And what effect is has on the
- * created attribute in the generated proof. 
- * 
+ * created attribute in the generated proof.
+ *
  * In this test we will confirm the operation of Transmute's
  * libraries using fixtures generated from Digital Bazaar's library
  **/

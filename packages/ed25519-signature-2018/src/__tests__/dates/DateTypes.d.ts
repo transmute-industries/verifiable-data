@@ -1,4 +1,11 @@
-type Condition = string | number | undefined | null | Date | DateArray | DateObject;
+type Condition =
+  | string
+  | number
+  | undefined
+  | null
+  | Date
+  | DateArray
+  | DateObject;
 
 type DateErrorType = {
   type: string;
@@ -40,4 +47,3 @@ type DateObject = {
   minutes: number;
   seconds: number;
 };
-
