@@ -12,7 +12,7 @@ import {
 } from "./date-utils";
 
 // Prevent console warnings from cluttering tests
-console.warn = () => {};
+console.warn = () => { };
 
 const TESTS = [
   // Used as a flag to unset `issuanceDate` in the document for the 1st and 4th tests
@@ -206,49 +206,6 @@ describe("Test 2. Confirm behavior of suite date set directly", () => {
       if (signError) {
         return await compareResults(signError, fixture);
       }
-      await compareResults({ proof, ...unsignedCredential }, fixture);
-    });
-  }
-});
-
-describe("Test 3. Confirm behavior of issuanceDate", () => {
-  const testNum = 3;
-  for (let i = 0; i < TESTS.length; i++) {
-    const date = TESTS[i];
-    it(`3. case-${i}  ${JSON.stringify(
-      date
-    )} should match the verifiable credential`, async () => {
-      const fixture = getFixture(testNum, i);
-
-      const unsignedCredential = createCredential(undefined);
-      switch (date) {
-        case "removed":
-          // @ts-ignore
-          delete unsignedCredential.issuanceDate;
-          break;
-        default:
-          // @ts-ignore
-          unsignedCredential.issuanceDate = date;
-          break;
-      }
-
-      const { suite, suiteError } = await createSuite(
-        unsignedCredential.issuanceDate
-      );
-
-      if (suiteError) {
-        return compareResults(suiteError, fixture);
-      }
-
-      const { proof, signError } = await signCredential(
-        suite!,
-        unsignedCredential
-      );
-
-      if (signError) {
-        return await compareResults(signError, fixture);
-      }
-
       await compareResults({ proof, ...unsignedCredential }, fixture);
     });
   }

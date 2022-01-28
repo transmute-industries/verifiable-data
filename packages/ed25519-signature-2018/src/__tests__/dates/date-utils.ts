@@ -29,7 +29,7 @@ export const cloneCredential = (credential: CredentialType) => {
 };
 
 export const createCredential = (
-  issuanceDate: undefined | null | string | number | Date
+  issuanceDate: Condition
 ): CredentialType => {
   const credential = cloneCredential(exampleCredential);
   credential.issuanceDate = issuanceDate;
