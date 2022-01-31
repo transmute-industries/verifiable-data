@@ -32,225 +32,226 @@ import dateArraySuiteFixture from "../../__fixtures__/credentials/suiteDirect/ca
 import dateObjectSuiteFixture from "../../__fixtures__/credentials/suiteDirect/case-29.json";
 
 import {
-    issuedOn,
-    createCredential,
-    createSuite,
-    signCredential,
-    verifyProof
+  issuedOn,
+  createCredential,
+  createSuite,
+  signCredential,
+  verifyProof
 } from "./date-utils";
 
-console.warn = () => { };
+console.warn = () => {};
 
 const directDates = [
-    {
-        condition: undefined,
-        fixture: undefinedSuiteFixture
-    },
-    {
-        condition: "foobar",
-        fixture: foobarStringSuiteFixture
-    },
-    {
-        condition: 1635774995208,
-        fixture: timestamp0SuiteFixture
-    },
-    {
-        condition: -1635774995208,
-        fixture: timestamp1SuiteFixture
-    },
-    {
-        condition: 1,
-        fixture: timestamp2SuiteFixture
-    },
-    {
-        condition: -1,
-        fixture: timestamp3SuiteFixture
-    },
-    {
-        condition: 123,
-        fixture: timestamp4SuiteFixture
-    },
-    {
-        condition: -123,
-        fixture: timestamp5SuiteFixture
-    },
-    {
-        condition: 12345,
-        fixture: timestamp6SuiteFixture
-    },
-    {
-        condition: -12345,
-        fixture: timestamp7SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format(),
-        fixture: dateString0SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format("dddd, MMMM Do YYYY, h:mm:ss a"),
-        fixture: dateString1SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format("Do dddd MMMM gggg"),
-        fixture: dateString2SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format("dddd MMMM DD, YYYY"),
-        fixture: dateString3SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format("D MMM YYYY"),
-        fixture: dateString4SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format("YYYY-MM-DD"),
-        fixture: dateString5SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format("ddd, DD MMM YYYY HH:mm:ss z"),
-        fixture: dateString6SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format("MM DD YYYY"),
-        fixture: dateString7SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format("MMM D, YYYY"),
-        fixture: dateString8SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss"),
-        fixture: dateString9SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
-        fixture: dateString10SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
-        fixture: dateString11SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mmZ"),
-        fixture: dateString12SuiteFixture
-    },
-    {
-        condition: moment(issuedOn).toJSON(),
-        fixture: dateString13SuiteFixture
-    },
-
+  {
+    condition: undefined,
+    fixture: undefinedSuiteFixture
+  },
+  {
+    condition: "foobar",
+    fixture: foobarStringSuiteFixture
+  },
+  {
+    condition: 1635774995208,
+    fixture: timestamp0SuiteFixture
+  },
+  {
+    condition: -1635774995208,
+    fixture: timestamp1SuiteFixture
+  },
+  {
+    condition: 1,
+    fixture: timestamp2SuiteFixture
+  },
+  {
+    condition: -1,
+    fixture: timestamp3SuiteFixture
+  },
+  {
+    condition: 123,
+    fixture: timestamp4SuiteFixture
+  },
+  {
+    condition: -123,
+    fixture: timestamp5SuiteFixture
+  },
+  {
+    condition: 12345,
+    fixture: timestamp6SuiteFixture
+  },
+  {
+    condition: -12345,
+    fixture: timestamp7SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format(),
+    fixture: dateString0SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format("dddd, MMMM Do YYYY, h:mm:ss a"),
+    fixture: dateString1SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format("Do dddd MMMM gggg"),
+    fixture: dateString2SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format("dddd MMMM DD, YYYY"),
+    fixture: dateString3SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format("D MMM YYYY"),
+    fixture: dateString4SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format("YYYY-MM-DD"),
+    fixture: dateString5SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format("ddd, DD MMM YYYY HH:mm:ss z"),
+    fixture: dateString6SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format("MM DD YYYY"),
+    fixture: dateString7SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format("MMM D, YYYY"),
+    fixture: dateString8SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss"),
+    fixture: dateString9SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
+    fixture: dateString10SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
+    fixture: dateString11SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mmZ"),
+    fixture: dateString12SuiteFixture
+  },
+  {
+    condition: moment(issuedOn).toJSON(),
+    fixture: dateString13SuiteFixture
+  }
 ];
 
 const producesNoCreatedOnValue = [
-    {
-        condition: null,
-        fixture: nullSuiteFixture
-    },
-    {
-        condition: 0,
-        fixture: zeroSuiteFixture
-    },
-    {
-        condition: "",
-        fixture: emptyStringSuiteFixture
-    },
+  {
+    condition: null,
+    fixture: nullSuiteFixture
+  },
+  {
+    condition: 0,
+    fixture: zeroSuiteFixture
+  },
+  {
+    condition: "",
+    fixture: emptyStringSuiteFixture
+  }
 ];
 
 const expectedToFail = [
-    {
-        condition: moment(issuedOn).toArray(),
-        fixture: dateArraySuiteFixture
-    },
-    {
-        condition: moment(issuedOn).toObject(),
-        fixture: dateObjectSuiteFixture
-    }
+  {
+    condition: moment(issuedOn).toArray(),
+    fixture: dateArraySuiteFixture
+  },
+  {
+    condition: moment(issuedOn).toObject(),
+    fixture: dateObjectSuiteFixture
+  }
 ];
 
-
 describe("passing date to suite after constructor", () => {
+  it("should stop the linter from complaining", () => {
+    expect(expectedToFail);
+  });
 
-    it('should stop the linter from complaining', () => {
-        expect(expectedToFail);
-    })
+  for (let i = 0; i < directDates.length; i++) {
+    const { condition, fixture } = directDates[i];
+    it(`should create and sign for ${JSON.stringify(
+      condition
+    )} set in suite`, async () => {
+      // Create a suite using undefined
+      const { suite } = await createSuite(undefined);
+      // Set the date of the suite after the constructor
+      suite!.date = condition;
 
-    for (let i = 0; i < directDates.length; i++) {
-        const { condition, fixture } = directDates[i];
-        it(`should create and sign for ${JSON.stringify(condition)} set in suite`, async () => {
-            // Create a suite using undefined
-            const { suite } = await createSuite(undefined);
-            // Set the date of the suite after the constructor
-            suite!.date = condition;
+      // Create a valid credential to be signed
+      const credential = createCredential(issuedOn);
 
-            // Create a valid credential to be signed
-            const credential = createCredential(issuedOn);
+      // Sign the valid credential with undefined date suite
+      const { proof, signError } = await signCredential(suite!, credential);
+      expect(proof).toBeDefined();
+      credential.proof = proof;
 
-            // Sign the valid credential with undefined date suite
-            const { proof, signError } = await signCredential(suite!, credential);
-            expect(proof).toBeDefined();
-            credential.proof = proof;
+      // Specifically the created attribute should be the current time
+      expect(proof!.created).toBeDefined();
+      expect(signError).toBeUndefined();
 
-            // Specifically the created attribute should be the current time
-            expect(proof!.created).toBeDefined();
-            expect(signError).toBeUndefined();
+      // Compare against fixture result, we expect a proof
+      expect(fixture.proof).toBeDefined();
 
-            // Compare against fixture result, we expect a proof
-            expect(fixture.proof).toBeDefined();
+      // We expect the proofs to verify for both our credential and for the digital bazaar fixture
+      expect((await verifyProof(credential)).verified).toBeTruthy();
+      expect((await verifyProof(fixture)).verified).toBeTruthy();
+    });
+  }
 
-            // We expect the proofs to verify for both our credential and for the digital bazaar fixture
-            expect((await verifyProof(credential)).verified).toBeTruthy();
-            expect((await verifyProof(fixture)).verified).toBeTruthy();
-        })
-    }
+  for (let i = 0; i < producesNoCreatedOnValue.length; i++) {
+    const { condition, fixture } = producesNoCreatedOnValue[i];
+    it(`should have no createdOn for ${JSON.stringify(
+      condition
+    )} set in suite`, async () => {
+      // Create a suite using undefined
+      const { suite } = await createSuite(undefined);
+      // Set the date of the suite after the constructor
+      suite!.date = condition;
 
-    for (let i = 0; i < producesNoCreatedOnValue.length; i++) {
-        const { condition, fixture } = producesNoCreatedOnValue[i];
-        it(`should have no createdOn for ${JSON.stringify(condition)} set in suite`, async () => {
-            // Create a suite using undefined
-            const { suite } = await createSuite(undefined);
-            // Set the date of the suite after the constructor
-            suite!.date = condition;
+      // Create a valid credential to be signed
+      const credential = createCredential(issuedOn);
 
-            // Create a valid credential to be signed
-            const credential = createCredential(issuedOn);
+      // Sign the valid credential with undefined date suite
+      const { proof, signError } = await signCredential(suite!, credential);
+      expect(proof).toBeDefined();
+      credential.proof = proof;
 
-            // Sign the valid credential with undefined date suite
-            const { proof, signError } = await signCredential(suite!, credential);
-            expect(proof).toBeDefined();
-            credential.proof = proof;
+      // Specifically the created attribute should be the current time
+      expect(proof!.created).toBeUndefined();
+      expect(signError).toBeUndefined();
 
-            // Specifically the created attribute should be the current time
-            expect(proof!.created).toBeUndefined();
-            expect(signError).toBeUndefined();
+      // Compare against fixture result, we expect a proof
+      expect(fixture.proof).toBeDefined();
 
-            // Compare against fixture result, we expect a proof
-            expect(fixture.proof).toBeDefined();
+      // We expect the proofs to verify for both our credential and for the digital bazaar fixture
+      expect((await verifyProof(credential)).verified).toBeTruthy();
+      expect((await verifyProof(fixture)).verified).toBeTruthy();
+    });
+  }
 
-            // We expect the proofs to verify for both our credential and for the digital bazaar fixture
-            expect((await verifyProof(credential)).verified).toBeTruthy();
-            expect((await verifyProof(fixture)).verified).toBeTruthy();
-        })
-    }
+  for (let i = 0; i < expectedToFail.length; i++) {
+    const { condition, fixture } = expectedToFail[i];
+    it(`should throw error on sign for ${JSON.stringify(
+      condition
+    )} set in suite`, async () => {
+      // Create a suite using undefined
+      const { suite } = await createSuite(undefined);
+      // Set the date of the suite after the constructor
+      suite!.date = condition;
 
-    for (let i = 0; i < expectedToFail.length; i++) {
-        const { condition, fixture } = expectedToFail[i];
-        it(`should throw error on sign for ${JSON.stringify(condition)} set in suite`, async () => {
-            // Create a suite using undefined
-            const { suite } = await createSuite(undefined);
-            // Set the date of the suite after the constructor
-            suite!.date = condition;
+      // Create a valid credential to be signed
+      const credential = createCredential(issuedOn);
 
-            // Create a valid credential to be signed
-            const credential = createCredential(issuedOn);
-
-            // Sign the valid credential with undefined date suite
-            const { proof, signError } = await signCredential(suite!, credential);
-            expect(proof).toBeUndefined();
-            expect(signError).toBeDefined();
-            expect(fixture.type).toBe("error");
-            expect(fixture.thrownOn).toBe("sign");
-        });
-    }
-
-
+      // Sign the valid credential with undefined date suite
+      const { proof, signError } = await signCredential(suite!, credential);
+      expect(proof).toBeUndefined();
+      expect(signError).toBeDefined();
+      expect(fixture.type).toBe("error");
+      expect(fixture.thrownOn).toBe("sign");
+    });
+  }
 });
