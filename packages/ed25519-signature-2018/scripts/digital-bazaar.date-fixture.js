@@ -108,12 +108,7 @@ const writeResult = (filename, result) => {
 };
 
 const getFilenameForTest = (testNum, index) => {
-  const dirs = [
-    "issuanceDate",
-    "suiteConstructor",
-    "suiteDirect",
-    "issuanceDateSuite",
-  ];
+  const dirs = ["issuanceDate", "suiteConstructor", "suiteDirect"];
 
   return path.resolve(
     __dirname,
@@ -166,7 +161,6 @@ const signCredential = async (suite, unsignedCredential) => {
 
   return { signedCredential, signedError };
 };
-
 
 Promise.all(
   /*
@@ -279,8 +273,8 @@ Promise.all(
     const { suite, suiteError } = await createSuite();
 
     // Per test, set value of date after constructor
-    switch(date){
-      case 'removed':
+    switch (date) {
+      case "removed":
         // Duplicated 'removed' keyword for null test
         suite.date = null;
         break;
@@ -288,61 +282,9 @@ Promise.all(
         // This will generate a new date
         break;
       default:
-        suite.date = date
+        suite.date = date;
         break;
     }
-
-    // Check for Suite Errors
-    if (suiteError) {
-      return writeResult(filename, suiteError);
-    }
-
-    // Sign the Credential
-    const { signedCredential, signedError } = await signCredential(
-      suite,
-      unsignedCredential
-    );
-
-    // Check for sign Errors
-    if (signedError) {
-      return writeResult(filename, signedError);
-    }
-
-    // Write Test Output
-    return writeResult(filename, signedCredential);
-  }),
-
-  /*
-  Test 4 - One use-case is to set the `created` date of the suite
-  to the `issuanceDate` of the document being passed in. This is
-  effectively a repeat of tests 1 and 2. But we have included it 
-  to account for any issues that might arrise from this depending
-  on the value.  
-  */
-
-  TESTS.map(async (date, index) => {
-    // Create Credential to be Signed
-    // Per test, set issuanceData to test variable
-    const unsignedCredential = { ...credential };
-    switch (date) {
-      case "removed":
-        // Use removed as keyword to unset issuanceDate
-        delete unsignedCredential.issuanceDate;
-        break;
-      default:
-        unsignedCredential.issuanceDate = date;
-        break;
-    }
-
-    // Get filepath for writing output
-    const testNum = 4;
-    const filename = getFilenameForTest(testNum, index);
-
-    // Create Suite to sign Credential
-    // Per test, pass in issuanceDate into constructor
-    const { suite, suiteError } = await createSuite(
-      unsignedCredential.issuanceDate
-    );
 
     // Check for Suite Errors
     if (suiteError) {
