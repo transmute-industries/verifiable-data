@@ -28,9 +28,7 @@ export const cloneCredential = (credential: CredentialType) => {
   return JSON.parse(JSON.stringify(credential));
 };
 
-export const createCredential = (
-  issuanceDate: Condition
-): CredentialType => {
+export const createCredential = (issuanceDate: Condition): CredentialType => {
   const credential = cloneCredential(exampleCredential);
   credential.issuanceDate = issuanceDate;
   return credential;

@@ -8,7 +8,6 @@ import {
   createSuite,
   signCredential,
   verifyProof,
-  createdOn
 } from "./date-utils";
 
 // Prevent console warnings from cluttering tests
@@ -52,7 +51,7 @@ const TESTS = [
 ];
 
 const getFixture = (testNum: number, index: number) => {
-  const dirs = ["issuanceDate", "suiteDirect", "issuanceDateSuite"];
+  const dirs = ["suiteDirect"];
 
   const filename = path.resolve(
     __dirname,
@@ -128,54 +127,11 @@ const compareResults = async (output: any, fixture: any) => {
   expect(result2.verified).toBeTruthy();
 };
 
-describe("Test 1. Confirm behavior of issuanceDate", () => {
-  const testNum = 1;
-
-  // Skipping toObject test as JSON-LD error pending further investigation
-  // https://github.com/transmute-industries/verifiable-data/issues/124
-  for (let i = 0; i < TESTS.length - 1; i++) {
-    const date = TESTS[i];
-
-    it(`1. case-${i} ${JSON.stringify(
-      date
-    )} should match the verifiable credential`, async () => {
-      const fixture = getFixture(testNum, i);
-      const { suite, suiteError } = await createSuite(createdOn);
-      if (suiteError) {
-        return compareResults(suiteError, fixture);
-      }
-
-      const unsignedCredential = createCredential(undefined);
-
-      switch (date) {
-        case "removed":
-          // @ts-ignore
-          delete unsignedCredential.issuanceDate;
-          break;
-        default:
-          unsignedCredential.issuanceDate = date;
-          break;
-      }
-
-      const { proof, signError } = await signCredential(
-        suite!,
-        unsignedCredential
-      );
-
-      if (signError) {
-        return await compareResults(signError, fixture);
-      }
-
-      await compareResults({ proof, ...unsignedCredential }, fixture);
-    });
-  }
-});
-
-describe("Test 2. Confirm behavior of suite date set directly", () => {
-  const testNum = 2;
+describe("Test 1. Confirm behavior of suite date set directly", () => {
+  const testNum = 0;
   for (let i = 0; i < TESTS.length; i++) {
     const date = TESTS[i];
-    it(`2. case-${i} ${JSON.stringify(
+    it(`1. case-${i} ${JSON.stringify(
       date
     )} should match the verifiable credential`, async () => {
       const fixture = getFixture(testNum, i);
