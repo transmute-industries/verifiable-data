@@ -10,7 +10,7 @@ describe("Key Generation", () => {
     it(`can generate ${keyType}`, async () => {
       const { privateKey } = await generateKeyPair(keyType);
       const privateKeyJwk = await fromKeyLike(privateKey);
-      expect(privateKeyJwk).toBeDefined(); 
+      expect(privateKeyJwk).toBeDefined();
       /*
       fs.writeFileSync(
         path.resolve(__dirname, `./__fixtures__/${keyType}.privateKeyJwk.json`),
