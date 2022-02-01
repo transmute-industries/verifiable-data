@@ -40,7 +40,7 @@ import {
   createdOn
 } from "./date-utils";
 
-console.warn = () => { };
+console.warn = () => {};
 
 const issuanceDates = [
   {
@@ -165,11 +165,10 @@ const invalidDates = [
 ];
 
 describe("issuanceDate testing", () => {
-
-  it('should satisfy the linter', () => {
+  it("should satisfy the linter", () => {
     expect(issuanceDates).toBeDefined();
     expect(verifyProof).toBeDefined();
-  })
+  });
 
   /*
   for (let i = 0; i < issuanceDates.length; i++) {
