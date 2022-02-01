@@ -16,7 +16,20 @@ const jsigs = require("jsonld-signatures");
 const { AssertionProofPurpose } = jsigs.purposes;
 const moment = require("moment");
 const documentLoader = require("./documentLoader");
-const credential = require("../src/__fixtures__/credentials/case-7.json");
+const credential = {
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1",
+  ],
+  id: "http://example.edu/credentials/1872",
+  type: ["VerifiableCredential", "AlumniCredential"],
+  issuer: "https://example.edu/issuers/565049",
+  issuanceDate: "2010-01-01T19:23:24Z",
+  credentialSubject: {
+    id: "https://example.edu/students/alice",
+    alumniOf: "Example University",
+  },
+};
 const rawKeyJson = require("../src/__fixtures__/keys/key.json");
 
 /* 
@@ -33,49 +46,15 @@ const rawKeyJson = require("../src/__fixtures__/keys/key.json");
   cause a proof to not be verifable. 
 */
 
-/*
-  Global Variables:
-  ISSUED_ON - Is a fixed date that we use to generate different
-  versions of date strings for the same date to pass into each
-  test. The date such as Aug 25, 1991 was chosen to show a contrast 
-  for the issued date, so that it would readily appearant when the
-  date was being used. 
-
-  The value of '12:33:56.789Z' has been added to the hours, minutes,
-  seconds and milliseconds to be able to account for changes when
-  milliseconds are truncated in XML datetime conversions. 
-
-  CREATED_ON - This is a date used to mimic the current time. 
-  In the case when a date value is not supplied into the suite,
-  a new timestamp is generated with a current time, which means
-  the jws will have a different hash when we write tests to verify
-  the results. oct 15, 2021 has been chosen to represent a resent
-  date, but no so recent that it would be mistaken for the current date.
-
-  The value of '12:33:56.789Z' has been added to the hours, minutes,
-  seconds and milliseconds to be able to account for changes when
-  milliseconds are truncated in XML datetime conversions. 
-
-  TESTS - This is a list of values that will be used in the following
-  tests. The values have been chosen to try and cover a wide array of
-  conditions and possible failure points. And invalid values have
-  been intentionally been included to track where and how invalid values
-  are handled. 
-*/
-
 const ISSUED_ON = new Date("1991-08-25T12:33:56.789Z").getTime();
 const CREATED_ON = new Date("2021-10-15T12:33:56.789Z").getTime();
 
-const TESTS = [
-  // Used as a flag to unset `issuanceDate` in the document for the 1st and 4th tests
-  // This behavior doesn't carry over to tests 2 and 3 and is treated as a duplicate null test
-  "removed",
+const IssuedOn = [
   undefined,
   null,
   0,
   "",
   "foobar",
-  // Int conditions
   1635774995208,
   -1635774995208,
   1,
@@ -84,7 +63,6 @@ const TESTS = [
   -123,
   12345,
   -12345,
-  // Date String conditions
   moment(ISSUED_ON).format(),
   moment(ISSUED_ON).format("dddd, MMMM Do YYYY, h:mm:ss a"),
   moment(ISSUED_ON).format("Do dddd MMMM gggg"),
@@ -103,17 +81,45 @@ const TESTS = [
   moment(ISSUED_ON).toObject(),
 ];
 
-const writeResult = (filename, result) => {
-  fs.writeFileSync(filename, JSON.stringify(result, null, 2));
-};
+const CreatedOn = [
+  undefined,
+  null,
+  0,
+  "",
+  "foobar",
+  1635774995208,
+  -1635774995208,
+  1,
+  -1,
+  123,
+  -123,
+  12345,
+  -12345,
+  moment(ISSUED_ON).format(),
+  moment(ISSUED_ON).format("dddd, MMMM Do YYYY, h:mm:ss a"),
+  moment(ISSUED_ON).format("Do dddd MMMM gggg"),
+  moment(ISSUED_ON).format("dddd MMMM DD, YYYY"),
+  moment(ISSUED_ON).format("D MMM YYYY"),
+  moment(ISSUED_ON).format("YYYY-MM-DD"),
+  moment(ISSUED_ON).format("ddd, DD MMM YYYY HH:mm:ss z"),
+  moment(ISSUED_ON).format("MM DD YYYY"),
+  moment(ISSUED_ON).format("MMM D, YYYY"),
+  moment(ISSUED_ON).format("YYYY-MM-DD[T]HH:mm:ss"),
+  moment(ISSUED_ON).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
+  moment(ISSUED_ON).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
+  moment(ISSUED_ON).format("YYYY-MM-DD[T]HH:mmZ"),
+  moment(ISSUED_ON).toJSON(),
+  moment(ISSUED_ON).toArray(),
+  moment(ISSUED_ON).toObject(),
+];
 
-const getFilenameForTest = (testNum, index) => {
+const writeResult = (testNum, index, result) => {
   const dirs = ["issuanceDate", "suiteConstructor", "suiteDirect"];
-
-  return path.resolve(
+  const filename = path.resolve(
     __dirname,
     `../src/__fixtures__/credentials/${dirs[testNum - 1]}/case-${index}.json`
   );
+  fs.writeFileSync(filename, JSON.stringify(result, null, 2));
 };
 
 const createSuite = async (suiteDate) => {

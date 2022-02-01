@@ -39,7 +39,7 @@ import {
   verifyProof
 } from "./date-utils";
 
-console.warn = () => { };
+console.warn = () => {};
 
 const directDates = [
   {
@@ -167,7 +167,6 @@ const expectedToFail = [
 ];
 
 describe("passing date to suite after constructor", () => {
-
   for (let i = 0; i < directDates.length; i++) {
     const { condition, fixture } = directDates[i];
     it(`should create and sign for ${JSON.stringify(
