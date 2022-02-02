@@ -142,7 +142,7 @@ const directDates = [
   {
     condition: moment(createdOn).toArray(),
     fixture: dateArraySuiteFixture
-  },
+  }
 ];
 
 const producesNoCreatedOnValue = [

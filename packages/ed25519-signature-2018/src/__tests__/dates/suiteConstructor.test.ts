@@ -95,7 +95,7 @@ const invalidDates = [
   {
     condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
     fixture: dateString11SuiteFixture
-  },
+  }
 ];
 
 const exactDates = [
@@ -174,7 +174,7 @@ const exactDates = [
   {
     condition: moment(createdOn).toArray(),
     fixture: dateArraySuiteFixture
-  },
+  }
 ];
 
 const testUndefinedDatesThatCauseNewIssueDate = async (
