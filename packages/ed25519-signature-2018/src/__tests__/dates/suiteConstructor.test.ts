@@ -44,6 +44,7 @@ import dateObjectSuiteFixture from "../../__fixtures__/credentials/suiteConstruc
 // Import local functions
 import {
   issuedOn,
+  createdOn,
   createCredential,
   createSuite,
   signCredential,
@@ -76,25 +77,25 @@ const invalidDates = [
     fixture: foobarStringSuiteFixture
   },
   {
-    condition: moment(issuedOn).format("dddd, MMMM Do YYYY, h:mm:ss a"),
+    condition: moment(createdOn).format("dddd, MMMM Do YYYY, h:mm:ss a"),
     fixture: dateString1SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("Do dddd MMMM gggg"),
+    condition: moment(createdOn).format("Do dddd MMMM gggg"),
     fixture: dateString2SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
-    fixture: dateString10SuiteFixture
-  },
-  {
-    condition: moment(issuedOn).toArray(),
-    fixture: dateArraySuiteFixture
-  },
-  {
-    condition: moment(issuedOn).toObject(),
+    condition: moment(createdOn).toObject(),
     fixture: dateObjectSuiteFixture
-  }
+  },
+  {
+    condition: moment(createdOn).format("dddd MMMM DD, YYYY"),
+    fixture: dateString3SuiteFixture
+  },
+  {
+    condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
+    fixture: dateString11SuiteFixture
+  },
 ];
 
 const exactDates = [
@@ -131,49 +132,49 @@ const exactDates = [
     fixture: timestamp7SuiteFixture
   },
   {
-    condition: moment(issuedOn).format(),
+    condition: moment(createdOn).format(),
     fixture: dateString0SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("dddd MMMM DD, YYYY"),
-    fixture: dateString3SuiteFixture
-  },
-  {
-    condition: moment(issuedOn).format("D MMM YYYY"),
+    condition: moment(createdOn).format("D MMM YYYY"),
     fixture: dateString4SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("YYYY-MM-DD"),
+    condition: moment(createdOn).format("YYYY-MM-DD"),
     fixture: dateString5SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("ddd, DD MMM YYYY HH:mm:ss z"),
+    condition: moment(createdOn).format("ddd, DD MMM YYYY HH:mm:ss z"),
     fixture: dateString6SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("MM DD YYYY"),
+    condition: moment(createdOn).format("MM DD YYYY"),
     fixture: dateString7SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("MMM D, YYYY"),
+    condition: moment(createdOn).format("MMM D, YYYY"),
     fixture: dateString8SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss"),
+    condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mm:ss"),
     fixture: dateString9SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
-    fixture: dateString11SuiteFixture
+    condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
+    fixture: dateString10SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mmZ"),
+    condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mmZ"),
     fixture: dateString12SuiteFixture
   },
   {
-    condition: moment(issuedOn).toJSON(),
+    condition: moment(createdOn).toJSON(),
     fixture: dateString13SuiteFixture
-  }
+  },
+  {
+    condition: moment(createdOn).toArray(),
+    fixture: dateArraySuiteFixture
+  },
 ];
 
 const testUndefinedDatesThatCauseNewIssueDate = async (

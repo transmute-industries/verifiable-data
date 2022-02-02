@@ -170,7 +170,6 @@ describe("issuanceDate testing", () => {
     expect(verifyProof).toBeDefined();
   });
 
-  /*
   for (let i = 0; i < issuanceDates.length; i++) {
     const { condition, fixture } = issuanceDates[i];
 
@@ -185,7 +184,6 @@ describe("issuanceDate testing", () => {
       expect((await verifyProof(fixture)).verified).toBeTruthy();
     });
   }
-  */
 
   // Writing this as passing test
   // Right now Transmute will create and sign an object for issuanceDate
