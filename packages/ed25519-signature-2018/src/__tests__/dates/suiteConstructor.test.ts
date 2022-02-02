@@ -89,13 +89,13 @@ const invalidDates = [
     fixture: dateObjectSuiteFixture
   },
   {
-    condition: moment(createdOn).format("dddd MMMM DD, YYYY"),
-    fixture: dateString3SuiteFixture
+    condition: moment(createdOn).toArray(),
+    fixture: dateArraySuiteFixture
   },
   {
-    condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
-    fixture: dateString11SuiteFixture
-  }
+    condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
+    fixture: dateString10SuiteFixture // ...
+  },
 ];
 
 const exactDates = [
@@ -133,8 +133,9 @@ const exactDates = [
   },
   {
     condition: moment(createdOn).format(),
-    fixture: dateString0SuiteFixture
+    fixture: dateString0SuiteFixture // ...
   },
+
   {
     condition: moment(createdOn).format("D MMM YYYY"),
     fixture: dateString4SuiteFixture
@@ -160,10 +161,6 @@ const exactDates = [
     fixture: dateString9SuiteFixture
   },
   {
-    condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
-    fixture: dateString10SuiteFixture
-  },
-  {
     condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mmZ"),
     fixture: dateString12SuiteFixture
   },
@@ -172,8 +169,12 @@ const exactDates = [
     fixture: dateString13SuiteFixture
   },
   {
-    condition: moment(createdOn).toArray(),
-    fixture: dateArraySuiteFixture
+    condition: moment(createdOn).format("dddd MMMM DD, YYYY"),
+    fixture: dateString3SuiteFixture
+  },
+  {
+    condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
+    fixture: dateString11SuiteFixture
   }
 ];
 

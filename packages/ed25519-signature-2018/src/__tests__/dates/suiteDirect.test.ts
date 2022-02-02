@@ -40,7 +40,7 @@ import {
   verifyProof
 } from "./date-utils";
 
-console.warn = () => {};
+console.warn = () => { };
 
 const directDates = [
   {
@@ -138,10 +138,6 @@ const directDates = [
   {
     condition: moment(createdOn).toJSON(),
     fixture: dateString13SuiteFixture
-  },
-  {
-    condition: moment(createdOn).toArray(),
-    fixture: dateArraySuiteFixture
   }
 ];
 
@@ -161,6 +157,10 @@ const producesNoCreatedOnValue = [
 ];
 
 const expectedToFail = [
+  {
+    condition: moment(createdOn).toArray(),
+    fixture: dateArraySuiteFixture
+  },
   {
     condition: moment(createdOn).toObject(),
     fixture: dateObjectSuiteFixture

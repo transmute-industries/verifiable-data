@@ -40,7 +40,7 @@ import {
   createdOn
 } from "./date-utils";
 
-console.warn = () => {};
+console.warn = () => { };
 
 const issuanceDates = [
   {
@@ -196,14 +196,9 @@ describe("issuanceDate testing", () => {
     )} issuanceDate`, async () => {
       const { suite } = await createSuite(createdOn);
       const credential = createCredential(condition);
-      console.log(credential);
-
       const { proof, signError } = await signCredential(suite!, credential);
-      console.log(proof);
       expect(signError).toBeUndefined();
       expect(proof).toBeDefined();
-
-      console.log(fixture);
       expect(fixture.type).toBe("error");
       expect(fixture.thrownOn).toBe("sign");
     });
