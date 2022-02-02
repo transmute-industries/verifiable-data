@@ -52,6 +52,8 @@ import {
   verifyProof
 } from "./date-utils";
 
+console.warn = () => { };
+
 const undefinedDates = [
   {
     condition: undefined,
@@ -95,7 +97,7 @@ const invalidDates = [
   {
     condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
     fixture: dateString10SuiteFixture // ...
-  },
+  }
 ];
 
 const exactDates = [

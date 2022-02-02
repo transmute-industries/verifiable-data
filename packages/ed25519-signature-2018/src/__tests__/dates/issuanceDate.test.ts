@@ -40,7 +40,7 @@ import {
   createdOn
 } from "./date-utils";
 
-console.warn = () => { };
+console.warn = () => {};
 
 const issuanceDates = [
   {

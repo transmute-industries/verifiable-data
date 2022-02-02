@@ -40,7 +40,7 @@ import {
   verifyProof
 } from "./date-utils";
 
-console.warn = () => { };
+console.warn = () => {};
 
 const directDates = [
   {
