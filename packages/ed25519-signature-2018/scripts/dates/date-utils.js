@@ -14,10 +14,10 @@ const moment = require("moment");
 const documentLoader = require("../documentLoader");
 const rawKeyJson = require("../../src/__fixtures__/keys/key.json");
 
-export const ISSUED_ON = new Date("1991-08-25T12:33:56.789Z").getTime();
-export const CREATED_ON = new Date("2021-10-15T12:33:56.789Z").getTime();
+const ISSUED_ON = new Date("1991-08-25T12:33:56.789Z").getTime();
+const CREATED_ON = new Date("2021-10-15T12:33:56.789Z").getTime();
 
-export const issueConditions = [
+const issueConditions = [
   undefined,
   null,
   0,
@@ -49,7 +49,7 @@ export const issueConditions = [
   moment(ISSUED_ON).toObject(),
 ];
 
-export const createdConditions = [
+const createdConditions = [
   undefined,
   null,
   0,
@@ -81,6 +81,8 @@ export const createdConditions = [
   moment(CREATED_ON).toObject(),
 ];
 
+
+
 const exampleCredential = {
   "@context": [
     "https://www.w3.org/2018/credentials/v1",
@@ -95,17 +97,17 @@ const exampleCredential = {
   },
 };
 
-export const cloneCredential = (credential) => {
+const cloneCredential = (credential) => {
   return JSON.parse(JSON.stringify(credential));
 };
 
-export const createCredential = (issuanceDate) => {
+const createCredential = (issuanceDate) => {
   const credential = cloneCredential(exampleCredential);
   credential.issuanceDate = issuanceDate;
   return credential;
 };
 
-export const createSuite = async (suiteDate) => {
+const createSuite = async (suiteDate) => {
   const keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
 
   let suite, suiteError;
@@ -125,7 +127,7 @@ export const createSuite = async (suiteDate) => {
   return { suite, suiteError };
 };
 
-export const signCredential = async (suite, unsignedCredential) => {
+const signCredential = async (suite, unsignedCredential) => {
   let signedCredential, signedError;
 
   try {
@@ -145,10 +147,23 @@ export const signCredential = async (suite, unsignedCredential) => {
   return { signedCredential, signedError };
 };
 
-export const writeResult = (folderName, index, result) => {
+const writeResult = (folderName, index, result) => {
   const filename = path.resolve(
     __dirname,
     `../../src/__fixtures__/credentials/${folderName}/case-${index}.json`
   );
   fs.writeFileSync(filename, JSON.stringify(result, null, 2));
 };
+
+module.exports = {
+  ISSUED_ON,
+  CREATED_ON,
+  issueConditions,
+  createdConditions,
+  exampleCredential,
+  cloneCredential,
+  createCredential,
+  createSuite,
+  signCredential,
+  writeResult
+}

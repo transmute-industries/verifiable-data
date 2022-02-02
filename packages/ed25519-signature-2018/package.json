@@ -28,7 +28,7 @@
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint src --fix",
     "prepare": "tsdx build",
-    "generate:fixtures": "node scripts/digital-bazaar.generate-fixture.js && node scripts/digital-bazaar.term-test.js && node scripts/digital-bazaar.date-fixture.js"
+    "generate:fixtures": "node scripts/digital-bazaar.generate-fixture.js && node scripts/digital-bazaar.term-test.js && node scripts/dates/digital-bazaar.issuanceDate-fixture.js && node scripts/dates/digital-bazzar.suiteConstructor-fixture.js && node scripts/dates/digital-bazzar.suiteDirect-fixture.js"
   },
   "devDependencies": {
     "@digitalbazaar/ed25519-signature-2018": "^2.0.1",

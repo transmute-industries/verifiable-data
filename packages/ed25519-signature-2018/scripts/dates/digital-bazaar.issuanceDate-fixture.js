@@ -1,6 +1,7 @@
 const {
   issueConditions,
   CREATED_ON,
+  createSuite,
   createCredential,
   signCredential,
   writeResult,

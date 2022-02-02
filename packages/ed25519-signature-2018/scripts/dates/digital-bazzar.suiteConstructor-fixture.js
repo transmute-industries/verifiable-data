@@ -2,6 +2,7 @@ const {
   createdConditions,
   ISSUED_ON,
   createCredential,
+  createSuite,
   signCredential,
   writeResult,
 } = require("./date-utils");
