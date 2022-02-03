@@ -40,7 +40,7 @@ import {
   createdOn
 } from "./date-utils";
 
-console.warn = () => { };
+console.warn = () => {};
 
 const issuanceDates = [
   {
@@ -106,7 +106,7 @@ const issuanceDates = [
   {
     condition: moment(issuedOn).toJSON(),
     fixture: dateString13SuiteFixture
-  },
+  }
 ];
 
 const invalidDates = [
@@ -158,7 +158,7 @@ const invalidDates = [
     condition: moment(issuedOn).toArray(),
     fixture: dateArraySuiteFixture
   }
-]
+];
 
 // Changed to both error
 const expectedErrorDates = [
@@ -169,7 +169,6 @@ const expectedErrorDates = [
 ];
 
 describe("issuanceDate testing", () => {
-
   // Both of these should be passing for Digital Bazaar and Transmute
   for (let i = 0; i < issuanceDates.length; i++) {
     const { condition, fixture } = issuanceDates[i];
@@ -212,7 +211,7 @@ describe("issuanceDate testing", () => {
       const { proof, signError } = await signCredential(suite!, credential);
       expect(signError).toBeDefined();
       expect(proof).toBeUndefined();
-      expect(signError?.thrownOn).toBe('sign');
+      expect(signError?.thrownOn).toBe("sign");
       expect(fixture.type).toBe("error");
       expect(fixture.thrownOn).toBe("sign");
     });
