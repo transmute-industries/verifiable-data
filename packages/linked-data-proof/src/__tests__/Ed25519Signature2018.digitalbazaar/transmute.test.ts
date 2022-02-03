@@ -36,7 +36,7 @@ it("verify", async () => {
   const { verified } = await jsigs.verify(
     { ...fixtures.docSigned },
     {
-      suite: new Ed25519Signature2018(),
+      suite: [new Ed25519Signature2018()],
       purpose: purpose,
       documentLoader: fixtures.documentLoader
     }

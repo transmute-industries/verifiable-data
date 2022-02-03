@@ -238,16 +238,17 @@ export class Ed25519Signature2018 {
       throw new Error('No "verificationMethod" or "creator" found in proof.');
     }
     const { document } = await documentLoader(verificationMethod);
-    const method = document.verificationMethod.find((m: any) => m.id === verificationMethod);
+    const method = document.verificationMethod.find(
+      (m: any) => m.id === verificationMethod
+    );
     const methodResponse = {
-      '@context': document["@context"],
+      "@context": document["@context"],
       ...method,
       controller: {
-        id: verificationMethod,
+        id: verificationMethod
       },
       revoked: method.revoked
-    }
-
+    };
 
     if (!methodResponse) {
       throw new Error(`Verification method ${verificationMethod} not found.`);

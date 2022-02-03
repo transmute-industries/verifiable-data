@@ -1,7 +1,6 @@
 import { contexts } from "./contexts";
 import controller from "./controller.json";
-
-import jsonld from "jsonld";
+import * as ed25519 from "@transmute/did-key-ed25519";
 
 const contextResolver = async (iri: string) => {
   if (contexts[iri]) {
@@ -12,44 +11,11 @@ const contextResolver = async (iri: string) => {
 
 const documentResolver = async (iri: string) => {
   if (iri.startsWith(controller.id)) {
+      const { didDocument } = await ed25519.resolve(iri);
     return {
       documentUrl: controller.id,
-      document: controller
+      document: didDocument
     };
-  }
-  return undefined;
-};
-
-// Note: you implement this without using JSON-LD frame,
-// but it MUST return a document with an @context.
-const documentDereferencer = async (document: any, iri: string) => {
-  try {
-    const frame = await jsonld.frame(
-      document,
-      {
-        "@context": document["@context"],
-        id: iri
-      },
-      {
-        documentLoader: (iri: string) => {
-          // use the cache of the document we just resolved when framing
-          if (iri === document.id) {
-            return {
-              documentUrl: iri,
-              document
-            };
-          }
-          return contextResolver(iri);
-        }
-      }
-    );
-    // console.log(JSON.stringify(frame, null, 2));
-    return {
-      documentUrl: iri,
-      document: frame
-    };
-  } catch (e) {
-    console.error("documentDereferencer frame failed on: " + iri);
   }
   return undefined;
 };
@@ -61,15 +27,8 @@ export const documentLoader = async (iri: string) => {
   }
 
   const resolution = await documentResolver(iri);
-  if (resolution?.documentUrl === iri) {
+  if (resolution) {
     return resolution;
-  }
-
-  if (resolution && iri.startsWith(resolution?.documentUrl)) {
-    const dereference = await documentDereferencer(resolution?.document, iri);
-    if (dereference?.document) {
-      return dereference;
-    }
   }
 
   const message = "Unsupported iri: " + iri;
