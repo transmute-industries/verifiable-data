@@ -11,45 +11,48 @@
 import moment from "moment";
 
 // Import fixtures
-import undefinedSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-1.json";
-import nullSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-2.json";
-import zeroSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-3.json";
-import emptyStringSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-4.json";
-import foobarStringSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-5.json";
-import timestamp0SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-6.json";
-import timestamp1SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-7.json";
-import timestamp2SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-8.json";
-import timestamp3SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-9.json";
-import timestamp4SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-10.json";
-import timestamp5SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-11.json";
-import timestamp6SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-12.json";
-import timestamp7SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-13.json";
-import dateString0SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-14.json";
-import dateString1SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-15.json";
-import dateString2SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-16.json";
-import dateString3SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-17.json";
-import dateString4SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-18.json";
-import dateString5SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-19.json";
-import dateString6SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-20.json";
-import dateString7SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-21.json";
-import dateString8SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-22.json";
-import dateString9SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-23.json";
-import dateString10SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-24.json";
-import dateString11SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-25.json";
-import dateString12SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-26.json";
-import dateString13SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-27.json";
-import dateArraySuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-28.json";
-import dateObjectSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-29.json";
+import undefinedSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-0.json";
+import nullSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-1.json";
+import zeroSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-2.json";
+import emptyStringSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-3.json";
+import foobarStringSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-4.json";
+import timestamp0SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-5.json";
+import timestamp1SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-6.json";
+import timestamp2SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-7.json";
+import timestamp3SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-8.json";
+import timestamp4SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-9.json";
+import timestamp5SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-10.json";
+import timestamp6SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-11.json";
+import timestamp7SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-12.json";
+import dateString0SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-13.json";
+import dateString1SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-14.json";
+import dateString2SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-15.json";
+import dateString3SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-16.json";
+import dateString4SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-17.json";
+import dateString5SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-18.json";
+import dateString6SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-19.json";
+import dateString7SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-20.json";
+import dateString8SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-21.json";
+import dateString9SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-22.json";
+import dateString10SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-23.json";
+import dateString11SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-24.json";
+import dateString12SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-25.json";
+import dateString13SuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-26.json";
+import dateArraySuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-27.json";
+import dateObjectSuiteFixture from "../../__fixtures__/credentials/suiteConstructor/case-28.json";
 
 // Import local functions
 import {
   issuedOn,
+  createdOn,
   createCredential,
   createSuite,
   signCredential,
   isDateValidXmlSchema,
   verifyProof
 } from "./date-utils";
+
+console.warn = () => {};
 
 const undefinedDates = [
   {
@@ -76,24 +79,24 @@ const invalidDates = [
     fixture: foobarStringSuiteFixture
   },
   {
-    condition: moment(issuedOn).format("dddd, MMMM Do YYYY, h:mm:ss a"),
+    condition: moment(createdOn).format("dddd, MMMM Do YYYY, h:mm:ss a"),
     fixture: dateString1SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("Do dddd MMMM gggg"),
+    condition: moment(createdOn).format("Do dddd MMMM gggg"),
     fixture: dateString2SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
-    fixture: dateString10SuiteFixture
+    condition: moment(createdOn).toObject(),
+    fixture: dateObjectSuiteFixture
   },
   {
-    condition: moment(issuedOn).toArray(),
+    condition: moment(createdOn).toArray(),
     fixture: dateArraySuiteFixture
   },
   {
-    condition: moment(issuedOn).toObject(),
-    fixture: dateObjectSuiteFixture
+    condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mm:ss:SSSZ"),
+    fixture: dateString10SuiteFixture // ...
   }
 ];
 
@@ -131,48 +134,49 @@ const exactDates = [
     fixture: timestamp7SuiteFixture
   },
   {
-    condition: moment(issuedOn).format(),
-    fixture: dateString0SuiteFixture
+    condition: moment(createdOn).format(),
+    fixture: dateString0SuiteFixture // ...
   },
+
   {
-    condition: moment(issuedOn).format("dddd MMMM DD, YYYY"),
-    fixture: dateString3SuiteFixture
-  },
-  {
-    condition: moment(issuedOn).format("D MMM YYYY"),
+    condition: moment(createdOn).format("D MMM YYYY"),
     fixture: dateString4SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("YYYY-MM-DD"),
+    condition: moment(createdOn).format("YYYY-MM-DD"),
     fixture: dateString5SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("ddd, DD MMM YYYY HH:mm:ss z"),
+    condition: moment(createdOn).format("ddd, DD MMM YYYY HH:mm:ss z"),
     fixture: dateString6SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("MM DD YYYY"),
+    condition: moment(createdOn).format("MM DD YYYY"),
     fixture: dateString7SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("MMM D, YYYY"),
+    condition: moment(createdOn).format("MMM D, YYYY"),
     fixture: dateString8SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss"),
+    condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mm:ss"),
     fixture: dateString9SuiteFixture
   },
   {
-    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
-    fixture: dateString11SuiteFixture
-  },
-  {
-    condition: moment(issuedOn).format("YYYY-MM-DD[T]HH:mmZ"),
+    condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mmZ"),
     fixture: dateString12SuiteFixture
   },
   {
-    condition: moment(issuedOn).toJSON(),
+    condition: moment(createdOn).toJSON(),
     fixture: dateString13SuiteFixture
+  },
+  {
+    condition: moment(createdOn).format("dddd MMMM DD, YYYY"),
+    fixture: dateString3SuiteFixture
+  },
+  {
+    condition: moment(createdOn).format("YYYY-MM-DD[T]HH:mm:ss[Z]"),
+    fixture: dateString11SuiteFixture
   }
 ];
 
