@@ -52,7 +52,8 @@ import {
   verifyProof
 } from "./date-utils";
 
-console.warn = () => {};
+console.warn = () => { };
+const issuanceDate = moment(issuedOn).toJSON();
 
 const undefinedDates = [
   {
@@ -193,7 +194,7 @@ const testUndefinedDatesThatCauseNewIssueDate = async (
   expect(suiteError).toBeUndefined();
 
   // Create a valid credential to be signed
-  const credential = createCredential(issuedOn);
+  const credential = createCredential(issuanceDate);
 
   // Sign the valid credential with undefined date suite
   const { proof, signError } = await signCredential(suite!, credential);
@@ -249,7 +250,7 @@ const testSpecificDateWhichProducesFixedResult = async (
   expect(suiteError).toBeUndefined();
 
   // Create a valid credential to be signed
-  const credential = createCredential(issuedOn);
+  const credential = createCredential(issuanceDate);
 
   // Sign the valid credential with undefined date suite
   const { proof, signError } = await signCredential(suite!, credential);
