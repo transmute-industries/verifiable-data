@@ -70,7 +70,7 @@ export class Ed25519Signature2018 {
 
     throw new TypeError(
       `The document to be signed must contain this suite's @context, ` +
-        `"${JSON.stringify(document["@context"], null, 2)}".`
+      `"${JSON.stringify(document["@context"], null, 2)}".`
     );
   }
 
@@ -172,6 +172,15 @@ export class Ed25519Signature2018 {
       }
       const str = date.toISOString();
       date = str.substr(0, str.length - 5) + "Z";
+    }
+
+    // Add check to see if date matches standard
+    if (typeof document.issuanceDate !== "string") {
+      throw new Error([
+        "The vc-data-model specification expects the issuanceDate property to be a xsd:dateTime(https://www.w3.org/TR/xmlschema-2/#dateTime)",
+        "Original input: " + JSON.stringify(document.issuanceDate),
+        "https://www.w3.org/TR/vc-data-model/#issuance-date",
+      ].join("\n"))
     }
 
     // add API overrides
