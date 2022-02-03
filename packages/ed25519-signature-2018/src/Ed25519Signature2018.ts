@@ -238,37 +238,27 @@ export class Ed25519Signature2018 {
       throw new Error('No "verificationMethod" or "creator" found in proof.');
     }
     const { document } = await documentLoader(verificationMethod);
-    const framed = await jsonld.frame(
-      verificationMethod,
-      {
-        "@context": document["@context"],
-        "@embed": "@always",
-        id: verificationMethod
+    const method = document.verificationMethod.find((m: any) => m.id === verificationMethod);
+    const methodResponse = {
+      '@context': document["@context"],
+      ...method,
+      controller: {
+        id: verificationMethod,
       },
-      {
-        // use the cache of the document we just resolved when framing
-        documentLoader: (iri: string) => {
-          if (iri.startsWith(document.id)) {
-            return {
-              documentUrl: iri,
-              document
-            };
-          }
-          return documentLoader(iri);
-        }
-      }
-    );
+      revoked: method.revoked
+    }
 
-    if (!framed) {
+
+    if (!methodResponse) {
       throw new Error(`Verification method ${verificationMethod} not found.`);
     }
 
     // ensure verification method has not been revoked
-    if (framed.revoked !== undefined) {
+    if (methodResponse.revoked !== undefined) {
       throw new Error("The verification method has been revoked.");
     }
 
-    return framed;
+    return methodResponse;
   }
 
   async verifySignature({ verifyData, verificationMethod, proof }: any) {
