@@ -11,7 +11,7 @@ const contextResolver = async (iri: string) => {
 
 const documentResolver = async (iri: string) => {
   if (iri.startsWith(controller.id)) {
-      const { didDocument } = await ed25519.resolve(iri);
+    const { didDocument } = await ed25519.resolve(iri);
     return {
       documentUrl: controller.id,
       document: didDocument

@@ -37,6 +37,6 @@ it("verify", async () => {
       documentLoader: fixtures.dereferencingDocumentLoader
     }
   );
-  
+
   expect(verified).toBe(true);
 });
