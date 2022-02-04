@@ -23,12 +23,12 @@ const documentResolver = async (iri: string) => {
 const documentDereferencer = async (document: any, iri: string) => {
   try {
     const methodResponse = {
-      '@context': document['@context'],
+      "@context": document["@context"],
       ...document.verificationMethod[0],
       controller: {
         id: document.id
       }
-    }
+    };
     return {
       documentUrl: iri,
       document: methodResponse
