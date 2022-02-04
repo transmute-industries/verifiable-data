@@ -3,6 +3,7 @@ import crypto from "crypto";
 import * as sec from "@transmute/security-context";
 import * as cred from "@transmute/credentials-context";
 import { Ed25519VerificationKey2018 } from "./Ed25519VerificationKey2018";
+import { VerificationMethod } from './types';
 
 const sha256 = (data: any) => {
   const h = crypto.createHash("sha256");
@@ -239,7 +240,7 @@ export class Ed25519Signature2018 {
     }
     const { document } = await documentLoader(verificationMethod);
     const method = document.verificationMethod.find(
-      (m: any) => m.id === verificationMethod
+      (m: VerificationMethod) => m.id === verificationMethod
     );
     const methodResponse = {
       "@context": document["@context"],
