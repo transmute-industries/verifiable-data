@@ -13,7 +13,6 @@ const contexts: any = {
   "https://www.w3.org/2018/credentials/examples/v1": require("./contexts/examples-v1.json"),
   "https://www.w3.org/ns/odrl.jsonld": require("./contexts/odrl.json"),
   "https://credreg.net/ctdlasn/schema/context/json": require("./contexts/creg.json")
-
 };
 const documentLoader = (iri: string) => {
   if (contexts[iri]) {

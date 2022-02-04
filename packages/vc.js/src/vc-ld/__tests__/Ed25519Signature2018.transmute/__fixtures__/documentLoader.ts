@@ -20,7 +20,6 @@ const documentResolver = async (iri: string) => {
   return undefined;
 };
 
-
 export const documentLoader = async (iri: string) => {
   const context = await contextResolver(iri);
   if (context) {
