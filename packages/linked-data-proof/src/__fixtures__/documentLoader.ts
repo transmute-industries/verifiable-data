@@ -19,7 +19,6 @@ const documentLoader = (iri: string) => {
   if (dids[iri]) {
     return { document: dids[iri] };
   }
-  //console.warn(iri);
   throw new Error(`iri ${iri} not supported`);
 };
 
