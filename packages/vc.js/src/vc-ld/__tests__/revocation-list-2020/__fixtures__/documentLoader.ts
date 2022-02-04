@@ -9,7 +9,7 @@ import signedRevocationList2020 from "./signed-revocation-list-2020.json";
 import revocationListCredential from "./revocationListCredential.json";
 const contextResolver = async (iri: string) => {
   if (contexts[iri]) {
-    return { documentUrl: iri, document: contexts[iri] };
+    return { document: contexts[iri] };
   }
   return undefined;
 };

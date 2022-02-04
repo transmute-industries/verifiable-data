@@ -56,7 +56,7 @@ describe("from / issue / present / verify", () => {
         challenge: "nonce-123",
         domain: "example.com",
         suite,
-        documentLoader: async (iri: string) => {
+        documentLoader: (iri: string) => {
           if (iri.startsWith(controller.id)) {
             return {
               document: controller
