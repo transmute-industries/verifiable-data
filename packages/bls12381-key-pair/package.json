@@ -1,64 +1,54 @@
 {
-  "name": "@transmute/bls12381-key-pair",
-  "author": "Orie Steele",
-  "module": "dist/bls12381-key-pair.esm.js",
-  "version": "0.7.0-unstable.42",
-  "license": "Apache-2.0",
-  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/bls12381-key-pair",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/transmute-industries/verifiable-data.git",
-    "directory": "packages/bls12381-key-pair"
-  },
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "publishConfig": {
-    "access": "public"
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "engines": {
-    "node": ">=10"
-  },
-  "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint src --fix",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
-  },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "size-limit": [
-    {
-      "path": "dist/bls12381-key-pair.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/bls12381-key-pair.esm.js",
-      "limit": "10 KB"
-    }
-  ],
-  "devDependencies": {
-    "@mattrglobal/node-bbs-signatures": "^0.11.0",
-    "@size-limit/preset-small-lib": "^4.9.2",
-    "noble-bls12-381": "^0.11.1",
-    "size-limit": "^4.9.2",
-    "ts-jest": "^26.5.0",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.1.0",
-    "typescript": "^4.1.3"
-  },
-  "dependencies": {
-    "@mattrglobal/bls12381-key-pair": "^0.5.0",
-    "@transmute/ld-key-pair": "^0.7.0-unstable.42"
-  }
+	"name": "@transmute/bls12381-key-pair",
+	"author": "Orie Steele",
+	"module": "dist/bls12381-key-pair.esm.js",
+	"version": "0.7.0-unstable.42",
+	"license": "Apache-2.0",
+	"homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/bls12381-key-pair",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/transmute-industries/verifiable-data.git",
+		"directory": "packages/bls12381-key-pair"
+	},
+	"main": "dist/index.js",
+	"typings": "dist/index.d.ts",
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"dist",
+		"src"
+	],
+	"engines": {
+		"node": ">=10"
+	},
+	"prettier": {
+		"printWidth": 80,
+		"semi": true,
+		"singleQuote": true,
+		"trailingComma": "es5"
+	},
+	"size-limit": [
+		{
+			"path": "dist/bls12381-key-pair.cjs.production.min.js",
+			"limit": "10 KB"
+		},
+		{
+			"path": "dist/bls12381-key-pair.esm.js",
+			"limit": "10 KB"
+		}
+	],
+	"devDependencies": {
+		"@mattrglobal/node-bbs-signatures": "^0.11.0",
+		"@size-limit/preset-small-lib": "^4.9.2",
+		"noble-bls12-381": "^0.11.1",
+		"size-limit": "^4.9.2",
+		"ts-jest": "^26.5.0",
+		"tsdx": "^0.14.1",
+		"tslib": "^2.1.0",
+		"typescript": "^4.1.3"
+	},
+	"dependencies": {
+		"@mattrglobal/bls12381-key-pair": "^0.5.0"
+	}
 }

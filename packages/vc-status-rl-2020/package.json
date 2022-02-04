@@ -60,7 +60,7 @@
     "@transmute/compressable-bitstring": "^0.7.0-unstable.42",
     "@transmute/credentials-context": "^0.7.0-unstable.42",
     "@transmute/did-context": "^0.7.0-unstable.42",
-    "@transmute/did-key-ed25519": "^0.2.1-unstable.37",
+    "@transmute/did-key-ed25519": "^0.3.0-unstable.5",
     "@transmute/linked-data-proof": "^0.7.0-unstable.42",
     "@transmute/revocation-list-context": "^0.7.0-unstable.42",
     "@transmute/security-context": "^0.7.0-unstable.42",
