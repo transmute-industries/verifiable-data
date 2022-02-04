@@ -8,32 +8,32 @@ type IRI = string;
 
 // https://w3c-ccg.github.io/traceability-vocab/#LinkRole
 type LinkRole = {
-    type: string | string[];
-    target: IRI;
-    linkRelationship: string;
-    name?: string;
+  type: string | string[];
+  target: IRI;
+  linkRelationship: string;
+  name?: string;
 };
 
 type IssuerObject = {
-    id: IRI;
-    [key: string]: any;
+  id: IRI;
+  [key: string]: any;
 };
 
 type CredentialStatus = {
-    id: IRI;
-    type: string;
+  id: IRI;
+  type: string;
 };
 
 type VerifiableCredential = {
-    '@context': string | string[];
-    id?: IRI;
-    issuer: IRI | IssuerObject;
-    issuanceDate: XMLDateTime;
-    expirationDate?: XMLDateTime;
-    name?: string;
-    type: string | string[];
-    relatedLink?: LinkRole[] | LinkRole;
-    credentialSubject: any;
-    credentialStatus?: CredentialStatus;
-    [key: string]: any;
+  "@context": string | string[];
+  id?: IRI;
+  issuer: IRI | IssuerObject;
+  issuanceDate: XMLDateTime;
+  expirationDate?: XMLDateTime;
+  name?: string;
+  type: string | string[];
+  relatedLink?: LinkRole[] | LinkRole;
+  credentialSubject: any;
+  credentialStatus?: CredentialStatus;
+  [key: string]: any;
 };
