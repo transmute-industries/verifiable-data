@@ -35,6 +35,13 @@
 		"typescript": "^3.9.5"
 	},
 	"dependencies": {
+		"@transmute/credentials-context": "^0.7.0-unstable.42",
+		"@transmute/did-context": "^0.7.0-unstable.42",
+		"@transmute/json-web-signature": "^0.7.0-unstable.42",
+		"@transmute/jsonld-schema": "^0.7.0-unstable.42",
+		"@transmute/linked-data-proof": "^0.7.0-unstable.42",
+		"@transmute/revocation-list-context": "^0.7.0-unstable.42",
+		"@transmute/security-context": "^0.7.0-unstable.42",
 		"jsonld": "^5.2.0",
 		"moment": "^2.29.1"
 	}

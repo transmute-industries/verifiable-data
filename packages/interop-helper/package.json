@@ -20,10 +20,10 @@
     "@transmute/credentials-context": "^0.7.0-unstable.42",
     "@transmute/did-context": "^0.7.0-unstable.42",
     "@transmute/ed25519-key-pair": "^0.7.0-unstable.42",
-    "@transmute/ed25519-signature-2018": "0.7.0-unstable.2",
-    "@transmute/linked-data-proof": "0.2.1-unstable.10",
+    "@transmute/ed25519-signature-2018": "^0.7.0-unstable.42",
+    "@transmute/linked-data-proof": "^0.7.0-unstable.42",
     "@transmute/security-context": "^0.7.0-unstable.42",
-    "@transmute/vc.js": "0.2.1-unstable.10",
+    "@transmute/vc.js": "^0.7.0-unstable.42",
     "canonicalize": "^1.0.5"
   }
 }
