@@ -174,7 +174,9 @@ export class Ed25519Signature2018 {
       date = str.substr(0, str.length - 5) + "Z";
     }
 
-    const credentials = document.verifiableCredential || [document];
+    const source = document.verifiableCredential || document;
+    const credentials = Array.isArray(source) ? source : [source];
+
     // Add check to see if date matches standard
     credentials.forEach((credential: VerifiableCredential) => {
       if (typeof credential.issuanceDate !== "string") {
@@ -187,7 +189,6 @@ export class Ed25519Signature2018 {
         );
       }
     });
-
 
     // add API overrides
     if (date) {
