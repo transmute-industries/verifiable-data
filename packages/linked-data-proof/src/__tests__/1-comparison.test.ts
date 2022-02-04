@@ -10,7 +10,7 @@ import rawKeyJson from "../__fixtures__/1-keys/key.json";
 import documentLoader from "../__fixtures__/documentLoader";
 
 const purpose = new ldp.purposes.AssertionProofPurpose();
-console.warn = () => { };
+console.warn = () => {};
 describe("credential comparisons", () => {
   let credentialsPath: string;
   let files: string[] = [];
@@ -26,7 +26,14 @@ describe("credential comparisons", () => {
       });
     });
     files = files.filter(
-      (filename: string) => !["README.md", "case-1.json", "case-5.json", "case-8.json", "case-9.json"].includes(filename)
+      (filename: string) =>
+        ![
+          "README.md",
+          "case-1.json",
+          "case-5.json",
+          "case-8.json",
+          "case-9.json"
+        ].includes(filename)
     );
   });
 

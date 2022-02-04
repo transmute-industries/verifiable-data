@@ -52,7 +52,7 @@ import {
   verifyProof
 } from "./date-utils";
 
-console.warn = () => { };
+console.warn = () => {};
 const issuanceDate = moment(issuedOn).toJSON();
 
 const undefinedDates = [
