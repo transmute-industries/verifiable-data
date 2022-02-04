@@ -43,6 +43,7 @@
     "@transmute/revocation-list-context": "^0.7.0-unstable.42",
     "@transmute/security-context": "^0.7.0-unstable.42",
     "@transmute/vc-status-rl-2020": "^0.7.0-unstable.42",
+    "@transmute/did-key-ed25519": "^0.3.0-unstable.5",
     "jose": "^3.14.0",
     "jsonld-signatures": "^9.2.1",
     "tsdx": "^0.13.2",
@@ -50,7 +51,6 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "@transmute/did-key-ed25519": "^0.3.0-unstable.5",
     "@transmute/json-web-signature": "^0.7.0-unstable.42",
     "@transmute/jsonld-schema": "^0.7.0-unstable.42",
     "@transmute/linked-data-proof": "^0.7.0-unstable.42",

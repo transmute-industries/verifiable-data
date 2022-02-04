@@ -42,7 +42,6 @@ const documentDereferencer = async (document: any, iri: string) => {
         }
       }
     );
-    // console.log(JSON.stringify(frame, null, 2));
     return {
       documentUrl: iri,
       document: frame
