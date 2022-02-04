@@ -1,8 +1,6 @@
 import { contexts } from "./contexts";
 import controller from "./controller.json";
 
-import jsonld from "jsonld";
-
 const contextResolver = async (iri: string) => {
   if (contexts[iri]) {
     return { document: contexts[iri] };
@@ -24,29 +22,16 @@ const documentResolver = async (iri: string) => {
 // but it MUST return a document with an @context.
 const documentDereferencer = async (document: any, iri: string) => {
   try {
-    const frame = await jsonld.frame(
-      document,
-      {
-        "@context": document["@context"],
-        "@embed": "@always",
-        id: iri
-      },
-      {
-        documentLoader: (iri: string) => {
-          // use the cache of the document we just resolved when framing
-          if (iri === document.id) {
-            return {
-              documentUrl: iri,
-              document
-            };
-          }
-          return contextResolver(iri);
-        }
+    const methodResponse = {
+      '@context': document['@context'],
+      ...document.verificationMethod[0],
+      controller: {
+        id: document.id
       }
-    );
+    }
     return {
       documentUrl: iri,
-      document: frame
+      document: methodResponse
     };
   } catch (e) {
     console.error("documentDereferencer frame failed on: " + iri);
