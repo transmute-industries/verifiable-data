@@ -72,3 +72,25 @@ data create \
 --output "./data/presentations/a.json" \
 --debug
 ```
+
+## Create a Workflow Definition
+
+```
+npm run transmute -- \
+data create \
+--type "WorkflowDefinition" \
+--output "./data/workflows/workflow.bpmn" \
+--debug
+```
+
+## Create a Workflow Instance
+
+```
+npm run transmute -- \
+data create \
+--type "WorkflowInstance" \
+--input "./data/workflows/workflow.bpmn" \
+--variables '{"hello":"world"}' \
+--output "./data/workflows/workflow.instance.json" \
+--debug
+```

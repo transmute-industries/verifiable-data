@@ -1,29 +1,9 @@
-import {
-  generateOrganization,
-  generateProduct,
-  generateDevice,
-  generateCredential,
-  generatePresentation,
-} from './generate';
-
 import { handleCommandResponse } from '../../util';
 
-const issuerTypeGenerators: any = {
-  Organization: generateOrganization,
-  Device: generateDevice,
-};
-
-const typeGenerators: any = {
-  ...issuerTypeGenerators,
-  Product: generateProduct,
-};
-
-// for all base types create credential types from them.
-Object.keys(typeGenerators).forEach((k: string) => {
-  typeGenerators['Certified' + k] = generateCredential;
-});
-
-typeGenerators.VerifiablePresentation = generatePresentation;
+import {
+  typeGenerators,
+  issuerTypeGenerators,
+} from './generate/typeGenerators';
 
 export const createDataCommand = [
   'data create',
