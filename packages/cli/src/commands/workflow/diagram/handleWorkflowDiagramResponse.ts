@@ -9,8 +9,19 @@ export const handleWorkflowDiagramResponse = (
   output = './workflow.bpmn'
 ) => {
   if (argv.debug) {
+    if (data.def) {
+      console.log(data.def);
+    }
+
     if (data.inst) {
       console.log(data.inst);
+    }
+  } else {
+    if (data.inst) {
+      fs.writeFileSync(
+        path.resolve(process.cwd(), output),
+        JSON.stringify(data.inst, null, 2)
+      );
     }
     if (data.def) {
       fs.writeFileSync(path.resolve(process.cwd(), output), data.xml);
@@ -19,9 +30,5 @@ export const handleWorkflowDiagramResponse = (
         getModelViewerHtml()
       );
     }
-  } else {
-    const fileData =
-      typeof data === 'string' ? data : JSON.stringify(data, null, 2);
-    fs.writeFileSync(path.resolve(process.cwd(), output), fileData);
   }
 };

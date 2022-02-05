@@ -94,3 +94,17 @@ data create \
 --output "./data/workflows/workflow.instance.json" \
 --debug
 ```
+
+### Build and Run
+
+```
+npm run transmute -- \
+data create \
+--type "WorkflowDefinition" \
+--output "./data/workflows/workflow.bpmn"
+npm run transmute -- \
+data create \
+--type "WorkflowInstance" \
+--input "./data/workflows/workflow.bpmn" \
+--output "./data/workflows/workflow.instance.json"
+```

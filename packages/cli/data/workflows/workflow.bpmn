@@ -13,89 +13,266 @@
 
 <bpmn:process id="Process_0" isExecutable="true">
 
-<bpmn:startEvent id="StartEvent_0" name="Begin">
-<bpmn:outgoing>geid_192_0</bpmn:outgoing>
+<bpmn:startEvent id="StartEvent_0" name="Start">
+<bpmn:outgoing>geid_13_0</bpmn:outgoing>
 </bpmn:startEvent>
           
 
 
-<bpmn:scriptTask id="Task_0" name="Issue Certificate of Origin" scriptFormat="JavaScript">
+<bpmn:scriptTask id="Task_0" name="Order Received in China" scriptFormat="JavaScript">
   <script>
     
   const output = (function task(_ref) {
       var variables = _ref.variables,
           output = _ref.output,
           services = _ref.services;
-      var isRadioactive = variables.isRadioactive;
-      services.console.log('hello from the other side...');
-      output.isRadioactive = isRadioactive;
-      return {
-        isRadioactive: isRadioactive
-      };
-    })(this.environment);
-  next(null, output);
-        
-  </script>
+      services.console.log('product ordered from China.');
+      var vc1 = services.fake.credential({
+        type: 'PurchaseOrder',
+        issuer: variables.importer,
+        subject: {
+          manufacturer: variables.manufacturer,
+          product: variables.product
+        }
+      });
+      output.presentations = output.presentation || [];
+      output.presentations.push(services.fake.presentation({
+        from: variables.importer,
+        to: variables.manufacturer,
+        workflow: variables.workflow,
+        credentials: [vc1]
+      })); // services.console.log('output: ', JSON.stringify(output, null, 2));
 
-<bpmn:incoming>geid_192_0</bpmn:incoming>
-
-<bpmn:outgoing>geid_192_1</bpmn:outgoing>
-</bpmn:scriptTask>
-        
-
-
-<bpmn:exclusiveGateway id="Switch_0" name="Is Product Radioactive? ">
-<bpmn:incoming>geid_192_1</bpmn:incoming>
-
-<bpmn:outgoing>geid_192_2</bpmn:outgoing>
-<bpmn:outgoing>geid_192_3</bpmn:outgoing>
-
-</bpmn:exclusiveGateway>
-        
-
-
-<bpmn:scriptTask id="Task_1" name="Issue Radioactive Material Package Certificate of Compliance" scriptFormat="JavaScript">
-  <script>
-    next(null, { });
-  </script>
-
-<bpmn:incoming>geid_192_2</bpmn:incoming>
-
-<bpmn:outgoing>geid_192_4</bpmn:outgoing>
-</bpmn:scriptTask>
-        
-
-
-<bpmn:scriptTask id="Task_2" name="Present to Importer of Record" scriptFormat="JavaScript">
-  <script>
-    
-  const output = (function task(_ref3) {
-      var output = _ref3.output,
-          services = _ref3.services;
-      services.console.log('importer received presentation of ', output.path.length);
       return {};
     })(this.environment);
   next(null, output);
         
   </script>
 
-<bpmn:incoming>geid_192_3</bpmn:incoming>
-<bpmn:incoming>geid_192_4</bpmn:incoming>
+<bpmn:incoming>geid_13_0</bpmn:incoming>
 
-<bpmn:outgoing>geid_192_5</bpmn:outgoing>
+<bpmn:outgoing>geid_13_1</bpmn:outgoing>
+</bpmn:scriptTask>
+        
+
+
+<bpmn:scriptTask id="Task_1" name="Product Manufactured in China" scriptFormat="JavaScript">
+  <script>
+    
+  const output = (function task(_ref2) {
+      var variables = _ref2.variables,
+          output = _ref2.output,
+          services = _ref2.services;
+      services.console.log('product manufactured in China.');
+      var vc1 = services.fake.credential({
+        type: 'CertificateOfOrigin',
+        issuer: variables.manufacturer,
+        subject: {
+          product: variables.product
+        }
+      });
+      var vc2 = services.fake.credential({
+        type: 'CommercialInvoice',
+        issuer: variables.manufacturer,
+        subject: {
+          product: variables.product
+        }
+      });
+      var vc3 = services.fake.credential({
+        type: 'PackingList',
+        issuer: variables.manufacturer,
+        subject: {
+          product: variables.product
+        }
+      });
+      output.presentations.push(services.fake.presentation({
+        from: variables.manufacturer,
+        to: variables.importer,
+        workflow: variables.workflow,
+        credentials: [vc1, vc2, vc3]
+      })); // services.console.log('output: ', output);
+
+      return {};
+    })(this.environment);
+  next(null, output);
+        
+  </script>
+
+<bpmn:incoming>geid_13_1</bpmn:incoming>
+
+<bpmn:outgoing>geid_13_2</bpmn:outgoing>
+</bpmn:scriptTask>
+        
+
+
+<bpmn:scriptTask id="Task_2" name="Product Shipped to Denmark" scriptFormat="JavaScript">
+  <script>
+    
+  const output = (function task(_ref3) {
+      var variables = _ref3.variables,
+          output = _ref3.output,
+          services = _ref3.services;
+      services.console.log('product shipped Denmark.');
+      var vc1 = services.fake.credential({
+        type: 'BillOfLading',
+        issuer: variables.oceanCarrier,
+        subject: {
+          product: variables.product
+        }
+      });
+      output.presentations.push(services.fake.presentation({
+        from: variables.oceanCarrier,
+        to: variables.distributor,
+        workflow: variables.workflow,
+        credentials: [vc1]
+      })); // services.console.log('output: ', output);
+
+      return {};
+    })(this.environment);
+  next(null, output);
+        
+  </script>
+
+<bpmn:incoming>geid_13_2</bpmn:incoming>
+
+<bpmn:outgoing>geid_13_3</bpmn:outgoing>
+</bpmn:scriptTask>
+        
+
+
+<bpmn:scriptTask id="Task_3" name="Product Shipped to United States" scriptFormat="JavaScript">
+  <script>
+    
+  const output = (function task(_ref4) {
+      var variables = _ref4.variables,
+          output = _ref4.output,
+          services = _ref4.services;
+      services.console.log('product shipped to US.');
+      var vc1 = services.fake.credential({
+        type: 'USImportDeclaration',
+        issuer: variables.distributor,
+        subject: {
+          product: variables.product
+        }
+      });
+      var vc2 = services.fake.credential({
+        type: 'CommercialInvoice',
+        issuer: variables.distributor,
+        subject: {
+          product: variables.product
+        }
+      });
+      var vc3 = services.fake.credential({
+        type: 'AirWaybill',
+        issuer: variables.airCarrier,
+        subject: {
+          product: variables.product
+        }
+      });
+      output.presentations.push(services.fake.presentation({
+        from: variables.airCarrier,
+        to: variables.customs,
+        workflow: variables.workflow,
+        credentials: [vc1, vc2, vc3]
+      })); // services.console.log('output: ', output);
+
+      return {};
+    })(this.environment);
+  next(null, output);
+        
+  </script>
+
+<bpmn:incoming>geid_13_3</bpmn:incoming>
+
+<bpmn:outgoing>geid_13_4</bpmn:outgoing>
+</bpmn:scriptTask>
+        
+
+
+<bpmn:scriptTask id="Task_4" name="US Customs Approval" scriptFormat="JavaScript">
+  <script>
+    
+  const output = (function task(_ref5) {
+      var variables = _ref5.variables,
+          output = _ref5.output,
+          services = _ref5.services;
+      services.console.log('product import approved.'); // receive presentations of relevant credentials
+      // see output.presentations.
+      // skipping review here, lets assume all the documents are in order.
+      // issue certificate of approval
+
+      var vc1 = services.fake.credential({
+        type: 'ImportAproval',
+        issuer: variables.customs,
+        subject: {
+          product: variables.product
+        }
+      });
+      output.presentations.push(services.fake.presentation({
+        from: variables.customs,
+        to: variables.importer,
+        workflow: variables.workflow,
+        credentials: [vc1]
+      })); // services.console.log('output: ', output);
+
+      return {};
+    })(this.environment);
+  next(null, output);
+        
+  </script>
+
+<bpmn:incoming>geid_13_4</bpmn:incoming>
+
+<bpmn:outgoing>geid_13_5</bpmn:outgoing>
+</bpmn:scriptTask>
+        
+
+
+<bpmn:scriptTask id="Task_5" name="Product Sold in US" scriptFormat="JavaScript">
+  <script>
+    
+  const output = (function task(_ref6) {
+      var variables = _ref6.variables,
+          output = _ref6.output,
+          services = _ref6.services;
+      services.console.log('product sold.');
+      var vc1 = services.fake.credential({
+        type: 'TransparencyCertificate',
+        issuer: variables.importer,
+        subject: {
+          product: variables.product,
+          history: output.path
+        }
+      });
+      output.presentations.push(services.fake.presentation({
+        from: variables.importer,
+        to: variables.importer,
+        workflow: variables.workflow,
+        credentials: [vc1]
+      })); // services.console.log('output: ', output);
+
+      return {};
+    })(this.environment);
+  next(null, output);
+        
+  </script>
+
+<bpmn:incoming>geid_13_5</bpmn:incoming>
+
+<bpmn:outgoing>geid_13_6</bpmn:outgoing>
 </bpmn:scriptTask>
         
 
 
 <bpmn:endEvent id="EndEvent_0" name="End">
-<bpmn:incoming>geid_192_5</bpmn:incoming>
+<bpmn:incoming>geid_13_6</bpmn:incoming>
 </bpmn:endEvent>
           
 
 
 <bpmn:sequenceFlow 
-id="geid_192_0" 
-name="Begin Import"
+id="geid_13_0" 
+name="Import Started"
 sourceRef="StartEvent_0" 
 targetRef="Task_0">
 
@@ -104,52 +281,18 @@ targetRef="Task_0">
 
 
 <bpmn:sequenceFlow 
-id="geid_192_1" 
-name="Consider Hazards"
+id="geid_13_1" 
+name="Fill Order"
 sourceRef="Task_0" 
-targetRef="Switch_0">
-
-</bpmn:sequenceFlow>
-      
-
-
-<bpmn:sequenceFlow 
-id="geid_192_2" 
-name="Yes"
-sourceRef="Switch_0" 
 targetRef="Task_1">
-<bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="JavaScript">
-const condition = (function condition(_ref2) {
-        var output = _ref2.output;
-        var isRadioactive = output.isRadioactive;
-        return isRadioactive;
-      })(this.environment);
-next(null, condition);
-      </bpmn:conditionExpression>
+
 </bpmn:sequenceFlow>
       
 
 
 <bpmn:sequenceFlow 
-id="geid_192_3" 
-name="No"
-sourceRef="Switch_0" 
-targetRef="Task_2">
-<bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="JavaScript">
-const condition = (function condition(_ref4) {
-        var output = _ref4.output;
-        var isRadioactive = output.isRadioactive;
-        return !isRadioactive;
-      })(this.environment);
-next(null, condition);
-      </bpmn:conditionExpression>
-</bpmn:sequenceFlow>
-      
-
-
-<bpmn:sequenceFlow 
-id="geid_192_4" 
-name="Submit Documentation"
+id="geid_13_2" 
+name="Ocean Transport"
 sourceRef="Task_1" 
 targetRef="Task_2">
 
@@ -158,14 +301,47 @@ targetRef="Task_2">
 
 
 <bpmn:sequenceFlow 
-id="geid_192_5" 
-name="Complete Import"
+id="geid_13_3" 
+name="Air Transport"
 sourceRef="Task_2" 
+targetRef="Task_3">
+
+</bpmn:sequenceFlow>
+      
+
+
+<bpmn:sequenceFlow 
+id="geid_13_4" 
+name="Process US Customs Entry"
+sourceRef="Task_3" 
+targetRef="Task_4">
+
+</bpmn:sequenceFlow>
+      
+
+
+<bpmn:sequenceFlow 
+id="geid_13_5" 
+name="Ship to Importer Of Record"
+sourceRef="Task_4" 
+targetRef="Task_5">
+
+</bpmn:sequenceFlow>
+      
+
+
+<bpmn:sequenceFlow 
+id="geid_13_6" 
+name="Import Completed"
+sourceRef="Task_5" 
 targetRef="EndEvent_0">
 
 </bpmn:sequenceFlow>
       
 </bpmn:process>
+
+
+
 
 
 
@@ -206,7 +382,7 @@ targetRef="EndEvent_0">
           
 
 
-<bpmndi:BPMNShape id="Switch_0_di" bpmnElement="Switch_0">
+<bpmndi:BPMNShape id="Task_1_di" bpmnElement="Task_1">
   <dc:Bounds x="400" y="100" width="100" height="100" />
 
   <bpmndi:BPMNLabel>
@@ -216,7 +392,7 @@ targetRef="EndEvent_0">
           
 
 
-<bpmndi:BPMNShape id="Task_1_di" bpmnElement="Task_1">
+<bpmndi:BPMNShape id="Task_2_di" bpmnElement="Task_2">
   <dc:Bounds x="600" y="100" width="100" height="100" />
 
   <bpmndi:BPMNLabel>
@@ -226,7 +402,7 @@ targetRef="EndEvent_0">
           
 
 
-<bpmndi:BPMNShape id="Task_2_di" bpmnElement="Task_2">
+<bpmndi:BPMNShape id="Task_3_di" bpmnElement="Task_3">
   <dc:Bounds x="800" y="100" width="100" height="100" />
 
   <bpmndi:BPMNLabel>
@@ -236,51 +412,80 @@ targetRef="EndEvent_0">
           
 
 
-<bpmndi:BPMNShape id="EndEvent_0_di" bpmnElement="EndEvent_0">
-  <dc:Bounds x="1000" y="100" width="25" height="25" />
+<bpmndi:BPMNShape id="Task_4_di" bpmnElement="Task_4">
+  <dc:Bounds x="1000" y="100" width="100" height="100" />
 
   <bpmndi:BPMNLabel>
-    <dc:Bounds x="1000" y="83.33333333333333" width="25" height="25" />
+    <dc:Bounds x="1000" y="33.33333333333333" width="100" height="100" />
   </bpmndi:BPMNLabel>
 </bpmndi:BPMNShape>
           
 
 
-    <bpmndi:BPMNEdge id="geid_192_0_di" bpmnElement="geid_192_0">
+<bpmndi:BPMNShape id="Task_5_di" bpmnElement="Task_5">
+  <dc:Bounds x="1200" y="100" width="100" height="100" />
+
+  <bpmndi:BPMNLabel>
+    <dc:Bounds x="1200" y="33.33333333333333" width="100" height="100" />
+  </bpmndi:BPMNLabel>
+</bpmndi:BPMNShape>
+          
+
+
+<bpmndi:BPMNShape id="EndEvent_0_di" bpmnElement="EndEvent_0">
+  <dc:Bounds x="1400" y="100" width="25" height="25" />
+
+  <bpmndi:BPMNLabel>
+    <dc:Bounds x="1400" y="83.33333333333333" width="25" height="25" />
+  </bpmndi:BPMNLabel>
+</bpmndi:BPMNShape>
+          
+
+
+    <bpmndi:BPMNEdge id="geid_13_0_di" bpmnElement="geid_13_0">
       
     </bpmndi:BPMNEdge>
   
 
 
-    <bpmndi:BPMNEdge id="geid_192_1_di" bpmnElement="geid_192_1">
+    <bpmndi:BPMNEdge id="geid_13_1_di" bpmnElement="geid_13_1">
       
     </bpmndi:BPMNEdge>
   
 
 
-    <bpmndi:BPMNEdge id="geid_192_2_di" bpmnElement="geid_192_2">
+    <bpmndi:BPMNEdge id="geid_13_2_di" bpmnElement="geid_13_2">
       
     </bpmndi:BPMNEdge>
   
 
 
-    <bpmndi:BPMNEdge id="geid_192_3_di" bpmnElement="geid_192_3">
+    <bpmndi:BPMNEdge id="geid_13_3_di" bpmnElement="geid_13_3">
       
     </bpmndi:BPMNEdge>
   
 
 
-    <bpmndi:BPMNEdge id="geid_192_4_di" bpmnElement="geid_192_4">
+    <bpmndi:BPMNEdge id="geid_13_4_di" bpmnElement="geid_13_4">
       
     </bpmndi:BPMNEdge>
   
 
 
-    <bpmndi:BPMNEdge id="geid_192_5_di" bpmnElement="geid_192_5">
+    <bpmndi:BPMNEdge id="geid_13_5_di" bpmnElement="geid_13_5">
+      
+    </bpmndi:BPMNEdge>
+  
+
+
+    <bpmndi:BPMNEdge id="geid_13_6_di" bpmnElement="geid_13_6">
       
     </bpmndi:BPMNEdge>
   
 </bpmndi:BPMNPlane>
+
+
+
 
 
 
