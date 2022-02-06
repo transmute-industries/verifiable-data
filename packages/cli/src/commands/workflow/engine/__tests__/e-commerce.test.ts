@@ -17,7 +17,7 @@ const scenarioDirectory = path.resolve(
 // due to issues with typescript, scenarios need to be built in jest,
 // and then exported... we cannot dynamically build a scenario via command line atm.
 
-const update = false; // set to true to regenerate cli fixtures for scenario instances.
+const update = true; // set to true to regenerate cli fixtures for scenario instances.
 
 it('can describe https://w3id.org/traceability/#e-commerce', async () => {
   const def = generateECommerceFlow();
@@ -28,17 +28,20 @@ it('can describe https://w3id.org/traceability/#e-commerce', async () => {
   expect(instance.output.presentations.length).toBe(6);
 
   if (update) {
-    const indexFilePath = path.resolve(
-      scenarioDirectory,
-      scenarioName + '.workflow.json'
-    );
-    const html = getModelViewerHtml(xml);
+    const fileName = scenarioName + '.scenario.json';
+    const diagramFileName = fileName.replace('.json', '.bpmn');
+
+    const html = getModelViewerHtml(diagramFileName);
     const index = {
       xml: xml,
       json: json,
       variables,
     };
-    fs.writeFileSync(indexFilePath, JSON.stringify(index, null, 2));
-    fs.writeFileSync(indexFilePath.replace('.json', '.html'), html);
+    fs.writeFileSync(
+      path.join(scenarioDirectory, fileName),
+      JSON.stringify(index, null, 2)
+    );
+    fs.writeFileSync(path.join(scenarioDirectory, 'index.html'), html);
+    fs.writeFileSync(path.join(scenarioDirectory, diagramFileName), xml);
   }
 });

@@ -1,4 +1,10 @@
-### Build And Run Workflow
+Make sure Neo4j is running first, from this directory:
+
+```
+docker-compose up
+```
+
+### Run a Workflow
 
 ```
 
@@ -11,16 +17,9 @@ data create \
 --variables '{"workflow":{"definition":["123"],"instance":["000"]}}' \
 --output "./data/workflows/workflow.instance-0.json"
 
-
 ```
 
 ### Import Workflow Instance
-
-Make sure Neo4j is running first, from this directory:
-
-```
-docker-compose up
-```
 
 ```
 npm run build
@@ -28,15 +27,11 @@ npm run build
 npm run transmute -- \
 neo workflow import \
 --clean \
+--uri "neo4j://localhost" \
+--user "neo4j" \
+--password "test" \
 --input "./data/workflows/workflow.instance-0.json"
 
-npm run transmute -- \
-neo workflow import \
---input "./data/workflows/workflow.instance-1.json"
-
-npm run transmute -- \
-neo workflow import \
---input "./data/workflows/workflow.instance-2.json"
 ```
 
 <img src="./workflow-instance.png"/>

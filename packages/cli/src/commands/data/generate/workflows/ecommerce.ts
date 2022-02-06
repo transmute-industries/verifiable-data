@@ -87,7 +87,7 @@ export const generateECommerceFlow = () => {
           product: variables.product,
         },
       });
-      const vp1 = manufacturer.present({
+      const vp1 = await manufacturer.present({
         workflow: variables.workflow,
         credentials: [vc1],
       });

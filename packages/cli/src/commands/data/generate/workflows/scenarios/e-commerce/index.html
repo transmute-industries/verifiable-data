@@ -1,5 +1,4 @@
-export const getModelViewerHtml = (fileName?: string) => {
-  const content = `
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,8 +30,7 @@ export const getModelViewerHtml = (fileName?: string) => {
       var viewer;
       (async () => {
         const file =
-          window.location.search.split('?definition=').pop() || "${fileName ||
-            'workflow.bpmn'}";
+          window.location.search.split('?definition=').pop() || "e-commerce.scenario.bpmn";
         document.title = file;
         const response = await fetch(file);
         const bpmnXML = await response.text();
@@ -56,6 +54,3 @@ export const getModelViewerHtml = (fileName?: string) => {
     </script>
   </body>
 </html>
-`;
-  return content;
-};

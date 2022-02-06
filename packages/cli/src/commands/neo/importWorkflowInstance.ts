@@ -91,9 +91,7 @@ const addPresentation = async (vp: any, driver: any) => {
   }
 };
 
-export const importWorkflowInstance = async (instance: any) => {
-  const driver = getDriver();
-
+export const importWorkflowInstance = async (instance: any, driver: any) => {
   for (const vp of instance.output.presentations) {
     await addPresentation(vp, driver);
   }
@@ -121,10 +119,9 @@ export const importWorkflowInstanceComand = [
       console.log(argv);
     }
     let instance: any = {};
+    const driver = getDriver(argv.uri, argv.user, argv.password);
 
     if (argv.clean) {
-      const driver = getDriver();
-
       const session = driver.session();
 
       await session.run(
@@ -134,11 +131,11 @@ export const importWorkflowInstanceComand = [
       `
       );
       await session.close();
-      await driver.close();
     }
     if (argv.input) {
       instance = getWorkflowInstanceFromFile(argv.input);
     }
-    await importWorkflowInstance(instance);
+    await importWorkflowInstance(instance, driver);
+    await driver.close();
   },
 ];

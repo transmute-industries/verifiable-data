@@ -1,6 +1,6 @@
 import { run } from '../../workflow/engine/run';
 
-import ecommerce from './workflows/scenarios/e-commerce/e-commerce.workflow.json';
+import ecommerce from './workflows/scenarios/e-commerce/e-commerce.scenario.json';
 
 export const generateWorkflowInstance = async (argv: any) => {
   const { input } = argv;
