@@ -40,7 +40,7 @@ import {
   createdOn
 } from "./date-utils";
 
-console.warn = () => { };
+console.warn = () => {};
 
 const issuanceDates = [
   {
@@ -165,7 +165,6 @@ const invalidDates = [
 ];
 
 describe("issuanceDate testing", () => {
-
   for (let i = 0; i < issuanceDates.length; i++) {
     const { condition, fixture } = issuanceDates[i];
 
