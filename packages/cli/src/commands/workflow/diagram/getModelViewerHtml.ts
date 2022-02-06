@@ -1,4 +1,13 @@
-const content = `
+export const getModelViewerHtml = (xml?: string) => {
+  const workflowContent = xml
+    ? 'const bpmnXML = `' + xml + '`'
+    : `const file =
+  window.location.search.split('?definition=').pop() || 'workflow.bpmn';
+document.title = file;
+const response = await fetch(file);
+const bpmnXML = await response.text();`;
+
+  const content = `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,11 +36,9 @@ const content = `
     <script src="https://unpkg.com/bpmn-js@8.9.1/dist/bpmn-modeler.development.js"></script>
     <script>
       (async () => {
-        const file =
-          window.location.search.split('?definition=').pop() || 'workflow.bpmn';
-        document.title = file;
-        const response = await fetch(file);
-        const bpmnXML = await response.text();
+        //
+        ${workflowContent}
+        //
         const viewer = new BpmnJS({ container: '#canvas' });
         try {
           await viewer.importXML(bpmnXML);
@@ -44,7 +51,5 @@ const content = `
   </body>
 </html>
 `;
-
-export const getModelViewerHtml = () => {
   return content;
 };

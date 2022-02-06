@@ -1,6 +1,12 @@
 const { Engine } = require('bpmn-engine');
 const { EventEmitter } = require('events');
 import * as tslib_1 from 'tslib';
+import { actor } from './actor';
+
+const fake = {
+  actor,
+};
+
 export const run = (
   instance: any,
   definition: any,
@@ -17,7 +23,7 @@ export const run = (
     engine.execute({
       listener,
       variables: { ...variables, tslib_1 },
-      services,
+      services: { ...services, console, fake },
       extensions: {
         saveToEnvironmentOutput(activity: any, { environment }: any) {
           activity.on('end', (api: any) => {

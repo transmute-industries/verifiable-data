@@ -1,9 +1,8 @@
 import { handleCommandResponse } from '../../util';
 
-import {
-  typeGenerators,
-  issuerTypeGenerators,
-} from './generate/typeGenerators';
+import { typeGenerators } from './generate/typeGenerators';
+
+import { issuerTypeGenerators } from './generate/simpleTypeGenerators';
 
 export const createDataCommand = [
   'data create',

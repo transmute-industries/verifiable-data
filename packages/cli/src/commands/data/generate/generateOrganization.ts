@@ -2,7 +2,7 @@ import faker from 'faker';
 import { generateKey } from '../../key/generateKey';
 import { sha256 } from '../../../util';
 
-export const generateOrganization = async (argv: any) => {
+export const generateOrganization = async (argv: { seed: any }) => {
   const seed = argv.seed;
   if (seed) {
     faker.seed(seed);

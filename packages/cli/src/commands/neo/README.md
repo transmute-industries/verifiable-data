@@ -1,31 +1,17 @@
 ### Build And Run Workflow
 
 ```
-npm run transmute -- \
-data create \
---type "WorkflowDefinition" \
---output "./data/workflows/workflow.bpmn"
+
+npm run build
 
 npm run transmute -- \
 data create \
 --type "WorkflowInstance" \
---input "./data/workflows/workflow.bpmn" \
+--input "https://w3id.org/traceability/#e-commerce" \
 --variables '{"workflow":{"definition":["123"],"instance":["000"]}}' \
 --output "./data/workflows/workflow.instance-0.json"
 
-npm run transmute -- \
-data create \
---type "WorkflowInstance" \
---input "./data/workflows/workflow.bpmn" \
---variables '{"workflow":{"definition":["123"],"instance":["111"]}}' \
---output "./data/workflows/workflow.instance-1.json"
 
-npm run transmute -- \
-data create \
---type "WorkflowInstance" \
---input "./data/workflows/workflow.bpmn" \
---variables '{"workflow":{"definition":["123"],"instance":["222"]}}' \
---output "./data/workflows/workflow.instance-2.json"
 ```
 
 ### Import Workflow Instance

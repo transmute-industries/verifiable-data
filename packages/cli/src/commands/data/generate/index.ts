@@ -1,3 +1,4 @@
+export * from './generatePerson';
 export * from './generateOrganization';
 export * from './generateProduct';
 export * from './generateDevice';
