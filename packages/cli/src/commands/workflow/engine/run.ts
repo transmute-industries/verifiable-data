@@ -1,6 +1,6 @@
 const { Engine } = require('bpmn-engine');
 const { EventEmitter } = require('events');
-
+import * as tslib_1 from 'tslib';
 export const run = (
   instance: any,
   definition: any,
@@ -16,7 +16,7 @@ export const run = (
 
     engine.execute({
       listener,
-      variables,
+      variables: { ...variables, tslib_1 },
       services,
       extensions: {
         saveToEnvironmentOutput(activity: any, { environment }: any) {

@@ -1,13 +1,5 @@
 {
   "input": {
-    "workflow": {
-      "definition": [
-        "e872fc24-d1f1-4280-887e-04cd630d74f0"
-      ],
-      "instance": [
-        "dd3c04c4-da18-45fb-b120-fb94693cddc4"
-      ]
-    },
     "importer": {
       "id": "did:web:importer.example:0",
       "name": "Acme Shoes (Importer of Record)",
@@ -48,6 +40,14 @@
       "id": "did:web:product.example:6",
       "name": "Road Runners (Product)",
       "type": "Sneakers"
+    },
+    "workflow": {
+      "definition": [
+        "123"
+      ],
+      "instance": [
+        "000"
+      ]
     }
   },
   "output": {
@@ -100,12 +100,13 @@
             "@vocab": "https://ontology.example/vocab/#"
           }
         ],
+        "id": "urn:uuid:zxjp1knn",
         "workflow": {
           "definition": [
-            "e872fc24-d1f1-4280-887e-04cd630d74f0"
+            "123"
           ],
           "instance": [
-            "dd3c04c4-da18-45fb-b120-fb94693cddc4"
+            "000"
           ]
         },
         "type": [
@@ -136,7 +137,7 @@
                 "@vocab": "https://ontology.example/vocab/#"
               }
             ],
-            "id": "urn:uuid:6hszmlx6",
+            "id": "urn:uuid:kg6givbu",
             "type": [
               "VerifiableCredential",
               "PurchaseOrder"
@@ -149,7 +150,7 @@
                 "long": -122.804836
               }
             },
-            "issuanceDate": "2022-02-05T19:15:31.685Z",
+            "issuanceDate": "2022-02-05T20:51:30.896Z",
             "credentialSubject": {
               "manufacturer": {
                 "id": "did:web:manufacturer.example:1",
@@ -176,12 +177,13 @@
             "@vocab": "https://ontology.example/vocab/#"
           }
         ],
+        "id": "urn:uuid:avrs4d8t",
         "workflow": {
           "definition": [
-            "e872fc24-d1f1-4280-887e-04cd630d74f0"
+            "123"
           ],
           "instance": [
-            "dd3c04c4-da18-45fb-b120-fb94693cddc4"
+            "000"
           ]
         },
         "type": [
@@ -212,7 +214,7 @@
                 "@vocab": "https://ontology.example/vocab/#"
               }
             ],
-            "id": "urn:uuid:apy6c2ix",
+            "id": "urn:uuid:j2cx8vii",
             "type": [
               "VerifiableCredential",
               "CertificateOfOrigin"
@@ -225,7 +227,7 @@
                 "long": 122.99
               }
             },
-            "issuanceDate": "2022-02-05T19:15:31.690Z",
+            "issuanceDate": "2022-02-05T20:51:30.903Z",
             "credentialSubject": {
               "product": {
                 "id": "did:web:product.example:6",
@@ -242,7 +244,7 @@
                 "@vocab": "https://ontology.example/vocab/#"
               }
             ],
-            "id": "urn:uuid:2faaxqoq",
+            "id": "urn:uuid:cdh8ftr4",
             "type": [
               "VerifiableCredential",
               "CommercialInvoice"
@@ -255,7 +257,7 @@
                 "long": 122.99
               }
             },
-            "issuanceDate": "2022-02-05T19:15:31.690Z",
+            "issuanceDate": "2022-02-05T20:51:30.903Z",
             "credentialSubject": {
               "product": {
                 "id": "did:web:product.example:6",
@@ -272,7 +274,7 @@
                 "@vocab": "https://ontology.example/vocab/#"
               }
             ],
-            "id": "urn:uuid:f1ghazyk",
+            "id": "urn:uuid:892rhuf6",
             "type": [
               "VerifiableCredential",
               "PackingList"
@@ -285,7 +287,7 @@
                 "long": 122.99
               }
             },
-            "issuanceDate": "2022-02-05T19:15:31.690Z",
+            "issuanceDate": "2022-02-05T20:51:30.903Z",
             "credentialSubject": {
               "product": {
                 "id": "did:web:product.example:6",
@@ -304,12 +306,13 @@
             "@vocab": "https://ontology.example/vocab/#"
           }
         ],
+        "id": "urn:uuid:fcgbcl3f",
         "workflow": {
           "definition": [
-            "e872fc24-d1f1-4280-887e-04cd630d74f0"
+            "123"
           ],
           "instance": [
-            "dd3c04c4-da18-45fb-b120-fb94693cddc4"
+            "000"
           ]
         },
         "type": [
@@ -336,7 +339,7 @@
                 "@vocab": "https://ontology.example/vocab/#"
               }
             ],
-            "id": "urn:uuid:fxw1sjkd",
+            "id": "urn:uuid:uqev41xi",
             "type": [
               "VerifiableCredential",
               "BillOfLading"
@@ -345,7 +348,7 @@
               "id": "did:web:carrier.example:4",
               "name": "Nautiske (Ocean Carrier)"
             },
-            "issuanceDate": "2022-02-05T19:15:31.693Z",
+            "issuanceDate": "2022-02-05T20:51:30.907Z",
             "credentialSubject": {
               "product": {
                 "id": "did:web:product.example:6",
@@ -364,12 +367,13 @@
             "@vocab": "https://ontology.example/vocab/#"
           }
         ],
+        "id": "urn:uuid:x83s91zs",
         "workflow": {
           "definition": [
-            "e872fc24-d1f1-4280-887e-04cd630d74f0"
+            "123"
           ],
           "instance": [
-            "dd3c04c4-da18-45fb-b120-fb94693cddc4"
+            "000"
           ]
         },
         "type": [
@@ -392,7 +396,7 @@
                 "@vocab": "https://ontology.example/vocab/#"
               }
             ],
-            "id": "urn:uuid:ofmrs2fc",
+            "id": "urn:uuid:5cwf1c6w",
             "type": [
               "VerifiableCredential",
               "USImportDeclaration"
@@ -405,7 +409,7 @@
                 "long": 12.562321
               }
             },
-            "issuanceDate": "2022-02-05T19:15:31.697Z",
+            "issuanceDate": "2022-02-05T20:51:30.913Z",
             "credentialSubject": {
               "product": {
                 "id": "did:web:product.example:6",
@@ -422,7 +426,7 @@
                 "@vocab": "https://ontology.example/vocab/#"
               }
             ],
-            "id": "urn:uuid:rqipjmo9",
+            "id": "urn:uuid:d3vrjhpq",
             "type": [
               "VerifiableCredential",
               "CommercialInvoice"
@@ -435,7 +439,7 @@
                 "long": 12.562321
               }
             },
-            "issuanceDate": "2022-02-05T19:15:31.697Z",
+            "issuanceDate": "2022-02-05T20:51:30.913Z",
             "credentialSubject": {
               "product": {
                 "id": "did:web:product.example:6",
@@ -452,7 +456,7 @@
                 "@vocab": "https://ontology.example/vocab/#"
               }
             ],
-            "id": "urn:uuid:nf3ls942",
+            "id": "urn:uuid:gu5pab0j",
             "type": [
               "VerifiableCredential",
               "AirWaybill"
@@ -461,7 +465,7 @@
               "id": "did:web:carrier.example:5",
               "name": "Wright Logistics (Air Carrier)"
             },
-            "issuanceDate": "2022-02-05T19:15:31.697Z",
+            "issuanceDate": "2022-02-05T20:51:30.913Z",
             "credentialSubject": {
               "product": {
                 "id": "did:web:product.example:6",
@@ -480,12 +484,13 @@
             "@vocab": "https://ontology.example/vocab/#"
           }
         ],
+        "id": "urn:uuid:jvgkfd3c",
         "workflow": {
           "definition": [
-            "e872fc24-d1f1-4280-887e-04cd630d74f0"
+            "123"
           ],
           "instance": [
-            "dd3c04c4-da18-45fb-b120-fb94693cddc4"
+            "000"
           ]
         },
         "type": [
@@ -512,7 +517,7 @@
                 "@vocab": "https://ontology.example/vocab/#"
               }
             ],
-            "id": "urn:uuid:farc2mms",
+            "id": "urn:uuid:2rp86xm8",
             "type": [
               "VerifiableCredential",
               "ImportAproval"
@@ -521,7 +526,7 @@
               "id": "did:web:regulator.example:3",
               "name": "US Customs (Regulator)"
             },
-            "issuanceDate": "2022-02-05T19:15:31.700Z",
+            "issuanceDate": "2022-02-05T20:51:30.917Z",
             "credentialSubject": {
               "product": {
                 "id": "did:web:product.example:6",
@@ -540,12 +545,13 @@
             "@vocab": "https://ontology.example/vocab/#"
           }
         ],
+        "id": "urn:uuid:ceftt7na",
         "workflow": {
           "definition": [
-            "e872fc24-d1f1-4280-887e-04cd630d74f0"
+            "123"
           ],
           "instance": [
-            "dd3c04c4-da18-45fb-b120-fb94693cddc4"
+            "000"
           ]
         },
         "type": [
@@ -576,7 +582,7 @@
                 "@vocab": "https://ontology.example/vocab/#"
               }
             ],
-            "id": "urn:uuid:xlcx9o9o",
+            "id": "urn:uuid:uamcdbj1",
             "type": [
               "VerifiableCredential",
               "TransparencyCertificate"
@@ -589,7 +595,7 @@
                 "long": -122.804836
               }
             },
-            "issuanceDate": "2022-02-05T19:15:31.704Z",
+            "issuanceDate": "2022-02-05T20:51:30.923Z",
             "credentialSubject": {
               "product": {
                 "id": "did:web:product.example:6",

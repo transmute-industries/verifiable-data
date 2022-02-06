@@ -23,9 +23,17 @@ ${outboundLinks
     },
     Task: () => {
       if (c.task) {
+        const taskFunction = c.task.toString();
         let s = `
-  const output = (${c.task.toString()})(this.environment);
-  next(null, output);
+  
+  (async ()=>{
+    const {tslib_1} = this.environment.variables;
+    const taskFunction = ${taskFunction};
+    const invocation = await taskFunction(this.environment);
+    const output = invocation;
+    next(null, output);
+  })()
+  
         `;
         c.script = s;
       }

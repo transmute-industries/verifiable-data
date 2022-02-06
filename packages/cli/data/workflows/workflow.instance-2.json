@@ -1,0 +1,651 @@
+{
+  "input": {
+    "importer": {
+      "id": "did:web:importer.example:0",
+      "name": "Acme Shoes (Importer of Record)",
+      "location": {
+        "lat": 45.494904,
+        "long": -122.804836
+      }
+    },
+    "manufacturer": {
+      "id": "did:web:manufacturer.example:1",
+      "name": "鞋匠 (Contract Manufacturer)",
+      "location": {
+        "lat": 41.12361,
+        "long": 122.99
+      }
+    },
+    "distributor": {
+      "id": "did:web:distributor.example:2",
+      "name": "Sko (Product Distributor)",
+      "location": {
+        "lat": 55.711737,
+        "long": 12.562321
+      }
+    },
+    "customs": {
+      "id": "did:web:regulator.example:3",
+      "name": "US Customs (Regulator)"
+    },
+    "oceanCarrier": {
+      "id": "did:web:carrier.example:4",
+      "name": "Nautiske (Ocean Carrier)"
+    },
+    "airCarrier": {
+      "id": "did:web:carrier.example:5",
+      "name": "Wright Logistics (Air Carrier)"
+    },
+    "product": {
+      "id": "did:web:product.example:6",
+      "name": "Road Runners (Product)",
+      "type": "Sneakers"
+    },
+    "workflow": {
+      "definition": [
+        "123"
+      ],
+      "instance": [
+        "222"
+      ]
+    }
+  },
+  "output": {
+    "path": [
+      {
+        "id": "StartEvent_0",
+        "name": "Start"
+      },
+      {
+        "id": "Task_0",
+        "name": "Order Received in China",
+        "output": {}
+      },
+      {
+        "id": "Task_1",
+        "name": "Product Manufactured in China",
+        "output": {}
+      },
+      {
+        "id": "Task_2",
+        "name": "Product Shipped to Denmark",
+        "output": {}
+      },
+      {
+        "id": "Task_3",
+        "name": "Product Shipped to United States",
+        "output": {}
+      },
+      {
+        "id": "Task_4",
+        "name": "US Customs Approval",
+        "output": {}
+      },
+      {
+        "id": "Task_5",
+        "name": "Product Sold in US",
+        "output": {}
+      },
+      {
+        "id": "EndEvent_0",
+        "name": "End"
+      }
+    ],
+    "presentations": [
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/security/suites/jws-2020/v1",
+          {
+            "@vocab": "https://ontology.example/vocab/#"
+          }
+        ],
+        "id": "urn:uuid:a7j525jt",
+        "workflow": {
+          "definition": [
+            "123"
+          ],
+          "instance": [
+            "222"
+          ]
+        },
+        "type": [
+          "VerifiablePresentation"
+        ],
+        "holder": {
+          "id": "did:web:importer.example:0",
+          "name": "Acme Shoes (Importer of Record)",
+          "location": {
+            "lat": 45.494904,
+            "long": -122.804836
+          }
+        },
+        "verifier": {
+          "id": "did:web:manufacturer.example:1",
+          "name": "鞋匠 (Contract Manufacturer)",
+          "location": {
+            "lat": 41.12361,
+            "long": 122.99
+          }
+        },
+        "verifiableCredential": [
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:te83vvms",
+            "type": [
+              "VerifiableCredential",
+              "PurchaseOrder"
+            ],
+            "issuer": {
+              "id": "did:web:importer.example:0",
+              "name": "Acme Shoes (Importer of Record)",
+              "location": {
+                "lat": 45.494904,
+                "long": -122.804836
+              }
+            },
+            "issuanceDate": "2022-02-05T20:41:04.160Z",
+            "credentialSubject": {
+              "manufacturer": {
+                "id": "did:web:manufacturer.example:1",
+                "name": "鞋匠 (Contract Manufacturer)",
+                "location": {
+                  "lat": 41.12361,
+                  "long": 122.99
+                }
+              },
+              "product": {
+                "id": "did:web:product.example:6",
+                "name": "Road Runners (Product)",
+                "type": "Sneakers"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/security/suites/jws-2020/v1",
+          {
+            "@vocab": "https://ontology.example/vocab/#"
+          }
+        ],
+        "id": "urn:uuid:5bcddf1g",
+        "workflow": {
+          "definition": [
+            "123"
+          ],
+          "instance": [
+            "222"
+          ]
+        },
+        "type": [
+          "VerifiablePresentation"
+        ],
+        "holder": {
+          "id": "did:web:manufacturer.example:1",
+          "name": "鞋匠 (Contract Manufacturer)",
+          "location": {
+            "lat": 41.12361,
+            "long": 122.99
+          }
+        },
+        "verifier": {
+          "id": "did:web:importer.example:0",
+          "name": "Acme Shoes (Importer of Record)",
+          "location": {
+            "lat": 45.494904,
+            "long": -122.804836
+          }
+        },
+        "verifiableCredential": [
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:uk6yitpl",
+            "type": [
+              "VerifiableCredential",
+              "CertificateOfOrigin"
+            ],
+            "issuer": {
+              "id": "did:web:manufacturer.example:1",
+              "name": "鞋匠 (Contract Manufacturer)",
+              "location": {
+                "lat": 41.12361,
+                "long": 122.99
+              }
+            },
+            "issuanceDate": "2022-02-05T20:41:04.165Z",
+            "credentialSubject": {
+              "product": {
+                "id": "did:web:product.example:6",
+                "name": "Road Runners (Product)",
+                "type": "Sneakers"
+              }
+            }
+          },
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:ltp7iu4x",
+            "type": [
+              "VerifiableCredential",
+              "CommercialInvoice"
+            ],
+            "issuer": {
+              "id": "did:web:manufacturer.example:1",
+              "name": "鞋匠 (Contract Manufacturer)",
+              "location": {
+                "lat": 41.12361,
+                "long": 122.99
+              }
+            },
+            "issuanceDate": "2022-02-05T20:41:04.166Z",
+            "credentialSubject": {
+              "product": {
+                "id": "did:web:product.example:6",
+                "name": "Road Runners (Product)",
+                "type": "Sneakers"
+              }
+            }
+          },
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:0r68rqpw",
+            "type": [
+              "VerifiableCredential",
+              "PackingList"
+            ],
+            "issuer": {
+              "id": "did:web:manufacturer.example:1",
+              "name": "鞋匠 (Contract Manufacturer)",
+              "location": {
+                "lat": 41.12361,
+                "long": 122.99
+              }
+            },
+            "issuanceDate": "2022-02-05T20:41:04.166Z",
+            "credentialSubject": {
+              "product": {
+                "id": "did:web:product.example:6",
+                "name": "Road Runners (Product)",
+                "type": "Sneakers"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/security/suites/jws-2020/v1",
+          {
+            "@vocab": "https://ontology.example/vocab/#"
+          }
+        ],
+        "id": "urn:uuid:z7tu67f0",
+        "workflow": {
+          "definition": [
+            "123"
+          ],
+          "instance": [
+            "222"
+          ]
+        },
+        "type": [
+          "VerifiablePresentation"
+        ],
+        "holder": {
+          "id": "did:web:carrier.example:4",
+          "name": "Nautiske (Ocean Carrier)"
+        },
+        "verifier": {
+          "id": "did:web:distributor.example:2",
+          "name": "Sko (Product Distributor)",
+          "location": {
+            "lat": 55.711737,
+            "long": 12.562321
+          }
+        },
+        "verifiableCredential": [
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:frjuqojq",
+            "type": [
+              "VerifiableCredential",
+              "BillOfLading"
+            ],
+            "issuer": {
+              "id": "did:web:carrier.example:4",
+              "name": "Nautiske (Ocean Carrier)"
+            },
+            "issuanceDate": "2022-02-05T20:41:04.169Z",
+            "credentialSubject": {
+              "product": {
+                "id": "did:web:product.example:6",
+                "name": "Road Runners (Product)",
+                "type": "Sneakers"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/security/suites/jws-2020/v1",
+          {
+            "@vocab": "https://ontology.example/vocab/#"
+          }
+        ],
+        "id": "urn:uuid:oml0i070",
+        "workflow": {
+          "definition": [
+            "123"
+          ],
+          "instance": [
+            "222"
+          ]
+        },
+        "type": [
+          "VerifiablePresentation"
+        ],
+        "holder": {
+          "id": "did:web:carrier.example:5",
+          "name": "Wright Logistics (Air Carrier)"
+        },
+        "verifier": {
+          "id": "did:web:regulator.example:3",
+          "name": "US Customs (Regulator)"
+        },
+        "verifiableCredential": [
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:efkm3tfv",
+            "type": [
+              "VerifiableCredential",
+              "USImportDeclaration"
+            ],
+            "issuer": {
+              "id": "did:web:distributor.example:2",
+              "name": "Sko (Product Distributor)",
+              "location": {
+                "lat": 55.711737,
+                "long": 12.562321
+              }
+            },
+            "issuanceDate": "2022-02-05T20:41:04.174Z",
+            "credentialSubject": {
+              "product": {
+                "id": "did:web:product.example:6",
+                "name": "Road Runners (Product)",
+                "type": "Sneakers"
+              }
+            }
+          },
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:p08jek6h",
+            "type": [
+              "VerifiableCredential",
+              "CommercialInvoice"
+            ],
+            "issuer": {
+              "id": "did:web:distributor.example:2",
+              "name": "Sko (Product Distributor)",
+              "location": {
+                "lat": 55.711737,
+                "long": 12.562321
+              }
+            },
+            "issuanceDate": "2022-02-05T20:41:04.174Z",
+            "credentialSubject": {
+              "product": {
+                "id": "did:web:product.example:6",
+                "name": "Road Runners (Product)",
+                "type": "Sneakers"
+              }
+            }
+          },
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:ledzmncn",
+            "type": [
+              "VerifiableCredential",
+              "AirWaybill"
+            ],
+            "issuer": {
+              "id": "did:web:carrier.example:5",
+              "name": "Wright Logistics (Air Carrier)"
+            },
+            "issuanceDate": "2022-02-05T20:41:04.174Z",
+            "credentialSubject": {
+              "product": {
+                "id": "did:web:product.example:6",
+                "name": "Road Runners (Product)",
+                "type": "Sneakers"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/security/suites/jws-2020/v1",
+          {
+            "@vocab": "https://ontology.example/vocab/#"
+          }
+        ],
+        "id": "urn:uuid:4xioifd6",
+        "workflow": {
+          "definition": [
+            "123"
+          ],
+          "instance": [
+            "222"
+          ]
+        },
+        "type": [
+          "VerifiablePresentation"
+        ],
+        "holder": {
+          "id": "did:web:regulator.example:3",
+          "name": "US Customs (Regulator)"
+        },
+        "verifier": {
+          "id": "did:web:importer.example:0",
+          "name": "Acme Shoes (Importer of Record)",
+          "location": {
+            "lat": 45.494904,
+            "long": -122.804836
+          }
+        },
+        "verifiableCredential": [
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:fy0gb0n4",
+            "type": [
+              "VerifiableCredential",
+              "ImportAproval"
+            ],
+            "issuer": {
+              "id": "did:web:regulator.example:3",
+              "name": "US Customs (Regulator)"
+            },
+            "issuanceDate": "2022-02-05T20:41:04.177Z",
+            "credentialSubject": {
+              "product": {
+                "id": "did:web:product.example:6",
+                "name": "Road Runners (Product)",
+                "type": "Sneakers"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/security/suites/jws-2020/v1",
+          {
+            "@vocab": "https://ontology.example/vocab/#"
+          }
+        ],
+        "id": "urn:uuid:3t6eocj6",
+        "workflow": {
+          "definition": [
+            "123"
+          ],
+          "instance": [
+            "222"
+          ]
+        },
+        "type": [
+          "VerifiablePresentation"
+        ],
+        "holder": {
+          "id": "did:web:importer.example:0",
+          "name": "Acme Shoes (Importer of Record)",
+          "location": {
+            "lat": 45.494904,
+            "long": -122.804836
+          }
+        },
+        "verifier": {
+          "id": "did:web:importer.example:0",
+          "name": "Acme Shoes (Importer of Record)",
+          "location": {
+            "lat": 45.494904,
+            "long": -122.804836
+          }
+        },
+        "verifiableCredential": [
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:l1fox7kz",
+            "type": [
+              "VerifiableCredential",
+              "TransparencyCertificate"
+            ],
+            "issuer": {
+              "id": "did:web:importer.example:0",
+              "name": "Acme Shoes (Importer of Record)",
+              "location": {
+                "lat": 45.494904,
+                "long": -122.804836
+              }
+            },
+            "issuanceDate": "2022-02-05T20:41:04.181Z",
+            "credentialSubject": {
+              "product": {
+                "id": "did:web:product.example:6",
+                "name": "Road Runners (Product)",
+                "type": "Sneakers"
+              },
+              "history": [
+                {
+                  "id": "StartEvent_0",
+                  "name": "Start"
+                },
+                {
+                  "id": "Task_0",
+                  "name": "Order Received in China",
+                  "output": {}
+                },
+                {
+                  "id": "Task_1",
+                  "name": "Product Manufactured in China",
+                  "output": {}
+                },
+                {
+                  "id": "Task_2",
+                  "name": "Product Shipped to Denmark",
+                  "output": {}
+                },
+                {
+                  "id": "Task_3",
+                  "name": "Product Shipped to United States",
+                  "output": {}
+                },
+                {
+                  "id": "Task_4",
+                  "name": "US Customs Approval",
+                  "output": {}
+                },
+                {
+                  "id": "Task_5",
+                  "name": "Product Sold in US",
+                  "output": {}
+                },
+                {
+                  "id": "EndEvent_0",
+                  "name": "End"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

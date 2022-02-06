@@ -27,7 +27,6 @@
     "node": ">=14"
   },
   "scripts": {
-    "pretransmute": "npm run build",
     "transmute": "node main.js",
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -71,15 +70,16 @@
     "@transmute/universal-wallet": "^0.7.0-unstable.42",
     "@transmute/universal-wallet-did-key-plugin": "^0.7.0-unstable.42",
     "@transmute/vc.js": "^0.7.0-unstable.42",
-    "bpmn-engine": "^13.0.0",
-    "bpmn-js": "^8.9.1",
-    "uuid": "^8.3.2",
-    "graphology": "^0.23.2",
     "axios": "^0.24.0",
     "bip39": "^3.0.4",
+    "bpmn-engine": "^13.0.0",
+    "bpmn-js": "^8.9.1",
     "factory.ts": "^0.5.1",
     "faker": "5.5.3",
+    "graphology": "^0.23.2",
     "hdkey": "^2.0.1",
+    "neo4j-driver": "^4.4.2",
+    "uuid": "^8.3.2",
     "yargs": "^16.2.0"
   }
 }

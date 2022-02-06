@@ -1,4 +1,4 @@
-import createDefinition from './createDefinition.js';
+import createDefinition from './createDefinition';
 
 import addStart from './addStart';
 
