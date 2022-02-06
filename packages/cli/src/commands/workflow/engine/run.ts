@@ -6,7 +6,7 @@ export const run = (
   definition: any,
   services: any,
   variables: any
-) => {
+): Promise<{ input: any; output: any }> => {
   return new Promise(resolve => {
     const engine = Engine({
       name: instance,
