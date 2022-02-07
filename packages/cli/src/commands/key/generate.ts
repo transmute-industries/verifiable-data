@@ -3,6 +3,7 @@ import { deriveKey } from './derive';
 
 import { handleCommandResponse } from '../../util';
 export { generateKey };
+
 export const generateKeyCommand = [
   'key generate',
   'Generate key pair',
