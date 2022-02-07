@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import didKey from '@transmute/did-key.js';
+
 import { DidKey } from '../../types';
 
 export interface GenerateKeyOptions {
@@ -7,6 +7,8 @@ export interface GenerateKeyOptions {
   seed?: string; // hex encoded buffer
   accept?: 'application/did+json' | 'application/did+ld+json';
 }
+
+const didKey = require('@transmute/did-key.js');
 
 export const generateKey = async (
   opts: GenerateKeyOptions
