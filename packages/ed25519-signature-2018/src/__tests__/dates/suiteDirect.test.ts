@@ -41,6 +41,7 @@ import {
 } from "./date-utils";
 
 console.warn = () => {};
+const issuanceDate = moment(issuedOn).toJSON();
 
 const directDates = [
   {
@@ -179,7 +180,7 @@ describe("passing date to suite after constructor", () => {
       suite!.date = condition;
 
       // Create a valid credential to be signed
-      const credential = createCredential(issuedOn);
+      const credential = createCredential(issuanceDate);
 
       // Sign the valid credential with undefined date suite
       const { proof, signError } = await signCredential(suite!, credential);
@@ -210,7 +211,7 @@ describe("passing date to suite after constructor", () => {
       suite!.date = condition;
 
       // Create a valid credential to be signed
-      const credential = createCredential(issuedOn);
+      const credential = createCredential(issuanceDate);
 
       // Sign the valid credential with undefined date suite
       const { proof, signError } = await signCredential(suite!, credential);
@@ -241,7 +242,7 @@ describe("passing date to suite after constructor", () => {
       suite!.date = condition;
 
       // Create a valid credential to be signed
-      const credential = createCredential(issuedOn);
+      const credential = createCredential(issuanceDate);
 
       // Sign the valid credential with undefined date suite
       const { proof, signError } = await signCredential(suite!, credential);

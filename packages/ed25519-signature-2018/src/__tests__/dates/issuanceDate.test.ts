@@ -44,56 +44,12 @@ console.warn = () => {};
 
 const issuanceDates = [
   {
-    condition: undefined,
-    fixture: undefinedSuiteFixture
-  },
-  {
-    condition: null,
-    fixture: nullSuiteFixture
-  },
-  {
-    condition: 0,
-    fixture: zeroSuiteFixture
-  },
-  {
     condition: "",
     fixture: emptyStringSuiteFixture
   },
   {
     condition: "foobar",
     fixture: foobarStringSuiteFixture
-  },
-  {
-    condition: 1635774995208,
-    fixture: timestamp0SuiteFixture
-  },
-  {
-    condition: -1635774995208,
-    fixture: timestamp1SuiteFixture
-  },
-  {
-    condition: 1,
-    fixture: timestamp2SuiteFixture
-  },
-  {
-    condition: -1,
-    fixture: timestamp3SuiteFixture
-  },
-  {
-    condition: 123,
-    fixture: timestamp4SuiteFixture
-  },
-  {
-    condition: -123,
-    fixture: timestamp5SuiteFixture
-  },
-  {
-    condition: 12345,
-    fixture: timestamp6SuiteFixture
-  },
-  {
-    condition: -12345,
-    fixture: timestamp7SuiteFixture
   },
   {
     condition: moment(issuedOn).format(),
@@ -150,6 +106,53 @@ const issuanceDates = [
   {
     condition: moment(issuedOn).toJSON(),
     fixture: dateString13SuiteFixture
+  }
+];
+
+const invalidDates = [
+  {
+    condition: undefined,
+    fixture: undefinedSuiteFixture
+  },
+  {
+    condition: null,
+    fixture: nullSuiteFixture
+  },
+  {
+    condition: 0,
+    fixture: zeroSuiteFixture
+  },
+  {
+    condition: 1635774995208,
+    fixture: timestamp0SuiteFixture
+  },
+  {
+    condition: -1635774995208,
+    fixture: timestamp1SuiteFixture
+  },
+  {
+    condition: 1,
+    fixture: timestamp2SuiteFixture
+  },
+  {
+    condition: -1,
+    fixture: timestamp3SuiteFixture
+  },
+  {
+    condition: 123,
+    fixture: timestamp4SuiteFixture
+  },
+  {
+    condition: -123,
+    fixture: timestamp5SuiteFixture
+  },
+  {
+    condition: 12345,
+    fixture: timestamp6SuiteFixture
+  },
+  {
+    condition: -12345,
+    fixture: timestamp7SuiteFixture
   },
   {
     condition: moment(issuedOn).toArray(),
@@ -157,7 +160,8 @@ const issuanceDates = [
   }
 ];
 
-const invalidDates = [
+// Changed to both error
+const expectedErrorDates = [
   {
     condition: moment(issuedOn).toObject(),
     fixture: dateObjectSuiteFixture
@@ -165,9 +169,9 @@ const invalidDates = [
 ];
 
 describe("issuanceDate testing", () => {
+  // Both of these should be passing for Digital Bazaar and Transmute
   for (let i = 0; i < issuanceDates.length; i++) {
     const { condition, fixture } = issuanceDates[i];
-
     it(`should sign and verify proof with ${JSON.stringify(
       condition
     )} as issuanceDate`, async () => {
@@ -180,20 +184,34 @@ describe("issuanceDate testing", () => {
     });
   }
 
-  // Writing this as passing test
-  // Right now Transmute will create and sign an object for issuanceDate
-  // Digital Bazaar's fixture throws an error on sign
+  // Transmute is expected to throw an error for dates that do not match vc-spec
+  // Digital Bazaar is expected to create proof and verify
   for (let i = 0; i < invalidDates.length; i++) {
     const { condition, fixture } = invalidDates[i];
-
     it(`should throw an errror on sign with ${JSON.stringify(
       condition
     )} issuanceDate`, async () => {
       const { suite } = await createSuite(createdOn);
       const credential = createCredential(condition);
       const { proof, signError } = await signCredential(suite!, credential);
-      expect(signError).toBeUndefined();
-      expect(proof).toBeDefined();
+      expect(signError).toBeDefined();
+      expect(proof).toBeUndefined();
+      expect((await verifyProof(fixture)).verified).toBeTruthy();
+    });
+  }
+
+  // This is expected to fail for both Digital Bazaar and Transmute
+  for (let i = 0; i < expectedErrorDates.length; i++) {
+    const { condition, fixture } = expectedErrorDates[i];
+    it(`should throw an errror on sign with ${JSON.stringify(
+      condition
+    )} issuanceDate`, async () => {
+      const { suite } = await createSuite(createdOn);
+      const credential = createCredential(condition);
+      const { proof, signError } = await signCredential(suite!, credential);
+      expect(signError).toBeDefined();
+      expect(proof).toBeUndefined();
+      expect(signError?.thrownOn).toBe("sign");
       expect(fixture.type).toBe("error");
       expect(fixture.thrownOn).toBe("sign");
     });
