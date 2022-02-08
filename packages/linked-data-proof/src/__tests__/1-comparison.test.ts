@@ -26,7 +26,14 @@ describe("credential comparisons", () => {
       });
     });
     files = files.filter(
-      (filename: string) => !["README.md", "case-1.json"].includes(filename)
+      (filename: string) =>
+        ![
+          "README.md",
+          "case-1.json",
+          "case-5.json",
+          "case-8.json",
+          "case-9.json"
+        ].includes(filename)
     );
   });
 

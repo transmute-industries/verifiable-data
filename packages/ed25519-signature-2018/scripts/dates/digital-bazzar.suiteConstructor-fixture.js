@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 const {
   createdConditions,
   ISSUED_ON,
@@ -7,9 +9,10 @@ const {
   writeResult,
 } = require("./date-utils");
 const folderName = "suiteConstructor";
+const issuanceDate = moment(ISSUED_ON).toJSON();
 
 createdConditions.forEach(async (createdDate, index) => {
-  const credential = createCredential(ISSUED_ON);
+  const credential = createCredential(issuanceDate);
   const { suite, suiteError } = await createSuite(createdDate);
   if (suiteError) {
     return writeResult(folderName, index, suiteError);
