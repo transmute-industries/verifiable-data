@@ -18,4 +18,7 @@ require('yargs')
   // data
   .command(...commands.data.createDataCommand)
 
+  // neo
+  .command(...commands.neo.importWorkflowInstanceComand)
+
   .help().argv;

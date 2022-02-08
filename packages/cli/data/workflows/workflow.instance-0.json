@@ -1,0 +1,797 @@
+{
+  "input": {
+    "importer": {
+      "id": "did:web:importer.example:0",
+      "name": "Acme Shoes (Importer of Record)",
+      "location": {
+        "lat": 45.494904,
+        "long": -122.804836
+      },
+      "seed": 0
+    },
+    "manufacturer": {
+      "id": "did:web:manufacturer.example:1",
+      "name": "鞋匠 (Contract Manufacturer)",
+      "location": {
+        "lat": 41.12361,
+        "long": 122.99
+      },
+      "seed": 1
+    },
+    "distributor": {
+      "id": "did:web:distributor.example:2",
+      "name": "Sko (Product Distributor)",
+      "location": {
+        "lat": 55.711737,
+        "long": 12.562321
+      },
+      "seed": 2
+    },
+    "customs": {
+      "id": "did:web:regulator.example:3",
+      "name": "US Customs (Regulator)",
+      "seed": 3
+    },
+    "oceanCarrier": {
+      "id": "did:web:carrier.example:4",
+      "name": "Nautiske (Ocean Carrier)",
+      "seed": 4
+    },
+    "airCarrier": {
+      "id": "did:web:carrier.example:5",
+      "name": "Wright Logistics (Air Carrier)",
+      "seed": 5
+    },
+    "product": {
+      "id": "did:web:product.example:6",
+      "name": "Road Runners (Product)",
+      "type": "Sneakers",
+      "seed": 6
+    },
+    "workflow": {
+      "definition": [
+        "123"
+      ],
+      "instance": [
+        "000"
+      ]
+    }
+  },
+  "output": {
+    "path": [
+      {
+        "id": "StartEvent_0",
+        "name": "Start"
+      },
+      {
+        "id": "Task_0",
+        "name": "Order Received in China",
+        "output": {}
+      },
+      {
+        "id": "Task_1",
+        "name": "Product Manufactured in China",
+        "output": {}
+      },
+      {
+        "id": "Task_2",
+        "name": "Product Shipped to Denmark",
+        "output": {}
+      },
+      {
+        "id": "Task_3",
+        "name": "Product Shipped to United States",
+        "output": {}
+      },
+      {
+        "id": "Task_4",
+        "name": "US Customs Approval",
+        "output": {}
+      },
+      {
+        "id": "Task_5",
+        "name": "Product Sold in US",
+        "output": {}
+      },
+      {
+        "id": "EndEvent_0",
+        "name": "End"
+      }
+    ],
+    "actors": {
+      "manufacturer": {
+        "id": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+        "type": "Organization",
+        "name": "Zieme - Reichel",
+        "description": "Upgradable 24 hour benchmark",
+        "logo": "http://placeimg.com/640/480/business",
+        "website": "elizabeth.org",
+        "credential": {}
+      },
+      "oceanCarrier": {
+        "id": "did:key:z6MkrgKftcDCGBa1Mj9gsbfpHLGEBGGCdH154BXDozkgiEKk",
+        "type": "Organization",
+        "name": "Tromp, Lockman and D'Amore",
+        "description": "Virtual systematic paradigm",
+        "logo": "http://placeimg.com/640/480/business",
+        "website": "leon.net",
+        "credential": {}
+      },
+      "distributor": {
+        "id": "did:key:z6MkwAXN4Ddq9KF7P8W4HSDi478VmvrXz9XyiUzcBmYBZBcK",
+        "type": "Organization",
+        "name": "Denesik - Balistreri",
+        "description": "Upgradable intermediate throughput",
+        "logo": "http://placeimg.com/640/480/business",
+        "website": "howell.info",
+        "credential": {}
+      },
+      "airCarrier": {
+        "id": "did:key:z6MkkYBVxK31DZnYSpJtBtgTCixQaWa6Qf857gBYpB6Y4WuF",
+        "type": "Organization",
+        "name": "Bednar Group",
+        "description": "Streamlined cohesive frame",
+        "logo": "http://placeimg.com/640/480/business",
+        "website": "terry.org",
+        "credential": {}
+      },
+      "customs": {
+        "id": "did:key:z6MkiLT24pgrRneSQYicKjTukUojTo2ogCpFN3kqpidaaAZq",
+        "type": "Organization",
+        "name": "Bernier - Quigley",
+        "description": "Streamlined discrete attitude",
+        "logo": "http://placeimg.com/640/480/business",
+        "website": "johnnie.name",
+        "credential": {}
+      },
+      "importer": {
+        "id": "did:key:z6Mko9fnfs2xFRWm3yzMzPQy1kcAmqycVbEPGdtEG1N84T2k",
+        "type": "Organization",
+        "name": "Emard - Gottlieb",
+        "description": "Grass-roots national initiative",
+        "logo": "http://placeimg.com/640/480/business",
+        "website": "lance.org",
+        "credential": {}
+      }
+    },
+    "presentations": [
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/security/suites/jws-2020/v1",
+          {
+            "@vocab": "https://ontology.example/vocab/#"
+          }
+        ],
+        "id": "urn:uuid:exjufboi",
+        "type": [
+          "VerifiablePresentation"
+        ],
+        "holder": {
+          "id": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+          "type": "Organization",
+          "name": "Zieme - Reichel",
+          "description": "Upgradable 24 hour benchmark",
+          "logo": "http://placeimg.com/640/480/business",
+          "website": "elizabeth.org"
+        },
+        "verifiableCredential": [
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:583e6dco",
+            "type": [
+              "VerifiableCredential",
+              "CertifiedPurchaseOrder"
+            ],
+            "issuer": {
+              "id": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+              "type": "Organization",
+              "name": "Zieme - Reichel",
+              "description": "Upgradable 24 hour benchmark",
+              "logo": "http://placeimg.com/640/480/business",
+              "website": "elizabeth.org"
+            },
+            "issuanceDate": "2022-02-06T18:46:11.720Z",
+            "credentialSubject": {
+              "manufacturer": {
+                "id": "did:web:manufacturer.example:1",
+                "name": "鞋匠 (Contract Manufacturer)",
+                "location": {
+                  "lat": 41.12361,
+                  "long": 122.99
+                },
+                "seed": 1
+              },
+              "product": {
+                "id": "did:web:product.example:6",
+                "name": "Road Runners (Product)",
+                "type": "Sneakers",
+                "seed": 6
+              }
+            },
+            "proof": {
+              "type": "JsonWebSignature2020",
+              "created": "2022-02-06T18:46:11Z",
+              "verificationMethod": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq#z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+              "proofPurpose": "assertionMethod",
+              "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..hMyxX6JJppLI-Wfdi6eF0w0bWnV4SSkZMSeit2LfPrb5zD7wrI4wSVs9JkVz9Z8-zepnPWBGKjJKJAQICX5eBg"
+            }
+          }
+        ],
+        "workflow": {
+          "definition": [
+            "123"
+          ],
+          "instance": [
+            "000"
+          ]
+        },
+        "proof": {
+          "type": "JsonWebSignature2020",
+          "created": "2022-02-06T18:46:11Z",
+          "verificationMethod": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq#z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+          "proofPurpose": "authentication",
+          "challenge": "123",
+          "domain": "actor.examples",
+          "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..3oo2Gt3QCxpf2xK4A8fiHuKqL-PIZ02VgIzfAsWTHVyaUVwIbsq6dv8SgxxSqs30nQgfn-p0DJxRR5bJ5DsiBQ"
+        }
+      },
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/security/suites/jws-2020/v1",
+          {
+            "@vocab": "https://ontology.example/vocab/#"
+          }
+        ],
+        "id": "urn:uuid:vvwt3t19",
+        "type": [
+          "VerifiablePresentation"
+        ],
+        "holder": {
+          "id": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+          "type": "Organization",
+          "name": "Zieme - Reichel",
+          "description": "Upgradable 24 hour benchmark",
+          "logo": "http://placeimg.com/640/480/business",
+          "website": "elizabeth.org"
+        },
+        "verifiableCredential": [
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:7fv80jow",
+            "type": [
+              "VerifiableCredential",
+              "CertifiedOrigin"
+            ],
+            "issuer": {
+              "id": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+              "type": "Organization",
+              "name": "Zieme - Reichel",
+              "description": "Upgradable 24 hour benchmark",
+              "logo": "http://placeimg.com/640/480/business",
+              "website": "elizabeth.org"
+            },
+            "issuanceDate": "2022-02-06T18:46:11.851Z",
+            "credentialSubject": {
+              "id": "did:web:product.example:6",
+              "name": "Road Runners (Product)",
+              "type": "Sneakers",
+              "seed": 6
+            },
+            "proof": {
+              "type": "JsonWebSignature2020",
+              "created": "2022-02-06T18:46:11Z",
+              "verificationMethod": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq#z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+              "proofPurpose": "assertionMethod",
+              "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..a-bSzcHVDfez2y_XUryCi0-aJ_ZCMYt4-pNMBBkv0iorEA9_q9M1Ax7wibImhqIeG99Bi1MLVcioz5GP8YpnCQ"
+            }
+          },
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:fgkf5x7s",
+            "type": [
+              "VerifiableCredential",
+              "CertifiedCommercialInvoice"
+            ],
+            "issuer": {
+              "id": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+              "type": "Organization",
+              "name": "Zieme - Reichel",
+              "description": "Upgradable 24 hour benchmark",
+              "logo": "http://placeimg.com/640/480/business",
+              "website": "elizabeth.org"
+            },
+            "issuanceDate": "2022-02-06T18:46:11.869Z",
+            "credentialSubject": {
+              "id": "did:web:product.example:6",
+              "name": "Road Runners (Product)",
+              "type": "Sneakers",
+              "seed": 6
+            },
+            "proof": {
+              "type": "JsonWebSignature2020",
+              "created": "2022-02-06T18:46:11Z",
+              "verificationMethod": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq#z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+              "proofPurpose": "assertionMethod",
+              "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..CU_ys9U8JS3cZKDFWtdvIXuM1hd7h_ipa-fHGTGKbBbNCVtZJVuolSBFRi5OA-4_3gyKPPFFhzTeddezncqEBA"
+            }
+          },
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:spysb3oi",
+            "type": [
+              "VerifiableCredential",
+              "CertifiedPackingList"
+            ],
+            "issuer": {
+              "id": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+              "type": "Organization",
+              "name": "Zieme - Reichel",
+              "description": "Upgradable 24 hour benchmark",
+              "logo": "http://placeimg.com/640/480/business",
+              "website": "elizabeth.org"
+            },
+            "issuanceDate": "2022-02-06T18:46:11.885Z",
+            "credentialSubject": {
+              "id": "did:web:product.example:6",
+              "name": "Road Runners (Product)",
+              "type": "Sneakers",
+              "seed": 6
+            },
+            "proof": {
+              "type": "JsonWebSignature2020",
+              "created": "2022-02-06T18:46:11Z",
+              "verificationMethod": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq#z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+              "proofPurpose": "assertionMethod",
+              "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..X_1JDbp9Xkwy9bsABjo06gs8k_1IdrH8RYGYhzej8XhNaJelFlBRvvoudHhfOityMlIH0phhX7rv4U1DV8JnDQ"
+            }
+          }
+        ],
+        "workflow": {
+          "definition": [
+            "123"
+          ],
+          "instance": [
+            "000"
+          ]
+        },
+        "proof": {
+          "type": "JsonWebSignature2020",
+          "created": "2022-02-06T18:46:11Z",
+          "verificationMethod": "did:key:z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq#z6MktFZ9UHsanbk8VSbSgMP8pgpzzZTS7njNzacNhU82ZLuq",
+          "proofPurpose": "authentication",
+          "challenge": "123",
+          "domain": "actor.examples",
+          "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..0poN7MS8S_T6BLOzD6MpA_ZDzWlnvjeM4mWK7jcZOd4KismHsP64b2k-xMZex_grbIGs1569IoMysr5Bq-YTAQ"
+        }
+      },
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/security/suites/jws-2020/v1",
+          {
+            "@vocab": "https://ontology.example/vocab/#"
+          }
+        ],
+        "id": "urn:uuid:wfms07kv",
+        "type": [
+          "VerifiablePresentation"
+        ],
+        "holder": {
+          "id": "did:key:z6MkrgKftcDCGBa1Mj9gsbfpHLGEBGGCdH154BXDozkgiEKk",
+          "type": "Organization",
+          "name": "Tromp, Lockman and D'Amore",
+          "description": "Virtual systematic paradigm",
+          "logo": "http://placeimg.com/640/480/business",
+          "website": "leon.net"
+        },
+        "verifiableCredential": [
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:l75z80p9",
+            "type": [
+              "VerifiableCredential",
+              "CertifiedBillOfLading"
+            ],
+            "issuer": {
+              "id": "did:key:z6MkrgKftcDCGBa1Mj9gsbfpHLGEBGGCdH154BXDozkgiEKk",
+              "type": "Organization",
+              "name": "Tromp, Lockman and D'Amore",
+              "description": "Virtual systematic paradigm",
+              "logo": "http://placeimg.com/640/480/business",
+              "website": "leon.net"
+            },
+            "issuanceDate": "2022-02-06T18:46:12.016Z",
+            "credentialSubject": {
+              "id": "did:web:product.example:6",
+              "name": "Road Runners (Product)",
+              "type": "Sneakers",
+              "seed": 6
+            },
+            "proof": {
+              "type": "JsonWebSignature2020",
+              "created": "2022-02-06T18:46:12Z",
+              "verificationMethod": "did:key:z6MkrgKftcDCGBa1Mj9gsbfpHLGEBGGCdH154BXDozkgiEKk#z6MkrgKftcDCGBa1Mj9gsbfpHLGEBGGCdH154BXDozkgiEKk",
+              "proofPurpose": "assertionMethod",
+              "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..ArcHbQOXx67V5JV4dBWL7Hib8Ip42IhPxkTr3b-v7LDAaaSmT7M_unJc7qpW9TIpQA0jdlbGCEVX-jpypZQ2Bw"
+            }
+          }
+        ],
+        "workflow": {
+          "definition": [
+            "123"
+          ],
+          "instance": [
+            "000"
+          ]
+        },
+        "proof": {
+          "type": "JsonWebSignature2020",
+          "created": "2022-02-06T18:46:12Z",
+          "verificationMethod": "did:key:z6MkrgKftcDCGBa1Mj9gsbfpHLGEBGGCdH154BXDozkgiEKk#z6MkrgKftcDCGBa1Mj9gsbfpHLGEBGGCdH154BXDozkgiEKk",
+          "proofPurpose": "authentication",
+          "challenge": "123",
+          "domain": "actor.examples",
+          "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..t2ZpDXKIoGW7PzR_dyNbhz6DVrnZk_wg3r6Dq8Tj4985u9mQ-bivNdBkrQdJIFCovJVaAgtilPAB72HXjiusCg"
+        }
+      },
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/security/suites/jws-2020/v1",
+          {
+            "@vocab": "https://ontology.example/vocab/#"
+          }
+        ],
+        "id": "urn:uuid:e4avmikh",
+        "type": [
+          "VerifiablePresentation"
+        ],
+        "holder": {
+          "id": "did:key:z6MkkYBVxK31DZnYSpJtBtgTCixQaWa6Qf857gBYpB6Y4WuF",
+          "type": "Organization",
+          "name": "Bednar Group",
+          "description": "Streamlined cohesive frame",
+          "logo": "http://placeimg.com/640/480/business",
+          "website": "terry.org"
+        },
+        "verifiableCredential": [
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:h3mercih",
+            "type": [
+              "VerifiableCredential",
+              "CertifiedUSImportDeclaration"
+            ],
+            "issuer": {
+              "id": "did:key:z6MkwAXN4Ddq9KF7P8W4HSDi478VmvrXz9XyiUzcBmYBZBcK",
+              "type": "Organization",
+              "name": "Denesik - Balistreri",
+              "description": "Upgradable intermediate throughput",
+              "logo": "http://placeimg.com/640/480/business",
+              "website": "howell.info"
+            },
+            "issuanceDate": "2022-02-06T18:46:12.095Z",
+            "credentialSubject": {
+              "id": "did:web:product.example:6",
+              "name": "Road Runners (Product)",
+              "type": "Sneakers",
+              "seed": 6
+            },
+            "proof": {
+              "type": "JsonWebSignature2020",
+              "created": "2022-02-06T18:46:12Z",
+              "verificationMethod": "did:key:z6MkwAXN4Ddq9KF7P8W4HSDi478VmvrXz9XyiUzcBmYBZBcK#z6MkwAXN4Ddq9KF7P8W4HSDi478VmvrXz9XyiUzcBmYBZBcK",
+              "proofPurpose": "assertionMethod",
+              "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..RKQzrvm5KmRbM2TauY7rCq5sLV6VbOiI1RUriLaxmstnGEMp1_ofJaO_zOnKLlvab4kgjtb9t9sxMDbAQz4QDw"
+            }
+          },
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:az6t2nqt",
+            "type": [
+              "VerifiableCredential",
+              "CertifiedCommercialInvoice"
+            ],
+            "issuer": {
+              "id": "did:key:z6MkwAXN4Ddq9KF7P8W4HSDi478VmvrXz9XyiUzcBmYBZBcK",
+              "type": "Organization",
+              "name": "Denesik - Balistreri",
+              "description": "Upgradable intermediate throughput",
+              "logo": "http://placeimg.com/640/480/business",
+              "website": "howell.info"
+            },
+            "issuanceDate": "2022-02-06T18:46:12.108Z",
+            "credentialSubject": {
+              "id": "did:web:product.example:6",
+              "name": "Road Runners (Product)",
+              "type": "Sneakers",
+              "seed": 6
+            },
+            "proof": {
+              "type": "JsonWebSignature2020",
+              "created": "2022-02-06T18:46:12Z",
+              "verificationMethod": "did:key:z6MkwAXN4Ddq9KF7P8W4HSDi478VmvrXz9XyiUzcBmYBZBcK#z6MkwAXN4Ddq9KF7P8W4HSDi478VmvrXz9XyiUzcBmYBZBcK",
+              "proofPurpose": "assertionMethod",
+              "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..UZbc-pgmfGSwAxwYMuLn5AQdAUp8324SLEh0J5kYA8Xe_PW1GOk-0LLGEhKuElUcBltFN0o5p5f_gWN_vXK8Bw"
+            }
+          },
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:f85rv397",
+            "type": [
+              "VerifiableCredential",
+              "CertifiedAirWaybill"
+            ],
+            "issuer": {
+              "id": "did:key:z6MkkYBVxK31DZnYSpJtBtgTCixQaWa6Qf857gBYpB6Y4WuF",
+              "type": "Organization",
+              "name": "Bednar Group",
+              "description": "Streamlined cohesive frame",
+              "logo": "http://placeimg.com/640/480/business",
+              "website": "terry.org"
+            },
+            "issuanceDate": "2022-02-06T18:46:12.126Z",
+            "credentialSubject": {
+              "id": "did:web:product.example:6",
+              "name": "Road Runners (Product)",
+              "type": "Sneakers",
+              "seed": 6
+            },
+            "proof": {
+              "type": "JsonWebSignature2020",
+              "created": "2022-02-06T18:46:12Z",
+              "verificationMethod": "did:key:z6MkkYBVxK31DZnYSpJtBtgTCixQaWa6Qf857gBYpB6Y4WuF#z6MkkYBVxK31DZnYSpJtBtgTCixQaWa6Qf857gBYpB6Y4WuF",
+              "proofPurpose": "assertionMethod",
+              "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..BAarFWTpWSWwEEMjdXjyEOPNqHmcvlAySB8e6ET_DagWKZ8wx1jMnmDNdoLJEMOWD3T5X_qda0rxRvoRRr25Cg"
+            }
+          }
+        ],
+        "workflow": {
+          "definition": [
+            "123"
+          ],
+          "instance": [
+            "000"
+          ]
+        },
+        "proof": {
+          "type": "JsonWebSignature2020",
+          "created": "2022-02-06T18:46:12Z",
+          "verificationMethod": "did:key:z6MkkYBVxK31DZnYSpJtBtgTCixQaWa6Qf857gBYpB6Y4WuF#z6MkkYBVxK31DZnYSpJtBtgTCixQaWa6Qf857gBYpB6Y4WuF",
+          "proofPurpose": "authentication",
+          "challenge": "123",
+          "domain": "actor.examples",
+          "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..3ahIBEzPFZ7bEUv6EvjoMjArfWUtiG7zNBE2T6YAwPCe7KrG4iuLpwTyvPPY1RjgkNtBEbfCZK6WlA2dt8_NAw"
+        }
+      },
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/security/suites/jws-2020/v1",
+          {
+            "@vocab": "https://ontology.example/vocab/#"
+          }
+        ],
+        "id": "urn:uuid:13fp15gg",
+        "type": [
+          "VerifiablePresentation"
+        ],
+        "holder": {
+          "id": "did:key:z6MkiLT24pgrRneSQYicKjTukUojTo2ogCpFN3kqpidaaAZq",
+          "type": "Organization",
+          "name": "Bernier - Quigley",
+          "description": "Streamlined discrete attitude",
+          "logo": "http://placeimg.com/640/480/business",
+          "website": "johnnie.name"
+        },
+        "verifiableCredential": [
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:wfw04178",
+            "type": [
+              "VerifiableCredential",
+              "CertifiedImportAproval"
+            ],
+            "issuer": {
+              "id": "did:key:z6MkiLT24pgrRneSQYicKjTukUojTo2ogCpFN3kqpidaaAZq",
+              "type": "Organization",
+              "name": "Bernier - Quigley",
+              "description": "Streamlined discrete attitude",
+              "logo": "http://placeimg.com/640/480/business",
+              "website": "johnnie.name"
+            },
+            "issuanceDate": "2022-02-06T18:46:12.217Z",
+            "credentialSubject": {
+              "id": "did:web:product.example:6",
+              "name": "Road Runners (Product)",
+              "type": "Sneakers",
+              "seed": 6
+            },
+            "proof": {
+              "type": "JsonWebSignature2020",
+              "created": "2022-02-06T18:46:12Z",
+              "verificationMethod": "did:key:z6MkiLT24pgrRneSQYicKjTukUojTo2ogCpFN3kqpidaaAZq#z6MkiLT24pgrRneSQYicKjTukUojTo2ogCpFN3kqpidaaAZq",
+              "proofPurpose": "assertionMethod",
+              "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..MAmuxyGcl-VMZx2QVefiZuJSST8OCMsmPbe_PVA1pwtMvRrip42FkaIqWQ1iKjFr9etoULlXRDHt5-0RH29VAA"
+            }
+          }
+        ],
+        "workflow": {
+          "definition": [
+            "123"
+          ],
+          "instance": [
+            "000"
+          ]
+        },
+        "proof": {
+          "type": "JsonWebSignature2020",
+          "created": "2022-02-06T18:46:12Z",
+          "verificationMethod": "did:key:z6MkiLT24pgrRneSQYicKjTukUojTo2ogCpFN3kqpidaaAZq#z6MkiLT24pgrRneSQYicKjTukUojTo2ogCpFN3kqpidaaAZq",
+          "proofPurpose": "authentication",
+          "challenge": "123",
+          "domain": "actor.examples",
+          "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..YUQZAG78i16FYwZwbwTl5trzc7kbs1vtOVLvE0uUypALheY2zdXrZ8TtcHF45cx6YwLv9DnEYkH5WmoB4F6_AA"
+        }
+      },
+      {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://w3id.org/security/suites/jws-2020/v1",
+          {
+            "@vocab": "https://ontology.example/vocab/#"
+          }
+        ],
+        "id": "urn:uuid:jrstb97w",
+        "type": [
+          "VerifiablePresentation"
+        ],
+        "holder": {
+          "id": "did:key:z6MkvTzYNgfH1WZjy1CTBjbFg32iSBokG82cAWx9wCEfqaCR",
+          "type": "Organization",
+          "name": "Runolfsson LLC",
+          "description": "Virtual demand-driven Graphic Interface",
+          "logo": "http://placeimg.com/640/480/business",
+          "website": "haskell.name"
+        },
+        "verifiableCredential": [
+          {
+            "@context": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://w3id.org/security/suites/jws-2020/v1",
+              {
+                "@vocab": "https://ontology.example/vocab/#"
+              }
+            ],
+            "id": "urn:uuid:abolf95g",
+            "type": [
+              "VerifiableCredential",
+              "CertifiedProductHistory"
+            ],
+            "issuer": {
+              "id": "did:key:z6MkvTzYNgfH1WZjy1CTBjbFg32iSBokG82cAWx9wCEfqaCR",
+              "type": "Organization",
+              "name": "Runolfsson LLC",
+              "description": "Virtual demand-driven Graphic Interface",
+              "logo": "http://placeimg.com/640/480/business",
+              "website": "haskell.name"
+            },
+            "issuanceDate": "2022-02-06T18:46:12.271Z",
+            "credentialSubject": {
+              "id": "did:web:product.example:6",
+              "name": "Road Runners (Product)",
+              "type": "Sneakers",
+              "seed": 6,
+              "history": [
+                {
+                  "id": "StartEvent_0",
+                  "name": "Start"
+                },
+                {
+                  "id": "Task_0",
+                  "name": "Order Received in China"
+                },
+                {
+                  "id": "Task_1",
+                  "name": "Product Manufactured in China"
+                },
+                {
+                  "id": "Task_2",
+                  "name": "Product Shipped to Denmark"
+                },
+                {
+                  "id": "Task_3",
+                  "name": "Product Shipped to United States"
+                },
+                {
+                  "id": "Task_4",
+                  "name": "US Customs Approval"
+                }
+              ]
+            },
+            "proof": {
+              "type": "JsonWebSignature2020",
+              "created": "2022-02-06T18:46:12Z",
+              "verificationMethod": "did:key:z6Mkh1YcHau5HURpgH1cdLRmktNn6weiWpBgddnimXzkxdHe#z6Mkh1YcHau5HURpgH1cdLRmktNn6weiWpBgddnimXzkxdHe",
+              "proofPurpose": "assertionMethod",
+              "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..1JWJGbFukTaajZReFukaw35zBVU4cN7zs16MtV2a0DEZYopo2aNyfOpEM__iePuuA7TUhNBlmLs_ZFNoEmLqAQ"
+            }
+          }
+        ],
+        "workflow": {
+          "definition": [
+            "123"
+          ],
+          "instance": [
+            "000"
+          ]
+        },
+        "proof": {
+          "type": "JsonWebSignature2020",
+          "created": "2022-02-06T18:46:12Z",
+          "verificationMethod": "did:key:z6Mkh1YcHau5HURpgH1cdLRmktNn6weiWpBgddnimXzkxdHe#z6Mkh1YcHau5HURpgH1cdLRmktNn6weiWpBgddnimXzkxdHe",
+          "proofPurpose": "authentication",
+          "challenge": "123",
+          "domain": "actor.examples",
+          "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..QRsDVjjFQ_bZyT7PxKhgr4jW1VhjPOjdz9vBIiTpMu_wNGe6sFAg9DgKm5-fzfRsDOXlIL7FghnZ5DYmUEfPAA"
+        }
+      }
+    ]
+  }
+}
