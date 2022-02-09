@@ -38,7 +38,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@transmute/compressable-bitstring": "^0.7.0-unstable.42",
+    "@transmute/compressable-bitstring": "^0.7.0-unstable.43",
     "pako": "^2.0.4",
     "varint": "^6.0.0"
   }
