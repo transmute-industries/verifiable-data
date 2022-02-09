@@ -12,6 +12,17 @@
 		"url": "https://github.com/transmute-industries/verifiable-data.git",
 		"directory": "packages/cbor-ld"
 	},
+	"scripts": {
+		"start": "tsdx watch",
+		"build:fixtures": "node ./scripts/generate-fixtures/from-db.js",
+		"confirm:fixtures": "node ./scripts/confirm-fixtures/from-ts.js",
+		"build": "tsdx build",
+		"test": "tsdx test",
+		"lint": "tsdx lint src --fix",
+		"prepare": "tsdx build",
+		"size": "size-limit",
+		"analyze": "size-limit --why"
+	  },
 	"gitHead": "37f52c102233963d1369862e104df87dd4c5d063",
 	"publishConfig": {
 		"access": "public"

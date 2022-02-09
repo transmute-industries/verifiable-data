@@ -18,6 +18,13 @@
 		"dist",
 		"src"
 	],
+	"scripts": {
+		"start": "tsdx watch",
+		"build": "tsdx build",
+		"test": "tsdx test --passWithNoTests",
+		"lint": "tsdx lint src --fix ",
+		"prepare": "tsdx build"
+	},
 	"keywords": [
 		"json-ld",
 		"jsonld",

@@ -19,6 +19,13 @@
 		"url": "https://github.com/transmute-industries/verifiable-data.git",
 		"directory": "packages/universal-wallet-vc-plugin"
 	},
+	"scripts": {
+		"start": "tsdx watch",
+		"build": "tsdx build",
+		"test": "tsdx test",
+		"lint": "tsdx lint src --fix",
+		"prepare": "tsdx build"
+	  },
 	"engines": {
 		"node": ">=14"
 	},

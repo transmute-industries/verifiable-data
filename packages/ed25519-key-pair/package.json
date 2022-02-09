@@ -22,6 +22,15 @@
 	"engines": {
 		"node": ">=10"
 	},
+	"scripts": {
+		"start": "tsdx watch",
+		"build": "tsdx build",
+		"test": "tsdx test",
+		"lint": "tsdx lint src --fix",
+		"prepare": "tsdx build",
+		"size": "size-limit",
+		"analyze": "size-limit --why"
+	  },
 	"prettier": {
 		"printWidth": 80,
 		"semi": true,
