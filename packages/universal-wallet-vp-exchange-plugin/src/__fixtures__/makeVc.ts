@@ -9,6 +9,11 @@ import { documentLoader } from "./documentLoader";
 
 export const makeVc = async (wallet: FixtureWalletFactory, type: string) => {
   const signingKey = wallet.contents[0];
+  const key = await Ed25519VerificationKey2018.from(wallet.contents[0]);
+  const suite = new Ed25519Signature2018({
+    key,
+    date: "2020-03-10T04:24:12.164Z"
+  });
   return wallet.issue({
     credential: {
       "@context": [
@@ -27,9 +32,7 @@ export const makeVc = async (wallet: FixtureWalletFactory, type: string) => {
     },
     options: {
       documentLoader,
-      suite: new Ed25519Signature2018({
-        key: await Ed25519VerificationKey2018.from(signingKey)
-      })
+      suite: suite
     }
   });
 };

@@ -94,7 +94,8 @@ export const verifyAndAddPresentation = async (
     };
     wallet.add(flaggedForHumanReview);
   } else {
-    console.error(verification);
+    console.error(verification.credentials.results[0]);
+    console.error(verification.credentials.results[0].results[0].proof);
     throw new Error("Presentation could not be verified");
   }
   // after storing credentials, bob purges expects presentations map

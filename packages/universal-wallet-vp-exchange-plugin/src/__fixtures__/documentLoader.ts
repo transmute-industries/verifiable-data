@@ -10,7 +10,7 @@ export const documentLoader = async (iri: string) => {
   }
 
   if (iri.startsWith("did:key:z6M")) {
-    const { didDocument } = await ed25519.driver.resolve(iri, {
+    const { didDocument } = await ed25519.resolve(iri, {
       accept: "application/did+ld+json"
     });
     return {

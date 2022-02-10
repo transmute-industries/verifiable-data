@@ -71,7 +71,7 @@ export class Ed25519Signature2018 {
 
     throw new TypeError(
       `The document to be signed must contain this suite's @context, ` +
-      `"${JSON.stringify(document["@context"], null, 2)}".`
+        `"${JSON.stringify(document["@context"], null, 2)}".`
     );
   }
 
@@ -264,7 +264,7 @@ export class Ed25519Signature2018 {
       controller: {
         id: verificationMethod
       },
-      revoked: method.revoked
+      revoked: method?.revoked
     };
 
     if (!methodResponse) {
