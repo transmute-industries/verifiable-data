@@ -22,7 +22,7 @@ it("sign", async () => {
     {
       suite,
       purpose,
-      documentLoader: fixtures.documentLoader
+      documentLoader: fixtures.dereferencingDocumentLoader
     }
   );
   expect(docSigned).toEqual(fixtures.docSigned);
@@ -34,7 +34,7 @@ it("verify", async () => {
     {
       suite: new Ed25519Signature2018(),
       purpose: purpose,
-      documentLoader: fixtures.documentLoader
+      documentLoader: fixtures.dereferencingDocumentLoader
     }
   );
   expect(verified).toBe(true);

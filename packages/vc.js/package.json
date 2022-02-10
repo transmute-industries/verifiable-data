@@ -50,6 +50,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "@transmute/did-key-ed25519": "^0.3.0-unstable.5",
     "@transmute/json-web-signature": "^0.7.0-unstable.43",
     "@transmute/jsonld-schema": "^0.7.0-unstable.43",
     "@transmute/linked-data-proof": "^0.7.0-unstable.43",

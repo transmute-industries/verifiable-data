@@ -47,6 +47,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "@transmute/did-key-ed25519": "^0.3.0-unstable.5",
     "serialize-error": "^7.0.1"
   }
 }
