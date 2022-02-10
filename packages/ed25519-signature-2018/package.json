@@ -45,6 +45,7 @@
   "dependencies": {
     "@transmute/ed25519-key-pair": "0.7.0-unstable.2",
     "@transmute/jose-ld": "^0.7.0-unstable.43",
+    "@transmute/linked-data-proof": "^0.7.0-unstable.42",
     "@transmute/security-context": "^0.7.0-unstable.43",
     "jsonld": "^5.2.0"
   },
