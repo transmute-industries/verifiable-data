@@ -1,11 +1,11 @@
-import { v4 as uuidv4 } from "uuid";
-import Graph from "graphology";
+import { v4 as uuidv4 } from 'uuid';
+import Graph from 'graphology';
 import {
   WorkflowDefinition,
   WorkflowDefintionOptions,
-} from "./WorkflowDefinition";
+} from './WorkflowDefinition';
 
-import { WorkflowInstance, WorkflowInstanceOptions } from "./WorkflowInstance";
+import { WorkflowInstance, WorkflowInstanceOptions } from './WorkflowInstance';
 
 export const workflow = {
   definition: {

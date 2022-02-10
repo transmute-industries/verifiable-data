@@ -1,9 +1,8 @@
+const { importData } = require('../../lib/importData');
+const { addLabelsToBlankNodes } = require('../../lib/addLabelsToBlankNodes');
+const data0 = require('./0-purchase-order.json');
 
-const { importData } = require("../../lib/importData");
-const { addLabelsToBlankNodes } = require("../../lib/addLabelsToBlankNodes");
-const data0 = require("./0-purchase-order.json");
-
-describe("neo4j", () => {
+describe('neo4j', () => {
   beforeAll(async () => {
     const session = driver.session();
     await session.run(
@@ -29,11 +28,11 @@ describe("neo4j", () => {
     await driver.close();
   });
 
-  it("add data", async () => {
+  it('add data', async () => {
     await importData(data0, driver);
   });
 
-  it("label blank nodes", async () => {
+  it('label blank nodes', async () => {
     await addLabelsToBlankNodes(driver);
   });
 });
