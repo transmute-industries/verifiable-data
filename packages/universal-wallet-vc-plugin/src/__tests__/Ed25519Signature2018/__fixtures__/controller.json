@@ -1,21 +1,36 @@
 {
   "@context": [
     "https://www.w3.org/ns/did/v1",
-    "https://w3id.org/security/suites/jws-2020/v1"
+    "https://w3id.org/security/suites/ed25519-2018/v1",
+    "https://w3id.org/security/suites/x25519-2019/v1"
   ],
   "id": "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv",
-  "verificationMethod": [
-    {
-      "id": "#z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv",
-      "type": "JsonWebKey2020",
+  "verificationMethod": [{
+      "id": "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv#z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv",
+      "type": "Ed25519VerificationKey2018",
       "controller": "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv",
-      "publicKeyJwk": {
-        "crv": "Ed25519",
-        "x": "a6mOQOq72S9O1ZtTmCdJDVCT4z3009INmFDwQooJN-s",
-        "kty": "OKP"
-      }
+      "publicKeyBase58": "8FGaceSHE6Yo341RRvFxdKkS2vytyCYL9oxkYbqszZBY"
+    },
+    {
+      "id": "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv#z6LSo8emULtU2qY12eiwFWEsvWwUNmi1i1rbikG3zaR8AKmr",
+      "type": "X25519KeyAgreementKey2019",
+      "controller": "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv",
+      "publicKeyBase58": "CTUbx35bwNpFwGMAirivbvizXdAu1QgSqmYNW7mbSx16"
     }
   ],
-  "authentication": ["#z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv"],
-  "assertionMethod": ["#z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv"]
+  "assertionMethod": [
+    "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv#z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv"
+  ],
+  "authentication": [
+    "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv#z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv"
+  ],
+  "capabilityInvocation": [
+    "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv#z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv"
+  ],
+  "capabilityDelegation": [
+    "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv#z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv"
+  ],
+  "keyAgreement": [
+    "did:key:z6MkmhXdCtgiZe3G9Yr87VDoURJRrWFkP5ngqpsgNsotumxv#z6LSo8emULtU2qY12eiwFWEsvWwUNmi1i1rbikG3zaR8AKmr"
+  ]
 }
