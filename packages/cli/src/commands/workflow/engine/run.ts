@@ -1,7 +1,7 @@
 import * as tslib_1 from 'tslib';
-import { actor } from './actor';
 const { Engine } = require('bpmn-engine');
 const { EventEmitter } = require('events');
+import { actor } from './actor';
 
 const fake = {
   actor,

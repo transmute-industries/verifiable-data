@@ -1,7 +1,7 @@
-import { getModelViewerHtml } from './getModelViewerHtml';
-
 const fs = require('fs');
 const path = require('path');
+
+import { getModelViewerHtml } from './getModelViewerHtml';
 
 export const handleWorkflowDiagramResponse = (
   argv: any,

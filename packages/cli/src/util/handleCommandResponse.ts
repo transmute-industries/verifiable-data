@@ -1,7 +1,7 @@
-import { handleWorkflowDiagramResponse } from '../commands/workflow/diagram/handleWorkflowDiagramResponse';
-
 const fs = require('fs');
 const path = require('path');
+
+import { handleWorkflowDiagramResponse } from '../commands/workflow/diagram/handleWorkflowDiagramResponse';
 
 export const handleCommandResponse = (
   argv: any,
