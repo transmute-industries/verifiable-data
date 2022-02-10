@@ -10,27 +10,27 @@ import { purposes } from "@transmute/linked-data-proof";
 // from the getVerificationMethod did not match what's expected in the purpose.validate() function.
 // Now these tests should pass
 describe("document loader testing", () => {
-    it("DigitalBazaar credential should verify", async () => {
-        const suite = new Ed25519Signature2018();
-        const { proof, ...document } = DigitalBazzarCredential;
-        const verifiedProof = await suite.verifyProof({
-            proof,
-            document: document,
-            purpose: new purposes.AssertionProofPurpose(),
-            documentLoader: documentLoader
-        });
-        expect(verifiedProof.verified).toBe(true);
+  it("DigitalBazaar credential should verify", async () => {
+    const suite = new Ed25519Signature2018();
+    const { proof, ...document } = DigitalBazzarCredential;
+    const verifiedProof = await suite.verifyProof({
+      proof,
+      document: document,
+      purpose: new purposes.AssertionProofPurpose(),
+      documentLoader: documentLoader
     });
+    expect(verifiedProof.verified).toBe(true);
+  });
 
-    it("Transmute credential should verify", async () => {
-        const suite = new Ed25519Signature2018();
-        const { proof, ...document } = TransmuteCredential;
-        const verifiedProof = await suite.verifyProof({
-            proof,
-            document: document,
-            purpose: new purposes.AssertionProofPurpose(),
-            documentLoader: documentLoader
-        });
-        expect(verifiedProof.verified).toBe(true);
+  it("Transmute credential should verify", async () => {
+    const suite = new Ed25519Signature2018();
+    const { proof, ...document } = TransmuteCredential;
+    const verifiedProof = await suite.verifyProof({
+      proof,
+      document: document,
+      purpose: new purposes.AssertionProofPurpose(),
+      documentLoader: documentLoader
     });
+    expect(verifiedProof.verified).toBe(true);
+  });
 });
