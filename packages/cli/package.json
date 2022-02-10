@@ -2,7 +2,7 @@
   "name": "@transmute/cli",
   "author": "Orie Steele",
   "module": "dist/cli.esm.js",
-  "version": "0.7.0-unstable.44",
+  "version": "0.7.0-unstable.45",
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/cli",
   "repository": {
@@ -63,13 +63,13 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "@transmute/credentials-context": "^0.7.0-unstable.44",
+    "@transmute/credentials-context": "^0.7.0-unstable.45",
     "@transmute/did-key.js": "^0.3.0-unstable.5",
-    "@transmute/json-web-signature": "^0.7.0-unstable.44",
-    "@transmute/security-context": "^0.7.0-unstable.44",
-    "@transmute/universal-wallet": "^0.7.0-unstable.44",
-    "@transmute/universal-wallet-did-key-plugin": "^0.7.0-unstable.44",
-    "@transmute/vc.js": "^0.7.0-unstable.44",
+    "@transmute/json-web-signature": "^0.7.0-unstable.45",
+    "@transmute/security-context": "^0.7.0-unstable.45",
+    "@transmute/universal-wallet": "^0.7.0-unstable.45",
+    "@transmute/universal-wallet-did-key-plugin": "^0.7.0-unstable.45",
+    "@transmute/vc.js": "^0.7.0-unstable.45",
     "axios": "^0.24.0",
     "bip39": "^3.0.4",
     "bpmn-engine": "^13.0.0",
