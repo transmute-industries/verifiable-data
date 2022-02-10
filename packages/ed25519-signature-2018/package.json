@@ -23,7 +23,7 @@
 		"lint": "tsdx lint src --fix",
 		"prepare": "tsdx build",
 		"generate:fixtures": "node scripts/digital-bazaar.generate-fixture.js && node scripts/digital-bazaar.term-test.js && node scripts/dates/digital-bazaar.issuanceDate-fixture.js && node scripts/dates/digital-bazzar.suiteConstructor-fixture.js && node scripts/dates/digital-bazzar.suiteDirect-fixture.js"
-	  },
+	},
 	"engines": {
 		"node": ">=14"
 	},
@@ -43,8 +43,9 @@
 	},
 	"dependencies": {
 		"@transmute/credentials-context": "^0.7.0-unstable.43",
-		"@transmute/ed25519-key-pair": "0.7.0-unstable.2",
+		"@transmute/ed25519-key-pair": "^0.7.0-unstable.43",
 		"@transmute/jose-ld": "^0.7.0-unstable.43",
+		"@transmute/linked-data-proof": "^0.7.0-unstable.43",
 		"@transmute/security-context": "^0.7.0-unstable.43",
 		"jsonld": "^5.2.0"
 	},

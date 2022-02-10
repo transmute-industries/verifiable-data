@@ -42,6 +42,7 @@
 	"dependencies": {
 		"@mattrglobal/bbs-signatures": "^0.6.0",
 		"@stablelib/random": "^1.0.1",
+		"@transmute/bls12381-key-pair": "^0.7.0-unstable.42",
 		"@transmute/credentials-context": "^0.7.0-unstable.43",
 		"@transmute/did-context": "^0.7.0-unstable.43",
 		"@transmute/security-context": "^0.7.0-unstable.43",

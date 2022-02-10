@@ -22,7 +22,7 @@
 		"test": "tsdx test",
 		"lint": "tsdx lint src --fix",
 		"prepare": "tsdx build"
-	  },
+	},
 	"engines": {
 		"node": ">=10"
 	},
@@ -42,13 +42,18 @@
 		"typescript": "^3.9.5"
 	},
 	"dependencies": {
+		"@transmute/bbs-bls12381-signature-2020": "^0.7.0-unstable.43",
 		"@transmute/credentials-context": "^0.7.0-unstable.43",
 		"@transmute/did-context": "^0.7.0-unstable.43",
+		"@transmute/ed25519-key-pair": "^0.7.0-unstable.43",
+		"@transmute/ed25519-signature-2018": "^0.7.0-unstable.43",
+		"@transmute/jose-ld": "^0.7.0-unstable.43",
 		"@transmute/json-web-signature": "^0.7.0-unstable.43",
 		"@transmute/jsonld-schema": "^0.7.0-unstable.43",
 		"@transmute/linked-data-proof": "^0.7.0-unstable.43",
 		"@transmute/revocation-list-context": "^0.7.0-unstable.43",
 		"@transmute/security-context": "^0.7.0-unstable.43",
+		"@transmute/vc-status-rl-2020": "^0.7.0-unstable.43",
 		"jsonld": "^5.2.0",
 		"moment": "^2.29.1"
 	}
