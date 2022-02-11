@@ -2,7 +2,7 @@
   "name": "@transmute/universal-wallet-edv-plugin",
   "author": "Orie Steele",
   "module": "dist/universal-wallet-edv-plugin.esm.js",
-  "version": "0.7.0-unstable.46",
+  "version": "0.7.0-unstable.47",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -30,7 +30,7 @@
     "prepare": "tsdx build"
   },
   "devDependencies": {
-    "@transmute/universal-wallet-test-vectors": "^0.7.0-unstable.46",
+    "@transmute/universal-wallet-test-vectors": "^0.7.0-unstable.47",
     "ts-jest": "^26.5.4",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
