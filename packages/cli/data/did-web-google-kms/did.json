@@ -1,0 +1,26 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:example.gov:issuer:123",
+  "verificationMethod": [
+    {
+      "id": "did:web:example.gov:issuer:123#z82LktXGdvmVwy24NTEyHF7YF7vy9w5h4BapjtLrUFDDULRAFtWEkMLXQqkut1TUV3gtKMf",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:example.gov:issuer:123",
+      "publicKeyJwk": {
+        "kty": "EC",
+        "crv": "P-384",
+        "x": "2igCGYJFYgwSZbd6t4XlTherWFDc0EvaDwFvp82gYO4-5UZQqC8_kQyJtCb5GVBe",
+        "y": "GkfnsjsoCBSA4Q32Qtl8OtpsL6GqA_zPcTml_rJyIBOt4HIXvJLHBXStUoEx-orG"
+      }
+    }
+  ],
+  "assertionMethod": [
+    "did:web:example.gov:issuer:123#z82LktXGdvmVwy24NTEyHF7YF7vy9w5h4BapjtLrUFDDULRAFtWEkMLXQqkut1TUV3gtKMf"
+  ],
+  "authentication": [
+    "did:web:example.gov:issuer:123#z82LktXGdvmVwy24NTEyHF7YF7vy9w5h4BapjtLrUFDDULRAFtWEkMLXQqkut1TUV3gtKMf"
+  ]
+}
