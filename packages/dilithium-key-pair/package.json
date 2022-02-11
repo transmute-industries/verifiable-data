@@ -10,6 +10,9 @@
     "src",
     "util"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/dilithium-key-pair",
   "repository": {
     "type": "git",
