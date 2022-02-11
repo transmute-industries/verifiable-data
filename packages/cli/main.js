@@ -21,4 +21,7 @@ require('yargs')
   // neo
   .command(...commands.neo.importWorkflowInstanceComand)
 
+  // google
+  .command(...commands.google.googleCommands)
+
   .help().argv;
