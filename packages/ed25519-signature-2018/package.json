@@ -34,7 +34,6 @@
     "@digitalbazaar/ed25519-signature-2018": "^2.0.1",
     "@digitalbazaar/ed25519-verification-key-2018": "^3.1.1",
     "@transmute/credentials-context": "^0.7.0-unstable.45",
-    "@transmute/linked-data-proof": "^0.7.0-unstable.45",
     "json-pointer": "^0.6.1",
     "jsonld-signatures": "^9.3.0",
     "moment": "^2.29.1",
