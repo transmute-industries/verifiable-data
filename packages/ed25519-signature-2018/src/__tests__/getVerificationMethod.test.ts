@@ -8,25 +8,27 @@ import documentLoader from "../__fixtures__/documentLoader";
 // Previously this test was failing because of the shape of our object being returned
 // from the getVerificationMethod did not match what's expected in the purpose.validate() function.
 // Now these tests should pass
+
+const purpose = {
+  term: 'assertionMethod',
+  maxTimestampDelta: Infinity,
+  validate: () => {
+    return { valid: true };
+  },
+  update: (proof: any) => {
+    proof.proofPurpose = "assertionMethod";
+    return proof;
+  }
+};
+
 describe("document loader testing", () => {
   it("DigitalBazaar credential should verify", async () => {
-
     const suite = new Ed25519Signature2018();
     const { proof, ...document } = DigitalBazzarCredential;
     const verifiedProof = await suite.verifyProof({
       proof,
       document: document,
-      purpose: {
-        term: 'assertionMethod',
-        maxTimestampDelta: Infinity,
-        validate: () => {
-          return { valid: true };
-        },
-        update: (proof: any) => {
-          proof.proofPurpose = "assertionMethod";
-          return proof;
-        }
-      },
+      purpose,
       documentLoader: documentLoader
     });
 
@@ -39,17 +41,7 @@ describe("document loader testing", () => {
     const verifiedProof = await suite.verifyProof({
       proof,
       document: document,
-      purpose: {
-        term: 'assertionMethod',
-        maxTimestampDelta: Infinity,
-        validate: () => {
-          return { valid: true };
-        },
-        update: (proof: any) => {
-          proof.proofPurpose = "assertionMethod";
-          return proof;
-        }
-      },
+      purpose,
       documentLoader: documentLoader
     });
     expect(verifiedProof.verified).toBe(true);
