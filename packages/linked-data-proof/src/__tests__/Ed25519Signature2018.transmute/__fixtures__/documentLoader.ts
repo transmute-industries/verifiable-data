@@ -1,5 +1,6 @@
 import { contexts } from "./contexts";
 import controller from "./controller.json";
+import * as ed25519 from "@transmute/did-key-ed25519";
 
 // import jsonld from "jsonld";
 
@@ -12,9 +13,10 @@ const contextResolver = async (iri: string) => {
 
 const documentResolver = async (iri: string) => {
   if (iri.startsWith(controller.id)) {
+    const { didDocument } = await ed25519.resolve(controller.id);
     return {
       documentUrl: controller.id,
-      document: controller
+      document: didDocument
     };
   }
   return undefined;
