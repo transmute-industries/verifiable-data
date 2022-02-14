@@ -2,6 +2,7 @@ import {
   Ed25519Signature2018,
   Ed25519VerificationKey2018
 } from "@transmute/ed25519-signature-2018";
+import * as ed25519 from "@transmute/did-key-ed25519";
 
 import { plugin } from "../../index";
 
@@ -56,10 +57,11 @@ describe("from / issue / present / verify", () => {
         challenge: "nonce-123",
         domain: "example.com",
         suite,
-        documentLoader: (iri: string) => {
+        documentLoader: async (iri: string) => {
           if (iri.startsWith(controller.id)) {
+            const { didDocument } = await ed25519.driver.resolve(controller.id);
             return {
-              document: controller
+              document: didDocument
             };
           }
           return documentLoader(iri);

@@ -1,7 +1,7 @@
 import cre from "@transmute/credentials-context";
 import sec from "@transmute/security-context";
 import did from "@transmute/did-context";
-import x25519Context from './x25519-2019.json';
+import x25519Context from "./x25519-2019.json";
 
 export const contexts: any = {
   [sec.constants.ED25519_2018_v1_URL]: sec.contexts.get(

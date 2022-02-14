@@ -7,7 +7,7 @@ import { purposes } from "@transmute/linked-data-proof";
 // IBYRNE - 02/03/2022
 // Test added for issue reported here: https://difdn.slack.com/archives/C4X50SNUX/p1643793079624299?thread_ts=1643731070.971909&cid=C4X50SNUX
 const mockPurpose = {
-  term: 'assertionMethod',
+  term: "assertionMethod",
   maxTimestampDelta: Infinity,
   validate: () => {
     return { valid: true };
@@ -72,5 +72,32 @@ describe("Transmute and DB VCs verify with linked-data-proof purpose", () => {
       documentLoader: documentLoader
     });
     expect(verifiedProof.verified).toBe(false);
+  });
+});
+
+describe("Transmute and DB VCs verify with linked-data-proof purpose", () => {
+  xit("DigitalBazaar credential should verify", async () => {
+    const suite = new Ed25519Signature2018();
+    const { proof, ...document } = DigitalBazzarCredential;
+    const verifiedProof = await suite.verifyProof({
+      proof,
+      document: document,
+      purpose: new purposes.AssertionProofPurpose(),
+      documentLoader: documentLoader
+    });
+
+    expect(verifiedProof.verified).toBe(true);
+  });
+
+  xit("Transmute credential should verify", async () => {
+    const suite = new Ed25519Signature2018();
+    const { proof, ...document } = TransmuteCredential;
+    const verifiedProof = await suite.verifyProof({
+      proof,
+      document: document,
+      purpose: new purposes.AssertionProofPurpose(),
+      documentLoader: documentLoader
+    });
+    expect(verifiedProof.verified).toBe(true);
   });
 });
