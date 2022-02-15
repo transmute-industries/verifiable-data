@@ -75,6 +75,7 @@ describe("Transmute and DB VCs verify with linked-data-proof purpose", () => {
   });
 });
 
+// When these tests pass, the issue has been resolved.
 describe("Transmute and DB VCs verify with linked-data-proof purpose", () => {
   xit("DigitalBazaar credential should verify", async () => {
     const suite = new Ed25519Signature2018();
