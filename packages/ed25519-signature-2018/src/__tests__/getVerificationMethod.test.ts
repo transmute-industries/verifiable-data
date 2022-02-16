@@ -1,6 +1,7 @@
 import { Ed25519Signature2018 } from "../index";
 import DigitalBazzarCredential from "../__fixtures__/credentials/digital-bazaar.json";
 import TransmuteCredential from "../__fixtures__/credentials/transmute.json";
+import RevocationCredential from "../__fixtures__/credentials/revocation-list.json";
 import documentLoader from "../__fixtures__/documentLoader";
 import { purposes } from "@transmute/linked-data-proof";
 
@@ -49,7 +50,7 @@ describe("Transmute and DB VCs validate with mock purpose (SHOULD PASS)", () => 
 // Using purpose from linked-data-proof, these should NOT verify.
 // Once they are passing, the issue reported in DIF has been resolved.
 describe("Transmute and DB VCs verify with linked-data-proof purpose", () => {
-  it("DigitalBazaar credential should NOT verify", async () => {
+  xit("DigitalBazaar credential should NOT verify", async () => {
     const suite = new Ed25519Signature2018();
     const { proof, ...document } = DigitalBazzarCredential;
     const verifiedProof = await suite.verifyProof({
@@ -62,7 +63,7 @@ describe("Transmute and DB VCs verify with linked-data-proof purpose", () => {
     expect(verifiedProof.verified).toBe(false);
   });
 
-  it("Transmute credential should NOT verify", async () => {
+  xit("Transmute credential should NOT verify", async () => {
     const suite = new Ed25519Signature2018();
     const { proof, ...document } = TransmuteCredential;
     const verifiedProof = await suite.verifyProof({
@@ -77,7 +78,19 @@ describe("Transmute and DB VCs verify with linked-data-proof purpose", () => {
 
 // When these tests pass, the issue has been resolved.
 describe("Transmute and DB VCs verify with linked-data-proof purpose", () => {
-  xit("DigitalBazaar credential should verify", async () => {
+  it("Revocable credential should verify", async () => {
+    const suite = new Ed25519Signature2018();
+    const { proof, ...document } = RevocationCredential;
+    const verifiedProof = await suite.verifyProof({
+      proof,
+      document: document,
+      purpose: new purposes.AssertionProofPurpose(),
+      documentLoader: documentLoader
+    });
+    expect(verifiedProof.verified).toBe(true);
+  });
+
+  it("DigitalBazaar credential should verify", async () => {
     const suite = new Ed25519Signature2018();
     const { proof, ...document } = DigitalBazzarCredential;
     const verifiedProof = await suite.verifyProof({
@@ -90,7 +103,7 @@ describe("Transmute and DB VCs verify with linked-data-proof purpose", () => {
     expect(verifiedProof.verified).toBe(true);
   });
 
-  xit("Transmute credential should verify", async () => {
+  it("Transmute credential should verify", async () => {
     const suite = new Ed25519Signature2018();
     const { proof, ...document } = TransmuteCredential;
     const verifiedProof = await suite.verifyProof({

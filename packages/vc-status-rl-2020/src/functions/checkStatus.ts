@@ -1,6 +1,6 @@
 import { decodeList } from './decodeList';
 import { getCredentialStatus } from './getCredentialStatus';
-
+// @ts-ignore 
 import { ld as vc } from '@transmute/vc.js';
 import { LinkedDataProofSuite, DocumentLoader } from '../types';
 
@@ -95,7 +95,7 @@ async function _checkStatus({
 
   // verify RL VC
   if (verifyRevocationListCredential) {
-    const verifyResult = await vc.verifyCredential({
+    const verifyResult = await vc.verifyVerifiableCredential({
       credential: rlCredential,
       documentLoader,
       suite,
