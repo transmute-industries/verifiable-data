@@ -59,7 +59,7 @@ describe("from / issue / present / verify", () => {
         suite,
         documentLoader: async (iri: string) => {
           if (iri.startsWith(controller.id)) {
-            const { didDocument } = await ed25519.driver.resolve(controller.id);
+            const { didDocument } = await ed25519.resolve(controller.id);
             return {
               document: didDocument
             };
