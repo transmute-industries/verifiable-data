@@ -26,10 +26,7 @@ jobs:
       matrix:
         node-version:
           - 14
-          - 16
-        include:
-          - experimental: true
-            node-version: ">=17"
+          # - 16
 
     runs-on: ubuntu-latest
     steps:
@@ -40,6 +37,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           check-latest: true
+
+      # required because of dilithium key pair class
+      - uses: mymindstorm/setup-emsdk@v11
 
       - name: Install dependencies
         run: npm i
