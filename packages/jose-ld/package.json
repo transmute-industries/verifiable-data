@@ -37,8 +37,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "size-limit": [
-    {
+  "size-limit": [{
       "path": "dist/jose-ld.cjs.production.min.js",
       "limit": "10 KB"
     },
@@ -53,7 +52,6 @@
     "@transmute/secp256k1-key-pair": "^0.7.0-unstable.50",
     "@transmute/web-crypto-key-pair": "^0.7.0-unstable.50",
     "@transmute/x25519-key-pair": "^0.7.0-unstable.50",
-    "jose": "^4.3.8",
     "size-limit": "^4.9.2",
     "ts-jest": "^26.5.0",
     "tsdx": "^0.14.1",
@@ -65,6 +63,7 @@
     "@stablelib/aes-kw": "^1.0.0",
     "@stablelib/xchacha20poly1305": "^1.0.0",
     "base64url": "^3.0.1",
+    "jose": "^4.3.8",
     "web-streams-polyfill": "^3.0.3"
   }
 }
