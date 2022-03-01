@@ -1,6 +1,6 @@
 {
   "name": "@transmute/dilithium-key-pair",
-  "version": "0.7.0-unstable.46",
+  "version": "0.7.0-unstable.50",
   "description": "",
   "license": "Apache-2.0",
   "main": "dist/index.js",
@@ -10,6 +10,9 @@
     "src",
     "util"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/dilithium-key-pair",
   "repository": {
     "type": "git",

@@ -19,6 +19,18 @@ npm i
 npm t
 ```
 
+### Lerna Information
+It is important for developers working in this repo to understand that `lerna` is used to manage and link off the package contained. For more information regarding what `lerna` is and why it's used, click [here](https://github.com/lerna/lerna). 
+
+#### Common Lerna Commands
+Below is a short list of the lerna commands you will encounter while working in this repo, along with some information on when they should be used.
+
+1. `lerna bootstrap`: This command is used to build and link all of the packages in the repo. This command takes a significant amount of time to complete and should be used very conservatively. In your typical development workflow, you should only run this once when starting on a task or after running `npm install` inside one of the packages.
+
+2. `lerna link`: This command is used to symlink all of the packages. This command is what you will want to run when working in a package, and you want all of the other packages to include the latest changes. This means you should be using this command very frequently.
+
+IMPORTANT: It is vital when running these commands, that you do not ever exit the commands early. If you do exit early, your environment will become completely broken. Should this happen, you can always get to a fresh working state by running `npm run install:clean`. This command will clean out all of your packages, and then rebuild everything with `lerna bootstrap`.
+
 ## Table of Contents
 
 - [contexts](#contexts)

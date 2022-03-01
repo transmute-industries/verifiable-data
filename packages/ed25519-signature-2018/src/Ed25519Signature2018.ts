@@ -3,6 +3,7 @@ import crypto from "crypto";
 import * as sec from "@transmute/security-context";
 import * as cred from "@transmute/credentials-context";
 import { Ed25519VerificationKey2018 } from "./Ed25519VerificationKey2018";
+import { VerificationMethod } from "./types";
 
 const sha256 = (data: any) => {
   const h = crypto.createHash("sha256");
@@ -254,37 +255,31 @@ export class Ed25519Signature2018 {
       throw new Error('No "verificationMethod" or "creator" found in proof.');
     }
     const { document } = await documentLoader(verificationMethod);
-    const framed = await jsonld.frame(
-      verificationMethod,
-      {
-        "@context": document["@context"],
-        "@embed": "@always",
+    const method = document.verificationMethod.find(
+      (m: VerificationMethod) => m.id === verificationMethod
+    );
+    const methodResponse = {
+      "@context": document["@context"],
+      ...method,
+      controller: {
         id: verificationMethod
       },
-      {
-        // use the cache of the document we just resolved when framing
-        documentLoader: (iri: string) => {
-          if (iri.startsWith(document.id)) {
-            return {
-              documentUrl: iri,
-              document
-            };
-          }
-          return documentLoader(iri);
-        }
-      }
-    );
+    };
 
-    if (!framed) {
+    const response = {
+      ...methodResponse,
+    }
+
+    if (!response) {
       throw new Error(`Verification method ${verificationMethod} not found.`);
     }
 
     // ensure verification method has not been revoked
-    if (framed.revoked !== undefined) {
+    if (response.revoked !== undefined) {
       throw new Error("The verification method has been revoked.");
     }
 
-    return framed;
+    return methodResponse;
   }
 
   async verifySignature({ verifyData, verificationMethod, proof }: any) {

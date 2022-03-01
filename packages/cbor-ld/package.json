@@ -2,7 +2,7 @@
   "name": "@transmute/cbor-ld",
   "author": "Orie Steele",
   "module": "dist/cbor-ld.esm.js",
-  "version": "0.7.0-unstable.46",
+  "version": "0.7.0-unstable.50",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
