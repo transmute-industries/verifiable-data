@@ -1,6 +1,6 @@
 {
   "name": "@transmute/dilithium-key-pair",
-  "version": "0.7.0-unstable.50",
+  "version": "0.7.0-unstable.51",
   "description": "",
   "license": "Apache-2.0",
   "main": "dist/index.js",
