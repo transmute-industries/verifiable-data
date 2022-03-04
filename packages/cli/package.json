@@ -67,8 +67,6 @@
     "@transmute/did-key.js": "^0.3.0-unstable.5",
     "@transmute/json-web-signature": "^0.7.0-unstable.51",
     "@transmute/security-context": "^0.7.0-unstable.51",
-    "@transmute/universal-wallet": "^0.7.0-unstable.51",
-    "@transmute/universal-wallet-did-key-plugin": "^0.7.0-unstable.51",
     "@transmute/vc.js": "^0.7.0-unstable.51",
     "axios": "^0.24.0",
     "bip39": "^3.0.4",
