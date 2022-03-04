@@ -2,7 +2,7 @@
   "name": "@transmute/vc-status-rl-2020",
   "author": "Orie Steele",
   "module": "dist/vc-status-rl-2020.esm.js",
-  "version": "0.7.0-unstable.51",
+  "version": "0.7.0-unstable.52",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/vc-status-rl-2020",
   "repository": {
     "type": "git",
@@ -49,7 +49,7 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.2",
-    "@transmute/ed25519-signature-2018": "^0.7.0-unstable.51",
+    "@transmute/ed25519-signature-2018": "^0.7.0-unstable.52",
     "size-limit": "^4.9.2",
     "ts-jest": "^27.1.3",
     "tsdx": "^0.14.1",
@@ -57,14 +57,14 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "@transmute/compressable-bitstring": "^0.7.0-unstable.51",
-    "@transmute/credentials-context": "^0.7.0-unstable.51",
-    "@transmute/did-context": "^0.7.0-unstable.51",
+    "@transmute/compressable-bitstring": "^0.7.0-unstable.52",
+    "@transmute/credentials-context": "^0.7.0-unstable.52",
+    "@transmute/did-context": "^0.7.0-unstable.52",
     "@transmute/did-key-ed25519": "^0.2.1-unstable.37",
     "@transmute/linked-data-proof": "0.2.1-unstable.10",
-    "@transmute/revocation-list-context": "^0.7.0-unstable.51",
-    "@transmute/security-context": "^0.7.0-unstable.51",
-    "@transmute/vc.js": "^0.7.0-unstable.51"
+    "@transmute/revocation-list-context": "^0.7.0-unstable.52",
+    "@transmute/security-context": "^0.7.0-unstable.52",
+    "@transmute/vc.js": "^0.7.0-unstable.52"
   },
   "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
 }
