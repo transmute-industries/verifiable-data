@@ -1,7 +1,0 @@
-{
-  "@context": "https://w3id.org/security/ed25519-signature-2020/v1",
-  "id": "https://example.com/issuer/123#key-0",
-  "type": "Ed25519VerificationKey2020",
-  "controller": "https://example.com/issuer/123",
-  "publicKeyMultibase": "zgo4sNiXwJTbeJDWZLXVn9uTnRwgFHFxcgDePvEC9TiTYgRpG7q1p5s7yRAic"
-}

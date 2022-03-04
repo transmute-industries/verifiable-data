@@ -20,9 +20,11 @@ npm t
 ```
 
 ### Lerna Information
-It is important for developers working in this repo to understand that `lerna` is used to manage and link off the package contained. For more information regarding what `lerna` is and why it's used, click [here](https://github.com/lerna/lerna). 
+
+It is important for developers working in this repo to understand that `lerna` is used to manage and link off the package contained. For more information regarding what `lerna` is and why it's used, click [here](https://github.com/lerna/lerna).
 
 #### Common Lerna Commands
+
 Below is a short list of the lerna commands you will encounter while working in this repo, along with some information on when they should be used.
 
 1. `lerna bootstrap`: This command is used to build and link all of the packages in the repo. This command takes a significant amount of time to complete and should be used very conservatively. In your typical development workflow, you should only run this once when starting on a task or after running `npm install` inside one of the packages.
@@ -45,17 +47,15 @@ IMPORTANT: It is vital when running these commands, that you do not ever exit th
   - [jws 2020](./packages/json-web-signature)
 - [credential suites](#credential-suites)
   - [revocation list 2020](./packages/vc-status-rl-2020)
-- [universal wallet](#universal-wallett)
-  - [base wallet](./packages/universal-wallet)
-  - [did key plugin](./packages/universal-wallet-did-key-plugin)
-  - [did web plugin](./packages/universal-wallet-did-web-plugin)
-  - [verifiable credentials plugin](./packages/universal-wallet-vc-plugin)
-  - [encrypted data vaults plugin](./packages/universal-wallet-edv-plugin)
-  - [google secrets plugin](./packages/universal-wallet-google-secrets)
-  - [fastify vc http api plugin](./packages/universal-wallet-fastify-plugin)
 - [command line interface](./packages/cli)
 - [hashlink](./packages/hl)
 - [compressable bitstring](./packages/compressable-bitstring)
 - [did-web](./packages/did-web)
 - [jsonld schema](./packages/jsonld-schema)
 - [browser smoke test](https://transmute-industries.github.io/verifiable-data/smoke-test-react/)
+
+### Related Work
+
+- [did-key.js](https://github.com/transmute-industries/did-key.js)
+- [sidetree.js](https://github.com/transmute-industries/sidetree.js)
+- [universal-wallet](https://github.com/transmute-industries/universal-wallet)
