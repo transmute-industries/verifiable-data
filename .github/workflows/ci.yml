@@ -1,29 +1,93 @@
 name: CI
-on: [push]
+
+on: [pull_request]
+
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
     if: "! contains(github.event.head_commit.message, '[skip ci]')"
+    strategy:
+      matrix:
+        node-version:
+          - 14
     steps:
-      - name: Begin CI...
+      - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Use Node 14
-        uses: actions/setup-node@v1
+      - name: Setup node
+        uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: ${{ matrix.node-version }}
+          check-latest: true
 
       # needed for dilithium build
       - uses: mymindstorm/setup-emsdk@v11
 
       - name: Install
-        run: npm i
+        uses: bahmutov/npm-install@v1
+
+      - name: Bootstrap
+        run: npx lerna bootstrap
+
+      - name: Link
+        run: npx lerna link
+
+      - uses: actions/cache@v2
+        id: cache-build
+        with:
+          path: |
+            ./*
+          key: ${{ github.sha }}
+
+  lint:
+    concurrency: lint
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - uses: actions/cache@v2
+        id: cache-restore
+        with:
+          path: |
+            ./*
+          key: ${{ github.sha }}
 
       - name: Lint
         run: npm run lint
 
+  test:
+    concurrency: test
+    needs:
+      - build
+    strategy:
+      matrix:
+        node-version:
+          - 14
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          check-latest: true
+
+      - uses: actions/cache@v2
+        id: cache-restore
+        with:
+          path: |
+            ./*
+          key: ${{ github.sha }}
+
       - name: Test
         run: npm run test
 
-      - name: Build
-        run: npm run build
+      
