@@ -59,3 +59,4 @@ IMPORTANT: It is vital when running these commands, that you do not ever exit th
 - [did-key.js](https://github.com/transmute-industries/did-key.js)
 - [sidetree.js](https://github.com/transmute-industries/sidetree.js)
 - [universal-wallet](https://github.com/transmute-industries/universal-wallet)
+- [did actor api](https://github.com/transmute-industries/api.did.actor)
