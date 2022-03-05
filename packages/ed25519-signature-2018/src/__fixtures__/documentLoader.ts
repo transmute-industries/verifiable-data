@@ -3,8 +3,8 @@ const dids: any = {
   "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk#z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk": require("./dids/did-document.json"),
   "did:key:z6Mkit65RCCgy6W2UuTspjA13XvzyiBoMycEKEFSHQkrZntg": require("./dids/did-document-2.json"),
   "did:key:z6Mkit65RCCgy6W2UuTspjA13XvzyiBoMycEKEFSHQkrZntg#z6Mkit65RCCgy6W2UuTspjA13XvzyiBoMycEKEFSHQkrZntg": require("./dids/did-document-2.json"),
-  "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn": require('./dids/did-document-3.json'),
-  "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn#z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn": require('./dids/did-document-3.json')
+  "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn": require("./dids/did-document-3.json"),
+  "did:key:z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn#z6MktiSzqF9kqwdU8VkdBKx56EYzXfpgnNPUAGznpicNiWfn": require("./dids/did-document-3.json")
 };
 const contexts: any = {
   "https://www.w3.org/2018/credentials/v1": require("./contexts/credential-v1.json"),

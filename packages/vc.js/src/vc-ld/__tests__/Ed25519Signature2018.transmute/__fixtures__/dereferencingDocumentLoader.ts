@@ -60,4 +60,4 @@ export const dereferencingDocumentLoader = async (iri: string) => {
   const message = "Unsupported iri: " + iri;
   console.error(message);
   throw new Error(message);
-}; 
+};

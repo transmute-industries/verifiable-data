@@ -1,6 +1,6 @@
 import { decodeList } from './decodeList';
 import { getCredentialStatus } from './getCredentialStatus';
-// @ts-ignore 
+// @ts-ignore
 import { ld as vc } from '@transmute/vc.js';
 import { LinkedDataProofSuite, DocumentLoader } from '../types';
 
