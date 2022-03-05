@@ -1,3 +1,6 @@
 import * as commands from './commands';
 import * as util from './util';
-export { commands, util };
+
+import * as vcApi from './vc-api';
+
+export { commands, util, vcApi };
