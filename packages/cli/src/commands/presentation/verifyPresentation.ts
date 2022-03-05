@@ -1,24 +1,5 @@
-import axios from 'axios';
 import { getPresentationFromFile, handleCommandResponse } from '../../util';
-
-export const verifyPresenation = async (
-  presentation: any,
-  endpoint: string
-) => {
-  const options: any = {};
-  if (presentation.proof.domain) {
-    options.domain = presentation.proof.domain;
-  }
-
-  if (presentation.proof.challenge) {
-    options.challenge = presentation.proof.challenge;
-  }
-  const res = await axios.post(endpoint, {
-    verifiablePresentation: presentation,
-    options,
-  });
-  return res.data;
-};
+import * as api from '../../vc-api';
 
 export const verifyPresentationCommand = [
   'presentation verify',
@@ -40,13 +21,31 @@ export const verifyPresentationCommand = [
       description: 'Endpoint to use to verify',
       default: 'https://api.did.actor/api/presentations/verify',
     },
+    access_token: {
+      alias: 'a',
+      stype: 'string',
+      description: 'Authorization token to use',
+    },
   },
   async (argv: any) => {
     if (argv.debug) {
       console.log(argv);
     }
     let presentation = getPresentationFromFile(argv.input);
-    const data = await verifyPresenation(presentation, argv.endpoint);
+    const opts: any = {
+      endpoint: argv.endpoint,
+      verifiablePresentation: presentation,
+      options: {
+        challenge: presentation.proof.challenge,
+      },
+    };
+    if (argv.access_token) {
+      opts.access_token = argv.access_token;
+    }
+    if (presentation.proof.domain) {
+      opts.options.domain = presentation.proof.domain;
+    }
+    const data = await api.verify(opts);
     handleCommandResponse(argv, data, argv.output);
   },
 ];

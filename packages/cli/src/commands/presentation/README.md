@@ -32,6 +32,19 @@ presentation create \
 --debug
 ```
 
+### From vc api
+
+```
+npm run transmute -- \
+presentation create \
+--input  "./data/templates/b1.json"  \
+--output "./data/presentations/c1.json" \
+--endpoint "http://localhost:3000/api/presentations/prove" \
+--domain "ontology.example" \
+--challenge "123" \
+--debug
+```
+
 ### Verify Presentation
 
 ```

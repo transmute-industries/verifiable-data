@@ -32,6 +32,17 @@ credential create \
 --debug
 ```
 
+#### From a VC API
+
+```
+npm run transmute -- \
+credential create \
+--input  "./data/templates/a1.json"  \
+--output "./data/credentials/c1.json" \
+--endpoint "https://api.did.actor/api/credentials/issue" \
+--debug
+```
+
 ### Verify a Credential
 
 ```

@@ -27,7 +27,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "transmute": "node main.js",
+    "transmute": "NODE_NO_WARNINGS=1 node main.js",
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",

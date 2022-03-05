@@ -10,6 +10,8 @@ import { JsonWebKey, JsonWebSignature } from '@transmute/json-web-signature';
 
 import { deriveKey } from '../key/derive';
 
+import * as api from '../../vc-api';
+
 export const createCredential = async (
   credential: any,
   key: any,
@@ -63,6 +65,17 @@ export const createCredentialCommand = [
       description: 'Output format',
       default: 'vc',
     },
+    endpoint: {
+      alias: 'e',
+      stype: 'string',
+      description: 'Endpoint to use to issue',
+      default: 'https://api.did.actor/api/credentials/issue',
+    },
+    access_token: {
+      alias: 'a',
+      stype: 'string',
+      description: 'Authorization token to use',
+    },
   },
   async (argv: any) => {
     if (argv.debug) {
@@ -70,19 +83,33 @@ export const createCredentialCommand = [
     }
     let key;
     let credential = getCredentialFromFile(argv.input);
-    if (argv.key) {
-      key = getKeyFromFile(argv.key);
-    }
-    if (argv.mnemonic) {
-      const keys = await deriveKey(argv.type, argv.mnemonic, argv.hdpath);
-      key = keys[0];
-    }
-    if (credential.issuer.id) {
-      credential.issuer.id = key.controller;
+    let data: any = {};
+    if (!argv.endpoint) {
+      if (argv.key) {
+        key = getKeyFromFile(argv.key);
+      }
+      if (argv.mnemonic) {
+        const keys = await deriveKey(argv.type, argv.mnemonic, argv.hdpath);
+        key = keys[0];
+      }
+      if (credential.issuer.id) {
+        credential.issuer.id = key.controller;
+      } else {
+        credential.issuer = key.controller;
+      }
+      data = await createCredential(credential, key, argv.format);
     } else {
-      credential.issuer = key.controller;
+      const opts: any = {
+        endpoint: argv.endpoint,
+        credential,
+        options: { type: 'Ed25519Signature2018' },
+      };
+      if (argv.access_token) {
+        opts.access_token = argv.access_token;
+      }
+      data = await api.issue(opts);
     }
-    const data = await createCredential(credential, key, argv.format);
+
     handleCommandResponse(argv, data, argv.output);
   },
 ];

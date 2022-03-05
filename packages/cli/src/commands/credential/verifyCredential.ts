@@ -1,12 +1,6 @@
-import axios from 'axios';
 import { getCredentialFromFile, handleCommandResponse } from '../../util';
 
-export const verifyCredential = async (credential: any, endpoint: string) => {
-  const res = await axios.post(endpoint, {
-    verifiableCredential: credential,
-  });
-  return res.data;
-};
+import * as api from '../../vc-api';
 
 export const verifyCredentialCommand = [
   'credential verify',
@@ -28,13 +22,25 @@ export const verifyCredentialCommand = [
       description: 'Endpoint to use to verify',
       default: 'https://api.did.actor/api/credentials/verify',
     },
+    access_token: {
+      alias: 'a',
+      stype: 'string',
+      description: 'Authorization token to use',
+    },
   },
   async (argv: any) => {
     if (argv.debug) {
       console.log(argv);
     }
     let credential = getCredentialFromFile(argv.input);
-    const data = await verifyCredential(credential, argv.endpoint);
+    const opts: any = {
+      endpoint: argv.endpoint,
+      verifiableCredential: credential,
+    };
+    if (argv.access_token) {
+      opts.access_token = argv.access_token;
+    }
+    const data = await api.verify(opts);
     handleCommandResponse(argv, data, argv.output);
   },
 ];

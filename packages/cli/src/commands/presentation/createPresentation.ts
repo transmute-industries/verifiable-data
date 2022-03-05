@@ -11,6 +11,7 @@ import { JsonWebKey, JsonWebSignature } from '@transmute/json-web-signature';
 import faker from 'faker';
 
 import { deriveKey } from '../key/derive';
+import * as api from '../../vc-api';
 
 export const createPresentation = async (
   presentation: any,
@@ -86,25 +87,44 @@ export const createPresentationCommand = [
     }
     let key;
     let presentation = getPresentationFromFile(argv.input);
-    if (argv.key) {
-      key = getKeyFromFile(argv.key);
-    }
-    if (argv.mnemonic) {
-      const keys = await deriveKey(argv.type, argv.mnemonic, argv.hdpath);
-      key = keys[0];
-    }
-    if (presentation.holder.id) {
-      presentation.holder.id = key.controller;
+    let data: any = {};
+    if (!argv.endpoint) {
+      if (argv.key) {
+        key = getKeyFromFile(argv.key);
+      }
+      if (argv.mnemonic) {
+        const keys = await deriveKey(argv.type, argv.mnemonic, argv.hdpath);
+        key = keys[0];
+      }
+      if (presentation.holder.id) {
+        presentation.holder.id = key.controller;
+      } else {
+        presentation.holder = key.controller;
+      }
+      data = await createPresentation(
+        presentation,
+        key,
+        argv.format,
+        argv.domain,
+        argv.challenge
+      );
     } else {
-      presentation.holder = key.controller;
+      const opts: any = {
+        endpoint: argv.endpoint,
+        presentation,
+        options: {},
+      };
+      if (argv.access_token) {
+        opts.access_token = argv.access_token;
+      }
+      if (argv.domain) {
+        opts.options.domain = argv.domain;
+      }
+      if (argv.challenge) {
+        opts.options.challenge = argv.challenge;
+      }
+      data = await api.prove(opts);
     }
-    const data = await createPresentation(
-      presentation,
-      key,
-      argv.format,
-      argv.domain,
-      argv.challenge
-    );
     handleCommandResponse(argv, data, argv.output);
   },
 ];
