@@ -1,4 +1,2 @@
-import * as generate from './generate';
-import * as derive from './derive';
-
-export { generate, derive };
+export * from './generate';
+export * from './registerCommands';

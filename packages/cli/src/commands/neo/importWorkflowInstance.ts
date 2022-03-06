@@ -101,41 +101,27 @@ export const importWorkflowInstance = async (instance: any, driver: any) => {
   await driver.close();
 };
 
-export const importWorkflowInstanceComand = [
-  'neo workflow import',
-  'Import a workflow instance into neo4j.',
-  {
-    clean: {
-      alias: 'c',
-      description: 'Clean data first',
-    },
-    input: {
-      alias: 'i',
-      description: 'Path to workflow instance json',
-    },
-  },
-  async (argv: any) => {
-    if (argv.debug) {
-      console.log(argv);
-    }
-    let instance: any = {};
-    const driver = getDriver(argv.uri, argv.user, argv.password);
+export const importWorkflowHandler = async (argv: any) => {
+  if (argv.debug) {
+    console.log(argv);
+  }
+  let instance: any = {};
+  const driver = getDriver(argv.uri, argv.user, argv.password);
 
-    if (argv.clean) {
-      const session = driver.session();
+  if (argv.clean) {
+    const session = driver.session();
 
-      await session.run(
-        `
-      MATCH (n)
-      DETACH DELETE n;
+    await session.run(
       `
-      );
-      await session.close();
-    }
-    if (argv.input) {
-      instance = getWorkflowInstanceFromFile(argv.input);
-    }
-    await importWorkflowInstance(instance, driver);
-    await driver.close();
-  },
-];
+    MATCH (n)
+    DETACH DELETE n;
+    `
+    );
+    await session.close();
+  }
+  if (argv.input) {
+    instance = getWorkflowInstanceFromFile(argv.input);
+  }
+  await importWorkflowInstance(instance, driver);
+  await driver.close();
+};

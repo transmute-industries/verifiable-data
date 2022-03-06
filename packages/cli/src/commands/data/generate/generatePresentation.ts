@@ -1,5 +1,5 @@
 import faker from 'faker';
-import { generateKey } from '../../key/generateKey';
+import { generateKey } from '../../key/generate';
 import { sha256, getAllCredentialsInDirectory } from '../../../util';
 import { createPresentation } from '../../presentation';
 

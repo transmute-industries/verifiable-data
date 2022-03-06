@@ -8,7 +8,7 @@ import {
 import { verifiable } from '@transmute/vc.js';
 import { JsonWebKey, JsonWebSignature } from '@transmute/json-web-signature';
 
-import { deriveKey } from '../key/derive';
+import { deriveKey } from '../key';
 
 import * as api from '../../vc-api';
 

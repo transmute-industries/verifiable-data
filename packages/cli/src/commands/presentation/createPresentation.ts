@@ -10,7 +10,7 @@ import { JsonWebKey, JsonWebSignature } from '@transmute/json-web-signature';
 
 import faker from 'faker';
 
-import { deriveKey } from '../key/derive';
+import { deriveKey } from '../key';
 import * as api from '../../vc-api';
 
 export const createPresentation = async (
@@ -33,98 +33,49 @@ export const createPresentation = async (
   return result.items[0];
 };
 
-export const createPresentationCommand = [
-  'presentation create',
-  'Create a verifiable presentation',
-  {
-    input: {
-      alias: 'i',
-      description: 'Path to input document',
-      demandOption: true,
-    },
-    output: {
-      alias: 'o',
-      description: 'Path to output document',
-      demandOption: true,
-    },
-    // key or mnemonic + hdpath + type is required
-    key: {
-      alias: 'k',
-      description: 'Path to key',
-    },
-    mnemonic: {
-      alias: 'm',
-      description: 'Mnemonic to derive key',
-    },
-    hdpath: {
-      alias: 'hd',
-      description: 'HD Path to derive key',
-    },
-    type: {
-      alias: 't',
-      description: 'Type of key to derive',
-    },
-    domain: {
-      alias: 'd',
-      type: 'string',
-      description: 'Domain of the verifier',
-    },
-    challenge: {
-      alias: 'c',
-      type: 'string',
-      description: 'Challenge from the verifier',
-    },
-    format: {
-      alias: 'f',
-      choices: ['vp', 'vp-jwt'],
-      description: 'Output format',
-      default: 'vp',
-    },
-  },
-  async (argv: any) => {
-    if (argv.debug) {
-      console.log(argv);
+export const createPresentationHandler = async (argv: any) => {
+  if (argv.debug) {
+    console.log(argv);
+  }
+  let key;
+  let presentation = getPresentationFromFile(argv.input);
+  let data: any = {};
+  if (!argv.endpoint) {
+    if (argv.key) {
+      key = getKeyFromFile(argv.key);
     }
-    let key;
-    let presentation = getPresentationFromFile(argv.input);
-    let data: any = {};
-    if (!argv.endpoint) {
-      if (argv.key) {
-        key = getKeyFromFile(argv.key);
-      }
-      if (argv.mnemonic) {
-        const keys = await deriveKey(argv.type, argv.mnemonic, argv.hdpath);
-        key = keys[0];
-      }
-      if (presentation.holder.id) {
-        presentation.holder.id = key.controller;
-      } else {
-        presentation.holder = key.controller;
-      }
-      data = await createPresentation(
-        presentation,
-        key,
-        argv.format,
-        argv.domain,
-        argv.challenge
-      );
+    if (argv.mnemonic) {
+      const keys = await deriveKey(argv.type, argv.mnemonic, argv.hdpath);
+      key = keys[0];
+    }
+    if (presentation.holder.id) {
+      presentation.holder.id = key.controller;
     } else {
-      const opts: any = {
-        endpoint: argv.endpoint,
-        presentation,
-        options: {},
-      };
-      if (argv.access_token) {
-        opts.access_token = argv.access_token;
-      }
-      if (argv.domain) {
-        opts.options.domain = argv.domain;
-      }
-      if (argv.challenge) {
-        opts.options.challenge = argv.challenge;
-      }
-      data = await api.prove(opts);
+      presentation.holder = key.controller;
     }
-    handleCommandResponse(argv, data, argv.output);
-  },
-];
+    data = await createPresentation(
+      presentation,
+      key,
+      argv.format,
+      argv.domain,
+      argv.challenge
+    );
+  } else {
+    const opts: any = {
+      endpoint: argv.endpoint,
+      presentation,
+      options: {},
+    };
+    if (argv.access_token) {
+      opts.access_token = argv.access_token;
+    }
+    if (argv.domain) {
+      opts.options.domain = argv.domain;
+    }
+    if (argv.challenge) {
+      opts.options.challenge = argv.challenge;
+    }
+    data = await api.prove(opts);
+  }
+  handleCommandResponse(argv, data, argv.output);
+};

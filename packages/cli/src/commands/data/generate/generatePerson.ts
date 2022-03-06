@@ -1,5 +1,5 @@
 import faker from 'faker';
-import { generateKey } from '../../key/generateKey';
+import { generateKey } from '../../key/generate';
 import { sha256 } from '../../../util';
 
 export const generatePerson = async (argv: { seed: number }) => {

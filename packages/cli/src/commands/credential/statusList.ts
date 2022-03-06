@@ -6,7 +6,7 @@ import {
   handleCommandResponse,
 } from '../../util';
 
-import { deriveKey } from '../key/derive';
+import { deriveKey } from '../key';
 
 // import * as api from '../../vc-api';
 
