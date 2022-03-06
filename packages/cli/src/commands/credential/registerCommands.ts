@@ -7,6 +7,7 @@ import {
 
 import { keyTypeOptions } from '../options';
 
+import { registryIndexRefreshHandler } from './registryIndexRefresh';
 export const registerCommands = (yargs: any) => {
   yargs.command({
     command: 'credential [operationType]',
@@ -17,6 +18,7 @@ export const registerCommands = (yargs: any) => {
         verify: verifyCredentialHandler,
         setStatusListIndex: setStatusListIndexHandler,
         isStatusListIndexSet: isStatusListIndexSetHandler,
+        registryIndexRefresh: registryIndexRefreshHandler,
       };
       if (dispatchHandler[argv.operationType]) {
         return dispatchHandler[argv.operationType](argv);
@@ -32,6 +34,7 @@ export const registerCommands = (yargs: any) => {
           'verify',
           'setStatusListIndex',
           'isStatusListIndexSet',
+          'registryIndexRefresh',
         ],
       },
       input: {

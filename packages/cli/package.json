@@ -70,6 +70,7 @@
     "@transmute/security-context": "^0.7.0-unstable.53",
     "@transmute/vc-status-rl-2020": "^0.7.0-unstable.53",
     "@transmute/vc.js": "^0.7.0-unstable.53",
+    "@transmute/did-web": "^0.7.0-unstable.53",
     "axios": "^0.24.0",
     "bip39": "^3.0.4",
     "bpmn-engine": "^13.0.0",

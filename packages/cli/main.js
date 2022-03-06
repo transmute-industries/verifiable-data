@@ -6,6 +6,7 @@ const cli = require('yargs')
   .scriptName('transmute')
   .usage('$0 <cmd> [args]');
 
+commands.did.registerCommands(cli);
 commands.key.registerCommands(cli);
 commands.credential.registerCommands(cli);
 commands.presentation.registerCommands(cli);

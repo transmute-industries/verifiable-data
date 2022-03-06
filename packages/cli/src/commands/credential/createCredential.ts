@@ -1,3 +1,4 @@
+import path from 'path';
 import {
   documentLoader,
   getCredentialFromFile,
@@ -11,6 +12,10 @@ import { JsonWebKey, JsonWebSignature } from '@transmute/json-web-signature';
 import { deriveKey } from '../key';
 
 import * as api from '../../vc-api';
+
+import * as did from '../did';
+
+import uuid from 'uuid';
 
 export const createCredential = async (
   credential: any,
@@ -47,6 +52,26 @@ export const createCredentialHandler = async (argv: any) => {
       credential.issuer.id = key.controller;
     } else {
       credential.issuer = key.controller;
+    }
+
+    if (argv.username && argv.repository) {
+      const didDoc = await did.createDocument({
+        username: argv.username,
+        repository: argv.repository,
+        mnemonic: argv.mnemonic,
+        hdpath: argv.hdpath,
+        type: argv.type,
+      });
+      if (credential.issuer.id) {
+        credential.issuer.id = didDoc.id;
+      } else {
+        credential.issuer = didDoc.id;
+      }
+      key.id = didDoc.id + '#' + key.id.split('#').pop();
+      key.controller = didDoc.id;
+      const fileName = `${uuid.v4()}.json`;
+      credential.id = `https://${argv.username}.github.io/${argv.repository}/credentials/${fileName}`;
+      argv.output = path.join(argv.output, fileName);
     }
     data = await createCredential(credential, key, argv.format);
   } else {

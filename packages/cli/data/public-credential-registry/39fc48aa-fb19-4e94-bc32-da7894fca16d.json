@@ -1,0 +1,35 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/jws-2020/v1",
+    {
+      "@vocab": "https://ontology.example/vocab/#"
+    }
+  ],
+  "id": "https://transmute-industries.github.io/public-credential-registry-template/credentials/39fc48aa-fb19-4e94-bc32-da7894fca16d.json",
+  "type": [
+    "VerifiableCredential",
+    "CertifiedDevice"
+  ],
+  "issuer": {
+    "id": "did:web:transmute-industries.github.io:public-credential-registry-template:issuers:z6MkiR2uJyqkVm6679hSaXeHaJr6AG6Fj6duXgNvQmn8jsK7"
+  },
+  "issuanceDate": "2022-01-15T19:25:55.574Z",
+  "credentialSubject": {
+    "id": "did:key:z6MkoZrhfUbGsBFVqawVgyauvoTA8bsNJWyaAQeVkJYdpvXK",
+    "type": "Device",
+    "name": "55S Mobile Program",
+    "description": "Try to quantify the SAS alarm, maybe it will copy the virtual panel!",
+    "latitude": "69.4264",
+    "longitude": "-136.3105",
+    "mac": "cd:22:26:65:6a:9b",
+    "ip": "21a0:7698:a2bd:ae26:1331:085a:238a:d13d"
+  },
+  "proof": {
+    "type": "JsonWebSignature2020",
+    "created": "2022-03-06T17:47:52Z",
+    "verificationMethod": "did:web:transmute-industries.github.io:public-credential-registry-template:issuers:z6MkiR2uJyqkVm6679hSaXeHaJr6AG6Fj6duXgNvQmn8jsK7#z6MkiR2uJyqkVm6679hSaXeHaJr6AG6Fj6duXgNvQmn8jsK7",
+    "proofPurpose": "assertionMethod",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..fFK9WtIdn5r9lgyKG-erZGbu5Yv2gel-Cdg6tiQFdjQARIChjzeFXXNrVXNeVRTRRBHHcuGpMHlDoUSqhINSDQ"
+  }
+}

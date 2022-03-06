@@ -21,6 +21,25 @@ credential create \
 --format "vc" \
 --debug
 
+# Create a Verifiable Credential via BIP 39 and BIP 44 for a public credential registry 
+npm run transmute -- \
+credential create \
+--input  "./data/templates/a.json"  \
+--username "transmute-industries" \
+--repository "public-credential-registry-template" \
+--output "./data/public-credential-registry" \
+--mnemonic "correct horse battery staple" \
+--hdpath "m/44'/0'/0'/0" \
+--type "ed25519" \
+--format "vc" \
+--debug
+
+# Refresh a public credential registry index
+npm run transmute -- \
+credential registryIndexRefresh \
+--input  "./data/public-credential-registry"  \
+--debug
+
 
 # Create a Verifiable Credential via https://github.com/w3c-ccg/vc-api
 npm run transmute -- \
@@ -66,3 +85,5 @@ credential isStatusListIndexSet \
 --output "./data/credentials/rl-vc-0.s0.json" \
 --credentialIndex "100" \
 --debug
+
+
