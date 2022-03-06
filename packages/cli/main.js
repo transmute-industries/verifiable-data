@@ -2,6 +2,49 @@
 
 const { commands } = require('./dist/index');
 
+const options = {
+  input: {
+    alias: 'i',
+    description: 'Path to input document',
+  },
+  output: {
+    alias: 'o',
+    description: 'Path to output document',
+  },
+  key: {
+    alias: 'k',
+    description: 'Path to key',
+  },
+  mnemonic: {
+    alias: 'm',
+    description: 'Mnemonic to derive key',
+  },
+  hdpath: {
+    alias: 'hd',
+    description: 'HD Path to derive key',
+  },
+  type: {
+    alias: 't',
+    description: 'Type of key to derive',
+  },
+  format: {
+    alias: 'f',
+    choices: ['vc', 'vc-jwt'],
+    description: 'Output format',
+    default: 'vc',
+  },
+  endpoint: {
+    alias: 'e',
+    stype: 'string',
+    description: 'Endpoint to use to issue',
+  },
+  access_token: {
+    alias: 'a',
+    stype: 'string',
+    description: 'Authorization token to use',
+  },
+};
+
 require('yargs')
   .scriptName('transmute')
   .usage('$0 <cmd> [args]')
@@ -28,20 +71,29 @@ require('yargs')
     command: 'credential [operationType]',
     describe: 'See https://www.w3.org/TR/vc-data-model/#credentials',
     handler: argv => {
-      if (argv.operationType === 'create') {
-        return commands.credential.createCredentialCommand[3](argv);
-      }
-      if (argv.operationType === 'verify') {
-        return commands.credential.verifyCredentialCommand[3](argv);
+      const dispatchHandler = {
+        create: commands.credential.createCredentialHandler,
+        verify: commands.credential.verifyCredentialHandler,
+        setStatusListIndex: commands.credential.setStatusListIndexHandler,
+        isStatusListIndexSet: commands.credential.isStatusListIndexSetHandler,
+      };
+      if (dispatchHandler[argv.operationType]) {
+        return dispatchHandler[argv.operationType](argv);
+      } else {
+        throw new Error('Unsupported operationType');
       }
     },
     builder: {
       operationType: {
         demand: true,
-        choices: ['create', 'verify'],
+        choices: [
+          'create',
+          'verify',
+          'setStatusListIndex',
+          'isStatusListIndexSet',
+        ],
       },
-      ...commands.credential.createCredentialCommand[2],
-      ...commands.credential.verifyCredentialCommand[2],
+      ...options,
     },
   })
 
