@@ -9,8 +9,8 @@ export const resolve = async (did: string) => {
     url,
     headers: {
       // Authorization: `Bearer ${token}`,
-      accept: "application/json",
-    },
+      accept: "application/json"
+    }
   });
   return resp.data;
 };
