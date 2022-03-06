@@ -22,5 +22,47 @@ export const registerCommands = (yargs: any) => {
         choices: ['create', 'verify'],
       },
     },
+    input: {
+      alias: 'i',
+      description: 'Path to input document',
+    },
+    output: {
+      alias: 'o',
+      description: 'Path to output document',
+    },
+    key: {
+      alias: 'k',
+      description: 'Path to key',
+    },
+    type: {
+      alias: 't',
+      description: 'Type of key to derive',
+    },
+    format: {
+      alias: 'f',
+      choices: ['vp', 'vp-jwt'],
+      description: 'Output format',
+      default: 'vp',
+    },
+    endpoint: {
+      alias: 'e',
+      stype: 'string',
+      description: 'Endpoint to use to issue',
+    },
+    access_token: {
+      alias: 'a',
+      stype: 'string',
+      description: 'Authorization token to use',
+    },
+    domain: {
+      alias: 'd',
+      type: 'string',
+      description: 'Domain from the holder',
+    },
+    challenge: {
+      alias: 'c',
+      type: 'string',
+      description: 'Challenge from the verifier',
+    },
   });
 };

@@ -32,6 +32,46 @@ export const registerCommands = (yargs: any) => {
           'isStatusListIndexSet',
         ],
       },
+      input: {
+        alias: 'i',
+        description: 'Path to input document',
+      },
+      output: {
+        alias: 'o',
+        description: 'Path to output document',
+      },
+      key: {
+        alias: 'k',
+        description: 'Path to key',
+      },
+      type: {
+        alias: 't',
+        description: 'Type of key to derive',
+      },
+      format: {
+        alias: 'f',
+        choices: ['vc', 'vc-jwt'],
+        description: 'Output format',
+        default: 'vc',
+      },
+      endpoint: {
+        alias: 'e',
+        stype: 'string',
+        description: 'Endpoint to use to issue',
+      },
+      access_token: {
+        alias: 'a',
+        stype: 'string',
+        description: 'Authorization token to use',
+      },
+      credentialIndex: {
+        alias: 'ci',
+        description: 'Status List Credential index',
+      },
+      status: {
+        alias: 's',
+        description: 'Status in Status List',
+      },
     },
   });
 };

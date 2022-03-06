@@ -1,14 +1,5 @@
-This api aligns with the command line interface used in [decentralized-identity/JWS-Test-Suitedecentralized-identity/JWS-Test-Suite](https://github.com/decentralized-identity/JWS-Test-Suite).
+# Create a Verifiable Credential in JSON-LD Data Integrity Format.
 
-### Issue Credentials
-
-```
-npm run transmute -- credential create --help
-```
-
-#### From a Key
-
-```
 npm run transmute -- \
 credential create \
 --input  "./data/templates/a.json"  \
@@ -16,77 +7,62 @@ credential create \
 --key "./data/keys/a.json" \
 --format "vc" \
 --debug
-```
 
-#### From a Mnemonic
 
-```
+# Create a Verifiable Credential via BIP 39 and BIP 44
+
 npm run transmute -- \
 credential create \
 --input  "./data/templates/a.json"  \
 --output "./data/credentials/c.json" \
 --mnemonic "correct horse battery staple" \
---hdpath "m/44’/0’/0’/0" \
+--hdpath "m/44'/0'/0'/0" \
 --type "ed25519" \
 --format "vc" \
 --debug
-```
 
-#### From a VC API
 
-```
+# Create a Verifiable Credential via https://github.com/w3c-ccg/vc-api
 npm run transmute -- \
 credential create \
 --input  "./data/templates/a1.json"  \
 --output "./data/credentials/c1.json" \
 --endpoint "https://api.did.actor/api/credentials/issue" \
 --debug
-```
 
-### Verify a Credential
+# Verify a Verifiable Credential via https://github.com/w3c-ccg/vc-api
 
-```
 npm run transmute -- \
 credential verify \
 --input  "./data/credentials/c.json"  \
 --output "./data/verifications/a.json" \
 --endpoint "https://api.did.actor/api/credentials/verify" \
 --debug
-```
 
-#### Issue a Revocation List Verifiable Credential
-
-```
+# Create a Revocation List Verifiable Credential via https://github.com/w3c-ccg/vc-api
 npm run transmute -- \
 credential create \
 --input  "./data/templates/rl-vc-0.json"  \
 --output "./data/credentials/rl-vc-0.json" \
 --endpoint "https://api.did.actor/api/credentials/issue" \
 --debug
-```
 
-#### Revoke an Index of a Revocation List Verifiable Credential
-
-```
+# Set the status for an index in a Revocation List Verifiable Credential
 npm run transmute -- \
 credential setStatusListIndex \
 --input  "./data/credentials/rl-vc-0.json"  \
 --output "./data/credentials/rl-vc-0.json" \
 --mnemonic "sell antenna drama rule twenty cement mad deliver you push derive hybrid" \
---hdpath "m/44’/0’/0’/0" \
+--hdpath "m/44'/0'/0'/0" \
 --type "ed25519" \
 --credentialIndex "100" \
 --status false \
 --debug
-```
 
-#### Check an Index of a Revocation List Verifiable Credential
-
-```
+# Check the status of an index in a Revocation List Verifiable Credential
 npm run transmute -- \
 credential isStatusListIndexSet \
 --input  "./data/credentials/rl-vc-0.json"  \
 --output "./data/credentials/rl-vc-0.s0.json" \
 --credentialIndex "100" \
 --debug
-```
