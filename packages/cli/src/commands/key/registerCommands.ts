@@ -1,4 +1,7 @@
 import { generateKeyHandler } from './generate';
+
+import { keyTypeOptions } from '../options';
+
 export const registerCommands = (yargs: any) => {
   yargs.command({
     command: 'key [operationType]',
@@ -30,10 +33,7 @@ export const registerCommands = (yargs: any) => {
         alias: 's',
         description: 'Seed to generate key from',
       },
-      type: {
-        alias: 't',
-        description: 'Type of key to derive',
-      },
+      type: keyTypeOptions,
       output: {
         alias: 'o',
         description: 'Path to output document',

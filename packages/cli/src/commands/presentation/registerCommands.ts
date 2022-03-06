@@ -1,5 +1,6 @@
 import { createPresentationHandler } from './createPresentation';
 import { verifyPresentationHandler } from './verifyPresentation';
+import { keyTypeOptions } from '../options';
 
 export const registerCommands = (yargs: any) => {
   yargs.command({
@@ -34,10 +35,7 @@ export const registerCommands = (yargs: any) => {
       alias: 'k',
       description: 'Path to key',
     },
-    type: {
-      alias: 't',
-      description: 'Type of key to derive',
-    },
+    type: keyTypeOptions,
     format: {
       alias: 'f',
       choices: ['vp', 'vp-jwt'],
