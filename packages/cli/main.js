@@ -2,26 +2,20 @@
 
 const { commands } = require('./dist/index');
 
-require('yargs')
+const cli = require('yargs')
   .scriptName('transmute')
-  .usage('$0 <cmd> [args]')
-  // key
-  .command(...commands.key.generate.generateKeyCommand)
+  .usage('$0 <cmd> [args]');
 
-  // vc
-  .command(...commands.credential.createCredentialCommand)
-  .command(...commands.credential.verifyCredentialCommand)
-  // vp
-  .command(...commands.presentation.createPresentationCommand)
-  .command(...commands.presentation.verifyPresentationCommand)
+commands.did.registerCommands(cli);
+commands.key.registerCommands(cli);
+commands.credential.registerCommands(cli);
+commands.presentation.registerCommands(cli);
+commands.data.registerCommands(cli);
+commands.neo.registerCommands(cli);
+commands.google.registerCommands(cli);
 
-  // data
-  .command(...commands.data.createDataCommand)
+cli.option('challenge', {
+  string: true,
+});
 
-  // neo
-  .command(...commands.neo.importWorkflowInstanceComand)
-
-  // google
-  .command(...commands.google.googleCommands)
-
-  .help().argv;
+cli.help().argv;

@@ -1,21 +1,42 @@
 {
-  "name": "did-web",
-  "version": "0.7.0-unstable.53",
-  "description": "",
-  "private": true,
-  "main": "index.js",
-  "scripts": {
-    "start": "node ./src/run.js",
-    "test": "jest --env node"
-  },
+  "name": "@transmute/did-web",
   "author": "Orie Steele",
-  "license": "ISC",
+  "module": "dist/did-web.esm.js",
+  "version": "0.7.0-unstable.53",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/did-web",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
+    "directory": "packages/did-web"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint src --fix",
+    "prepare": "tsdx build"
+  },
   "devDependencies": {
-    "axios": "^0.21.1",
-    "express": "^4.17.1",
-    "express-htaccess-middleware": "^0.1.0",
-    "htaccess-parser": "^0.1.0",
-    "jest": "^26.6.3",
-    "supertest": "^6.1.3"
-  }
+    "ts-jest": "^27.1.3",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "axios": "^0.26.0"
+  },
+  "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
 }

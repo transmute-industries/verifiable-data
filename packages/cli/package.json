@@ -27,7 +27,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "transmute": "node main.js",
+    "transmute": "NODE_NO_WARNINGS=1 node main.js",
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
@@ -66,8 +66,11 @@
     "@transmute/credentials-context": "^0.7.0-unstable.53",
     "@transmute/did-key.js": "^0.3.0-unstable.5",
     "@transmute/json-web-signature": "^0.7.0-unstable.53",
+    "@transmute/revocation-list-context": "^0.7.0-unstable.53",
     "@transmute/security-context": "^0.7.0-unstable.53",
+    "@transmute/vc-status-rl-2020": "^0.7.0-unstable.53",
     "@transmute/vc.js": "^0.7.0-unstable.53",
+    "@transmute/did-web": "^0.7.0-unstable.53",
     "axios": "^0.24.0",
     "bip39": "^3.0.4",
     "bpmn-engine": "^13.0.0",

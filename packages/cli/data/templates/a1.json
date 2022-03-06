@@ -1,0 +1,19 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    { "@vocab": "https://ontology.example/vocab/#" }
+  ],
+  "id": "urn:uuid:4x7fzuuv",
+  "type": ["VerifiableCredential", "CertifiedDevice"],
+  "issuanceDate": "2022-01-15T19:25:55.574Z",
+  "credentialSubject": {
+    "id": "did:key:z6MkoZrhfUbGsBFVqawVgyauvoTA8bsNJWyaAQeVkJYdpvXK",
+    "type": "Device",
+    "name": "55S Mobile Program",
+    "description": "Try to quantify the SAS alarm, maybe it will copy the virtual panel!",
+    "latitude": "69.4264",
+    "longitude": "-136.3105",
+    "mac": "cd:22:26:65:6a:9b",
+    "ip": "21a0:7698:a2bd:ae26:1331:085a:238a:d13d"
+  }
+}

@@ -12,7 +12,7 @@ export const getAllCredentialsInDirectory = (relativePath: string) => {
       return JSON.parse(f.content);
     })
     .filter((data: any) => {
-      return data.type.includes('VerifiableCredential');
+      return data.type && data.type.includes('VerifiableCredential');
     });
   return onlyCredentials;
 };

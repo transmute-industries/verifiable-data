@@ -263,12 +263,12 @@ export class Ed25519Signature2018 {
       ...method,
       controller: {
         id: verificationMethod
-      },
+      }
     };
 
     const response = {
-      ...methodResponse,
-    }
+      ...methodResponse
+    };
 
     if (!response) {
       throw new Error(`Verification method ${verificationMethod} not found.`);

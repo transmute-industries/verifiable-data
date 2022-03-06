@@ -1,0 +1,37 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:or13.github.io:public-credential-registry-template:issuers:z6MkqUjJDcu4zJHm1ktuhUZNxpi3LF7A9GuFzy3aYpA5gJvw",
+  "verificationMethod": [
+    {
+      "id": "did:web:or13.github.io:public-credential-registry-template:issuers:z6MkqUjJDcu4zJHm1ktuhUZNxpi3LF7A9GuFzy3aYpA5gJvw#z6MkqUjJDcu4zJHm1ktuhUZNxpi3LF7A9GuFzy3aYpA5gJvw",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:or13.github.io:public-credential-registry-template:issuers:z6MkqUjJDcu4zJHm1ktuhUZNxpi3LF7A9GuFzy3aYpA5gJvw",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "o9Dzfpji2bcUyOHoIyuO1i_M8cTeTHwDq-NLBib35tQ"
+      }
+    },
+    {
+      "id": "did:web:or13.github.io:public-credential-registry-template:issuers:z6MkqUjJDcu4zJHm1ktuhUZNxpi3LF7A9GuFzy3aYpA5gJvw#z6LSoppPwmRRbPpbAhNA1FutoUL9mwvre8dCo3CPqRxUSug8",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:or13.github.io:public-credential-registry-template:issuers:z6MkqUjJDcu4zJHm1ktuhUZNxpi3LF7A9GuFzy3aYpA5gJvw",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "X25519",
+        "x": "tIL8vizxszNnskYSQ4iqd3OpJkkLyQpGijBa72smciU"
+      }
+    }
+  ],
+  "assertionMethod": [
+    "did:web:or13.github.io:public-credential-registry-template:issuers:z6MkqUjJDcu4zJHm1ktuhUZNxpi3LF7A9GuFzy3aYpA5gJvw#z6MkqUjJDcu4zJHm1ktuhUZNxpi3LF7A9GuFzy3aYpA5gJvw",
+    "did:web:or13.github.io:public-credential-registry-template:issuers:z6MkqUjJDcu4zJHm1ktuhUZNxpi3LF7A9GuFzy3aYpA5gJvw#z6LSoppPwmRRbPpbAhNA1FutoUL9mwvre8dCo3CPqRxUSug8"
+  ],
+  "authentication": [
+    "did:web:or13.github.io:public-credential-registry-template:issuers:z6MkqUjJDcu4zJHm1ktuhUZNxpi3LF7A9GuFzy3aYpA5gJvw#z6MkqUjJDcu4zJHm1ktuhUZNxpi3LF7A9GuFzy3aYpA5gJvw",
+    "did:web:or13.github.io:public-credential-registry-template:issuers:z6MkqUjJDcu4zJHm1ktuhUZNxpi3LF7A9GuFzy3aYpA5gJvw#z6LSoppPwmRRbPpbAhNA1FutoUL9mwvre8dCo3CPqRxUSug8"
+  ]
+}
