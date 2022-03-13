@@ -26,12 +26,12 @@ export type DidResoluton = {
 };
 
 export type Context = {
-  "@context": object | string | string[]
+  "@context": object | string | string[];
   [property: string]: any;
 }
 
 export type DocumentLoaderResponse = {
-  document: Context | DidDocument | any
+  document: Context | DidDocument | any;
 }
 
 export type ContextContentType = 'application/json' | 'application/ld+json'
@@ -42,13 +42,13 @@ export interface ContextResolutionOptions {
 }
 
 export interface DidResolutionOptions {
-  accept:  DidDocumentType
+  accept:  DidDocumentType;
 }
 export interface DocumentLoaderOptions {
-  accept: ContextContentType | DidDocumentType
+  accept: ContextContentType | DidDocumentType;
 }
 
-export type DidResolver = (iri: Did, options?:DidResolutionOptions) => Promise<DidResoluton>;
+export type DidResolver = (iri: Did, options?: DidResolutionOptions) => Promise<DidResoluton>;
 export type DidDereferencer = (iri: DidUrl, options?: DidResolutionOptions) => Promise<any>;
 export type ContextResolver = (iri: Url, options?: ContextResolutionOptions) => Promise<Context>;
 
@@ -57,7 +57,7 @@ export type DocumentLoader = (iri: Iri, options?: DocumentLoaderOptions) => Prom
 
 export interface ContextMapResolver  {
   load: ContextResolver;
-};
+}
 
 export type ContextMap = {
   [contextUrl: Url]: ContextResolver;
@@ -65,31 +65,31 @@ export type ContextMap = {
 
 export interface StartsWithDidResolver  {
   resolve: DidResolver;
-};
+}
 
 export interface ResolverMap  {
   [startsWith: Did]: DidResolver;
-};
+}
 
 export interface StartsWithDidDereferencer  {
   dereference: DidDereferencer;
-};
+}
 
 export interface DereferenceMap  {
   [startsWith: Did]: DidDereferencer;
-};
+}
 
 export type Iri = Did | DidUrl | Url
 
 
 
-export const findFirstSubResourceWithId = (resource: any, id: Iri)=>{
+export const findFirstSubResourceWithId = (resource: any, id: Iri): any =>{
   if (resource.id === id){
     return resource;
   }
-  let subResource:any = resource;
-  function traverse(obj:any) {
-    for (let k in obj) {
+  let subResource: any = resource;
+  function traverse(obj: any): void {
+    for (const k in obj) {
       if (typeof obj[k] === "object") {
         traverse(obj[k])
       } else {
@@ -116,11 +116,14 @@ export const didUrlToDid = (didUrl: DidUrl): Did =>{
 }
 
 
-const invokeByPrefix = async (instance: ContextFactory | DidDereferencerFactory | DidResolverFactory, id: Iri, options?: DocumentLoaderOptions) => {
+export interface FactoryInstance  {
+  [property: string]: any;
+}
 
+const invokeByPrefix = async (instance: FactoryInstance, id: Iri, options?: DocumentLoaderOptions): Promise<any> => {
 
-  if ((instance as any)[id] && typeof (instance as any)[id] !== 'function'){
-    return (instance as any)[id]
+  if (instance[id] && typeof instance[id] !== 'function'){
+    return instance[id]
   } 
   const loaders = ['load', 'resolve', 'dereference'];
   const startsWithKeys = Object.keys(instance).filter((k)=> !loaders.includes(k))
@@ -138,7 +141,7 @@ const invokeByPrefix = async (instance: ContextFactory | DidDereferencerFactory 
 
 
 export const resolutionFactoryDefault = {
-  resolve: async function (did: Did, options?: DidResolutionOptions)  {
+  resolve: async function (did: Did, options?: DidResolutionOptions): Promise<DidResoluton>  {
     return invokeByPrefix(this, did, options)
   },
 }
@@ -147,7 +150,7 @@ export interface DidResolverFactory extends ResolverMap, StartsWithDidResolver {
 export const resolverFactory = Factory.makeFactory<DidResolverFactory>(resolutionFactoryDefault);
 
 export const dereferenceFactoryDefault = {
-  dereference: async function (didUrl: DidUrl, options?: DidResolutionOptions)  {
+  dereference: async function (didUrl: DidUrl, options?: DidResolutionOptions): Promise<any>  {
     return invokeByPrefix(this,  didUrl, options)
   },
 }
@@ -170,7 +173,7 @@ StartsWithDidResolver,
 StartsWithDidDereferencer {}
 
 
-const internalDocumentLoaderFactory:any = Factory.makeFactory<DocumentLoaderFactory>({
+const internalDocumentLoaderFactory: any = Factory.makeFactory<DocumentLoaderFactory>({
   ...contextFactoryDefault, 
   ...resolutionFactoryDefault, 
   ...dereferenceFactoryDefault
@@ -178,7 +181,7 @@ const internalDocumentLoaderFactory:any = Factory.makeFactory<DocumentLoaderFact
 const originalBuilder = internalDocumentLoaderFactory.build;
 internalDocumentLoaderFactory.build = function (args: ContextMap | ResolverMap | DereferenceMap ): DocumentLoader {
   const internal = originalBuilder(args);
-  return async (iri: Iri, options?: DocumentLoaderOptions) => {
+  return async (iri: Iri, options?: DocumentLoaderOptions): Promise<DocumentLoaderResponse> => {
     const isDidUrl = didUrlRegex.test(iri );
     const resource = await internal[isDidUrl ? 'resolve': 'load'](iri, options)
     if (isDidUrl && !(iri.includes('/') ||  iri.includes('?') || iri.includes('#')))  {

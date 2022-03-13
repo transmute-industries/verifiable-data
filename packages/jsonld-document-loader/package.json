@@ -27,7 +27,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
-    "lint": "tsdx lint src --fix",
+    "lint": "eslint --fix './src/**/*.ts'",
     "prepare": "npm run build"
   },
   "devDependencies": {
