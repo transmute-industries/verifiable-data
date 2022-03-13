@@ -49,5 +49,6 @@ describe("can resolve", () => {
     expect(result0.document["@context"]["@vocab"]).toBe(
       "https://w3id.org/rebase#undefined-term"
     );
+    console.log(JSON.stringify(result0, null, 2));
   });
 });

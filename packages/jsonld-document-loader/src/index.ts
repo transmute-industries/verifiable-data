@@ -184,9 +184,12 @@ internalDocumentLoaderFactory.build = function (args: ContextMap | ResolverMap |
     if (isDidUrl && !(iri.includes('/') ||  iri.includes('?') || iri.includes('#')))  {
       return { document: resource }
     }
-    const subResource = await findFirstSubResourceWithId(resource, iri)
+    let subResource = await findFirstSubResourceWithId(resource, iri)
     if (options && options.accept.includes('ld+json')){
-      subResource['@context'] = resource['@context'];
+      subResource = {
+        '@context': resource['@context'],
+        ...subResource
+      }
     }
     return { document: subResource }
     
