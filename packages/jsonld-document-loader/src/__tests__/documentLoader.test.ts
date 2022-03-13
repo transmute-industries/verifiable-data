@@ -3,21 +3,21 @@ import { documentLoaderFactory, Did, DidUrl } from "..";
 it("can build a multi content documentLoader with safe types", async () => {
   const documentLoader: any = documentLoaderFactory.build({
     // static contexts built at compile time
-    ["https://w3id.org/traceability/v1"]: {
+    "https://w3id.org/traceability/v1": {
       "@context": {
         "@version": 1.1,
-        "@vocab": "https://w3id.org/traceability/#undefined-term-",
-      },
+        "@vocab": "https://w3id.org/traceability/#undefined-term-"
+      }
     },
-    ["did:example:dev:"]: async (didUrl: DidUrl) => {
+    "did:example:dev:": async (didUrl: DidUrl) => {
       return {
         id: didUrl,
-        cool: 123,
+        cool: 123
       };
     },
-    ["did:example:"]: async (did: Did) => {
+    "did:example:": async (did: Did) => {
       return { id: did };
-    },
+    }
   });
   const result0 = await documentLoader("https://w3id.org/traceability/v1");
   expect(result0.document["@context"]).toBeDefined();

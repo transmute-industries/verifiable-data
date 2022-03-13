@@ -2,12 +2,12 @@ import { dereferencerFactory, DidUrl } from "../";
 
 it("can build dereferencer with safe types", async () => {
   const dereferencer = dereferencerFactory.build({
-    ["did:example:"]: async (didUrl: DidUrl) => {
+    "did:example:": async (didUrl: DidUrl) => {
       return {
         id: didUrl,
-        cool: 123,
+        cool: 123
       };
-    },
+    }
   });
   const didUrl = "did:example:123/path/123?query=456#fragment-789";
   const dereference = await dereferencer.dereference(didUrl);
@@ -21,7 +21,7 @@ it("will throw type error when trying to register unsupported did method", async
     // any required here to turn off the expected type error
     ["did:foo:" as any]: async (didUrl: DidUrl) => {
       return { id: didUrl, derp: true };
-    },
+    }
   });
   try {
     // any required here to turn off the expected type error

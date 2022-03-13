@@ -34,7 +34,7 @@ const context = {
 };
 
 const documentLoader = documentLoaderFactory.build({
-  ["https://w3id.org/rebase/v1"]: async (_iri: Url) => {
+  "https://w3id.org/rebase/v1": async (_iri: Url) => {
     // const { data } = await axios.get(iri);
     // return data;
     return context;
@@ -49,6 +49,5 @@ describe("can resolve", () => {
     expect(result0.document["@context"]["@vocab"]).toBe(
       "https://w3id.org/rebase#undefined-term"
     );
-    console.log(JSON.stringify(result0, null, 2));
   });
 });
