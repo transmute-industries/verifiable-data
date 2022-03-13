@@ -87,7 +87,7 @@ export const findFirstSubResourceWithId = (resource: any, id: Iri)=>{
   if (resource.id === id){
     return resource;
   }
-  let subResource:any = null;
+  let subResource:any = resource;
   function traverse(obj:any) {
     for (let k in obj) {
       if (typeof obj[k] === "object") {
@@ -104,9 +104,10 @@ export const findFirstSubResourceWithId = (resource: any, id: Iri)=>{
   return subResource
 }
 
+export const didUrlRegex = new RegExp(/did:(?<method>[a-z0-9:]*):(?<idchar>([a-zA-Z0-9.\-_]+|%[0-9a-fA-F]{2})+)(?<path>(\/[^?]+))?(?<query>(\?[^#]+))?(?<fragment>(\#[^\n]+))?/);
+ 
 export const didUrlToDid = (didUrl: DidUrl): Did =>{
-  const didUrlRegex = new RegExp(/did:(?<method>[a-z0-9:]*):(?<idchar>([a-zA-Z0-9.\-_]+|%[0-9a-fA-F]{2})+)(?<path>(\/[^?]+))?(?<query>(\?[^#]+))?(?<fragment>(\#[^\n]+))?/);
-  const match = didUrl.match(didUrlRegex)
+ const match = didUrl.match(didUrlRegex)
   if (!match?.groups){
     throw new Error('Malformed did url: ' + didUrl)
   }
@@ -115,17 +116,20 @@ export const didUrlToDid = (didUrl: DidUrl): Did =>{
 }
 
 
-const invokeByPrefix = (instance: ContextFactory | DidDereferencerFactory | DidResolverFactory, id: Iri, options?: DocumentLoaderOptions) => {
+const invokeByPrefix = async (instance: ContextFactory | DidDereferencerFactory | DidResolverFactory, id: Iri, options?: DocumentLoaderOptions) => {
 
-  if ((instance as any)[id]){
+
+  if ((instance as any)[id] && typeof (instance as any)[id] !== 'function'){
     return (instance as any)[id]
   } 
-
   const loaders = ['load', 'resolve', 'dereference'];
   const startsWithKeys = Object.keys(instance).filter((k)=> !loaders.includes(k))
+
   for (const startWithKey of startsWithKeys){
+ 
     if (id.startsWith(startWithKey)){
-      return (instance as any)[startWithKey](id, options)
+      const result = await (instance as any)[startWithKey](id, options)
+      return result
     }
   }
 
@@ -165,16 +169,6 @@ ContextMapResolver,
 StartsWithDidResolver, 
 StartsWithDidDereferencer {}
 
-const iriToLoader = (iri:string): 'load' | 'resolve' => {
-  if (iri.startsWith('http')){
-    return 'load'
-  }
-  // we don't use resolve any more, dereference is a super set. 
-  if (iri.startsWith('did')){
-    return 'resolve' 
-  }
-  throw new Error('Unsupported iri: ' + iri)
-}
 
 const internalDocumentLoaderFactory:any = Factory.makeFactory<DocumentLoaderFactory>({
   ...contextFactoryDefault, 
@@ -185,13 +179,11 @@ const originalBuilder = internalDocumentLoaderFactory.build;
 internalDocumentLoaderFactory.build = function (args: ContextMap | ResolverMap | DereferenceMap ): DocumentLoader {
   const internal = originalBuilder(args);
   return async (iri: Iri, options?: DocumentLoaderOptions) => {
-    const loader = iriToLoader(iri)
-    const resource = await internal[loader](iri, options)
-
-    if (!(iri.includes('/') &&  iri.includes('?') &&  iri.includes('#')))  {
+    const isDidUrl = didUrlRegex.test(iri );
+    const resource = await internal[isDidUrl ? 'resolve': 'load'](iri, options)
+    if (isDidUrl && !(iri.includes('/') ||  iri.includes('?') || iri.includes('#')))  {
       return { document: resource }
     }
-
     const subResource = await findFirstSubResourceWithId(resource, iri)
     if (options && options.accept.includes('ld+json')){
       subResource['@context'] = resource['@context'];
