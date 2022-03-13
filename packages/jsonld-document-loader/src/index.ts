@@ -1,6 +1,6 @@
 import * as Factory from "factory.ts";
 
-export type DidMethod = 'example' | 'key' | 'web';
+export type DidMethod = 'example' | 'key' | 'web' | 'photon' | 'elem' | 'elem:ropsten' | string;
 export type DidMethodSpecificId = string
 export type Did = `did:${DidMethod}:${DidMethodSpecificId}`;
 export type DidPath = string;
@@ -26,7 +26,7 @@ export type DidResoluton = {
 };
 
 export type Context = {
-  "@context": object | string
+  "@context": object | string | string[]
   [property: string]: any;
 }
 
@@ -34,11 +34,25 @@ export type DocumentLoaderResponse = {
   document: Context | DidDocument | any
 }
 
+export type ContextContentType = 'application/json' | 'application/ld+json'
+export type DidDocumentType = 'application/did+json' | 'application/did+ld+json'
 
-export type DidResolver = (iri: Did) => Promise<DidResoluton>;
-export type DidDereferencer = (iri: DidUrl) => Promise<any>;
-export type ContextResolver = (iri: string) => Promise<Context>;
-export type DocumentLoader = (iri: Did | DidUrl | string) => Promise<DocumentLoaderResponse>;
+export interface ContextResolutionOptions {
+  accept: ContextContentType;
+}
+
+export interface DidResolutionOptions {
+  accept:  DidDocumentType
+}
+export interface DocumentLoaderOptions {
+  accept: ContextContentType | DidDocumentType
+}
+
+export type DidResolver = (iri: Did, options?:DidResolutionOptions) => Promise<DidResoluton>;
+export type DidDereferencer = (iri: DidUrl, options?: DidResolutionOptions) => Promise<any>;
+export type ContextResolver = (iri: Url, options?: ContextResolutionOptions) => Promise<Context>;
+
+export type DocumentLoader = (iri: Iri, options?: DocumentLoaderOptions) => Promise<DocumentLoaderResponse>;
 
 
 export interface ContextMapResolver  {
@@ -65,24 +79,14 @@ export interface DereferenceMap  {
   [startsWith: Did]: DidDereferencer;
 };
 
+export type Iri = Did | DidUrl | Url
 
-const invokeByPrefix = (instance: any, id: Did | DidUrl | string)=>{
 
-  if (instance[id]){
-    return instance[id]
-  } 
 
-  const loaders = ['load', 'resolve', 'dereference'];
-  const startsWithKeys = Object.keys(instance).filter((k)=> !loaders.includes(k))
-  for (const startWithKey of startsWithKeys){
-    if (id.startsWith(startWithKey)){
-      return instance[startWithKey](id)
-    }
+export const findFirstSubResourceWithId = (resource: any, id: Iri)=>{
+  if (resource.id === id){
+    return resource;
   }
-  throw new Error('Unsupported iri ' + id);
-}
-
-export const findFirstSubResourceWithId = (resource: any, id: string)=>{
   let subResource:any = null;
   function traverse(obj:any) {
     for (let k in obj) {
@@ -110,9 +114,28 @@ export const didUrlToDid = (didUrl: DidUrl): Did =>{
   return `did:${method}:${idchar}` as Did
 }
 
+
+const invokeByPrefix = (instance: ContextFactory | DidDereferencerFactory | DidResolverFactory, id: Iri, options?: DocumentLoaderOptions) => {
+
+  if ((instance as any)[id]){
+    return (instance as any)[id]
+  } 
+
+  const loaders = ['load', 'resolve', 'dereference'];
+  const startsWithKeys = Object.keys(instance).filter((k)=> !loaders.includes(k))
+  for (const startWithKey of startsWithKeys){
+    if (id.startsWith(startWithKey)){
+      return (instance as any)[startWithKey](id, options)
+    }
+  }
+
+  throw new Error('Unsupported iri ' + id);
+}
+
+
 export const resolutionFactoryDefault = {
-  resolve: async function (did: Did)  {
-    return invokeByPrefix(this, didUrlToDid(did as any))
+  resolve: async function (did: Did, options?: DidResolutionOptions)  {
+    return invokeByPrefix(this, did, options)
   },
 }
 
@@ -120,8 +143,8 @@ export interface DidResolverFactory extends ResolverMap, StartsWithDidResolver {
 export const resolverFactory = Factory.makeFactory<DidResolverFactory>(resolutionFactoryDefault);
 
 export const dereferenceFactoryDefault = {
-  dereference: async function (didUrl: DidUrl)  {
-    return invokeByPrefix(this,  didUrl)
+  dereference: async function (didUrl: DidUrl, options?: DidResolutionOptions)  {
+    return invokeByPrefix(this,  didUrl, options)
   },
 }
 
@@ -129,8 +152,8 @@ export interface DidDereferencerFactory extends DereferenceMap, StartsWithDidDer
 export const dereferencerFactory = Factory.makeFactory<DidDereferencerFactory>(dereferenceFactoryDefault);
 
 export const contextFactoryDefault = {
-  load: async function (iri: string): Promise<Context>  {
-    return invokeByPrefix(this,  iri)
+  load: async function (iri: Url, options?: ContextResolutionOptions): Promise<Context>  {
+    return invokeByPrefix(this,  iri, options)
   },
 }
 
@@ -142,13 +165,13 @@ ContextMapResolver,
 StartsWithDidResolver, 
 StartsWithDidDereferencer {}
 
-const iriToLoader = (iri:string): 'load' | 'resolve' | 'dereference' => {
+const iriToLoader = (iri:string): 'load' | 'resolve' => {
   if (iri.startsWith('http')){
     return 'load'
   }
   // we don't use resolve any more, dereference is a super set. 
   if (iri.startsWith('did')){
-    return 'dereference' 
+    return 'resolve' 
   }
   throw new Error('Unsupported iri: ' + iri)
 }
@@ -159,13 +182,22 @@ const internalDocumentLoaderFactory:any = Factory.makeFactory<DocumentLoaderFact
   ...dereferenceFactoryDefault
 });
 const originalBuilder = internalDocumentLoaderFactory.build;
-// this time, make the builder return a documentLoader that is ready for use.
 internalDocumentLoaderFactory.build = function (args: ContextMap | ResolverMap | DereferenceMap ): DocumentLoader {
   const internal = originalBuilder(args);
-  return async (iri:string) => {
+  return async (iri: Iri, options?: DocumentLoaderOptions) => {
     const loader = iriToLoader(iri)
-    const document = await internal[loader](iri)
-    return { document }
+    const resource = await internal[loader](iri, options)
+
+    if (!(iri.includes('/') &&  iri.includes('?') &&  iri.includes('#')))  {
+      return { document: resource }
+    }
+
+    const subResource = await findFirstSubResourceWithId(resource, iri)
+    if (options && options.accept.includes('ld+json')){
+      subResource['@context'] = resource['@context'];
+    }
+    return { document: subResource }
+    
   }
 }
 export const documentLoaderFactory = internalDocumentLoaderFactory

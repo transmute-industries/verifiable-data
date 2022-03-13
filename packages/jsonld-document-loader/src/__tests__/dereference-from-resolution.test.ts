@@ -1,5 +1,11 @@
-import { resolverFactory, Did } from "../";
-import { dereferencerFactory, DidUrl, findFirstSubResourceWithId } from "../";
+import {
+  resolverFactory,
+  Did,
+  didUrlToDid,
+  dereferencerFactory,
+  DidUrl,
+  findFirstSubResourceWithId,
+} from "../";
 
 it("can build a dereferencer from a resolver", async () => {
   const resolver = resolverFactory.build({
@@ -23,7 +29,8 @@ it("can build a dereferencer from a resolver", async () => {
   });
   const dereferencer = dereferencerFactory.build({
     ["did:example:"]: async (didUrl: DidUrl) => {
-      const resolution = await resolver.resolve(didUrl);
+      const did = didUrlToDid(didUrl);
+      const resolution = await resolver.resolve(did);
       return findFirstSubResourceWithId(resolution.didDocument, didUrl);
     },
   });
