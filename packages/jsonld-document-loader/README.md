@@ -68,16 +68,13 @@ const result = await documentLoader("https://w3id.org/rebase/v1");
 // }
 ```
 
-### With Remote DID Resolver
+### Resolve DID Document with remote did resolver
 
 ```ts
 import axios from "axios";
-import {
-  documentLoaderFactory,
-  DidUrl,
-} from "@transmute/jsonld-document-loader";
+import { documentLoaderFactory, Did } from "@transmute/jsonld-document-loader";
 const documentLoader = documentLoaderFactory.build({
-  ["did:key"]: async (didUrl: DidUrl) => {
+  ["did:key"]: async (did: Did) => {
     const endpoint = `https://api.did.actor/api/identifiers/${did}`;
     const { data } = await axios.get(endpoint);
     return data.didDocument;
@@ -119,7 +116,7 @@ import {
 } from "@transmute/jsonld-document-loader";
 const documentLoader = documentLoaderFactory.build({
   ["did:key"]: async (didUrl: DidUrl) => {
-    const endpoint = `https://api.did.actor/api/identifiers/${did}`;
+    const endpoint = `https://api.did.actor/api/identifiers/${didUrl}`;
     const { data } = await axios.get(endpoint);
     return data.didDocument;
   },
@@ -151,7 +148,7 @@ import {
 } from "@transmute/jsonld-document-loader";
 const documentLoader = documentLoaderFactory.build({
   ["did:key"]: async (didUrl: DidUrl) => {
-    const endpoint = `https://api.did.actor/api/identifiers/${did}`;
+    const endpoint = `https://api.did.actor/api/identifiers/${didUrl}`;
     const { data } = await axios.get(endpoint);
     return data.didDocument;
   },
