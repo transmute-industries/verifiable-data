@@ -1,0 +1,45 @@
+{
+  "name": "@transmute/jsonld-document-loader",
+  "author": "Orie Steele",
+  "module": "dist/jsonld-document-loader.esm.js",
+  "version": "0.2.0",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/jsonld-document-loader",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
+    "directory": "packages/jsonld-document-loader"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=40"
+  },
+  "scripts": {
+    "start": "dts watch",
+    "build": "dts build",
+    "test": "dts test",
+    "lint": "eslint --fix './src/**/*.ts'",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "dts-cli": "^1.4.0",
+    "eslint": "^8.11.0",
+    "jest": "^27.5.1",
+    "jest-watch-typeahead": "^1.0.0",
+    "ts-jest": "^27.1.3"
+  },
+  "dependencies": {
+    "factory.ts": "^1.0.0"
+  }
+}
