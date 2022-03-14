@@ -23,7 +23,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
+    "preinstall": "npx force-resolutions",
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
