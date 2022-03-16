@@ -20,7 +20,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=40"
+    "node": ">=14"
   },
   "scripts": {
     "start": "dts watch",
