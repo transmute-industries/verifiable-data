@@ -79,6 +79,9 @@ export const documentLoader = documentLoaderFactory.build({
     const { didDocument } = await resolve(did, {
       accept: "application/did+json",
     });
+    // although this function returns a "DID Document"
+    // The documentLoader internals find the correct "sub resource"
+    // If the original DID URL contained a fragment.
     return didDocument;
   },
 });
@@ -86,9 +89,11 @@ export const documentLoader = documentLoaderFactory.build({
 
 #### What is a JsonWebKey?
 
-Its a json object with a `publicKeyJwk` property.
+It's a json object with an `id` that becomes a `kid`.
 
-In the case of a full key pair, it also contains `privateKeyJwk`.
+In the case of a verification key, it contains a `publicKeyJwk` property.
+
+In the case of a signing key, it also contains `privateKeyJwk`.
 
 Be careful with private keys.
 
