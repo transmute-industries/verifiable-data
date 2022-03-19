@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build": "dts build",
-    "lint": "dts lint",
+    "lint": "eslint --fix './src/**/*.ts'",
     "prepare": "dts build",
     "start": "dts watch",
     "test": "dts test"

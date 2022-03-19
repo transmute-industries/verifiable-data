@@ -11,7 +11,7 @@ export const verify = async (
   const { document } = await documentLoader(kid);
   let verified = false;
   try {
-    let params: any = {
+    const params: any = {
       kid,
       x: Buffer.from(document.publicKeyJwk.x, "base64"),
     };
