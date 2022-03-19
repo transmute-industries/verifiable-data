@@ -27,6 +27,7 @@
     "node": ">=14"
   },
   "scripts": {
+    "pretransmute": "npm run build",
     "transmute": "NODE_NO_WARNINGS=1 node main.js",
     "start": "tsdx watch",
     "build": "tsdx build",
