@@ -1,0 +1,53 @@
+{
+  "name": "@transmute/did-jose-cose",
+  "version": "0.7.0-unstable.56",
+  "license": "Apache-2.0",
+  "author": "Orie Steele",
+  "main": "dist/index.js",
+  "module": "dist/did-jose-cose.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/did-jose-cose",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
+    "directory": "packages/did-jose-cose"
+  },
+  "scripts": {
+    "build": "dts build",
+    "lint": "eslint --fix './src/**/*.ts'",
+    "prepare": "dts build",
+    "start": "dts watch",
+    "test": "dts test"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "peerDependencies": {},
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+    "@transmute/did-key-web-crypto": "^0.3.0-unstable.7",
+    "@transmute/jsonld-document-loader": "^0.7.0-unstable.56",
+    "cwt-js": "^0.4.0",
+    "jose": "^4.6.0"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/jest": "^27.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "dts-cli": "^1.4.0",
+    "eslint": "^8.11.0",
+    "jest": "^27.5.1",
+    "jest-watch-typeahead": "^1.0.0",
+    "ts-jest": "^27.1.3"
+  }
+}

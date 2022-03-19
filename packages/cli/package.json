@@ -27,6 +27,7 @@
     "node": ">=14"
   },
   "scripts": {
+    "pretransmute": "npm run build",
     "transmute": "NODE_NO_WARNINGS=1 node main.js",
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -64,9 +65,11 @@
   "dependencies": {
     "@google-cloud/kms": "^2.11.0",
     "@transmute/credentials-context": "^0.7.0-unstable.56",
+    "@transmute/did-jose-cose": "^0.7.0-unstable.56",
     "@transmute/did-key.js": "^0.3.0-unstable.5",
     "@transmute/did-web": "^0.7.0-unstable.56",
     "@transmute/json-web-signature": "^0.7.0-unstable.56",
+    "@transmute/jsonld-document-loader": "^0.7.0-unstable.56",
     "@transmute/revocation-list-context": "^0.7.0-unstable.56",
     "@transmute/security-context": "^0.7.0-unstable.56",
     "@transmute/vc-status-rl-2020": "^0.7.0-unstable.56",
