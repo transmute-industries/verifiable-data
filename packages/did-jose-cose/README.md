@@ -1,5 +1,7 @@
 ### @transmute/did-jose-cose
 
+🚧 This package is experimental.
+
 ```
 npm i @transmute/did-jose-cose --save
 ```
