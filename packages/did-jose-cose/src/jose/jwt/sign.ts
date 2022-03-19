@@ -17,6 +17,5 @@ export const sign = async (
     .setAudience(payload.aud)
     .setExpirationTime(payload.exp)
     .sign(await jose.importJWK({ alg, ...privateKeyJwk }));
-
   return jwt;
 };
