@@ -5,5 +5,6 @@ import * as presentation from './presentation';
 import * as google from './google';
 import * as data from './data';
 import * as neo from './neo';
+import * as jose from './jose';
 
-export { did, key, credential, presentation, data, neo, google };
+export { did, key, credential, presentation, data, neo, google, jose };

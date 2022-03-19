@@ -1,9 +1,9 @@
-import { cose } from "../../../index";
+import { cose, SigningKey } from "../../../index";
 import { jsonWebKey, documentLoader } from "../../../__fixtures__";
 
 jest.setTimeout(10 * 1000);
 it("CWT sign and verify", async () => {
-  const { id, privateKeyJwk } = jsonWebKey;
+  const { id, privateKeyJwk } = jsonWebKey as SigningKey;
   const header = { kid: id };
   const payload = {
     iss: "coap://as.example.com",

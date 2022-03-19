@@ -1,8 +1,8 @@
-import { jose } from "../../../index";
+import { jose, SigningKey } from "../../../index";
 import { jsonWebKey, documentLoader } from "../../../__fixtures__";
 
 it("JWT sign and verify", async () => {
-  const { id, privateKeyJwk } = jsonWebKey;
+  const { id, privateKeyJwk } = jsonWebKey as SigningKey;
   const header = { kid: id };
   const payload = {
     iss: "coap://as.example.com",

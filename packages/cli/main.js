@@ -13,6 +13,7 @@ commands.presentation.registerCommands(cli);
 commands.data.registerCommands(cli);
 commands.neo.registerCommands(cli);
 commands.google.registerCommands(cli);
+commands.jose.registerCommands(cli);
 
 cli.option('challenge', {
   string: true,

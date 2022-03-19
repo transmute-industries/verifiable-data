@@ -1,8 +1,5 @@
-import { PublicKeyJwk } from "./PublicKeyJwk";
 import { DidUrl } from "@transmute/jsonld-document-loader";
-export type JsonWebKey = {
-  publicKeyJwk: PublicKeyJwk;
-};
+import { VerificationKey } from "./VerificationKey";
 
-export type DocumentLoaderResponse = { document: JsonWebKey };
+export type DocumentLoaderResponse = { document: VerificationKey };
 export type DocumentLoader = (iri: DidUrl) => Promise<DocumentLoaderResponse>;

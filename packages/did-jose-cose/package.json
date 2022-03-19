@@ -1,6 +1,6 @@
 {
   "name": "@transmute/did-jose-cose",
-  "version": "0.1.0",
+  "version": "0.7.0-unstable.56",
   "license": "Apache-2.0",
   "author": "Orie Steele",
   "main": "dist/index.js",
@@ -10,6 +10,15 @@
     "dist",
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/did-jose-cose",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/transmute-industries/verifiable-data.git",
+    "directory": "packages/did-jose-cose"
+  },
   "scripts": {
     "build": "dts build",
     "lint": "dts lint",

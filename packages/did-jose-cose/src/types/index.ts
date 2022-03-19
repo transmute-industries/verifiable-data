@@ -7,3 +7,5 @@ export * from "./Header";
 export * from "./Payload";
 export * from "./DocumentLoader";
 export * from "./CompactCwt";
+export * from "./SigningKey";
+export * from "./VerificationKey";
