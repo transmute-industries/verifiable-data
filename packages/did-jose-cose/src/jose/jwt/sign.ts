@@ -1,7 +1,14 @@
-import { keyPairToAlg } from '../../keyPairToAlg';
+import { keyPairToAlg } from "../../keyPairToAlg";
 
-const jose = require('jose');
-export const sign = async (header: any, payload: any, privateKeyJwk: any) => {
+import { CompactJwt, PrivateKeyJwk, Header, Payload } from "types";
+
+const jose = require("jose");
+
+export const sign = async (
+  header: Header,
+  payload: Payload,
+  privateKeyJwk: PrivateKeyJwk
+): Promise<CompactJwt> => {
   const alg = keyPairToAlg(privateKeyJwk);
   const jwt = await new jose.SignJWT({ ...payload })
     .setProtectedHeader({ alg, ...header })

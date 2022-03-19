@@ -1,15 +1,28 @@
-const CWT = require('cwt-js');
+import { Verification } from "types";
+import { CompactCwt, DocumentLoader, DidUrl } from "types";
+
+const CWT = require("cwt-js");
 
 export const verify = async (
-  token: Buffer,
-  kid: string,
-  documentLoader: any
-) => {
+  token: CompactCwt,
+  kid: DidUrl,
+  documentLoader: DocumentLoader
+): Promise<Verification> => {
   const { document } = await documentLoader(kid);
-
-  return CWT.parse(token, {
-    kid,
-    x: Buffer.from(document.publicKeyJwk.x, 'base64'),
-    y: Buffer.from(document.publicKeyJwk.y, 'base64'),
-  });
+  let verified = false;
+  try {
+    let params: any = {
+      kid,
+      x: Buffer.from(document.publicKeyJwk.x, "base64"),
+    };
+    if (document.publicKeyJwk.y) {
+      params.y = Buffer.from(document.publicKeyJwk.y, "base64");
+    }
+    const payload = await CWT.parse(token, params);
+    verified = true;
+    return { verified, payload };
+  } catch (e) {
+    console.warn(e);
+  }
+  return { verified };
 };

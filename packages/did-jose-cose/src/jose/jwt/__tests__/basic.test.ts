@@ -1,19 +1,20 @@
-import { jose } from '../../../index';
-import { jsonWebKey, documentLoader } from '../../../__fixtures__';
+import { jose } from "../../../index";
+import { jsonWebKey, documentLoader } from "../../../__fixtures__";
 
-it('JWT sign and verify', async () => {
+it("JWT sign and verify", async () => {
   const { id, privateKeyJwk } = jsonWebKey;
   const header = { kid: id };
   const payload = {
-    iss: 'coap://as.example.com',
-    sub: 'erikw',
-    aud: 'coap://light.example.com',
+    iss: "coap://as.example.com",
+    sub: "erikw",
+    aud: "coap://light.example.com",
     exp: 2444064944,
     nbf: 1443944944,
     iat: 1443944944,
-    cti: '0b71',
+    jti: "0b71",
   };
   const jwt = await jose.jwt.sign(header, payload, privateKeyJwk);
   const v = await jose.jwt.verify(jwt, id, documentLoader);
-  expect(v).toEqual(payload);
+  expect(v.verified).toBe(true);
+  expect(v.payload).toBeDefined();
 });
