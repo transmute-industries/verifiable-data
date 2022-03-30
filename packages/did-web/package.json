@@ -2,7 +2,7 @@
   "name": "@transmute/did-web",
   "author": "Orie Steele",
   "module": "dist/did-web.esm.js",
-  "version": "0.7.0-unstable.57",
+  "version": "0.7.0-unstable.58",
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/did-web",
   "repository": {
