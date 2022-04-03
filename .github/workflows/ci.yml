@@ -19,9 +19,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           check-latest: true
 
-      # needed for dilithium build
-      - uses: mymindstorm/setup-emsdk@v11
-
       - name: Install
         uses: bahmutov/npm-install@v1
 
