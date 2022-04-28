@@ -15,7 +15,7 @@ const documents: any = {
   "https://credreg.net/ctdlasn/schema/context/json": cregContext,
   "https://w3id.org/security/bbs/v1": bbsPlussSecurity,
   "https://w3id.org/security/v1": securityV1,
-  "https://w3id.org/security/v2": securityV2,
+  "https://w3id.org/security/v2": securityV2
 };
 
 export const docLoader = (url: string) => {
@@ -28,7 +28,7 @@ export const docLoader = (url: string) => {
     return {
       contextUrl: null, // this is for a context via a link header
       document: context, // this is the actual document that was loaded
-      documentUrl: url, // this is the actual context URL after redirects
+      documentUrl: url // this is the actual context URL after redirects
     };
   }
   console.log(
