@@ -8,24 +8,25 @@ Verifiable data is the library that powers [W3C Decentralized Identifiers](https
 
 ## Table of Contents
 
-- [contexts](#contexts)
+- Core
   - [credentials](./packages/credentials-context)
   - [did](./packages/did-context)
   - [security](./packages/security-context)
   - [revocation list](./packages/revocation-list-context)
-- [proof keys](#keys)
+- Proof keys
   - [web crypto](./packages/web-crypto-key-pair)
-- [proof suites](#suites)
+- Proof suites
   - [ed25519 2018](./packages/ed25519-signature-2018)
   - [jws 2020](./packages/json-web-signature)
-- [credential suites](#credential-suites)
+- Credential suites
   - [revocation list 2020](./packages/vc-status-rl-2020)
-- [command line interface](./packages/cli)
-- [hashlink](./packages/hl)
-- [compressable bitstring](./packages/compressable-bitstring)
-- [did-web](./packages/did-web)
-- [jsonld schema](./packages/jsonld-schema)
-- [browser smoke test](https://transmute-industries.github.io/verifiable-data/smoke-test-react/)
+- Resources
+  - [command line interface](./packages/cli)
+  - [hashlink](./packages/hl)
+  - [compressable bitstring](./packages/compressable-bitstring)
+  - [did-web](./packages/did-web)
+  - [jsonld schema](./packages/jsonld-schema)
+  - [browser smoke test](https://transmute-industries.github.io/verifiable-data/smoke-test-react/)
 
 ## Development
 
