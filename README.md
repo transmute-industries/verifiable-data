@@ -4,7 +4,7 @@
 
 ### What is Verifiable Data?
 
-Verifiable data is the library that powers [W3C Decentralized Identifiers](https://www.w3.org/TR/did-core/) & [W3C Verifiable Credentials](https://www.w3.org/TR/vc-data-model/) for [Transmute.industries](https://github.com/transmute-industries).
+Verifiable data is the library that powers [W3C Decentralized Identifiers](https://www.w3.org/TR/did-core/) & [W3C Verifiable Credentials](https://www.w3.org/TR/vc-data-model/) for [Transmute](https://github.com/transmute-industries).
 
 ## Table of Contents
 
