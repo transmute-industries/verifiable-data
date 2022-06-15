@@ -57,3 +57,19 @@ neo4j import \
 --input "./data/credentials/a.json" \
 --force
 ```
+
+You can also import directly via a URL:
+
+```
+npm run transmute -- \
+neo4j import \
+--uri "bolt://localhost:7687" \
+--user "neo4j" \
+--password "test" \
+--input "https://platform.example/credentials/bd8c162e-f08b-4065-92d8-b9b6375d7f9d/framed" \
+--force
+```
+
+When viewing the data in neo4j browser, you should see:
+
+<img src="./import-from-framed-url.png" alt="a graph view of a verifiable credential"/>

@@ -35,13 +35,19 @@ handleVocabUris: 'MAP'
 };
 
 const importData = async (argv: any) => {
-  const inputAbsolutePath = path.resolve(process.cwd(), argv.input);
-  const inputFileContent = fs.readFileSync(inputAbsolutePath).toString();
-  const inputJson = JSON.parse(inputFileContent);
-  const content =
-    inputJson['@context'] !== undefined
-      ? await jsonld.frame(inputJson, { documentLoader }) // todo: we really should use a caching loader in cli.
-      : inputJson;
+  let content;
+  if (argv.input.startsWith('http')) {
+    const { document } = await documentLoader(argv.input);
+    content = document;
+  } else {
+    const inputAbsolutePath = path.resolve(process.cwd(), argv.input);
+    const inputFileContent = fs.readFileSync(inputAbsolutePath).toString();
+    const inputJson = JSON.parse(inputFileContent);
+    content =
+      inputJson['@context'] !== undefined
+        ? await jsonld.frame(inputJson, { documentLoader }) // todo: we really should use a caching loader in cli.
+        : inputJson;
+  }
 
   const driver = getDriver(argv.uri, argv.user, argv.password);
   const session = driver.session();
