@@ -11,7 +11,7 @@ commands.key.registerCommands(cli);
 commands.credential.registerCommands(cli);
 commands.presentation.registerCommands(cli);
 commands.data.registerCommands(cli);
-commands.neo.registerCommands(cli);
+commands.neo4j.registerCommands(cli);
 commands.google.registerCommands(cli);
 commands.jose.registerCommands(cli);
 

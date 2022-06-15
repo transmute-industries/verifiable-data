@@ -4,7 +4,7 @@ import * as credential from './credential';
 import * as presentation from './presentation';
 import * as google from './google';
 import * as data from './data';
-import * as neo from './neo';
+import * as neo4j from './neo4j';
 import * as jose from './jose';
 
-export { did, key, credential, presentation, data, neo, google, jose };
+export { did, key, credential, presentation, data, neo4j, google, jose };
