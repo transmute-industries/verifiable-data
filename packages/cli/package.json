@@ -83,6 +83,7 @@
     "graphology": "^0.23.2",
     "hdkey": "^2.0.1",
     "jose": "^4.5.0",
+    "jsonld": "3.2.0",
     "neo4j-driver": "^4.4.2",
     "uuid": "^8.3.2",
     "yargs": "^16.2.0"
