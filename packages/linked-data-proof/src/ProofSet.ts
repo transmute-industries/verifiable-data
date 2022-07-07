@@ -1,4 +1,5 @@
 import jsonld from "jsonld";
+import {serializeError} from "serialize-error";
 
 import strictExpansionMap from "./strictExpansionMap";
 
@@ -173,7 +174,7 @@ export class ProofSet {
   private _addToJSON = (error: any) => {
     Object.defineProperty(error, "toJSON", {
       value: function() {
-        return JSON.stringify(this, null, 2);
+        return serializeError(this);
       },
       configurable: true,
       writable: true
