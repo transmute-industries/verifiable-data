@@ -42,7 +42,7 @@ export const verifyVerifiableCredential = async (options: {
       purpose,
       compactProof
     });
-    
+
     // if verification has already failed, skip status check
     if (!result.verified) {
       return result;
