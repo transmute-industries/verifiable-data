@@ -1,4 +1,4 @@
-import { ld as vc } from "../../../";
+import { ld as vc } from "../../..";
 import {
   Ed25519Signature2018,
   Ed25519VerificationKey2018
@@ -141,4 +141,15 @@ it("issuer can revoke credential by updating revocation status list", async () =
     checkStatus // required
   });
   expect(result.verified).toBe(false);
+});
+
+it('verifier can verifer credential with "credentialStatus"', async () => {
+  const result = await vc.verifyVerifiableCredential({
+    credential: signedCredentialWithRevocationStatus,
+    documentLoader,
+    suite: [new Ed25519Signature2018()],
+    checkStatus // required
+  });
+  expect(result.verified).toBe(false);
+  console.log(result);
 });
