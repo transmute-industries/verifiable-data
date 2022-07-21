@@ -1,9 +1,15 @@
 import { verifiable } from "../../..";
-import { Ed25519Signature2018 } from "@transmute/ed25519-signature-2018";
+import {
+  Ed25519Signature2018,
+} from "@transmute/ed25519-signature-2018";
 
-import { checkStatus } from "@transmute/vc-status-rl-2020";
+import {
+  checkStatus
+} from "@transmute/vc-status-rl-2020";
 
-import { documentLoader } from "./__fixtures__";
+import {
+  documentLoader,
+} from "./__fixtures__";
 
 it('verifier can verifer credential with "credentialStatus"', async () => {
   const result = await verifiable.credential.verify({
@@ -13,131 +19,130 @@ it('verifier can verifer credential with "credentialStatus"', async () => {
         "https://w3id.org/traceability/v1",
         "https://w3id.org/vc-revocation-list-2020/v1"
       ],
-      type: ["VerifiableCredential", "VerifiableScorecard"],
-      issuer: {
-        id: "did:key:z6MkfJSbaRjStEZWd8KiV2zUSfnEXnFX5iviaLe1ArMTkNXF",
-        name: "Test"
+      "type": [
+        "VerifiableCredential",
+        "VerifiableScorecard"
+      ],
+      "issuer": {
+        "id": "did:key:z6MkfJSbaRjStEZWd8KiV2zUSfnEXnFX5iviaLe1ArMTkNXF",
+        "name": "Test"
       },
-      credentialSubject: {
-        id: "",
-        table: [
+      "credentialSubject": {
+        "id": "",
+        "table": [
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           },
           {
-            score: "",
-            name: "",
-            reason: "",
-            documentation: ""
+            "score": "",
+            "name": "",
+            "reason": "",
+            "documentation": ""
           }
         ]
       },
-      name: "Revocation Score Card",
-      description: "Test",
-      issuanceDate: "2022-07-21T15:46:55.838Z",
-      credentialStatus: {
-        id:
-          "http://localhost:8080/credentials/489ccb71-9352-44f8-ba4e-a8b6f03c44a0#0",
-        type: "RevocationList2020Status",
-        revocationListIndex: 0,
-        revocationListCredential:
-          "http://localhost:8080/credentials/489ccb71-9352-44f8-ba4e-a8b6f03c44a0"
+      "name": "Revocation Score Card",
+      "description": "Test",
+      "issuanceDate": "2022-07-21T15:46:55.838Z",
+      "credentialStatus": {
+        "id": "http://localhost:8080/credentials/489ccb71-9352-44f8-ba4e-a8b6f03c44a0#0",
+        "type": "RevocationList2020Status",
+        "revocationListIndex": 0,
+        "revocationListCredential": "http://localhost:8080/credentials/489ccb71-9352-44f8-ba4e-a8b6f03c44a0"
       },
-      proof: {
-        type: "Ed25519Signature2018",
-        created: "2022-07-21T15:46:57Z",
-        verificationMethod:
-          "did:key:z6MkfJSbaRjStEZWd8KiV2zUSfnEXnFX5iviaLe1ArMTkNXF#z6MkfJSbaRjStEZWd8KiV2zUSfnEXnFX5iviaLe1ArMTkNXF",
-        proofPurpose: "assertionMethod",
-        jws:
-          "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..pmEwKqyHCaLihLUzC-3NnPxRtqbSm62Zk4I-B7yYrha5fMOMpThOXPCugkA0A90JlvKYfklB3nj1uKJ7Jyt6BA"
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-21T15:46:57Z",
+        "verificationMethod": "did:key:z6MkfJSbaRjStEZWd8KiV2zUSfnEXnFX5iviaLe1ArMTkNXF#z6MkfJSbaRjStEZWd8KiV2zUSfnEXnFX5iviaLe1ArMTkNXF",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..pmEwKqyHCaLihLUzC-3NnPxRtqbSm62Zk4I-B7yYrha5fMOMpThOXPCugkA0A90JlvKYfklB3nj1uKJ7Jyt6BA"
       }
     },
     documentLoader,

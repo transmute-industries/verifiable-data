@@ -26,12 +26,12 @@ export const verify = async (
     result.verified = res.verified;
     if (!result.verified) {
       result.error = [];
-      if (res && res.statusResult && res.statusResult.verified === false) {
+      if (!res.statusResult.verified) {
         result.error.push({
           statusResult: res.statusResult
         });
       }
-      if (res && res.results[0] && res.results[0].verified === false) {
+      if (!res.results[0].verified) {
         result.error.push({ proofResult: res.results[0].verified });
       }
       if (res.error) {
