@@ -1,4 +1,4 @@
-import { contexts } from "./contexts";
+import { contexts, revocationContexts } from "./contexts";
 import controller from "./controller.json";
 import controller2 from "./controller2.json";
 import controller3 from "./controller3.json";
@@ -8,6 +8,10 @@ import signedRevocationList2020 from "./signed-revocation-list-2020.json";
 
 import revocationListCredential from "./revocationListCredential.json";
 const contextResolver = async (iri: string) => {
+  if (revocationContexts[iri]) {
+    return { document: revocationContexts[iri] };
+  }
+
   if (contexts[iri]) {
     return { document: contexts[iri] };
   }
