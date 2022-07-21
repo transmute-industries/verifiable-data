@@ -30,8 +30,7 @@ export const contexts: any = {
   ),
   [did.constants.DID_CONTEXT_TRANSMUTE_V1_URL]: did.contexts.get(
     did.constants.DID_CONTEXT_TRANSMUTE_V1_URL
-  ),
-  "https://w3id.org/traceability/v1": require("./trace-v1.json")
+  )
 };
 
 export const revocationContexts: any = {
