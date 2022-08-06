@@ -1,5 +1,5 @@
 import jsonld from "jsonld";
-import {serializeError} from "serialize-error";
+import { serializeError } from "serialize-error";
 
 import strictExpansionMap from "./strictExpansionMap";
 
