@@ -1,6 +1,6 @@
 export const convertDidToEndpoint = (did: string) => {
   const regex = new RegExp(
-    `did:web:(?<host>[a-zA-Z0-9/.\\-_]+)(:*)(?<port>[0-9]+)*(:*)(?<path>[a-zA-Z0-9/.:\\-_]*)`
+    `did:web:(?<host>[a-zA-Z0-9/.\\-_]+)(?:%3A(?<port>[0-9]+))?(:*)(?<path>[a-zA-Z0-9/.:\\-_]*)`
   );
   const match: any = did.match(regex);
 
