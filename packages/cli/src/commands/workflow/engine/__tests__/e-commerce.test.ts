@@ -37,11 +37,11 @@ it('can describe https://w3id.org/traceability/#e-commerce', async () => {
       json: json,
       variables,
     };
-    fs.writeFileSync(
-      path.join(scenarioDirectory, fileName),
-      JSON.stringify(index, null, 2)
-    );
-    fs.writeFileSync(path.join(scenarioDirectory, 'index.html'), html);
-    fs.writeFileSync(path.join(scenarioDirectory, diagramFileName), xml);
+    // fs.writeFileSync(
+    //   path.join(scenarioDirectory, fileName),
+    //   JSON.stringify(index, null, 2)
+    // );
+    // fs.writeFileSync(path.join(scenarioDirectory, 'index.html'), html);
+    // fs.writeFileSync(path.join(scenarioDirectory, diagramFileName), xml);
   }
 });
