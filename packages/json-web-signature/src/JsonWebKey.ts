@@ -6,7 +6,6 @@ import {
   Secp256k1KeyPair,
   EcdsaSecp256k1VerificationKey2019,
 } from '@transmute/secp256k1-key-pair';
-import { Bls12381G2KeyPair } from '@transmute/bls12381-key-pair';
 
 import crypto from 'crypto';
 import { JWS } from '@transmute/jose-ld';
@@ -32,10 +31,6 @@ const getKeyPairForKtyAndCrv = (kty: string, crv: string) => {
       return Secp256k1KeyPair;
     }
 
-    if (crv === 'BLS12381_G2') {
-      return Bls12381G2KeyPair;
-    }
-
     if (['P-256', 'P-384', 'P-521'].includes(crv)) {
       return WebCryptoKey;
     }
@@ -52,9 +47,6 @@ const getKeyPairForType = (k: any) => {
   }
   if (k.type === 'EcdsaSecp256k1VerificationKey2019') {
     return Secp256k1KeyPair;
-  }
-  if (k.type === 'Bls12381G2Key2020') {
-    return Bls12381G2KeyPair;
   }
 
   if (['P256Key2021', 'P384Key2021', 'P521Key2021'].includes(k.type)) {
