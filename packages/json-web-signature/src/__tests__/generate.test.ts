@@ -9,10 +9,6 @@ const options = [
   },
   {
     kty: 'EC',
-    crv: 'BLS12381_G2',
-  },
-  {
-    kty: 'EC',
     crv: 'P-256',
   },
   {
@@ -44,7 +40,7 @@ options.forEach(opt => {
         });
         expect(verified).toBe(true);
       } catch (e) {
-        expect(e.message).toBe('BLS12381_G2 has no registered JWA');
+        expect(e.message).toBe('getKeyPairForType does not support type: Bls12381G2Key2020');
         expect(opt.crv).toBe('BLS12381_G2');
       }
     });
