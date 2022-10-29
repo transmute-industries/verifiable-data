@@ -48,7 +48,7 @@
     }
   ],
   "devDependencies": {
-    "@mattrglobal/node-bbs-signatures": "^0.11.0",
+    "@mattrglobal/node-bbs-signatures": "^0.15.0",
     "@size-limit/preset-small-lib": "^4.9.2",
     "noble-bls12-381": "^0.11.1",
     "size-limit": "^4.9.2",
