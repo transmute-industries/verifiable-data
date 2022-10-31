@@ -2,7 +2,7 @@
   "name": "@transmute/merkle-proof",
   "author": "Orie Steele",
   "module": "dist/merkle-proof.esm.js",
-  "version": "0.7.0-unstable.69",
+  "version": "0.7.0-unstable.70",
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/merkle-proof",
   "repository": {
@@ -38,7 +38,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@transmute/compressable-bitstring": "^0.7.0-unstable.69",
+    "@transmute/compressable-bitstring": "^0.7.0-unstable.70",
     "pako": "^2.0.4",
     "varint": "^6.0.0"
   }
