@@ -2,7 +2,7 @@
   "name": "@transmute/bls12381-key-pair",
   "author": "Orie Steele",
   "module": "dist/bls12381-key-pair.esm.js",
-  "version": "0.7.0-unstable.66",
+  "version": "0.7.0-unstable.68",
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/bls12381-key-pair",
   "repository": {
@@ -48,7 +48,7 @@
     }
   ],
   "devDependencies": {
-    "@mattrglobal/node-bbs-signatures": "^0.11.0",
+    "@mattrglobal/node-bbs-signatures": "^0.15.0",
     "@size-limit/preset-small-lib": "^4.9.2",
     "noble-bls12-381": "^0.11.1",
     "size-limit": "^4.9.2",
@@ -59,6 +59,6 @@
   },
   "dependencies": {
     "@mattrglobal/bls12381-key-pair": "^0.5.0",
-    "@transmute/ld-key-pair": "^0.7.0-unstable.66"
+    "@transmute/ld-key-pair": "^0.7.0-unstable.68"
   }
 }

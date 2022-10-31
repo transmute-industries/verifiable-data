@@ -78,7 +78,7 @@ options.forEach((opt: any) => {
         });
         expect(verified).toBe(true);
       } catch (e) {
-        expect(e.message).toBe('BLS12381_G2 has no registered JWA');
+        expect(e.message).toBe('getKeyPairForType does not support type: Bls12381G2Key2020');
         expect(opt.type).toBe('Bls12381G2Key2020');
       }
     });
