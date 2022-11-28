@@ -1,6 +1,6 @@
 {
   "name": "@transmute/security-context",
-  "version": "0.7.0-unstable.70",
+  "version": "0.7.0-unstable.71",
   "description": "",
   "main": "index.js",
   "types": "typings.d.ts",
