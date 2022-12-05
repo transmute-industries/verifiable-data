@@ -20,15 +20,26 @@ export const createVcPayload = async (
   const issuer = credential.issuer.id
     ? credential.issuer.id
     : credential.issuer;
-  const subject = credential.credentialSubject.id
-    ? credential.credentialSubject.id
-    : credential.credentialSubject;
+  let subject = undefined;
+  if (
+    typeof credential.credentialSubject === "string" ||
+    credential.credentialSubject instanceof String
+  ) {
+    subject = credential.credentialSubject;
+  }
+  if (
+    typeof credential.credentialSubject === "object" &&
+    credential.credentialSubject !== null &&
+    credential.credentialSubject.id
+  ) {
+    subject = credential.credentialSubject.id;
+  }
   const payload: any = {
     iss: issuer,
     sub: subject,
     vc: credential,
     jti: credential.id,
-    nbf: moment(credential.issuanceDate).unix()
+    nbf: moment(credential.issuanceDate).unix(),
   };
   if (credential.expirationDate) {
     payload.exp = moment(credential.expirationDate).unix();
