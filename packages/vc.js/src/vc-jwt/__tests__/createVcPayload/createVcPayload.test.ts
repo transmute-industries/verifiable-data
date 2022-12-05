@@ -11,7 +11,7 @@ describe("createVcPayload", () => {
     expect(payload.sub).toBeFalsy();
   });
 
-  it("should remove sub if credentialSubject is an object that does not have id attribute", async () => {
+  it("sub should be id string if credentialSubject is an object that does have id attribute", async () => {
     const options = {
       format: "vc-jwt",
       documentLoader
