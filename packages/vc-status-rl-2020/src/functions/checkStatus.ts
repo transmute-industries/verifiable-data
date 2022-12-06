@@ -1,6 +1,5 @@
 import { decodeList } from './decodeList';
 import { getCredentialStatus } from './getCredentialStatus';
-// @ts-ignore
 import { ld as vc } from '@transmute/vc.js';
 import { LinkedDataProofSuite, DocumentLoader } from '../types';
 
@@ -16,10 +15,7 @@ export const checkStatus = async (
     suite: LinkedDataProofSuite;
     verifyRevocationListCredential?: boolean;
   } = {} as any
-): Promise<{
-  verified: boolean;
-  error?: { name: string; message: string };
-}> => {
+): Promise<{ verified: boolean } | { verified: boolean; error: unknown }> => {
   let result;
   if (!documentLoader) {
     throw new Error('checkStatus requires explicit documentLoader');
@@ -87,7 +83,9 @@ async function _checkStatus({
     ));
   } catch (e) {
     const err: any = new Error(
-      `Could not load "RevocationList2020Credential"; reason: ${e.message}`
+      `Could not load "RevocationList2020Credential"; reason: ${
+        (e as Error).message
+      }`
     );
     err.cause = e;
     throw err;
@@ -133,7 +131,9 @@ async function _checkStatus({
     list = await decodeList({ encodedList });
   } catch (e) {
     const err: any = new Error(
-      `Could not decode encoded revocation list; reason: ${e.message}`
+      `Could not decode encoded revocation list; reason: ${
+        (e as Error).message
+      }`
     );
     err.cause = e;
     throw err;
