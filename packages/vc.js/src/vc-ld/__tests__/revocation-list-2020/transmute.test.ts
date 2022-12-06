@@ -1,6 +1,5 @@
 import { Ed25519Signature2018 } from "@transmute/ed25519-signature-2018";
 import { JsonWebKey, JsonWebSignature } from "@transmute/json-web-signature";
-import { checkStatus } from "@transmute/vc-status-rl-2020";
 import { ld as vc } from "../../..";
 
 import * as fixtures from "./__fixtures__";
@@ -30,7 +29,7 @@ it("verify verifiable credential", async () => {
   const res = await vc.verifyVerifiableCredential({
     credential: fixtures.verifiableCredential,
     suite: [new JsonWebSignature(), new Ed25519Signature2018()],
-    checkStatus,
+    checkStatus: fixtures.checkStatus.checkStatus1,
     documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(true);
@@ -55,7 +54,7 @@ it("verify presentation", async () => {
     presentation: fixtures.verifiablePresentation,
     challenge: "123",
     suite: [new JsonWebSignature(), new Ed25519Signature2018()],
-    checkStatus,
+    checkStatus: fixtures.checkStatus.checkStatus1,
     documentLoader: fixtures.documentLoader
   });
   expect(res.verified).toBe(true);

@@ -1,7 +1,7 @@
 import { verifiable } from "../../..";
 import { Ed25519Signature2018 } from "@transmute/ed25519-signature-2018";
 
-import { checkStatus } from "@transmute/vc-status-rl-2020";
+import { checkStatus2 as checkStatus } from "./__fixtures__/checkStatus";
 
 import { documentLoader, revokedCredential } from "./__fixtures__";
 
