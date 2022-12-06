@@ -4,7 +4,8 @@ import fixture from "./__fixtures__/request-1.json";
 
 import { Ed25519Signature2018 } from "@transmute/ed25519-signature-2018";
 import documentLoader from "../../__fixtures__/documentLoader";
-import { checkStatus } from "@transmute/vc-status-rl-2020";
+import checkStatus from "./__fixtures__/checkStatus";
+
 describe("presentations of revocable credentials", () => {
   it("should verify presentations of revocable", async () => {
     const suite = new Ed25519Signature2018();
@@ -12,6 +13,7 @@ describe("presentations of revocable credentials", () => {
       presentation: fixture.verifiablePresentation,
       challenge: fixture.options.challenge,
       suite,
+      // Not including vc-status-rl-2020 because of cyclical reference since it references vc.js
       checkStatus,
       documentLoader
     });
@@ -31,7 +33,7 @@ describe("presentations of revocable credentials", () => {
         documentLoader
       });
     } catch (e) {
-      expect(e.message).toBe(
+      expect((e as Error).message).toBe(
         "options.checkStatus is required to verify presentation of revocable credentials."
       );
     }
