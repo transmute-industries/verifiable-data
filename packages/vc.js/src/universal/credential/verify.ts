@@ -7,7 +7,7 @@ import moment from "moment";
 export const verify = async (
   options: VerifyCredentialOptions
 ): Promise<VerificationResult> => {
-  let credential: any;
+  let credential: VerifiableCredential = options.credential as VerifiableCredential;
   const result: VerificationResult = {
     verified: false,
     verifications: []
@@ -21,7 +21,6 @@ export const verify = async (
     options.format.includes("vc") &&
     (options.credential as any)["@context"]
   ) {
-    credential = options.credential
     const res = await ld.verifyVerifiableCredential({
       credential: options.credential,
       suite: options.suite,
@@ -47,10 +46,10 @@ export const verify = async (
   }
 
   // vc-jwt's are strings with an encoded vc member that conforms to the data model
-  let jwtVerificationMethod: any;
+  let jwtVerificationMethod: string = '';
   if (
     options.format.includes("vc-jwt") &&
-    !(options.credential as any)["@context"]
+    !(options.credential as VerifiableCredential)["@context"]
   ) {
     const verifier = await getVerifierForJwt(
       options.credential as string,
@@ -63,9 +62,11 @@ export const verify = async (
     result.verified = verified;
 
     const decodedString = decodeJwt(options.credential as string);
-    credential = decodedString.payload.vc;
+    credential = decodedString.payload.vc as VerifiableCredential;
     jwtVerificationMethod =
-      decodedString?.header?.kid ?? decodedString.payload.vc.issuer;
+      decodedString?.header?.kid ?? (typeof decodedString.payload.vc.issuer === 'object' ? decodedString.payload.vc.issuer.id : decodedString.payload.vc.issuer);
+    
+    console.log
   }
 
   // Signature
