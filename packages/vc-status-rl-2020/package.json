@@ -64,7 +64,7 @@
     "@transmute/linked-data-proof": "0.2.1-unstable.10",
     "@transmute/revocation-list-context": "^0.7.0-unstable.73",
     "@transmute/security-context": "^0.7.0-unstable.73",
-    "@transmute/vc.js": "^0.7.0-unstable.73"
+    "@transmute/vc.js": "^0.7.0-unstable.74"
   },
   "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
 }
