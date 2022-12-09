@@ -55,9 +55,8 @@
             documentLoader,
             suite: [new JsonWebSignature()],
         });
-        console.log('response', response);
-          expect(response.verified).toBe(true);
-          expect(response.verifications.length).toBe(3);
+        expect(response.verified).toBe(true);
+        expect(response.verifications.length).toBe(3);
     });
   });
   
