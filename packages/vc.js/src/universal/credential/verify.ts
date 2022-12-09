@@ -1,8 +1,8 @@
 import * as ld from "../../vc-ld";
 import { VerifyCredentialOptions, VerificationResult } from "../../types";
-import { VerifiableCredential } from '../../types/VerifiableCredential'
+import { VerifiableCredential } from "../../types/VerifiableCredential";
 import { getVerifierForJwt } from "../../vc-jwt/getVerifierForJwt";
-import { decodeJwt } from '../../vc-jwt/decodeJwt';
+import { decodeJwt } from "../../vc-jwt/decodeJwt";
 import moment from "moment";
 export const verify = async (
   options: VerifyCredentialOptions
@@ -46,7 +46,7 @@ export const verify = async (
   }
 
   // vc-jwt's are strings with an encoded vc member that conforms to the data model
-  let jwtVerificationMethod: string = '';
+  let jwtVerificationMethod: string = "";
   if (
     options.format.includes("vc-jwt") &&
     !(options.credential as VerifiableCredential)["@context"]
@@ -55,7 +55,7 @@ export const verify = async (
       options.credential as string,
       options
     );
-    
+
     const verified = await verifier.verify({
       signature: options.credential
     });
@@ -64,9 +64,10 @@ export const verify = async (
     const decodedString = decodeJwt(options.credential as string);
     credential = decodedString.payload.vc as VerifiableCredential;
     jwtVerificationMethod =
-      decodedString?.header?.kid ?? (typeof decodedString.payload.vc.issuer === 'object' ? decodedString.payload.vc.issuer.id : decodedString.payload.vc.issuer);
-    
-    console.log
+      decodedString?.header?.kid ??
+      (typeof decodedString.payload.vc.issuer === "object"
+        ? decodedString.payload.vc.issuer.id
+        : decodedString.payload.vc.issuer);
   }
 
   // Signature
@@ -76,18 +77,19 @@ export const verify = async (
   );
 
   if (!result.verified && proofCheckFailed) {
-    const description = 'This credential has a invalid signature';
+    const description = "This credential has a invalid signature";
     result.verifications.push({
-      status: 'bad',
-      title: 'Proof',
-      description,
+      status: "bad",
+      title: "Proof",
+      description
     });
   } else {
     result.verifications.push({
-      status: 'good',
-      title: 'Proof',
+      status: "good",
+      title: "Proof",
       description:
-      (options.credential as VerifiableCredential).proof?.verificationMethod ?? jwtVerificationMethod,
+        (options.credential as VerifiableCredential).proof
+          ?.verificationMethod ?? jwtVerificationMethod
     });
   }
 
@@ -97,15 +99,15 @@ export const verify = async (
     const issuanceDate = moment(credential.issuanceDate);
     if (now.isAfter(issuanceDate)) {
       result.verifications.push({
-        status: 'good',
-        title: 'Activation',
-        description: `This credential activated ${issuanceDate.fromNow()}`,
+        status: "good",
+        title: "Activation",
+        description: `This credential activated ${issuanceDate.fromNow()}`
       });
     } else {
       result.verifications.push({
-        status: 'bad',
-        title: 'Activation',
-        description: `This credential activates ${issuanceDate.fromNow()}`,
+        status: "bad",
+        title: "Activation",
+        description: `This credential activates ${issuanceDate.fromNow()}`
       });
     }
   }
@@ -116,15 +118,15 @@ export const verify = async (
     const expirationDate = moment(credential.expirationDate);
     if (now.isBefore(expirationDate)) {
       result.verifications.push({
-        status: 'good',
-        title: 'Expired',
-        description: `This credential expires ${expirationDate.fromNow()}`,
+        status: "good",
+        title: "Expired",
+        description: `This credential expires ${expirationDate.fromNow()}`
       });
     } else {
       result.verifications.push({
-        status: 'bad',
-        title: 'Expired',
-        description: `This credential expired ${expirationDate.fromNow()}`,
+        status: "bad",
+        title: "Expired",
+        description: `This credential expired ${expirationDate.fromNow()}`
       });
     }
   }
@@ -137,15 +139,15 @@ export const verify = async (
     );
     if (!result.verified && statusCheckFailed) {
       result.verifications.push({
-        status: 'bad',
-        title: 'Revocation',
-        description: 'This credential has been revoked.',
+        status: "bad",
+        title: "Revocation",
+        description: "This credential has been revoked."
       });
     } else {
       result.verifications.push({
-        status: 'good',
-        title: 'Revocation',
-        description: 'This credential has not been revoked.',
+        status: "good",
+        title: "Revocation",
+        description: "This credential has not been revoked."
       });
     }
   }
