@@ -30,7 +30,7 @@
     "testEnvironment": "node"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "dependencies": {
     "@transmute/did-key-web-crypto": "^0.3.0-unstable.7",
