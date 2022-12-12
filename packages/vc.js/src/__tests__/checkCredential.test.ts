@@ -35,7 +35,7 @@ describe("checkCredential", () => {
       }
       expect(warned).toBeFalsy();
     });
-    xit("should not warn if datetime has leap second", async () => {
+    it("should not warn if datetime has leap second", async () => {
       let warned = false;
       try {
         await checkCredential(credentialWithLeapSecond, {
