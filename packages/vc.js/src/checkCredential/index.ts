@@ -2,6 +2,11 @@ import jsonld from "jsonld";
 import { check } from "@transmute/jsonld-schema";
 
 import { checkDate } from "./checkDate";
+import { DocumentLoader } from "../types/DocumentLoader";
+import CredentialCheck, {
+  CredentialCheckObject,
+} from "../types/CredentialCheck";
+import { VerifiableCredential } from "../types/VerifiableCredential";
 
 function _getId(obj: any) {
   if (typeof obj === "string") {
@@ -26,7 +31,7 @@ const requireContext = (credential: any) => {
   }
 };
 
-const requireDocumentLoader = (documentLoader: any) => {
+const requireDocumentLoader = (documentLoader?: DocumentLoader) => {
   if (!documentLoader) {
     throw new TypeError(
       '"documentLoader" parameter is required for checking presentations.'
@@ -34,8 +39,11 @@ const requireDocumentLoader = (documentLoader: any) => {
   }
 };
 
-const handleJWT = (credential: any) => {
+const handleJWT = (
+  credential: CredentialCheck
+): { isJWT: boolean; credential: CredentialCheckObject } => {
   let isJWT = false;
+  let credentialObj: CredentialCheckObject;
   if (typeof credential === "string") {
     let [encodedHeader, encodedPayload] = credential.split(".");
     const header = JSON.parse(Buffer.from(encodedHeader, "base64").toString());
@@ -45,13 +53,18 @@ const handleJWT = (credential: any) => {
     const payload = JSON.parse(
       Buffer.from(encodedPayload, "base64").toString()
     );
-    credential = payload.vc;
+    credentialObj = payload.vc;
     isJWT = true;
+  } else {
+    credentialObj = credential;
   }
-  return { isJWT, credential };
+  return { isJWT, credential: credentialObj };
 };
 
-const checkValidJsonLd = async (credential: any, documentLoader: any) => {
+const checkValidJsonLd = async (
+  credential: VerifiableCredential,
+  documentLoader: (iri: string) => { document: any }
+) => {
   const isValidJsonLd = await check({ input: credential, documentLoader });
   if (!isValidJsonLd.ok) {
     throw new Error(
@@ -64,7 +77,7 @@ const checkValidJsonLd = async (credential: any, documentLoader: any) => {
   }
 };
 
-const requireType = (credential: any) => {
+const requireType = (credential: CredentialCheckObject) => {
   if (!credential["type"]) {
     throw new Error(
       "Verifiable credentials MUST have a type specified. See: https://www.w3.org/TR/vc-data-model/#dfn-type"
@@ -72,7 +85,7 @@ const requireType = (credential: any) => {
   }
 };
 
-const requireCredentialSubject = (credential: any) => {
+const requireCredentialSubject = (credential: CredentialCheckObject) => {
   if (!credential["credentialSubject"]) {
     throw new Error(
       "Verifiable credentials MUST include a credentialSubject property. See: https://www.w3.org/TR/vc-data-model/#credential-subject"
@@ -80,14 +93,14 @@ const requireCredentialSubject = (credential: any) => {
   }
 };
 
-const checkType = (credential: any) => {
+const checkType = (credential: CredentialCheckObject) => {
   if (!jsonld.getValues(credential, "type").includes("VerifiableCredential")) {
     throw new Error(
       "Verifiable credentials type MUST include `VerifiableCredential`. See: https://www.w3.org/TR/vc-data-model/#dfn-type"
     );
   }
 };
-const requireIssuer = (credential: any) => {
+const requireIssuer = (credential: CredentialCheckObject) => {
   if (!credential["issuer"]) {
     throw new Error(
       "Verifiable credentials MUST include a issuer property. See: https://www.w3.org/TR/vc-data-model/#issuer"
@@ -95,7 +108,7 @@ const requireIssuer = (credential: any) => {
   }
 };
 
-const requireIssuanceDate = (credential: any) => {
+const requireIssuanceDate = (credential: CredentialCheckObject) => {
   if (!credential["issuanceDate"]) {
     throw new Error(
       "Verifiable credentials MUST include a issuanceDate. See: https://www.w3.org/TR/vc-data-model/#issuance-date"
@@ -104,7 +117,7 @@ const requireIssuanceDate = (credential: any) => {
 };
 
 const checkIssuanceDate = (
-  credential: any,
+  credential: VerifiableCredential,
   isJWT: boolean,
   strict: "ignore" | "warn" | "throw"
 ) => {
@@ -129,7 +142,7 @@ const checkIssuanceDate = (
 };
 
 const checkExpirationDate = (
-  credential: any,
+  credential: VerifiableCredential,
   isJWT: boolean,
   strict: "ignore" | "warn" | "throw"
 ) => {
@@ -150,7 +163,7 @@ const checkExpirationDate = (
   }
 };
 
-const checkIssuer = (credential: any) => {
+const checkIssuer = (credential: VerifiableCredential) => {
   // check issuer cardinality
   if (jsonld.getValues(credential, "issuer").length > 1) {
     throw new Error('"issuer" property can only have one value.');
@@ -178,7 +191,7 @@ const checkIssuer = (credential: any) => {
   }
 };
 
-const checkCredentialStatus = (credential: any) => {
+const checkCredentialStatus = (credential: VerifiableCredential) => {
   if ("credentialStatus" in credential) {
     if (!credential.credentialStatus.id) {
       throw new Error('"credentialStatus" must include an id.');
@@ -189,7 +202,7 @@ const checkCredentialStatus = (credential: any) => {
   }
 };
 
-const checkEvidence = (credential: any) => {
+const checkEvidence = (credential: VerifiableCredential) => {
   // check evidences are URLs
   // FIXME
   jsonld.getValues(credential, "evidence").forEach((evidence: any) => {
@@ -200,7 +213,7 @@ const checkEvidence = (credential: any) => {
   });
 };
 
-const checkId = (credential: any) => {
+const checkId = (credential: VerifiableCredential) => {
   // https://www.rfc-editor.org/rfc/rfc3986#page-50
   const rfc3986Regex = new RegExp(
     "^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?"
@@ -224,7 +237,7 @@ const requireFields = (credential: any) => {
 };
 
 const checkFields = (
-  credential: any,
+  credential: VerifiableCredential,
   isJWT: boolean,
   strict: "ignore" | "warn" | "throw"
 ) => {
@@ -238,9 +251,9 @@ const checkFields = (
 };
 
 export const checkCredential = async (
-  credential: any,
+  credential: CredentialCheck,
   options: {
-    documentLoader: any;
+    documentLoader?: DocumentLoader;
     strict?: "ignore" | "warn" | "throw";
   }
 ) => {
@@ -254,8 +267,11 @@ export const checkCredential = async (
 
   requireDocumentLoader(documentLoader);
   requireFields(credential);
-  checkFields(credential, isJWT, strict);
-  await checkValidJsonLd(credential, documentLoader);
+  checkFields(credential as VerifiableCredential, isJWT, strict);
+  await checkValidJsonLd(
+    credential as VerifiableCredential,
+    documentLoader as unknown as (iri: string) => { document: any }
+  );
 
   return undefined;
 };
