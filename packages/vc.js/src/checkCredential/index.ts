@@ -20,7 +20,7 @@ function _getId(obj: any) {
   return obj.id;
 }
 
-const requireContext = (credential: any) => {
+const requireContext = (credential: CredentialCheckObject) => {
   if (!credential["@context"]) {
     throw new Error(
       [
