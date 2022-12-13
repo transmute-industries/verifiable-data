@@ -14,7 +14,7 @@ describe("checkCredential", () => {
       try {
         await checkCredential(credentialWithMS, {
           documentLoader,
-          strict: "throw"
+          strict: "throw",
         });
       } catch (err) {
         console.log(err);
@@ -27,7 +27,7 @@ describe("checkCredential", () => {
       try {
         await checkCredential(credentialWithTZOffset, {
           documentLoader,
-          strict: "throw"
+          strict: "throw",
         });
       } catch (err) {
         console.log(err);
@@ -40,7 +40,7 @@ describe("checkCredential", () => {
       try {
         await checkCredential(credentialWithLeapSecond, {
           documentLoader,
-          strict: "throw"
+          strict: "throw",
         });
       } catch (err) {
         console.log(err);
@@ -64,7 +64,7 @@ describe("checkCredential", () => {
       try {
         await checkCredential(vcJWTWithTZOffset, {
           documentLoader,
-          strict: "throw"
+          strict: "throw",
         });
       } catch (err) {
         warned = true;
@@ -76,7 +76,7 @@ describe("checkCredential", () => {
       try {
         await checkCredential(vcJWTWithLeapSecond, {
           documentLoader,
-          strict: "throw"
+          strict: "throw",
         });
       } catch (err) {
         warned = true;

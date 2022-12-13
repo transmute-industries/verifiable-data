@@ -40,7 +40,7 @@ export const verifyVerifiableCredential = async (options: {
     const result = await ldp.verify(credential, {
       ...options,
       purpose,
-      compactProof
+      compactProof,
     });
 
     // if verification has already failed, skip status check
@@ -60,7 +60,7 @@ export const verifyVerifiableCredential = async (options: {
     return {
       verified: false,
       results: [{ credential, verified: false, error }],
-      error
+      error,
     };
   }
 };
