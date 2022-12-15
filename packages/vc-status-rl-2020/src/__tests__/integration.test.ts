@@ -20,6 +20,15 @@ import {
 
 import { Ed25519Signature2018 } from '@transmute/ed25519-signature-2018';
 
+interface ErrorObject {
+  name: string;
+  message: string;
+}
+
+interface ResponseWithErrors {
+  verified: boolean;
+  error: ErrorObject;
+}
 describe('vc-status-rl-2020', () => {
   it('should create a list', async () => {
     const list = await createList({ length: 8 });
@@ -59,6 +68,7 @@ describe('vc-status-rl-2020', () => {
     const credential = {
       '@context': ['https://www.w3.org/2018/credentials/v1', CONTEXTS.RL_V1],
       id: 'urn:uuid:a0418a78-7924-11ea-8a23-10bf48838a41',
+      issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
       type: ['VerifiableCredential', 'example:TestCredential'],
       credentialSubject: {
         id: 'urn:uuid:4886029a-7925-11ea-9274-10bf48838a41',
@@ -79,6 +89,7 @@ describe('vc-status-rl-2020', () => {
     const credential = {
       '@context': ['https://www.w3.org/2018/credentials/v1', CONTEXTS.RL_V1],
       id: 'urn:uuid:a0418a78-7924-11ea-8a23-10bf48838a41',
+      issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
       type: ['VerifiableCredential', 'example:TestCredential'],
       credentialSubject: {
         id: 'urn:uuid:4886029a-7925-11ea-9274-10bf48838a41',
@@ -99,6 +110,7 @@ describe('vc-status-rl-2020', () => {
     const credential = {
       '@context': ['https://www.w3.org/2018/credentials/v1', CONTEXTS.RL_V1],
       id: 'urn:uuid:a0418a78-7924-11ea-8a23-10bf48838a41',
+      issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
       type: ['VerifiableCredential', 'example:TestCredential'],
       credentialSubject: {
         id: 'urn:uuid:4886029a-7925-11ea-9274-10bf48838a41',
@@ -124,6 +136,7 @@ describe('vc-status-rl-2020', () => {
     const credential = {
       '@context': ['https://www.w3.org/2018/credentials/v1', CONTEXTS.RL_V1],
       id: 'urn:uuid:a0418a78-7924-11ea-8a23-10bf48838a41',
+      issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
       type: ['VerifiableCredential', 'example:TestCredential'],
       credentialSubject: {
         id: 'urn:uuid:4886029a-7925-11ea-9274-10bf48838a41',
@@ -149,6 +162,7 @@ describe('vc-status-rl-2020', () => {
     const credential = {
       '@context': ['https://www.w3.org/2018/credentials/v1', CONTEXTS.RL_V1],
       id: 'urn:uuid:a0418a78-7924-11ea-8a23-10bf48838a41',
+      issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
       type: ['VerifiableCredential', 'example:TestCredential'],
       credentialSubject: {
         id: 'urn:uuid:4886029a-7925-11ea-9274-10bf48838a41',
@@ -173,6 +187,7 @@ describe('vc-status-rl-2020', () => {
     const credential = {
       '@context': ['https://www.w3.org/2018/credentials/v1', CONTEXTS.RL_V1],
       id: 'urn:uuid:a0418a78-7924-11ea-8a23-10bf48838a41',
+      issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
       type: ['VerifiableCredential', 'example:TestCredential'],
       credentialSubject: {
         id: 'urn:uuid:4886029a-7925-11ea-9274-10bf48838a41',
@@ -197,6 +212,7 @@ describe('vc-status-rl-2020', () => {
     const credential = {
       '@context': ['https://www.w3.org/2018/credentials/v1', CONTEXTS.RL_V1],
       id: 'urn:uuid:e74fb1d6-7926-11ea-8e11-10bf48838a41',
+      issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
       type: ['VerifiableCredential', 'example:TestCredential'],
       credentialSubject: {
         id: 'urn:uuid:011e064e-7927-11ea-8975-10bf48838a41',
@@ -222,7 +238,7 @@ describe('vc-status-rl-2020', () => {
     let result = await checkStatus({
       documentLoader,
       verifyRevocationListCredential: false,
-    } as any);
+    } as any) as ResponseWithErrors;
     expect(result.verified).toBe(false);
     if (result.error) {
       expect(result.error.name).toBe('TypeError');
@@ -280,7 +296,10 @@ describe('vc-status-rl-2020', () => {
       try {
         // change the @context property to a string
         credential['@context'] = id;
-        statusTypeMatches({ credential });
+        statusTypeMatches({ credential: {
+          ...credential,
+          issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
+        } });
       } catch (e) {
         expect(e.name).toBe('TypeError');
         expect(e.message).toBe('"@context" must be an array.');
@@ -298,7 +317,10 @@ describe('vc-status-rl-2020', () => {
       try {
         // change the @context property intentionally to an unexpected value
         credential['@context'][0] = 'https://example.com/test/1';
-        statusTypeMatches({ credential });
+        statusTypeMatches({ credential: {
+          ...credential,
+          issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
+        } });
       } catch (e) {
         expect(e.name).toBe('Error');
         expect(e.message).toBe(
@@ -319,7 +341,10 @@ describe('vc-status-rl-2020', () => {
       try {
         // change the @context property to a string
         credential['@context'] = 'https://example.com/status/1';
-        assertRevocationList2020Context({ credential });
+        assertRevocationList2020Context({ credential: {
+          ...credential,
+          issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
+        } });
       } catch (e) {
         expect(e.name).toBe('TypeError');
         expect(e.message).toBe('"@context" must be an array.');
@@ -337,7 +362,10 @@ describe('vc-status-rl-2020', () => {
       try {
         // change the @context property intentionally to an unexpected value
         credential['@context'][0] = 'https://example.com/test/1';
-        assertRevocationList2020Context({ credential });
+        assertRevocationList2020Context({ credential: {
+          ...credential,
+          issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
+        } });
       } catch (e) {
         expect(e.name).toBe('Error');
         expect(e.message).toBe(
@@ -357,7 +385,10 @@ describe('vc-status-rl-2020', () => {
 
       // remove required credentialStatus property
       delete credential.credentialStatus;
-      const result = statusTypeMatches({ credential });
+      const result = statusTypeMatches({ credential: {
+        ...credential,
+        issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
+      } });
 
       expect(result).toBe(false);
     }
@@ -374,7 +405,10 @@ describe('vc-status-rl-2020', () => {
       try {
         // change credentialStatus to a string type
         credential.credentialStatus = 'https://example.com/status/1#50000';
-        statusTypeMatches({ credential });
+        statusTypeMatches({ credential: {
+          ...credential,
+          issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
+        } });
       } catch (e) {
         expect(e.name).toBe('Error');
         expect(e.message).toBe('"credentialStatus" is invalid.');
@@ -397,6 +431,7 @@ describe('vc-status-rl-2020', () => {
         revocationListIndex: '50000',
         revocationListCredential: revocationListCredential.id,
       };
+      credential.issuer = 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K';
       const result = statusTypeMatches({ credential });
       expect(result).toBe(false);
     }
@@ -411,7 +446,10 @@ describe('vc-status-rl-2020', () => {
       const credential = await createCredential({ id, list });
       try {
         delete credential['@context'][1];
-        assertRevocationList2020Context({ credential });
+        assertRevocationList2020Context({ credential: {
+          ...credential,
+          issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
+        } });
       } catch (e) {
         expect(e.name).toBe('TypeError');
         expect(e.message).toBe(
@@ -431,7 +469,10 @@ describe('vc-status-rl-2020', () => {
 
       try {
         delete credential.credentialStatus;
-        getCredentialStatus({ credential });
+        getCredentialStatus({ credential: {
+          ...credential,
+          issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
+        } });
       } catch (e) {
         expect(e.name).toBe('Error');
         expect(e.message).toBe('"credentialStatus" is missing or invalid.');
@@ -443,6 +484,7 @@ describe('vc-status-rl-2020', () => {
     const credential = {
       '@context': ['https://www.w3.org/2018/credentials/v1', CONTEXTS.RL_V1],
       id: 'urn:uuid:a0418a78-7924-11ea-8a23-10bf48838a41',
+      issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
       type: ['VerifiableCredential', 'example:TestCredential'],
       credentialSubject: {
         id: 'urn:uuid:4886029a-7925-11ea-9274-10bf48838a41',
@@ -461,7 +503,7 @@ describe('vc-status-rl-2020', () => {
       documentLoader: documentLoader as any,
       suite: new Ed25519Signature2018(),
       verifyRevocationListCredential: false,
-    });
+    }) as ResponseWithErrors;
     expect(result.verified).toBe(false);
     if (result.error) {
       expect(result.error.name).toBe('TypeError');
@@ -476,6 +518,7 @@ describe('vc-status-rl-2020', () => {
       const credential = {
         '@context': ['https://www.w3.org/2018/credentials/v1', CONTEXTS.RL_V1],
         id: 'urn:uuid:e74fb1d6-7926-11ea-8e11-10bf48838a41',
+        issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
         type: ['VerifiableCredential', 'example:TestCredential'],
         credentialSubject: {
           id: 'urn:uuid:011e064e-7927-11ea-8975-10bf48838a41',
@@ -496,7 +539,7 @@ describe('vc-status-rl-2020', () => {
         documentLoader,
         suite: suite as any,
         verifyRevocationListCredential: true,
-      });
+      }) as ResponseWithErrors;
       expect(result.verified).toBe(false);
       if (result.error) {
         expect(result.error.name).toBe('TypeError');
@@ -514,7 +557,7 @@ describe('vc-status-rl-2020', () => {
       const credential = {
         '@context': ['https://www.w3.org/2018/credentials/v1', CONTEXTS.RL_V1],
         id: 'urn:uuid:e74fb1d6-7926-11ea-8e11-10bf48838a41',
-        issuer: 'exampleissuer',
+        issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtBC8K',
         issuanceDate: '2020-03-10T04:24:12.164Z',
         type: ['VerifiableCredential', 'RevocationList2020Credential'],
         credentialSubject: {
@@ -535,7 +578,7 @@ describe('vc-status-rl-2020', () => {
         documentLoader,
         suite: {} as any,
         verifyRevocationListCredential: true,
-      });
+      }) as ResponseWithErrors;
       expect(result.verified).toBe(false);
       if (result.error) {
         expect(result.error.name).toBe('Error');
@@ -545,4 +588,37 @@ describe('vc-status-rl-2020', () => {
       }
     }
   );
+
+  it('should fail to verify when issuers do not match.', async () => {
+    const credential = {
+      '@context': ['https://www.w3.org/2018/credentials/v1', CONTEXTS.RL_V1],
+      id: 'urn:uuid:a0418a78-7924-11ea-8a23-10bf48838a41',
+      issuer: 'did:key:z6MknUVLM84Eo5mQswCqP7f6oNER84rmVKkCvypob8UtB3d2',
+      type: ['VerifiableCredential', 'example:TestCredential'],
+      credentialSubject: {
+        id: 'urn:uuid:4886029a-7925-11ea-9274-10bf48838a41',
+        'example:test': 'foo',
+      },
+      credentialStatus: {
+        id: 'https://example.com/status/1#67342',
+        type: 'RevocationList2020Status',
+        revocationListIndex: '67342',
+        revocationListCredential: revocationListCredential.id,
+      },
+    };
+    const result = await checkStatus({
+      credential,
+      documentLoader,
+      suite: new Ed25519Signature2018(),
+      verifyRevocationListCredential: false,
+    }) as ResponseWithErrors;
+    expect(result.verified).toBe(false);
+      if (result.error) {
+        expect(result.error.name).toBe('Error');
+        expect(result.error.message).toBe(
+          'The issuer of this credential does not match the Revocation List issuer.'
+        );
+      }
+  });
+
 });
