@@ -2,7 +2,7 @@ import { Issuer } from "./Issuer";
 import { Type } from "./Type";
 
 export interface CredentialCheckObject {
-  '@context'?: any;
+  "@context"?: any;
   issuer?: Issuer;
   type?: Type;
   issuanceDate?: string;
