@@ -4,7 +4,7 @@ import { check } from "@transmute/jsonld-schema";
 import { checkDate } from "./checkDate";
 import { DocumentLoader } from "../types/DocumentLoader";
 import CredentialCheck, {
-  CredentialCheckObject,
+  CredentialCheckObject
 } from "../types/CredentialCheck";
 import { VerifiableCredential } from "../types/VerifiableCredential";
 
@@ -25,7 +25,7 @@ const requireContext = (credential: CredentialCheckObject) => {
     throw new Error(
       [
         "Verifiable credentials MUST include a @context property.",
-        "See: https://www.w3.org/TR/vc-data-model/#dfn-context",
+        "See: https://www.w3.org/TR/vc-data-model/#dfn-context"
       ].join("")
     );
   }
@@ -130,7 +130,7 @@ const checkIssuanceDate = (
   if (!res.valid) {
     const message = [
       "issuanceDate is not valid: " + JSON.stringify(res.warnings, null, 2),
-      "issuanceDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#issuance-date",
+      "issuanceDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#issuance-date"
     ].join("\n");
     if (strict == "warn") {
       console.warn(message);
@@ -151,7 +151,7 @@ const checkExpirationDate = (
     if (!res.valid) {
       const message = [
         "expirationDate is not valid: " + JSON.stringify(res.warnings, null, 2),
-        "expirationDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#expiration",
+        "expirationDate must be XML Datestring as defined in spec: https://w3c.github.io/vc-data-model/#expiration"
       ].join("\n");
       if (strict == "warn") {
         console.warn(message);
@@ -222,7 +222,7 @@ const checkId = (credential: VerifiableCredential) => {
     throw new Error(
       [
         "Verifiable credentials id (if exists) MUST be a RFC3986 URI.",
-        "See: https://www.w3.org/TR/vc-data-model/#dfn-id",
+        "See: https://www.w3.org/TR/vc-data-model/#dfn-id"
       ].join("")
     );
   }
@@ -270,7 +270,7 @@ export const checkCredential = async (
   checkFields(credential as VerifiableCredential, isJWT, strict);
   await checkValidJsonLd(
     credential as VerifiableCredential,
-    documentLoader as unknown as (iri: string) => { document: any }
+    (documentLoader as unknown) as (iri: string) => { document: any }
   );
 
   return undefined;

@@ -36,6 +36,13 @@ export const checkStatus = async (
   return result;
 };
 
+function getCredentialIssuer(credential: any) {
+  if (typeof credential.issuer === 'object') {
+    return credential.issuer.id;
+  }
+  return credential.issuer;
+}
+
 async function _checkStatus({
   credential,
   documentLoader,
@@ -91,6 +98,16 @@ async function _checkStatus({
     throw err;
   }
 
+  // Confirm the Issuers Match
+  const credentialIssuer = getCredentialIssuer(credential);
+  const listIssuer = getCredentialIssuer(rlCredential);
+  const issuerCheck = credentialIssuer === listIssuer;
+  if (!issuerCheck) {
+    throw new Error(
+      'The issuer of this credential does not match the Revocation List issuer.'
+    );
+  }
+
   // verify RL VC
   if (verifyRevocationListCredential) {
     const verifyResult = await vc.verifyVerifiableCredential({
@@ -140,6 +157,7 @@ async function _checkStatus({
   }
 
   // check VC's RL index for revocation status
+  console.log('how is this hit?');
   const verified = !list.isRevoked(index);
 
   // TODO: return anything else? returning `rlCredential` may be too unwieldy

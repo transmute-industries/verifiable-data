@@ -18,7 +18,7 @@ export const checkDate = (
 ): { valid: boolean; warnings: string[] } => {
   const res: { valid: boolean; warnings: string[] } = {
     valid: false,
-    warnings: [],
+    warnings: []
   };
   // open source vc, make sure validation tests date strings are the right format for the date
   if (!ISO_8601_FULL.test(datetime)) {
