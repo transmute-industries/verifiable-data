@@ -1,0 +1,16 @@
+{
+  "type": "merkle-proof",
+  "encoding": "base64url",
+  "hash": "sha256",
+  "root": "O4KMT0tIxdTLVWKkdOyeL9jVVG-uQOkHMu9jWJLkJyA",
+  "directions": [
+    "right",
+    "left",
+    "left"
+  ],
+  "nodes": [
+    "AwLJb0Wrvq2yOHgzGpukBgeL0L1dwgLBAq97mYYknwE",
+    "ubEKG8d9KiQdEgMk2387gbLttn646c8Cr5yV0wMprvU",
+    "1HNeOiZeFu7gP1lxi5tdAwGcB9i2xR-Q2jpmbuwTqzU"
+  ]
+}

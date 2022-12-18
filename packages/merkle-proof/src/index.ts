@@ -3,6 +3,13 @@ import varint from "varint";
 import { Bitstring } from "@transmute/compressable-bitstring";
 import pako from "pako";
 
+import { MerkleTree } from "./v2";
+
+export { MerkleTree };
+
+// TODO: remove compression / bitstring depencies
+// TODO: refactor below.
+
 const branchingFactor = 2;
 // beware that attempting to improve merkle proofs by adjusting this value
 // is not going to help you.
