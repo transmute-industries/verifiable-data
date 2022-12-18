@@ -15,6 +15,9 @@ export const createVerifier = (
       data?: Uint8Array;
       signature: string;
     }): Promise<boolean> => {
+      if (!signature) {
+        throw new Error('Signature cannot be empty.');
+      }
       if (!signature.split) {
         signature = signature.toString();
       }

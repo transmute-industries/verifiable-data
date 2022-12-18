@@ -1,6 +1,5 @@
 import { decodeList } from './decodeList';
 import { getCredentialStatus } from './getCredentialStatus';
-// @ts-ignore
 import { ld as vc } from '@transmute/vc.js';
 import { LinkedDataProofSuite, DocumentLoader } from '../types';
 
@@ -16,10 +15,7 @@ export const checkStatus = async (
     suite: LinkedDataProofSuite;
     verifyRevocationListCredential?: boolean;
   } = {} as any
-): Promise<{
-  verified: boolean;
-  error?: { name: string; message: string };
-}> => {
+): Promise<{ verified: boolean } | { verified: boolean; error: unknown }> => {
   let result;
   if (!documentLoader) {
     throw new Error('checkStatus requires explicit documentLoader');
@@ -39,6 +35,13 @@ export const checkStatus = async (
   }
   return result;
 };
+
+function getCredentialIssuer(credential: any) {
+  if (typeof credential.issuer === 'object') {
+    return credential.issuer.id;
+  }
+  return credential.issuer;
+}
 
 async function _checkStatus({
   credential,
@@ -87,10 +90,22 @@ async function _checkStatus({
     ));
   } catch (e) {
     const err: any = new Error(
-      `Could not load "RevocationList2020Credential"; reason: ${e.message}`
+      `Could not load "RevocationList2020Credential"; reason: ${
+        (e as Error).message
+      }`
     );
     err.cause = e;
     throw err;
+  }
+
+  // Confirm the Issuers Match
+  const credentialIssuer = getCredentialIssuer(credential);
+  const listIssuer = getCredentialIssuer(rlCredential);
+  const issuerCheck = credentialIssuer === listIssuer;
+  if (!issuerCheck) {
+    throw new Error(
+      'The issuer of this credential does not match the Revocation List issuer.'
+    );
   }
 
   // verify RL VC
@@ -133,13 +148,16 @@ async function _checkStatus({
     list = await decodeList({ encodedList });
   } catch (e) {
     const err: any = new Error(
-      `Could not decode encoded revocation list; reason: ${e.message}`
+      `Could not decode encoded revocation list; reason: ${
+        (e as Error).message
+      }`
     );
     err.cause = e;
     throw err;
   }
 
   // check VC's RL index for revocation status
+  console.log('how is this hit?');
   const verified = !list.isRevoked(index);
 
   // TODO: return anything else? returning `rlCredential` may be too unwieldy

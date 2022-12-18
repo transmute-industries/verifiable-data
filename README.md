@@ -32,9 +32,9 @@ Verifiable Data is the library that powers [W3C Decentralized Identifiers](https
 Node Version
 
 ```
-nvm install 14
-nvm use 14
-npm i npm@6.14.16 -g
+nvm install 16.14.2
+nvm use 16.14.2
+npm i npm@8.5.0 -g
 ```
 
 Install build and run tests for all packages

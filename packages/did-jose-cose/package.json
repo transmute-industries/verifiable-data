@@ -1,6 +1,6 @@
 {
   "name": "@transmute/did-jose-cose",
-  "version": "0.7.0-unstable.67",
+  "version": "0.7.0-unstable.77",
   "license": "Apache-2.0",
   "author": "Orie Steele",
   "main": "dist/index.js",
@@ -30,11 +30,11 @@
     "testEnvironment": "node"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "dependencies": {
     "@transmute/did-key-web-crypto": "^0.3.0-unstable.7",
-    "@transmute/jsonld-document-loader": "^0.7.0-unstable.67",
+    "@transmute/jsonld-document-loader": "^0.7.0-unstable.77",
     "cwt-js": "^0.4.0",
     "jose": "^4.6.0"
   },

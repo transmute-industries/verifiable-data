@@ -1,5 +1,7 @@
 import * as api from './index';
 
+jest.setTimeout(10_000);
+
 it('can prove presentation with the vc api', async () => {
   const vp = await api.prove({
     endpoint: 'https://api.did.actor/api/presentations/prove',

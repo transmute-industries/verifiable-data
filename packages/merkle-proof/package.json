@@ -2,7 +2,7 @@
   "name": "@transmute/merkle-proof",
   "author": "Orie Steele",
   "module": "dist/merkle-proof.esm.js",
-  "version": "0.7.0-unstable.67",
+  "version": "0.7.0-unstable.77",
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/verifiable-data/tree/main/packages/merkle-proof",
   "repository": {
@@ -20,7 +20,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "scripts": {
     "start": "tsdx watch",
@@ -39,7 +39,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@transmute/compressable-bitstring": "^0.7.0-unstable.67",
+    "@transmute/compressable-bitstring": "^0.7.0-unstable.77",
     "base64url": "^3.0.1",
     "pako": "^2.0.4",
     "varint": "^6.0.0"
