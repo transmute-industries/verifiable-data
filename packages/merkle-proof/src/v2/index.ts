@@ -387,12 +387,117 @@ const autograph = {
   }
 };
 
+export const generateSalt = () =>{
+  return crypto.randomBytes(32)
+}
+
+export const addSaltsToMembers = (members: Buffer[], salts: Buffer[]) =>{
+  return members.map((member, i)=>{
+    return concatValues([member, salts[i]])
+  })
+}
+
+export const saltMember = (member:Buffer, salt:Buffer)=> concatValues([member, salt]);
+
+
+const encodeDisclosureObject = (members: Buffer[])=>{
+  const salts = members.map(generateSalt)
+  const encodedMembers = members.map((m)=> base64url.encode(m))
+  const encodedSalts = salts.map((s)=> base64url.encode(s))
+  const saltedMembers = addSaltsToMembers(members, salts)
+  // const encodedSaltedMembers = saltedMembers.map((s)=> base64url.encode(s))
+  const tree = computeTree(saltedMembers)
+  const proofs = saltedMembers.map((sm)=> generateProof(sm, tree))
+  const root = tree[0][0]
+  const encodedRoot = base64url.encode(root)
+  const proofUrns = proofs.map((p, i)=> encodeProofAsUrn(root, p, saltedMembers[i])).map((urn)=>{
+    return urn.split(encodedRoot).pop()?.split('#')[0]
+  })
+  return { 
+    root: encodedRoot,
+    members: encodedMembers, 
+    salts: encodedSalts,
+    // saltedMembers: encodedSaltedMembers,
+    proofs: proofUrns
+  }
+}
+
+const disclosureObjectToUrn = (obj: any)=> {
+  let urn  = `urn:merkle-disclosure:${obj.root}`;
+  let query:string[] = [];
+  obj.members.forEach((member: string, i:number)=>{
+    query.push(`${member}.${obj.salts[i]}=${obj.proofs[i]}`)
+  })
+  urn += `?${query.join('&')}`
+  return urn
+}
+
+const disclosureUrnToDisclosureObject = (urn: string) =>{
+  const [_0, _1, rest] = urn.split(':')
+  const [root, rest2] = rest.split('?')
+  const members: string[] = [];
+  const salts: string[] = []
+  const proofs: string[] = []
+  rest2.split('&').forEach((p)=>{
+    const [encodedSaltedMember, encodedAuditPath] = p.split('=')
+    const [member, salt] = encodedSaltedMember.split('.')
+    members.push(member);
+    salts.push(salt)
+    proofs.push(encodedAuditPath)
+  })
+  return {
+    root,
+    members,
+    salts,
+    proofs
+  }
+}
+
+const filterByIndex = (list: string[], index: number[])=>{
+  return list.filter((_v, i)=>{
+    return index.includes(i)
+  })
+}
+
+const deriveDisclosedUrn = (urn: string, index: number[]) => {
+  const disclosureObject = disclosureUrnToDisclosureObject(urn)
+  const derivedDisclosedObject = {
+    root: disclosureObject.root,
+    members: filterByIndex(disclosureObject.members, index),
+    salts: filterByIndex(disclosureObject.salts, index),
+    proofs: filterByIndex(disclosureObject.proofs, index),
+  }
+  return disclosureObjectToUrn(derivedDisclosedObject)
+
+}
+
+const validateDisclosureUrn = (urn: string)=>{
+  const obj = disclosureUrnToDisclosureObject(urn)
+  console.log(obj)
+  return false
+}
+
+const disclosure = {
+  obj: {
+    generate:  encodeDisclosureObject
+  },
+  urn: {
+    generate: (members: Buffer[])=>{
+      const obj = encodeDisclosureObject(members)
+      return disclosureObjectToUrn(obj)
+    },
+    derive: deriveDisclosedUrn,
+    verify: validateDisclosureUrn
+  }
+}
+
 export class MerkleTree {
   private members: Buffer[];
   private tree: Array<Buffer[]>;
   private root: Buffer;
   public urn: string;
   static autograph = autograph;
+  static disclosure = disclosure;
 
   static from(data: any) {
     if (Array.isArray(data)) {

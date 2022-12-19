@@ -138,7 +138,7 @@ const autographToMermaid = (
     }
   }
 }%%
-graph
+graph LR
 linkStyle default fill:none, stroke-width: 1px, stroke: ${
     transmute.secondary.medium
   }

@@ -10,10 +10,13 @@ import {
   validateProofUrn,
   proofUrnToJson,
   treeUrnToJson,
+  generateSalt,
+  addSaltsToMembers,
+  saltMember,
   MerkleTree
 } from ".";
 
-import preview from "./preview";
+import autographToMermaid from "./autographToMermaid";
 
 import fs from "fs";
 
@@ -28,7 +31,7 @@ it("preview tree", () => {
   const autograph = encodeTreeAsObject(tree);
   fs.writeFileSync(
     "./src/v2/examples/merkle-tree.mermaid.md",
-    preview(autograph, { style: "subtle" })
+    autographToMermaid(autograph, { style: "subtle" })
   );
   const treeUrn = encodeTreeAsUrn(tree);
   fs.writeFileSync(
@@ -67,7 +70,7 @@ describe("proof", () => {
     const autograph = encodeProofAsObject(root, proof, member);
     fs.writeFileSync(
       "./src/v2/examples/merkle-proof.mermaid.md",
-      preview(autograph)
+      autographToMermaid(autograph)
     );
   });
 });
@@ -79,7 +82,7 @@ it("preview tree & proof in mermaid", () => {
   const combinedGraph = addProofToTree(treeGraph, proofGraph);
   fs.writeFileSync(
     "./src/v2/examples/merkle-tree-with-proof.mermaid.md",
-    preview(combinedGraph)
+    autographToMermaid(combinedGraph)
   );
 });
 
@@ -113,3 +116,23 @@ it("nicer api", () => {
     JSON.stringify(g3, null, 2)
   );
 });
+
+
+describe('selective disclosure', ()=> {
+  it('trivial example', ()=> {
+    const salts = members.map(generateSalt)
+    const saltedMembers = addSaltsToMembers(members, salts)
+    const saltedMember = saltedMembers[3]
+    const tree = computeTree(saltedMembers)
+    const proof = generateProof(saltedMember, tree);
+    const valid = validateProof(saltMember(members[3], salts[3]), proof, tree[0][0])
+    expect(valid).toBe(true)
+  })
+
+  it.only('nicer api', ()=> {
+    const disclosureUrn = MerkleTree.disclosure.urn.generate(members);
+    const disclosureUrn2 = MerkleTree.disclosure.urn.derive(disclosureUrn, [2, 3, 4]);
+    const valid =  MerkleTree.disclosure.urn.verify(disclosureUrn2);
+    expect(valid).toBe(true)
+  })
+})

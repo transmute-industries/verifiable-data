@@ -17,7 +17,7 @@
     }
   }
 }%%
-graph
+graph LR
 linkStyle default fill:none, stroke-width: 1px, stroke: #565a7c
   subgraph &nbsp;
     direction LR
