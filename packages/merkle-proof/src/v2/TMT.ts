@@ -1,4 +1,3 @@
-
 import crypto from "crypto";
 import base64url from "base64url";
 
@@ -127,7 +126,7 @@ const autographToMermaid = (
   options: AutographOptions = {}
 ) => {
   let final = "";
-  let style = ""
+  let style = "";
   autograph.nodes.forEach((node: AutographNode) => {
     final += addNode(node);
     style += `\t\t${transmuteNodeStyle(autograph, node, options)} \n`;
@@ -196,10 +195,7 @@ const computeNextLevel = (values: Buffer[], hash: Function) => {
   return nextLevel;
 };
 
-const computeTree = (
-  values: Buffer[],
-  hash = sha256
-): Array<Buffer[]> => {
+const computeTree = (values: Buffer[], hash = sha256): Array<Buffer[]> => {
   const hashedValues = values.map(hash);
   const tree = [hashedValues];
   while (tree[0].length !== 1) {
@@ -209,16 +205,15 @@ const computeTree = (
   return tree;
 };
 
-const generateSalt = () =>{
-  return crypto.randomBytes(32)
-}
+const generateSalt = () => {
+  return crypto.randomBytes(32);
+};
 
-
-export const addSaltsToMembers = (members: Buffer[], salts: Buffer[]) =>{
-  return members.map((member, i)=>{
-    return concatValues([member, salts[i]])
-  })
-}
+export const addSaltsToMembers = (members: Buffer[], salts: Buffer[]) => {
+  return members.map((member, i) => {
+    return concatValues([member, salts[i]]);
+  });
+};
 
 const setNextTargetIndexByBranchingFactor = (targetIndexInLevel: number) => {
   return Math.floor(targetIndexInLevel / branchingFactor);
@@ -251,7 +246,6 @@ const addSiblingProof = (
     : { [SiblingPosition.right]: siblingValue };
   auditPath.push(sibling);
 };
-
 
 const createMerkleAuditPath = (
   targetValue: Buffer,
@@ -302,53 +296,58 @@ export const validateMerkleAuditPath = (
   return proofHash.equals(root);
 };
 
-type MerkleAuditPathComponent = `${'L'|'R'}.${string}`
-
-const merkleAuditPathToUrn = (auditPath: MerkleAuditPath): string=> {
-  return auditPath.map((component)=>{
-    const direction = Object.keys(component)[0] === 'left' ? 'L': 'R'
-    return `${direction}.${base64url.encode(Object.values(component)[0])}` as MerkleAuditPathComponent
-  }).join('~')
-}
+const merkleAuditPathToUrn = (auditPath: MerkleAuditPath): string => {
+  return auditPath
+    .map(component => {
+      const direction = Object.keys(component)[0] === "left" ? "L" : "R";
+      return `${direction}.${base64url.encode(
+        Object.values(component)[0] as any
+      )}`;
+    })
+    .join("~");
+};
 
 type MerkleTreeObject = {
-  root: string,
-  members: string[],
-  salts: string[],
-  proofs: string[],
-
-}
-const listToMerkleTreeObject = (list: Buffer[]): MerkleTreeObject=>{
-  const salts = list.map(generateSalt)
-  const encodedMembers = list.map((m)=> base64url.encode(m))
-  const encodedSalts = salts.map((s)=> base64url.encode(s))
-  const saltedMembers = addSaltsToMembers(list, salts)
-  const tree = computeTree(saltedMembers)
-  const merkleAuditPaths = saltedMembers.map((sm)=> createMerkleAuditPath(sm, tree))
-  const root = tree[0][0]
-  const encodedRoot = base64url.encode(root)
-  const proofUrns = merkleAuditPaths.map((auditPath)=> {
-    return merkleAuditPathToUrn(auditPath)
-  })
-  return { 
+  root: string;
+  members: string[];
+  salts: string[];
+  proofs: string[];
+};
+const listToMerkleTreeObject = (list: Buffer[]): MerkleTreeObject => {
+  const salts = list.map(generateSalt);
+  const encodedMembers = list.map(m => base64url.encode(m));
+  const encodedSalts = salts.map(s => base64url.encode(s));
+  const saltedMembers = addSaltsToMembers(list, salts);
+  const tree = computeTree(saltedMembers);
+  const merkleAuditPaths = saltedMembers.map(sm =>
+    createMerkleAuditPath(sm, tree)
+  );
+  const root = tree[0][0];
+  const encodedRoot = base64url.encode(root);
+  const proofUrns = merkleAuditPaths.map(auditPath => {
+    return merkleAuditPathToUrn(auditPath);
+  });
+  return {
     root: encodedRoot,
-    members: encodedMembers, 
+    members: encodedMembers,
     salts: encodedSalts,
     proofs: proofUrns
-  }
-}
+  };
+};
 
 const merkleTreeObjectToUrn = (obj: MerkleTreeObject): string => {
-  return `urn:tmt:${obj.root}?${obj.members.map((m,i)=>{
-    return `${m}.${obj.salts[i]}=${obj.proofs[i]}`
-  }).join('&')}`
-}
+  return `urn:tmt:${obj.root}?${obj.members
+    .map((m, i) => {
+      return `${m}.${obj.salts[i]}=${obj.proofs[i]}`;
+    })
+    .join("&")}`;
+};
 
-const filterByIndex = (list: string[], index: number[])=>{
-  return list.filter((_v, i)=>{
-    return index.includes(i)
-  })
-}
+const filterByIndex = (list: string[], index: number[]) => {
+  return list.filter((_v, i) => {
+    return index.includes(i);
+  });
+};
 
 const addProofToTree = (treeGraph: Autograph, proofGraph: Autograph) => {
   proofGraph.nodes.forEach(node => {
@@ -364,82 +363,96 @@ const addProofToTree = (treeGraph: Autograph, proofGraph: Autograph) => {
   return treeGraph;
 };
 
-const viewTreeWithProof = (treeUrn: string, proofUrn: string)=> {
-  return addProofToTree(urnToAutograph(treeUrn), urnToAutograph(proofUrn))
-}
+const viewTreeWithProof = (treeUrn: string, proofUrn: string) => {
+  return addProofToTree(urnToAutograph(treeUrn), urnToAutograph(proofUrn));
+};
 
-const derive = (urn: string, index: number[])=> {
-  const obj = urnToMerkleTreeObject(urn)
+const derive = (urn: string, index: number[]) => {
+  const obj = urnToMerkleTreeObject(urn);
   const derivedDisclosedObject = {
     root: obj.root,
     members: filterByIndex(obj.members, index),
     salts: filterByIndex(obj.salts, index),
-    proofs: filterByIndex(obj.proofs, index),
-  }
-  return merkleTreeObjectToUrn(derivedDisclosedObject)
-}
+    proofs: filterByIndex(obj.proofs, index)
+  };
+  return merkleTreeObjectToUrn(derivedDisclosedObject);
+};
 
-const urnToMerkleTreeObject = (urn: string)=>{
-  const [_0, _1, data] = urn.split(':')
-  const [root, encodedAuditPaths] = data.split('?')
+const urnToMerkleTreeObject = (urn: string) => {
+  const [_0, _1, data] = urn.split(":");
+  if (_0 !== "urn" || _1 !== "tmt") {
+    throw new Error("Unsupported URN");
+  }
+  const [root, encodedAuditPaths] = data.split("?");
   const members: string[] = [];
   const salts: string[] = [];
   const proofs: string[] = [];
-  encodedAuditPaths.split('&').forEach((auditPaths)=>{
-    const [saltedMember, encodedAuditPath] = auditPaths.split('=')
-    const [member, salt] = saltedMember.split('.')
+  encodedAuditPaths.split("&").forEach(auditPaths => {
+    const [saltedMember, encodedAuditPath] = auditPaths.split("=");
+    const [member, salt] = saltedMember.split(".");
     members.push(member);
-    salts.push(salt)
-    proofs.push(encodedAuditPath)
-  })
-  return { 
+    salts.push(salt);
+    proofs.push(encodedAuditPath);
+  });
+  return {
     root,
-    members, 
+    members,
     salts,
     proofs
-  }
-}
+  };
+};
 
 const verify = (urn: string, member?: Buffer): boolean => {
   const obj = urnToMerkleTreeObject(urn);
   let includesMember = false;
-  const validatedAuditPaths = obj.proofs.map((encodedAuditPath, i)=>{
-    const auditPath = encodedAuditPath.split('~').map((apc)=>{
-      const [d, v] = apc.split('.');
+  const validatedAuditPaths = obj.proofs.map((encodedAuditPath, i) => {
+    const auditPath = encodedAuditPath.split("~").map(apc => {
+      const [d, v] = apc.split(".");
       return {
-        [d === 'L'? 'left' : 'right' ]: base64url.toBuffer(v) 
-      }
-    })
-    const computedMember = concatValues([ base64url.toBuffer(obj.members[i]), base64url.toBuffer(obj.salts[i]) ])
-    if (member && member.equals(computedMember)){
+        [d === "L" ? "left" : "right"]: base64url.toBuffer(v)
+      };
+    });
+    const computedMember = concatValues([
+      base64url.toBuffer(obj.members[i]),
+      base64url.toBuffer(obj.salts[i])
+    ]);
+    if (member && member.equals(computedMember)) {
       includesMember = true;
     }
     return validateMerkleAuditPath(
       computedMember,
       auditPath,
       base64url.toBuffer(obj.root)
-    )
-  })
-  const allPathsAreValid = validatedAuditPaths.every((v)=> v === true)
-  const memberIsIncluded = member === undefined ? true: includesMember
+    );
+  });
+  const allPathsAreValid = validatedAuditPaths.every(v => v === true);
+  const memberIsIncluded = member === undefined ? true : includesMember;
   return memberIsIncluded && allPathsAreValid;
-}
+};
 
 const urnToAutograph = (urn: string): Autograph => {
   const obj = urnToMerkleTreeObject(urn);
-  if (obj.members.length === 1){
-    const auditPath = obj.proofs[0].split('~').map((apc)=>{
-      const [d, v] = apc.split('.');
+  if (obj.members.length === 1) {
+    const auditPath = obj.proofs[0].split("~").map(apc => {
+      const [d, v] = apc.split(".");
       return {
-        [d === 'L'? 'left' : 'right' ]: base64url.toBuffer(v) 
-      }
-    })
-    return merkleProofToAutograph(base64url.toBuffer(obj.root), auditPath, base64url.toBuffer(obj.members[0]), base64url.toBuffer(obj.salts[0]) )
+        [d === "L" ? "left" : "right"]: base64url.toBuffer(v)
+      };
+    });
+    return merkleProofToAutograph(
+      base64url.toBuffer(obj.root),
+      auditPath,
+      base64url.toBuffer(obj.members[0]),
+      base64url.toBuffer(obj.salts[0])
+    );
   }
   const nodes: AutographNode[] = [];
   const links: AutographEdge[] = [];
-  const saltedMembers = addSaltsToMembers(obj.members.map(base64url.toBuffer), obj.salts.map(base64url.toBuffer))
-  const tree = computeTree(saltedMembers)
+  const saltedMembers = addSaltsToMembers(
+    obj.members.map(base64url.toBuffer),
+    obj.salts.map(base64url.toBuffer)
+  );
+  const tree = computeTree(saltedMembers);
   tree.forEach((level, leveIndex) => {
     level.forEach((node, nodeIndex) => {
       const id = base64url.encode(node);
@@ -457,16 +470,19 @@ const urnToAutograph = (urn: string): Autograph => {
   return makeAutographMermaidSafe(graph);
 };
 
-
-const makeAutographMermaidSafe = (autograph:any)=>{
-  autograph.nodes = autograph.nodes.map((n:any)=>{
-    return {...n, id: `${sha256(Buffer.from(n.id)).toString('hex')}`}
-  })
-  autograph.links = autograph.links.map((l:any)=>{
-    return {...l, source: `${sha256(Buffer.from(l.source)).toString('hex')}`, target: `${sha256(Buffer.from(l.target)).toString('hex')}`}
-  })
-  return autograph
-}
+const makeAutographMermaidSafe = (autograph: any) => {
+  autograph.nodes = autograph.nodes.map((n: any) => {
+    return { ...n, id: `${sha256(Buffer.from(n.id)).toString("hex")}` };
+  });
+  autograph.links = autograph.links.map((l: any) => {
+    return {
+      ...l,
+      source: `${sha256(Buffer.from(l.source)).toString("hex")}`,
+      target: `${sha256(Buffer.from(l.target)).toString("hex")}`
+    };
+  });
+  return autograph;
+};
 const merkleProofToAutograph = (
   root: Buffer,
   proof: Sibling[],
@@ -478,7 +494,7 @@ const merkleProofToAutograph = (
   nodes.push({ id: base64url.encode(root), label: base64url.encode(root) });
   nodes.push({ id: base64url.encode(member), label: base64url.encode(member) });
   nodes.push({ id: base64url.encode(salt), label: base64url.encode(salt) });
-  const saltedMember = concatValues([member, salt])
+  const saltedMember = concatValues([member, salt]);
   nodes.push({
     id: base64url.encode(sha256(saltedMember)),
     label: base64url.encode(sha256(saltedMember))
@@ -497,7 +513,7 @@ const merkleProofToAutograph = (
     const keys = Object.keys(s);
     const [label] = keys;
     const values = Object.values(s);
-    const id = base64url.encode(values[0]);
+    const id = base64url.encode(values[0] as any);
     const proofNode = { id, label: id };
     nodes.push(proofNode);
     const proofEdge = {
@@ -516,30 +532,32 @@ const merkleProofToAutograph = (
   return makeAutographMermaidSafe(graph);
 };
 
-const urnToMermaid = (urn: string)=>{
+const urnToMermaid = (urn: string) => {
   const autograph = urnToAutograph(urn);
-  return autographToMermaid(autograph)
-}
+  return autographToMermaid(autograph);
+};
 
 const getSaltedMember = (member: string, salt: string): Buffer => {
-  return addSaltsToMembers([base64url.toBuffer(member)], [base64url.toBuffer(salt)])[0];
-}
+  return addSaltsToMembers(
+    [base64url.toBuffer(member)],
+    [base64url.toBuffer(salt)]
+  )[0];
+};
 
-const review = (treeUrn: string, proofUrn: string)=>{
+const review = (treeUrn: string, proofUrn: string) => {
   const autograph = viewTreeWithProof(treeUrn, proofUrn);
-  return autographToMermaid(autograph)
-}
+  return autographToMermaid(autograph);
+};
 
-export const TMT = {  
-  create: listToMerkleTreeObject, 
-  urn: merkleTreeObjectToUrn, 
-  obj: urnToMerkleTreeObject, 
-  verify, 
-  derive, 
-  member: getSaltedMember, 
+export const TMT = {
+  create: listToMerkleTreeObject,
+  urn: merkleTreeObjectToUrn,
+  obj: urnToMerkleTreeObject,
+  verify,
+  derive,
+  member: getSaltedMember,
 
-  mermaid: urnToMermaid, 
-  
-  review 
-}
+  mermaid: urnToMermaid,
 
+  review
+};

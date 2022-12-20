@@ -3,9 +3,9 @@ import varint from "varint";
 import { Bitstring } from "@transmute/compressable-bitstring";
 import pako from "pako";
 
-import { MerkleTree } from "./v2";
+import { TMT } from "./v2/TMT";
 
-export { MerkleTree };
+export { TMT };
 
 // TODO: remove compression / bitstring depencies
 // TODO: refactor below.
