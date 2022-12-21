@@ -1,0 +1,33 @@
+{
+  "root": "YA6J_jBD-yH55QHlkGjbezekEMqDsObLb7SsLQoVIl0",
+  "members": [
+    "MA",
+    "MQ",
+    "Mg",
+    "Mw",
+    "NA",
+    "NQ",
+    "Ng",
+    "Nw"
+  ],
+  "salts": [
+    "Re2g_rF_fdvgF1J7aZ19ap1wHKbUl2oNz_6rDPW6a0I",
+    "6lSoLXDCkviNeaUEFluh6VSY5F9sMl3S6PB2tYoSKrU",
+    "J7HTiJTHYbMS6NduF5rEg8lGoNPNa5eLYRj3IFmWeDg",
+    "JBxCnFCtMSQ4Gz5sGXyUIeuwiu5uUhVwo2Inq6Nk5t4",
+    "GxgBF24Jz80RLE1Wo7hdyH2tw4QAKjYrFEAtrv1FQtY",
+    "iegVVtIvKopz6G2sreOzQ_I4pb6z-wKQb_e_f8fQYMQ",
+    "GYNYryqc7WDIwG8i4sQaBcKk_GLmSNZXADK-yxF5d7M",
+    "IXvBnO7Yqb0DS5EotAbehVEA2KATJF9XB7zw0fS_JpY"
+  ],
+  "proofs": [
+    "R.Mnd_Y9cK6ryzd7FCJuht2_VgNBc1GtiK3EZ3jkVsPPo~R.WGDIm2vw7_GZBd_bWOIl3lgdMIN8DQSX9nqoCRuEfK4~R.wU3MLpg7QMfNPBn6Y-6-KUy0T5izHQ3U7d4YNC-oKkc",
+    "L.nJG0vs6d8PivapI_AXzTL_nsvDUEaUlMa0ajz_58j04~R.WGDIm2vw7_GZBd_bWOIl3lgdMIN8DQSX9nqoCRuEfK4~R.wU3MLpg7QMfNPBn6Y-6-KUy0T5izHQ3U7d4YNC-oKkc",
+    "R.bvU0rjg56J-oT7NwRe8j1z4CAxzwIKP0-lgyVnQiBOk~L.7bDaPgJwHpDrbgKrMBc3Dt_QNzKLi3bJP565lwjCNzw~R.wU3MLpg7QMfNPBn6Y-6-KUy0T5izHQ3U7d4YNC-oKkc",
+    "L.o2uxp6Vr4vSXvIlT-jDRityWeHK5_Z1829wJmYdqGPI~L.7bDaPgJwHpDrbgKrMBc3Dt_QNzKLi3bJP565lwjCNzw~R.wU3MLpg7QMfNPBn6Y-6-KUy0T5izHQ3U7d4YNC-oKkc",
+    "R.R6u5j20SuoA3NoXjqJyZlG04XCox9rW_bmciji89Hao~R.xUYr3l65fPFmSS6NtB40N50ZOFaXLDu3SCYM1joeZUU~L.x8-ql5i41ZMEQf44QxL5RYJdEXIgSulAYfz3z_TFXjE",
+    "L.KimQH-Lqu1or4kUEi_YPT2cKXlyPA2tcwdPcIusB9zg~R.xUYr3l65fPFmSS6NtB40N50ZOFaXLDu3SCYM1joeZUU~L.x8-ql5i41ZMEQf44QxL5RYJdEXIgSulAYfz3z_TFXjE",
+    "R.LLvGmD7WxRkmVtULWDEa-zmeB5s1w3VTu9Gm6YYKOtY~L.0ALRkLSp-RCMgYxaUVS8LR8RaxdWOdNV8wdy0nu6OiA~L.x8-ql5i41ZMEQf44QxL5RYJdEXIgSulAYfz3z_TFXjE",
+    "L.WIpD7y406rF1YGsVLSVHfveCWdKQkKdGDH-gMZVNv2w~L.0ALRkLSp-RCMgYxaUVS8LR8RaxdWOdNV8wdy0nu6OiA~L.x8-ql5i41ZMEQf44QxL5RYJdEXIgSulAYfz3z_TFXjE"
+  ]
+}

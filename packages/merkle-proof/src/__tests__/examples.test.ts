@@ -1,6 +1,12 @@
-import { TMT } from "./TMT";
+
 
 import fs from "fs";
+
+// TODO fix exports
+
+import TMT from "..";
+
+import Mermaid from '../Mermaid';
 
 const list: Buffer[] = Array.from({ length: 8 }, (_x, i) =>
   Buffer.from(`${i}`)
@@ -40,16 +46,27 @@ describe("merkle tree", () => {
     const isValid = TMT.verify(singleProofUrn, member);
     expect(isValid).toBe(true);
     fullTreeUrn = allItems;
-    fullTreeMermaid = TMT.mermaid(allItems);
-    singleProofMermaid = TMT.mermaid(singleProofUrn);
-    singleProofObj = TMT.obj(singleProofUrn);
-    combinedMermaid = TMT.review(fullTreeUrn, singleProofUrn);
+    const merkleTreeAutograph = TMT.objectToAutograph(obj);
+    fullTreeMermaid = Mermaid.merkleTreeFromAutograph(merkleTreeAutograph);
+
+    const bmtag = TMT.objectToBinaryMerkelTree(obj);
+    const bmtAg = Mermaid.merkleTreeFromAutograph(bmtag);
+    fs.writeFileSync(
+      "./examples/binary-merkle-tree.md",
+`## Binary Merkle Tree
+
+${bmtAg}
+
+  `)
+    // singleProofMermaid = TMT.mermaid(singleProofUrn);
+    // singleProofObj = TMT.obj(singleProofUrn);
+    // combinedMermaid = TMT.review(fullTreeUrn, singleProofUrn);
   });
 });
 
 afterAll(() => {
   fs.writeFileSync(
-    "merkle-tree.md",
+    "./examples/merkle-tree.md",
     `## Merkel Tree URN
 \`\`\`
 ${fullTreeUrn}
@@ -67,7 +84,7 @@ ${fullTreeMermaid}
   );
 
   fs.writeFileSync(
-    "merkle-proof.md",
+    "./examples/merkle-proof.md",
     `## Merkel Proof URN
 \`\`\`
 ${singleProofUrn}
@@ -84,7 +101,7 @@ ${singleProofMermaid}
   );
 
   fs.writeFileSync(
-    "merkle-combined.md",
+    "./examples/merkle-combined.md",
     `## Merkel Proof Review
 ${combinedMermaid}
 `

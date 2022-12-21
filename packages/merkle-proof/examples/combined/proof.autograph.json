@@ -1,0 +1,71 @@
+{
+  "nodes": [
+    {
+      "id": "901558ecccc6015f6cabed7791b6abf86e039466e4dd5f99473c1e0cb43800f1",
+      "label": "kBVY7MzGAV9sq-13kbar-G4DlGbk3V-ZRzweDLQ4APE",
+      "type": "root"
+    },
+    {
+      "id": "33",
+      "label": "Mw",
+      "type": "member"
+    },
+    {
+      "id": "26a0db642100df3dfc147bd0a7848a0112b5241b60f097d17b22843683eb2fe3",
+      "label": "JqDbZCEA3z38FHvQp4SKARK1JBtg8JfReyKENoPrL-M",
+      "type": "salt"
+    },
+    {
+      "id": "daa9b435f28e5ccc917830439393b3a3dea9f69ea130dfe267c792bdb5824628",
+      "label": "2qm0NfKOXMyReDBDk5Ozo96p9p6hMN_iZ8eSvbWCRig",
+      "type": "leaf"
+    },
+    {
+      "id": "95fdf643069f4f53c8ad5611e0a207a1765a69761ea45de707d3f4d097ddba50",
+      "label": "lf32QwafT1PIrVYR4KIHoXZaaXYepF3nB9P00JfdulA",
+      "type": "node"
+    },
+    {
+      "id": "b0a892ce59f2ffb600acae8219103ca4d4fc76ec5e38ecf386443372c8003e9c",
+      "label": "sKiSzlny_7YArK6CGRA8pNT8duxeOOzzhkQzcsgAPpw",
+      "type": "node"
+    },
+    {
+      "id": "c418cb798ccff2aaafa9f6dfa0fb1462a019e002aa9ffe28a98218f2af768ca2",
+      "label": "xBjLeYzP8qqvqfbfoPsUYqAZ4AKqn_4oqYIY8q92jKI",
+      "type": "node"
+    }
+  ],
+  "links": [
+    {
+      "source": "33",
+      "label": "member",
+      "target": "daa9b435f28e5ccc917830439393b3a3dea9f69ea130dfe267c792bdb5824628"
+    },
+    {
+      "source": "26a0db642100df3dfc147bd0a7848a0112b5241b60f097d17b22843683eb2fe3",
+      "label": "salt",
+      "target": "daa9b435f28e5ccc917830439393b3a3dea9f69ea130dfe267c792bdb5824628"
+    },
+    {
+      "source": "daa9b435f28e5ccc917830439393b3a3dea9f69ea130dfe267c792bdb5824628",
+      "label": "left",
+      "target": "95fdf643069f4f53c8ad5611e0a207a1765a69761ea45de707d3f4d097ddba50"
+    },
+    {
+      "source": "95fdf643069f4f53c8ad5611e0a207a1765a69761ea45de707d3f4d097ddba50",
+      "label": "left",
+      "target": "b0a892ce59f2ffb600acae8219103ca4d4fc76ec5e38ecf386443372c8003e9c"
+    },
+    {
+      "source": "b0a892ce59f2ffb600acae8219103ca4d4fc76ec5e38ecf386443372c8003e9c",
+      "label": "right",
+      "target": "c418cb798ccff2aaafa9f6dfa0fb1462a019e002aa9ffe28a98218f2af768ca2"
+    },
+    {
+      "source": "c418cb798ccff2aaafa9f6dfa0fb1462a019e002aa9ffe28a98218f2af768ca2",
+      "label": "proof",
+      "target": "901558ecccc6015f6cabed7791b6abf86e039466e4dd5f99473c1e0cb43800f1"
+    }
+  ]
+}
