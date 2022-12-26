@@ -17,7 +17,7 @@
   }
 }%%
 graph LR
-  subgraph &nbsp;
+  subgraph Leaf
     direction LR
 		B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM("B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM") 
 		WpNu4ZoM88cNjLAAYRG3pS9F7AFwPgr4zcjG2BrFhQw("WpNu4ZoM88cNjLAAYRG3pS9F7AFwPgr4zcjG2BrFhQw") 
@@ -28,7 +28,22 @@ graph LR
 
 
 
-  subgraph &nbsp;
+  subgraph Proof
+    direction LR
+		B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM("B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM") 
+		pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs("pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs") 
+		eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM("eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM") 
+		oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ("oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ") 
+		_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y("_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y") 
+		B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM -- right --> pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs 
+		pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs -- right --> eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM 
+		eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM -- right --> oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ 
+		oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ -- proof --> _O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y 
+  end
+
+
+
+  subgraph Tree
     direction LR
 		_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y("_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y") 
 		J_R8UsFrhydO_FMCDSM6HYl7AycNw4Z3gTAOYRA4C1Q("J_R8UsFrhydO_FMCDSM6HYl7AycNw4Z3gTAOYRA4C1Q") 
@@ -59,20 +74,5 @@ graph LR
 		ZCe4exZwVMPfdWpSvuoAutu1UIABUvSa7vM7nAwa5h4 -.-> ejZAcfEB2t5sJab2288ELQ0aPugmjTRsd4ZgAaNUR08 
 		Uqoj5mowSWBXmIliElD7-UXfsyMCKCqeCk53BWshQ64 -.-> ymgzM-AaNOIiJ_U_hfPmcD8W19iTJoKhU1D71wJonXs 
 		ICy2ade6u7B_ckUNGDKam7NvRYnBy0-ixCzzW41bous -.-> ymgzM-AaNOIiJ_U_hfPmcD8W19iTJoKhU1D71wJonXs 
-  end
-
-
-
-  subgraph &nbsp;
-    direction LR
-		B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM("B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM") 
-		pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs("pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs") 
-		eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM("eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM") 
-		oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ("oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ") 
-		_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y("_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y") 
-		B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM -- right --> pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs 
-		pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs -- right --> eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM 
-		eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM -- right --> oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ 
-		oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ -- proof --> _O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y 
   end
 ```
