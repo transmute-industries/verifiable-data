@@ -1,5 +1,4 @@
 ```mermaid
-
 %%{
   init: {
     'flowchart': { 'curve': 'monotoneX' },
@@ -79,5 +78,4 @@ graph LR
 		linkStyle 12 color:#565a7c, stroke:#565a7c, stroke-width: 1.0px 
 		linkStyle 13 color:#565a7c, stroke:#565a7c, stroke-width: 1.0px 
   end
-
 ```

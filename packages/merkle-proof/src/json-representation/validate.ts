@@ -10,7 +10,7 @@ const decodeAuditPath = (encodedAuditPath: string) =>{
   return encodedAuditPath.split('~').map((c)=>{
     const [d, v] = c.split('.')
     const direction = d === 'L' ? 'left' :'right'; 
-    return { [direction]: base64url.toBuffer(v)}
+    return { [direction]: base64url.toBuffer(v) }
   })
 }
 
@@ -29,7 +29,7 @@ export const validate = (proof: SaltedMerkleTree): boolean => {
     return allProofsAreValid && leavesAreValid;
   } else {
     const allProofsAreValid = proof.paths.map(decodeAuditPath).map((p, i)=>{
-      return BinaryMerkleTree.validateMerkleAuditPath(base64url.toBuffer(proof.leaves[i]) , p, base64url.toBuffer(proof.root) )
+      return BinaryMerkleTree.validateMerkleAuditPath(base64url.toBuffer(proof.leaves[i]), p, base64url.toBuffer(proof.root) )
     }).every((p)=> p === true)
     return allProofsAreValid
   }
