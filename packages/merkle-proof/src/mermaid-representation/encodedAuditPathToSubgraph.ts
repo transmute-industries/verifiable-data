@@ -7,12 +7,13 @@ export const encodedAuditPathToSubgraph = (leaf: string, encodedAuditPath: strin
   let graph: Autograph = { nodes, links}
   nodes.push({
     id: leaf,
-    label: leaf
+    label: leaf,
+    isLeaf: true
   })
   encodedAuditPath.split('~').forEach((component: string)=>{
     const [d, v] = component.split('.');
     const direction = d === 'L' ? 'left': 'right';
-    nodes.push({ id : v })
+    nodes.push({ id : v, label: v })
     links.push({
       source: nodes[nodes.length -2].id,
       label: direction,

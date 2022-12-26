@@ -13,11 +13,13 @@ const addEdges = (obj: SaltedMerkleTree, graph:Autograph, i: number  )=>{
   const saltNode = {
     id: obj.salts[i],
     label: obj.salts[i],
+    isLeaf: true
   }
   graph.nodes.push(saltNode)
   const memberNode = {
     id: obj.members[i],
     label: obj.members[i],
+    isLeaf: true
   }
   graph.nodes.push(memberNode)
   const memberEdge = {

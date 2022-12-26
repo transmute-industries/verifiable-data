@@ -22,7 +22,7 @@ export type Autograph = {
 };
 
 export type AutographOptions = {
-  style?: 'none';
+  style?: 'transmute';
   markdown?: boolean,
   header?: boolean,
   linkStyle: (e: AutographEdge, i:number, o: AutographOptions) => string
