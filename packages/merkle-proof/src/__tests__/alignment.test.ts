@@ -15,6 +15,7 @@ it('data structures match', () => {
     return BinaryMerkleTree.concatValues([m, salts[i]]);
   })
 
+  // this stuff needs to come from higher order objects
   const tree = BinaryMerkleTree.computeTree(saltedMembers);
 
   const fullTreeGraph = BinaryMerkleTree.encodeTreeAsGraph(tree)
@@ -25,9 +26,10 @@ it('data structures match', () => {
   fs.writeFileSync('./examples/alignment/full-tree.mermaid.md', fullTreeMermaid)
   fs.writeFileSync('./examples/alignment/full-tree.obj.json', JSON.stringify(fullTreeObject, null, 2))
   
-
+  // these should be moved to presentation layer functions of higher order objects
+  const saltGraph = MerkleMermaid.objectToSaltGraph(fullTreeObject);
   const auditPathGraph = MerkleMermaid.encodedAuditPathToSubgraph(fullTreeObject.leaves[0], fullTreeObject.paths[0], fullTreeObject.root)
-  const subGM = MerkleMermaid.fromGraphs([fullTreeGraph, auditPathGraph])
-  fs.writeFileSync('./examples/alignment/full-tree.subg.mermaid.md', subGM)
+  const mermaidMultigraph = MerkleMermaid.fromGraphs([saltGraph, fullTreeGraph, auditPathGraph])
+  fs.writeFileSync('./examples/alignment/full-tree.subg.mermaid.md', MerkleMermaid.wrapForMarkdown(mermaidMultigraph) )
 
 })

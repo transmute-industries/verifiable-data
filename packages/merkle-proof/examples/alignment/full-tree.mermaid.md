@@ -18,7 +18,6 @@
   }
 }%%
 graph LR
-linkStyle default fill:none, stroke-width: 1px, stroke: #565a7c
   subgraph &nbsp;
     direction LR
 		_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y("_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y") 

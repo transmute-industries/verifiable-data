@@ -82,11 +82,16 @@ export const graphToMermaid = (
   let style = "";
   autograph.nodes.forEach((node: AutographNode) => {
     final += addNode(node);
-    style += `\t\t${transmuteNodeStyle(autograph, node, options)} \n`;
+    if (options.style !== 'none') {
+      style += `\t\t${transmuteNodeStyle(autograph, node, options)} \n`;
+    }
   });
   autograph.links.forEach((link: AutographEdge, index: number) => {
     final += addEdge(link, options);
-    style += `\t\t${transmuteLinkStyle(link, index)} \n`;
+    if (options.style !== 'none') {
+      style += `\t\t${transmuteLinkStyle(link, index)} \n`;
+    }
+   
   });
   final += style;
   final = final.substring(0, final.length - 1);
@@ -108,10 +113,7 @@ ${options.header ? `%%{
     }
   }
 }%%
-graph LR
-linkStyle default fill:none, stroke-width: 1px, stroke: ${
-    transmute.secondary.medium
-  }`: ``}
+graph LR`: ``}
   subgraph ${autograph.title || "&nbsp;"}
     direction LR
 ${final}

@@ -16,7 +16,7 @@ export type Autograph = {
 };
 
 export type AutographOptions = {
-  style?: "subtle";
+  style?: 'none' | 'subtle';
   markdown?: boolean,
   header?: boolean
 };

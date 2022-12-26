@@ -4,7 +4,7 @@ import { graphToMermaid } from './graphToMermaid';
 
 export const fromGraphs = (graphs: Autograph[]) => { 
   const items = graphs.map((g, i)=>{
-    return graphToMermaid(g, { header: i===0, markdown: false })
+    return graphToMermaid(g, { header: i===0, markdown: false, style: 'none' })
   })
   return items.join('\n')
 }
