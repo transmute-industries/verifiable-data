@@ -4,7 +4,8 @@ const getNodeProperties = (tree: Array<Buffer[]>, leveIndex: number, nodeIndex: 
   const targetHash = tree[leveIndex][nodeIndex]
   const id = base64url.encode(targetHash);
   let props:any = {
-    id
+    id,
+    label: id
   }
   if (leveIndex === 0){
     props.isRoot = true
