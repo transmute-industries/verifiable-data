@@ -13,7 +13,13 @@ it('data structures match', () => {
 
   const fullTreeObject = JsonMerkleTree.from(members, { salts })
   const fullTreeGraph = MerkleMermaid.fullTreeObjectToFullTreeGraph(fullTreeObject)
-  const fullTreeMermaid = MerkleMermaid.graphToMermaid(fullTreeGraph, { header: true, markdown: true, style: 'none'})
+  const options: any = { 
+    header: true, 
+    markdown: true, 
+    style: 'none', 
+    linkStyle: MerkleMermaid.defaults.linkStyle
+  };
+  const fullTreeMermaid = MerkleMermaid.graphToMermaid(fullTreeGraph, options)
   
   fs.writeFileSync('./examples/alignment/full-tree.obj.json', JSON.stringify(fullTreeObject, null, 2))
   fs.writeFileSync('./examples/alignment/full-tree.graph.json', JSON.stringify(fullTreeGraph, null, 2))

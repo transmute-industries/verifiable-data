@@ -17,6 +17,9 @@ export const inclusionProof = (fullTreeObject: SaltedMerkleTree, index: number) 
   const autographOptions = {
     markdown: false, 
     style: 'none',
+    linkStyle: (e: any) => {
+      return e.label ? `-- ${e.label} -->`: `-.->`;
+    }
   }
 
   const items = [saltGraph, auditPathGraph, fullTreeGraph ].map((g, i)=>{

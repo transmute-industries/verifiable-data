@@ -18,5 +18,6 @@ export type Autograph = {
 export type AutographOptions = {
   style?: 'none';
   markdown?: boolean,
-  header?: boolean
+  header?: boolean,
+  linkStyle: (e: AutographEdge) => string
 };

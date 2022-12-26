@@ -3,27 +3,24 @@ import { AutographNode, AutographEdge, Autograph,  AutographOptions  } from './t
 import { wrapForMarkdown } from './wrapForMarkdown'
 
 import { transmute } from './transmute';
+import { defaults } from './defaults';
 
 const addNode = (autograph: Autograph, node: AutographNode, index: number, options: AutographOptions) => {
-  let shape = `("${node.label || node.id}")`;
+  let shape = `("${node.label || index}")`;
   let style = `\t\t${node.id}${shape} \n`;
   if (options.style !== 'none') {
     style += `\t\t${transmuteNodeStyle(autograph, node, options)} \n`;
   }
-  console.log('unused index', index)
   return style
 };
 
 const addEdge = (link: AutographEdge, index: number, options: AutographOptions) => {
   const target = `${link.target}`;
-  // refactor to use options for edge style
-  console.log('unused options', options)
-  const linkStyle = link.label
-    ? `-- ${link.label} -->`
-    : `-.->`;
+  const linkStyle = options.linkStyle(link);
+    
   let style = `\t\t${link.source} ${linkStyle} ${target} \n`;
   if (options.style !== 'none') {
-    style += `\t\t${transmuteLinkStyle(link, index)} \n`;
+    style += `\t\t${transmuteLinkStyle(link, index, options)} \n`;
   }
   return style
 };
@@ -56,7 +53,8 @@ const isNodeInLabeledPath = (autograph: Autograph, node: AutographNode) => {
   return flag;
 };
 
-const transmuteLinkStyle = (link: AutographEdge, index: number): string => {
+const transmuteLinkStyle = (link: AutographEdge, index: number, options: AutographOptions): string => {
+  console.log('unused options', options)
   if (["left", "right"].includes(link.label || "none")) {
     return `linkStyle ${index} color:${transmute.primary.red}, stroke-width: 2.0px`;
   } else if (link.label) {
@@ -86,7 +84,9 @@ const transmuteNodeStyle = (
 
 export const graphToMermaid = (
   autograph: Autograph,
-  options: AutographOptions = {}
+  options: AutographOptions = {
+    linkStyle: defaults.linkStyle
+  }
 ) => {
   let final = "";
   autograph.nodes.forEach((node: AutographNode, index: number) => {
