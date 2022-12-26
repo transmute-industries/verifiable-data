@@ -1,5 +1,6 @@
 import { AutographNode, AutographEdge, Autograph  } from './types'
 
+import {makeMermaidSafe} from './makeMermaidSafe'
 export const encodedAuditPathToSubgraph = (leaf: string, encodedAuditPath: string, root: string) =>{
   const nodes: AutographNode[] = [];
   const links: AutographEdge[] = [];
@@ -27,5 +28,6 @@ export const encodedAuditPathToSubgraph = (leaf: string, encodedAuditPath: strin
     label: 'proof',
     target: root
   })
+  makeMermaidSafe(graph);
   return graph
 }

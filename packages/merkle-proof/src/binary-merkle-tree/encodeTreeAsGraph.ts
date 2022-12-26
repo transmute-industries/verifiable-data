@@ -1,5 +1,7 @@
 import base64url from "base64url";
 
+import { makeMermaidSafe } from '../mermaid-representation/makeMermaidSafe';
+
 const getNodeProperties = (tree: Array<Buffer[]>, leveIndex: number, nodeIndex: number ) => {
   const targetHash = tree[leveIndex][nodeIndex]
   const id = base64url.encode(targetHash);
@@ -47,5 +49,6 @@ export const encodeTreeAsGraph = (tree: Array<Buffer[]>) => {
     });
   });
   const graph = { nodes, links };
+  makeMermaidSafe(graph);
   return graph;
 };

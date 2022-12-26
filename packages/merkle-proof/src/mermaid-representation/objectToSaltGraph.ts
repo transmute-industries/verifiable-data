@@ -2,18 +2,22 @@ import { AutographNode, AutographEdge, Autograph  } from './types'
 
 import { SaltedMerkleTree } from '../json-representation/types'
 
+import {makeMermaidSafe} from './makeMermaidSafe'
 
 const addEdges = (obj: SaltedMerkleTree, graph:Autograph, i: number  )=>{
   const leafNode = {
-    id: obj.leaves[i]
+    id: obj.leaves[i],
+    label: obj.leaves[i],
   }
   graph.nodes.push(leafNode)
   const saltNode = {
-    id: obj.salts[i]
+    id: obj.salts[i],
+    label: obj.salts[i],
   }
   graph.nodes.push(saltNode)
   const memberNode = {
-    id: obj.members[i]
+    id: obj.members[i],
+    label: obj.members[i],
   }
   graph.nodes.push(memberNode)
   const memberEdge = {
@@ -42,5 +46,6 @@ export const objectToSaltGraph = (obj: SaltedMerkleTree, index?: number) => {
       }
     }
   })
+  makeMermaidSafe(graph);
   return graph
 }
