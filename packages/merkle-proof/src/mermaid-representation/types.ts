@@ -4,6 +4,8 @@ export type AutographNode = {
   // 
   isRoot?: boolean;
   isLeaf?: boolean;
+  isSalt?: boolean;
+  isMember?: boolean
 };
 
 export type AutographEdge = {

@@ -22,19 +22,31 @@ export const inclusionProof = (fullTreeObject: SaltedMerkleTree, reveal?: number
 
   let linkCount = 0;
 
-  reveal.forEach((index)=>{
-    const saltGraph = objectToSaltGraph(fullTreeObject, index);
-    saltGraph.title = 'Leaf ' + index;
-    graphs.push(saltGraph);
+  reveal.forEach((index) => {
+
+    const leafGraph = objectToSaltGraph(fullTreeObject, index);
+    leafGraph.title = 'Leaf ' + index;
+    graphs.push(leafGraph);
 
     styles += `%% Leaf Styles \n`
-    saltGraph.nodes.forEach((n)=>{
-      styles += `style ${n.id} color: ${defaults.transmute.primary.white}, fill:${defaults.transmute.primary.purple.light}, stroke: ${defaults.transmute.primary.purple.dark}, stroke-width: 2.0px\n`
+    leafGraph.nodes.forEach((n)=> {
+      if (n.isMember){
+        styles += `style ${n.id} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.primary.red}, stroke-width: 2.0px\n`
+      } else if (n.isSalt){
+        styles += `style ${n.id} color: ${defaults.transmute.primary.orange}, stroke: ${defaults.transmute.primary.orange}, stroke-width: 2.0px\n`
+      } else if (n.isLeaf){
+        styles += `style ${n.id} color: ${defaults.transmute.primary.white}, fill: ${defaults.transmute.primary.purple.light}, stroke: ${defaults.transmute.primary.purple.dark}, stroke-width: 2.0px\n`
+      } 
     })
-    for (let i = 0 + linkCount; i < saltGraph.links.length; i++){
-      styles += `linkStyle ${i} color: ${defaults.transmute.primary.orange}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
+    for (let i = 0 + linkCount; i < leafGraph.links.length; i++){
+      const e = leafGraph.links[i - linkCount ];
+      if (e.label === 'member'){
+        styles += `linkStyle ${i} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
+      } else if (e.label === 'salt'){
+        styles += `linkStyle ${i} color: ${defaults.transmute.primary.orange}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
+      }
     }
-    linkCount += saltGraph.links.length
+    linkCount += leafGraph.links.length
     const auditPathGraph = encodedAuditPathToSubgraph(fullTreeObject.leaves[index], fullTreeObject.paths[index], fullTreeObject.root)
     // this subtraph title gets floated if present due to tree including the proof.
     auditPathGraph.title = 'Proof ' + index; 
@@ -43,7 +55,7 @@ export const inclusionProof = (fullTreeObject: SaltedMerkleTree, reveal?: number
     for (let i = linkCount; i < linkCount + auditPathGraph.links.length; i++){
       const e = auditPathGraph.links[i - linkCount ];
       if (e.label === 'proof'){
-        styles += `linkStyle ${i} color: ${defaults.transmute.primary.orange}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
+        styles += `linkStyle ${i} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
       } else {
         styles += `linkStyle ${i} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
       }
@@ -69,7 +81,7 @@ export const inclusionProof = (fullTreeObject: SaltedMerkleTree, reveal?: number
   graphs.push(fullTreeGraph);
 
   styles += `%% Root Style \n`
-  styles += `style ${fullTreeGraph.nodes[0].id} color: ${defaults.transmute.primary.white}, fill:${defaults.transmute.primary.purple.light}, stroke: ${defaults.transmute.primary.purple.dark}, stroke-width: 2.0px\n`
+  styles += `style ${fullTreeGraph.nodes[0].id} color: ${defaults.transmute.primary.white}, fill: ${defaults.transmute.primary.purple.light}, stroke: ${defaults.transmute.primary.red}, stroke-width: 2.0px\n`
   
 
   fullTreeGraph.nodes = fullTreeGraph.nodes.map((n)=>{

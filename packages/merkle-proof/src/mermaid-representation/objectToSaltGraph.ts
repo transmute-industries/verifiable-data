@@ -8,18 +8,22 @@ const addEdges = (obj: SaltedMerkleTree, graph:Autograph, i: number  )=>{
   const leafNode = {
     id: obj.leaves[i],
     label: obj.leaves[i],
-  }
-  graph.nodes.push(leafNode)
-  const saltNode = {
-    id: obj.salts[i],
-    label: obj.salts[i],
     isLeaf: true
   }
-  graph.nodes.push(saltNode)
+  graph.nodes.push(leafNode)
+  if (obj.salts){
+    const saltNode = {
+      id: obj.salts[i],
+      label: obj.salts[i],
+      isSalt: true
+    }
+    graph.nodes.push(saltNode)
+  }
+  
   const memberNode = {
     id: obj.members[i],
     label: obj.members[i],
-    isLeaf: true
+    isMember: true
   }
   graph.nodes.push(memberNode)
   const memberEdge = {
@@ -28,24 +32,24 @@ const addEdges = (obj: SaltedMerkleTree, graph:Autograph, i: number  )=>{
     target: obj.leaves[i]
   }
   graph.links.push(memberEdge)
-  const saltEdge = {
-    source: obj.salts[i],
-    label: 'salt',
-    target: obj.leaves[i]
+  if (obj.salts){
+    const saltEdge = {
+      source: obj.salts[i],
+      label: 'salt',
+      target: obj.leaves[i]
+    }
+    graph.links.push(saltEdge)
   }
-  graph.links.push(saltEdge)
 }
 export const objectToSaltGraph = (obj: SaltedMerkleTree, index?: number) => { 
   const nodes: AutographNode[] = [];
   const links: AutographEdge[] = [];
   let graph: Autograph = { nodes, links}
   obj.leaves.forEach((_, i)=>{
-    if (obj.salts){
-      if (index === undefined){
-        addEdges(obj, graph, i)
-      } else if (index === i){
-        addEdges(obj, graph, i)
-      }
+    if (index === undefined){
+      addEdges(obj, graph, i)
+    } else if (index === i){
+      addEdges(obj, graph, i)
     }
   })
   makeMermaidSafe(graph);
