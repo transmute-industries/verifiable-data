@@ -17,7 +17,10 @@ const computeNextLevel = (values: Buffer[], hash: Function) => {
   return nextLevel;
 };
 
-export const computeTree = (values: Buffer[], hash = sha256): Array<Buffer[]> => {
+export const computeTree = (
+  values: Buffer[],
+  hash = sha256
+): Array<Buffer[]> => {
   const hashedValues = values.map(hash);
   const tree = [hashedValues];
   while (tree[0].length !== 1) {

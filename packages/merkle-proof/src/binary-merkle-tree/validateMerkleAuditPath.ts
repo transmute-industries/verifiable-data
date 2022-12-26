@@ -1,7 +1,6 @@
-
-import {MerkleAuditPath} from './types'
-import {sha256} from './sha256'
-import {concatValues} from './concatValues'
+import { MerkleAuditPath } from "./types";
+import { sha256 } from "./sha256";
+import { concatValues } from "./concatValues";
 
 export const validateMerkleAuditPath = (
   targetHash: Buffer,

@@ -1,18 +1,26 @@
-
 import { AutographNode, AutographEdge, AutographOptions } from "./types";
 
 import { transmute } from "./transmute";
 
-const linkStyle = (e: AutographEdge, _i: number, _options: AutographOptions) => {
-  return `\t\t${e.source} ${e.label ? `-- ${e.label} -->`: `-.->`} ${e.target}\n`
-}
+const linkStyle = (
+  e: AutographEdge,
+  _i: number,
+  _options: AutographOptions
+) => {
+  return `\t\t${e.source} ${e.label ? `-- ${e.label} -->` : `-.->`} ${
+    e.target
+  }\n`;
+};
 
-const nodeStyle = (n: AutographNode, _i: number, _options: AutographOptions) => {
-  return `\t\t${n.id}${`("${n.label}")`} \n`
-}
+const nodeStyle = (
+  n: AutographNode,
+  _i: number,
+  _options: AutographOptions
+) => {
+  return `\t\t${n.id}${`("${n.label}")`} \n`;
+};
 
-export const defaults = {transmute, linkStyle, nodeStyle}
-
+export const defaults = { transmute, linkStyle, nodeStyle };
 
 // LINK STYLES MUST BE APPLIED AT THE END...
 // import { transmute } from "./transmute";

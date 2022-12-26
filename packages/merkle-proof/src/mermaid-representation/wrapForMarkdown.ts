@@ -1,6 +1,3 @@
-
-export const wrapForMarkdown = (
-  content: string,
-) => {
-return `\`\`\`mermaid${content}\`\`\``
-}
+export const wrapForMarkdown = (content: string) => {
+  return `\`\`\`mermaid${content}\`\`\``;
+};

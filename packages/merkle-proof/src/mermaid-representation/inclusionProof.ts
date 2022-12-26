@@ -1,100 +1,105 @@
+import { SaltedMerkleTree } from "../json-representation/types";
+import { objectToSaltGraph } from "./objectToSaltGraph";
+import { encodedAuditPathToSubgraph } from "./encodedAuditPathToSubgraph";
+import { graphToMermaid } from "./graphToMermaid";
+import { fullTreeObjectToFullTreeGraph } from "./fullTreeObjectToFullTreeGraph";
 
-import { SaltedMerkleTree } from '../json-representation/types'
-import { objectToSaltGraph } from './objectToSaltGraph'
-import { encodedAuditPathToSubgraph } from './encodedAuditPathToSubgraph'
-import { graphToMermaid } from './graphToMermaid'
-import { fullTreeObjectToFullTreeGraph } from './fullTreeObjectToFullTreeGraph'
+import { defaults } from "./defaults";
 
-import { defaults } from './defaults'
+import { wrapForMarkdown } from "./wrapForMarkdown";
 
-import { wrapForMarkdown } from './wrapForMarkdown'
-
-export const inclusionProof = (fullTreeObject: SaltedMerkleTree, reveal?: number[]) => { 
-
-  const graphs = []
+export const inclusionProof = (
+  fullTreeObject: SaltedMerkleTree,
+  reveal?: number[]
+) => {
+  const graphs = [];
 
   // everything if nothing.
-  reveal = reveal || fullTreeObject.members.map((_m, i) => {
-    return i
-  })
+  reveal =
+    reveal ||
+    fullTreeObject.members.map((_m, i) => {
+      return i;
+    });
 
-  let styles = `%% https://transmute.industries \n`
+  let styles = `%% https://transmute.industries \n`;
 
   let linkCount = 0;
 
-  reveal.forEach((index) => {
-
+  reveal.forEach(index => {
     const leafGraph = objectToSaltGraph(fullTreeObject, index);
-    leafGraph.title = 'Leaf ' + index;
+    leafGraph.title = "Leaf " + index;
     graphs.push(leafGraph);
 
-    styles += `%% Leaf Styles \n`
-    leafGraph.nodes.forEach((n)=> {
-      if (n.isMember){
-        styles += `style ${n.id} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.primary.red}, stroke-width: 2.0px\n`
-      } else if (n.isSalt){
-        styles += `style ${n.id} color: ${defaults.transmute.primary.orange}, stroke: ${defaults.transmute.primary.orange}, stroke-width: 2.0px\n`
-      } else if (n.isLeaf){
-        styles += `style ${n.id} color: ${defaults.transmute.primary.white}, fill: ${defaults.transmute.primary.purple.light}, stroke: ${defaults.transmute.primary.purple.dark}, stroke-width: 2.0px\n`
-      } 
-    })
-    for (let i = 0 + linkCount; i < leafGraph.links.length; i++){
-      const e = leafGraph.links[i - linkCount ];
-      if (e.label === 'member'){
-        styles += `linkStyle ${i} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
-      } else if (e.label === 'salt'){
-        styles += `linkStyle ${i} color: ${defaults.transmute.primary.orange}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
+    styles += `%% Leaf Styles \n`;
+    leafGraph.nodes.forEach(n => {
+      if (n.isMember) {
+        styles += `style ${n.id} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.primary.red}, stroke-width: 2.0px\n`;
+      } else if (n.isSalt) {
+        styles += `style ${n.id} color: ${defaults.transmute.primary.orange}, stroke: ${defaults.transmute.primary.orange}, stroke-width: 2.0px\n`;
+      } else if (n.isLeaf) {
+        styles += `style ${n.id} color: ${defaults.transmute.primary.white}, fill: ${defaults.transmute.primary.purple.light}, stroke: ${defaults.transmute.primary.purple.dark}, stroke-width: 2.0px\n`;
+      }
+    });
+    for (let i = 0 + linkCount; i < leafGraph.links.length; i++) {
+      const e = leafGraph.links[i - linkCount];
+      if (e.label === "member") {
+        styles += `linkStyle ${i} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`;
+      } else if (e.label === "salt") {
+        styles += `linkStyle ${i} color: ${defaults.transmute.primary.orange}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`;
       }
     }
-    linkCount += leafGraph.links.length
-    const auditPathGraph = encodedAuditPathToSubgraph(fullTreeObject.leaves[index], fullTreeObject.paths[index], fullTreeObject.root)
+    linkCount += leafGraph.links.length;
+    const auditPathGraph = encodedAuditPathToSubgraph(
+      fullTreeObject.leaves[index],
+      fullTreeObject.paths[index],
+      fullTreeObject.root
+    );
     // this subtraph title gets floated if present due to tree including the proof.
-    auditPathGraph.title = 'Proof ' + index; 
+    auditPathGraph.title = "Proof " + index;
     graphs.push(auditPathGraph);
-    styles += `%% Proof Styles \n`
-    for (let i = linkCount; i < linkCount + auditPathGraph.links.length; i++){
-      const e = auditPathGraph.links[i - linkCount ];
-      if (e.label === 'proof'){
-        styles += `linkStyle ${i} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
+    styles += `%% Proof Styles \n`;
+    for (let i = linkCount; i < linkCount + auditPathGraph.links.length; i++) {
+      const e = auditPathGraph.links[i - linkCount];
+      if (e.label === "proof") {
+        styles += `linkStyle ${i} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`;
       } else {
-        styles += `linkStyle ${i} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
+        styles += `linkStyle ${i} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`;
       }
     }
-    linkCount += auditPathGraph.links.length
-    auditPathGraph.nodes.forEach((n)=>{
-      if (!n.isLeaf){
-        styles += `style ${n.id} color: ${defaults.transmute.secondary.light}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
+    linkCount += auditPathGraph.links.length;
+    auditPathGraph.nodes.forEach(n => {
+      if (!n.isLeaf) {
+        styles += `style ${n.id} color: ${defaults.transmute.secondary.light}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`;
       }
-    })
-  })
-
+    });
+  });
 
   const autographOptions = {
-    markdown: false, 
-    style: 'transmute',
+    markdown: false,
+    style: "transmute",
     linkStyle: defaults.linkStyle,
     nodeStyle: defaults.nodeStyle
-  }
+  };
 
   const fullTreeGraph = fullTreeObjectToFullTreeGraph(fullTreeObject);
-  fullTreeGraph.title = 'Tree'
+  fullTreeGraph.title = "Tree";
   graphs.push(fullTreeGraph);
 
-  styles += `%% Root Style \n`
-  styles += `style ${fullTreeGraph.nodes[0].id} color: ${defaults.transmute.primary.white}, fill: ${defaults.transmute.primary.purple.light}, stroke: ${defaults.transmute.primary.red}, stroke-width: 2.0px\n`
-  
+  styles += `%% Root Style \n`;
+  styles += `style ${fullTreeGraph.nodes[0].id} color: ${defaults.transmute.primary.white}, fill: ${defaults.transmute.primary.purple.light}, stroke: ${defaults.transmute.primary.red}, stroke-width: 2.0px\n`;
 
-  fullTreeGraph.nodes = fullTreeGraph.nodes.map((n)=>{
-    delete n.isLeaf
+  fullTreeGraph.nodes = fullTreeGraph.nodes.map(n => {
+    delete n.isLeaf;
     return n;
-  })
+  });
 
-  const diagrams = graphs.map((g, i)=>{
-    return graphToMermaid(g, { header: i === 0, ...autographOptions } as any )
-  }).join('')
-
+  const diagrams = graphs
+    .map((g, i) => {
+      return graphToMermaid(g, { header: i === 0, ...autographOptions } as any);
+    })
+    .join("");
 
   const final = diagrams + `\n` + styles;
 
-  return wrapForMarkdown(final)
-}
+  return wrapForMarkdown(final);
+};

@@ -1,8 +1,6 @@
+import { MerkleAuditPath, Sibling, SiblingPosition } from "./types";
 
-import {MerkleAuditPath, Sibling, SiblingPosition } from './types'
-
-import { sha256 } from './sha256';
-
+import { sha256 } from "./sha256";
 
 const branchingFactor = 2;
 
@@ -37,8 +35,6 @@ const addSiblingProof = (
     : { [SiblingPosition.right]: siblingValue };
   auditPath.push(sibling);
 };
-
-
 
 export const createMerkleAuditPath = (
   targetValue: Buffer,

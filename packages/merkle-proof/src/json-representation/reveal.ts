@@ -1,7 +1,4 @@
-
-
-import { SaltedMerkleTree } from './types'
-
+import { SaltedMerkleTree } from "./types";
 
 const filterByIndex = (list: string[], index: number[]) => {
   return list.filter((_v, i) => {
@@ -9,15 +6,15 @@ const filterByIndex = (list: string[], index: number[]) => {
   });
 };
 
-export const reveal = (tree: SaltedMerkleTree, indexes: number[]) =>{
+export const reveal = (tree: SaltedMerkleTree, indexes: number[]) => {
   const copy = JSON.parse(JSON.stringify(tree));
   copy.paths = filterByIndex(copy.paths, indexes);
   copy.leaves = filterByIndex(copy.leaves, indexes);
-  if (copy.members){
+  if (copy.members) {
     copy.members = filterByIndex(copy.members, indexes);
   }
-  if (copy.salts){
+  if (copy.salts) {
     copy.salts = filterByIndex(copy.salts, indexes);
   }
-  return copy
-}
+  return copy;
+};

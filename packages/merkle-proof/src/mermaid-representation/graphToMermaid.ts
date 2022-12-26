@@ -1,12 +1,14 @@
-import { AutographNode, AutographEdge, Autograph,  AutographOptions  } from './types'
+import {
+  AutographNode,
+  AutographEdge,
+  Autograph,
+  AutographOptions
+} from "./types";
 
-import { wrapForMarkdown } from './wrapForMarkdown'
+import { wrapForMarkdown } from "./wrapForMarkdown";
 
-import { transmute } from './transmute';
-import { defaults } from './defaults';
-
-
-
+import { transmute } from "./transmute";
+import { defaults } from "./defaults";
 
 export const graphToMermaid = (
   autograph: Autograph,
@@ -23,7 +25,9 @@ export const graphToMermaid = (
     final += options.linkStyle(link, index, options);
   });
   final = final.substring(0, final.length - 1);
-  const content =  `${options.header ? `
+  const content = `${
+    options.header
+      ? `
 %%{
   init: {
     'flowchart': { 'curve': 'monotoneX' },
@@ -41,13 +45,14 @@ export const graphToMermaid = (
     }
   }
 }%%
-graph LR`: ``}
+graph LR`
+      : ``
+  }
 \tsubgraph ${autograph.title || "&nbsp;"}
 \t\tdirection LR
 ${final}
 \tend
 `;
 
-return options.markdown ? wrapForMarkdown(content) : content
+  return options.markdown ? wrapForMarkdown(content) : content;
 };
-
