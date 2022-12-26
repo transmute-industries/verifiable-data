@@ -18,7 +18,7 @@ export const inclusionProof = (fullTreeObject: SaltedMerkleTree, reveal?: number
     return i
   })
 
-  let styles = `%% Transmute Style \n`
+  let styles = `%% https://transmute.industries \n`
 
   let linkCount = 0;
 
@@ -35,12 +35,10 @@ export const inclusionProof = (fullTreeObject: SaltedMerkleTree, reveal?: number
       styles += `linkStyle ${i} color: ${defaults.transmute.primary.orange}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
     }
     linkCount += saltGraph.links.length
-  
     const auditPathGraph = encodedAuditPathToSubgraph(fullTreeObject.leaves[index], fullTreeObject.paths[index], fullTreeObject.root)
     // this subtraph title gets floated if present due to tree including the proof.
     auditPathGraph.title = 'Proof ' + index; 
     graphs.push(auditPathGraph);
-
     styles += `%% Proof Styles \n`
     for (let i = linkCount; i < linkCount + auditPathGraph.links.length; i++){
       const e = auditPathGraph.links[i - linkCount ];
@@ -56,7 +54,6 @@ export const inclusionProof = (fullTreeObject: SaltedMerkleTree, reveal?: number
         styles += `style ${n.id} color: ${defaults.transmute.secondary.light}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`
       }
     })
-
   })
 
 
