@@ -5,7 +5,7 @@ import { concatValues } from '../binary-merkle-tree/concatValues'
 import { MerkleAuditPath } from '../binary-merkle-tree/types'
 import { MerkleTreeObject, MerkleTreeBranch, SaltedMerkleTree, MerkleTreeOptions } from './types'
 
-import { generateSalt } from './generateSalt'
+import { generateSalt } from '../binary-merkle-tree/generateSalt'
 
 const encodeAuditPath = (auditPath: MerkleAuditPath): MerkleTreeBranch[]  => {
   return auditPath.map((component)=>{
@@ -37,7 +37,9 @@ export const from = (members: Buffer[], options: MerkleTreeOptions = { salt: tru
   let leaves = members;
   let salts: Buffer[] = [];
   if (options.salt){
-    salts = members.map(generateSalt)
+    salts = members.map(()=>{
+      return generateSalt()
+    })
     leaves = members.map((m, i)=>{
       return concatValues([m, salts[i]]);
     })
