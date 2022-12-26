@@ -5,8 +5,6 @@ import { concatValues } from '../binary-merkle-tree/concatValues'
 import { MerkleAuditPath } from '../binary-merkle-tree/types'
 import { MerkleTreeObject, MerkleTreeBranch, SaltedMerkleTree, MerkleTreeOptions } from './types'
 
-import { generateSalt } from '../binary-merkle-tree/generateSalt'
-
 const encodeAuditPath = (auditPath: MerkleAuditPath): MerkleTreeBranch[]  => {
   return auditPath.map((component)=>{
     const [key] = Object.keys(component)
@@ -33,37 +31,37 @@ const encodedAuditPathToProof = (auditPath: MerkleTreeBranch[]): string => {
   }).join('~')
 }
 
-export const from = (members: Buffer[], options: MerkleTreeOptions = { salt: true}): SaltedMerkleTree => {
-  let leaves = members;
-  let salts: Buffer[] = [];
-  if (options.salt){
-    salts = members.map(()=>{
-      return generateSalt()
-    })
-    leaves = members.map((m, i)=>{
-      return concatValues([m, salts[i]]);
-    })
-  }
-  const tree = BinaryMerkleTree.computeTree(leaves)
-  const auditPaths = leaves.map(sm =>
+export const from = (members: Buffer[], options: MerkleTreeOptions = { salts: undefined }): SaltedMerkleTree => {
+  let saltedMembers = members;
+  // technically not a leaf... get rid of this.
+  saltedMembers = members.map((m, i)=>{
+    if (options.salts){
+      return concatValues([m, options.salts[i]]);
+    } else {
+     return m
+    }
+  })
+  
+  const tree = BinaryMerkleTree.computeTree(saltedMembers)
+  const auditPaths = saltedMembers.map(sm =>
     BinaryMerkleTree.createMerkleAuditPath(sm, tree)
   );
   const root = tree[0][0];
   const encodedRoot = base64url.encode(root);
   const encodedAuditPaths = auditPaths.map(encodeAuditPath).map(encodedAuditPathToProof);
-  const encodedLeaves = leaves.map((leaf)=>{
-    return base64url.encode(leaf)
+  const encodedLeaves = saltedMembers.map((sm)=>{
+    return base64url.encode( BinaryMerkleTree.sha256(sm) )
   })
   const obj: MerkleTreeObject = {
     root: encodedRoot,
     leaves: encodedLeaves,
     paths: encodedAuditPaths,
   }
-  if (options.salt){
+  if (options.salts){
     (obj as SaltedMerkleTree).members = members.map((m)=>{
       return base64url.encode(m)
     });
-    (obj as SaltedMerkleTree).salts = salts.map((m)=>{
+    (obj as SaltedMerkleTree).salts = options.salts.map((m)=>{
       return base64url.encode(m)
     });
   }

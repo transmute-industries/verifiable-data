@@ -6,6 +6,7 @@ import { validateMerkleAuditPath } from './validateMerkleAuditPath'
 import { encodeTreeAsGraph } from './encodeTreeAsGraph'
 import { generateSalt } from './generateSalt'
 import { concatValues } from './concatValues'
+import { sha256 } from './sha256'
 
 const BinaryMerkleTree = {
   computeTree,
@@ -13,7 +14,8 @@ const BinaryMerkleTree = {
   validateMerkleAuditPath,
   encodeTreeAsGraph,
   generateSalt,
-  concatValues
+  concatValues,
+  sha256
 
 };
 

@@ -1,40 +1,8 @@
-type AutographNode = {
-  id: string;
-  label?: string;
-};
+import { AutographNode, AutographEdge, Autograph,  AutographOptions  } from './types'
 
-type AutographEdge = {
-  source: string;
-  target: string;
-  label?: string;
-};
+import { wrapForMarkdown } from './wrapForMarkdown'
 
-type Autograph = {
-  title?: string;
-  nodes: AutographNode[];
-  links: AutographEdge[];
-};
-
-type AutographOptions = {
-  style?: "subtle";
-};
-
-const transmute = {
-  primary: {
-    purple: { dark: "#27225b", light: "#594aa8" },
-    red: "#ff605d",
-    orange: "#fcb373",
-    grey: "#f5f7fd",
-    white: "#fff"
-  },
-  secondary: {
-    teal: "#48caca",
-    aqua: "#2cb3d9",
-    dark: "#2a2d4c",
-    medium: "#565a7c",
-    light: "#8286a3"
-  }
-};
+import { transmute } from './transmute';
 
 const addNode = (node: AutographNode) => {
   let shape = `("${node.label || node.id}")`;
@@ -105,6 +73,7 @@ const transmuteNodeStyle = (
   return `style ${node.id} stroke:${transmute.secondary.medium}, stroke-width: 1.0px`;
 };
 
+
 export const graphToMermaid = (
   autograph: Autograph,
   options: AutographOptions = {}
@@ -121,9 +90,8 @@ export const graphToMermaid = (
   });
   final += style;
   final = final.substring(0, final.length - 1);
-  return `
-\`\`\`mermaid
-%%{
+  const content =  `
+${options.header ? `%%{
   init: {
     'flowchart': { 'curve': 'monotoneX' },
     'theme': 'base',
@@ -143,12 +111,13 @@ export const graphToMermaid = (
 graph LR
 linkStyle default fill:none, stroke-width: 1px, stroke: ${
     transmute.secondary.medium
-  }
+  }`: ``}
   subgraph ${autograph.title || "&nbsp;"}
     direction LR
 ${final}
   end
-\`\`\`
 `;
+
+return options.markdown ? wrapForMarkdown(content) : content
 };
 

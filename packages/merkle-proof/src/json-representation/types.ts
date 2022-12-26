@@ -24,5 +24,5 @@ export interface SaltedMerkleTree extends MerkleTreeObject {
 };
 
 export type MerkleTreeOptions = {
-  salt: boolean
+  salts?: Buffer[]
 }
