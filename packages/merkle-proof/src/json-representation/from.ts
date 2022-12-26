@@ -56,11 +56,12 @@ export const from = (members: Buffer[], options: MerkleTreeOptions = { salts: un
     root: encodedRoot,
     leaves: encodedLeaves,
     paths: encodedAuditPaths,
-  }
+  };
+
+  (obj as SaltedMerkleTree).members = members.map((m)=>{
+    return base64url.encode(m)
+  });
   if (options.salts){
-    (obj as SaltedMerkleTree).members = members.map((m)=>{
-      return base64url.encode(m)
-    });
     (obj as SaltedMerkleTree).salts = options.salts.map((m)=>{
       return base64url.encode(m)
     });

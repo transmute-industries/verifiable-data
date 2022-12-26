@@ -15,7 +15,7 @@ const decodeAuditPath = (encodedAuditPath: string) =>{
 }
 
 export const validate = (proof: SaltedMerkleTree): boolean => {
-  if (proof.members){
+  if (proof.salts){
     const saltedMembers = proof.members.map((m,i)=>{
       return concatValues([base64url.toBuffer(m), base64url.toBuffer(proof.salts[i])])
     })

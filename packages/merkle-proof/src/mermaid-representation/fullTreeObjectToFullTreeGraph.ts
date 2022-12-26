@@ -7,13 +7,19 @@ import { Autograph } from './types';
 
 
 export const fullTreeObjectToFullTreeGraph = (fullTreeObject: SaltedMerkleTree): Autograph => {
-  const saltedMembers  = fullTreeObject.members.map((_m, i)=>{
-    return BinaryMerkleTree.concatValues([
-      base64url.toBuffer(fullTreeObject.members[i]), 
-      base64url.toBuffer(fullTreeObject.salts[i]), 
-    ]);
+
+  const members  = fullTreeObject.members.map((_m, i)=>{
+    if (fullTreeObject.salts){
+      return BinaryMerkleTree.concatValues([
+        base64url.toBuffer(fullTreeObject.members[i]), 
+        base64url.toBuffer(fullTreeObject.salts[i]), 
+      ]);
+    } else {
+      return base64url.toBuffer(fullTreeObject.members[i])
+    }
   })
-  const tree = BinaryMerkleTree.computeTree(saltedMembers);
+
+  const tree = BinaryMerkleTree.computeTree(members);
   const fullTreeGraph = BinaryMerkleTree.encodeTreeAsGraph(tree)
   return fullTreeGraph
 }

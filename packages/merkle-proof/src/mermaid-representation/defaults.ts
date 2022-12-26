@@ -36,6 +36,7 @@ const transmuteNodeStyle = (
     return `style ${node.id} stroke:${transmute.secondary.medium}, stroke-width: 1.0px`;
   }
 
+  // probably no needed, if the default style is muted...
   // if (isNodeInLabeledPath(autograph, node)) {
   //   return `style ${node.id} color:${transmute.secondary.light}, stroke:${transmute.secondary.light}, stroke-width: 1.0px`;
   // }
