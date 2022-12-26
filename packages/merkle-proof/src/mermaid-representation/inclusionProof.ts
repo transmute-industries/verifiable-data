@@ -5,6 +5,7 @@ import { encodedAuditPathToSubgraph } from './encodedAuditPathToSubgraph'
 import { graphToMermaid } from './graphToMermaid'
 import { fullTreeObjectToFullTreeGraph } from './fullTreeObjectToFullTreeGraph'
 
+import { defaults } from './defaults'
 export const inclusionProof = (fullTreeObject: SaltedMerkleTree, index: number) => { 
   
   const fullTreeGraph = fullTreeObjectToFullTreeGraph(fullTreeObject);
@@ -17,9 +18,8 @@ export const inclusionProof = (fullTreeObject: SaltedMerkleTree, index: number) 
   const autographOptions = {
     markdown: false, 
     style: 'none',
-    linkStyle: (e: any) => {
-      return e.label ? `-- ${e.label} -->`: `-.->`;
-    }
+    linkStyle: defaults.linkStyle,
+    nodeStyle: defaults.nodeStyle
   }
 
   const items = [saltGraph, auditPathGraph, fullTreeGraph ].map((g, i)=>{

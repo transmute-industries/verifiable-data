@@ -11,8 +11,8 @@ export type AutographEdge = {
   target: string;
   label?: string;
   //
-  fromLeaf: boolean;
-  toRoot: boolean;
+  fromLeaf?: boolean;
+  toRoot?: boolean;
 };
 
 export type Autograph = {
@@ -25,5 +25,6 @@ export type AutographOptions = {
   style?: 'none';
   markdown?: boolean,
   header?: boolean,
-  linkStyle: (e: AutographEdge) => string
+  linkStyle: (e: AutographEdge, i:number, o: AutographOptions) => string
+  nodeStyle: (n: AutographNode, i:number, o: AutographOptions) => string
 };
