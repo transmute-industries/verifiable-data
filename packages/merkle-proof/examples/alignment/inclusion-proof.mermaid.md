@@ -17,19 +17,17 @@
   }
 }%%
 graph LR
-  subgraph Leaf
-    direction LR
+	subgraph Leaf
+		direction LR
 		B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM("B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM") 
 		WpNu4ZoM88cNjLAAYRG3pS9F7AFwPgr4zcjG2BrFhQw("WpNu4ZoM88cNjLAAYRG3pS9F7AFwPgr4zcjG2BrFhQw") 
 		MA("MA") 
 		MA -- member --> B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM 
 		WpNu4ZoM88cNjLAAYRG3pS9F7AFwPgr4zcjG2BrFhQw -- salt --> B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM 
-  end
+	end
 
-
-
-  subgraph Proof
-    direction LR
+	subgraph Proof
+		direction LR
 		B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM("B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM") 
 		pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs("pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs") 
 		eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM("eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM") 
@@ -39,12 +37,10 @@ graph LR
 		pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs -- right --> eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM 
 		eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM -- right --> oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ 
 		oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ -- proof --> _O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y 
-  end
+	end
 
-
-
-  subgraph Tree
-    direction LR
+	subgraph Tree
+		direction LR
 		_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y("_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y") 
 		J_R8UsFrhydO_FMCDSM6HYl7AycNw4Z3gTAOYRA4C1Q("J_R8UsFrhydO_FMCDSM6HYl7AycNw4Z3gTAOYRA4C1Q") 
 		oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ("oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ") 
@@ -74,5 +70,5 @@ graph LR
 		ZCe4exZwVMPfdWpSvuoAutu1UIABUvSa7vM7nAwa5h4 -.-> ejZAcfEB2t5sJab2288ELQ0aPugmjTRsd4ZgAaNUR08 
 		Uqoj5mowSWBXmIliElD7-UXfsyMCKCqeCk53BWshQ64 -.-> ymgzM-AaNOIiJ_U_hfPmcD8W19iTJoKhU1D71wJonXs 
 		ICy2ade6u7B_ckUNGDKam7NvRYnBy0-ixCzzW41bous -.-> ymgzM-AaNOIiJ_U_hfPmcD8W19iTJoKhU1D71wJonXs 
-  end
+	end
 ```

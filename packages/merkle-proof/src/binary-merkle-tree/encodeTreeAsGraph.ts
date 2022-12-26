@@ -1,27 +1,48 @@
 import base64url from "base64url";
 
-const addEdge = (
-  tree: Array<Buffer[]>,
-  level: number,
-  source: number,
-  links: any
-) => {
-  const target = Math.floor(source / 2);
-  if (level > 0) {
-    links.push({
-      source: base64url.encode(tree[level][source]),
-      target: base64url.encode(tree[level - 1][target])
-    });
+const getNodeProperties = (tree: Array<Buffer[]>, leveIndex: number, nodeIndex: number ) => {
+  const targetHash = tree[leveIndex][nodeIndex]
+  const id = base64url.encode(targetHash);
+  let props:any = {
+    id
   }
-};
+  if (leveIndex === 0){
+    props.isRoot = true
+  }
+  if (leveIndex === tree.length-1){
+    props.isLeaf = true
+  }
+  return props;
+}
+
+const getEdgeProperties = (tree: Array<Buffer[]>, leveIndex: number, nodeIndex:number ) => {
+  const target = Math.floor(nodeIndex / 2);
+  const sourceId = base64url.encode(tree[leveIndex][nodeIndex])
+  const targetId = base64url.encode(tree[leveIndex - 1][target])
+  let props:any = {
+    source: sourceId,
+    target: targetId
+  }
+  if (leveIndex === 1){
+    props.toRoot = true
+  }
+  if (leveIndex === tree.length-1){
+    props.fromLeaf = true
+  }
+  return props
+}
+
 export const encodeTreeAsGraph = (tree: Array<Buffer[]>) => {
   const nodes: any[] = [];
   const links: any[] = [];
   tree.forEach((level, leveIndex) => {
-    level.forEach((node, nodeIndex) => {
-      const id = base64url.encode(node);
-      nodes.push({ id });
-      addEdge(tree, leveIndex, nodeIndex, links);
+    level.forEach((_, nodeIndex) => {
+      const node: any = getNodeProperties(tree, leveIndex, nodeIndex);
+      nodes.push(node);
+      if (leveIndex > 0) {
+        const edge: any = getEdgeProperties(tree, leveIndex, nodeIndex)
+        links.push(edge);
+      }
     });
   });
   const graph = { nodes, links };

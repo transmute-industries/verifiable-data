@@ -4,19 +4,28 @@ import { wrapForMarkdown } from './wrapForMarkdown'
 
 import { transmute } from './transmute';
 
-const addNode = (node: AutographNode) => {
+const addNode = (autograph: Autograph, node: AutographNode, index: number, options: AutographOptions) => {
   let shape = `("${node.label || node.id}")`;
-  return `\t\t${node.id}${shape} \n`;
+  let style = `\t\t${node.id}${shape} \n`;
+  if (options.style !== 'none') {
+    style += `\t\t${transmuteNodeStyle(autograph, node, options)} \n`;
+  }
+  console.log('unused index', index)
+  return style
 };
 
-const addEdge = (link: AutographEdge, options: AutographOptions) => {
+const addEdge = (link: AutographEdge, index: number, options: AutographOptions) => {
   const target = `${link.target}`;
+  // refactor to use options for edge style
+  console.log('unused options', options)
   const linkStyle = link.label
     ? `-- ${link.label} -->`
-    : options.style === "subtle"
-    ? `-->`
     : `-.->`;
-  return `\t\t${link.source} ${linkStyle} ${target} \n`;
+  let style = `\t\t${link.source} ${linkStyle} ${target} \n`;
+  if (options.style !== 'none') {
+    style += `\t\t${transmuteLinkStyle(link, index)} \n`;
+  }
+  return style
 };
 
 const isRoot = (autograph: Autograph, node: AutographNode) => {
@@ -61,16 +70,17 @@ const transmuteNodeStyle = (
   node: AutographNode,
   options: AutographOptions
 ) => {
-  if (options.style !== "subtle") {
-    if (isRoot(autograph, node)) {
-      return `style ${node.id} color:${transmute.primary.grey}, fill:${transmute.primary.purple.light}, stroke:${transmute.primary.purple.dark}, stroke-width: 2.0px`;
-    } else if (isLeaf(autograph, node) && node.label) {
-      return `style ${node.id} color:${transmute.primary.grey}, fill:${transmute.primary.purple.light}, stroke:${transmute.primary.purple.dark}, stroke-width: 2.0px`;
-    } else if (isNodeInLabeledPath(autograph, node)) {
-      return `style ${node.id} color:${transmute.secondary.light}, stroke:${transmute.secondary.light}, stroke-width: 1.0px`;
-    }
+  // refactor to use options for node style
+  console.log('unused options', options)
+  if (isRoot(autograph, node)) {
+    return `style ${node.id} color:${transmute.primary.grey}, fill:${transmute.primary.purple.light}, stroke:${transmute.primary.purple.dark}, stroke-width: 2.0px`;
+  } else if (isLeaf(autograph, node) && node.label) {
+    return `style ${node.id} color:${transmute.primary.grey}, fill:${transmute.primary.purple.light}, stroke:${transmute.primary.purple.dark}, stroke-width: 2.0px`;
+  } else if (isNodeInLabeledPath(autograph, node)) {
+    return `style ${node.id} color:${transmute.secondary.light}, stroke:${transmute.secondary.light}, stroke-width: 1.0px`;
+  } else {
+    return `style ${node.id} stroke:${transmute.secondary.medium}, stroke-width: 1.0px`;
   }
-  return `style ${node.id} stroke:${transmute.secondary.medium}, stroke-width: 1.0px`;
 };
 
 
@@ -79,24 +89,15 @@ export const graphToMermaid = (
   options: AutographOptions = {}
 ) => {
   let final = "";
-  let style = "";
-  autograph.nodes.forEach((node: AutographNode) => {
-    final += addNode(node);
-    if (options.style !== 'none') {
-      style += `\t\t${transmuteNodeStyle(autograph, node, options)} \n`;
-    }
+  autograph.nodes.forEach((node: AutographNode, index: number) => {
+    final += addNode(autograph, node, index, options);
   });
   autograph.links.forEach((link: AutographEdge, index: number) => {
-    final += addEdge(link, options);
-    if (options.style !== 'none') {
-      style += `\t\t${transmuteLinkStyle(link, index)} \n`;
-    }
-   
+    final += addEdge(link, index, options);
   });
-  final += style;
   final = final.substring(0, final.length - 1);
-  const content =  `
-${options.header ? `%%{
+  const content =  `${options.header ? `
+%%{
   init: {
     'flowchart': { 'curve': 'monotoneX' },
     'theme': 'base',
@@ -114,10 +115,10 @@ ${options.header ? `%%{
   }
 }%%
 graph LR`: ``}
-  subgraph ${autograph.title || "&nbsp;"}
-    direction LR
+\tsubgraph ${autograph.title || "&nbsp;"}
+\t\tdirection LR
 ${final}
-  end
+\tend
 `;
 
 return options.markdown ? wrapForMarkdown(content) : content

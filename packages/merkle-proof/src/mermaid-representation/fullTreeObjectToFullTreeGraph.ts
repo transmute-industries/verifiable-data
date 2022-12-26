@@ -13,7 +13,6 @@ export const fullTreeObjectToFullTreeGraph = (fullTreeObject: SaltedMerkleTree):
       base64url.toBuffer(fullTreeObject.salts[i]), 
     ]);
   })
-
   const tree = BinaryMerkleTree.computeTree(saltedMembers);
   const fullTreeGraph = BinaryMerkleTree.encodeTreeAsGraph(tree)
   return fullTreeGraph
