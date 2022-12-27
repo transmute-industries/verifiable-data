@@ -86,7 +86,7 @@ export const inclusionProof = (
   graphs.push(fullTreeGraph);
 
   styles += `%% Root Style \n`;
-  styles += `style ${fullTreeGraph.nodes[0].id} color: ${defaults.transmute.primary.white}, fill: ${defaults.transmute.primary.purple.light}, stroke: ${defaults.transmute.primary.red}, stroke-width: 2.0px\n`;
+  styles += `style ${fullTreeGraph.nodes[0].id} color: ${defaults.transmute.primary.white}, fill: ${defaults.transmute.primary.purple.light}, stroke: ${defaults.transmute.primary.purple.dark}, stroke-width: 2.0px\n`;
 
   fullTreeGraph.nodes = fullTreeGraph.nodes.map(n => {
     delete n.isLeaf;

@@ -89,5 +89,5 @@ style 797ed61aaf2fb7074855fd8bc79f2548d49119dea6dc6182d2a20a0b30427193 color: #8
 style a10b56baa95879d6907f41da62bb1f7ed31becee86b4c3bc48da53485d702854 color: #8286a3, stroke: #8286a3, stroke-width: 2.0px
 style fceed9a6d0e4f8a29104c6f92028492cdbdbb29af53f2a371ac5138dd1296796 color: #8286a3, stroke: #8286a3, stroke-width: 2.0px
 %% Root Style 
-style fceed9a6d0e4f8a29104c6f92028492cdbdbb29af53f2a371ac5138dd1296796 color: #fff, fill: #594aa8, stroke: #ff605d, stroke-width: 2.0px
+style fceed9a6d0e4f8a29104c6f92028492cdbdbb29af53f2a371ac5138dd1296796 color: #fff, fill: #594aa8, stroke: #27225b, stroke-width: 2.0px
 ```

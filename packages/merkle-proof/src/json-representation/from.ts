@@ -13,7 +13,7 @@ const encodeAuditPath = (auditPath: MerkleAuditPath): MerkleTreeBranch[] => {
   return auditPath.map(component => {
     const [key] = Object.keys(component);
     const [value] = Object.values(component);
-    return { [key]: base64url.encode(value) } as MerkleTreeBranch;
+    return { [key]: base64url.encode(value as any) } as MerkleTreeBranch;
   });
 };
 
