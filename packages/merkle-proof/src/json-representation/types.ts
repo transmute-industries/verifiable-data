@@ -17,10 +17,6 @@ export interface MerkleTreeObject {
   salts?: string[];
 }
 
-export interface SaltedMerkleTree extends MerkleTreeObject {
-  salts: string[];
-}
-
 export type MerkleTreeOptions = {
   salts?: Buffer[];
 };

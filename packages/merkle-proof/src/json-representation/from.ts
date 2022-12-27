@@ -5,7 +5,6 @@ import { MerkleAuditPath } from "../binary-merkle-tree/types";
 import {
   MerkleTreeObject,
   MerkleTreeBranch,
-  SaltedMerkleTree,
   MerkleTreeOptions
 } from "./types";
 
@@ -42,7 +41,7 @@ const encodedAuditPathToProof = (auditPath: MerkleTreeBranch[]): string => {
 export const from = (
   members: Buffer[],
   options: MerkleTreeOptions = { salts: undefined }
-): SaltedMerkleTree => {
+): MerkleTreeObject => {
   let saltedMembers = members;
   // technically not a leaf... get rid of this.
   // code smell
@@ -76,7 +75,7 @@ export const from = (
   };
 
   if (options.salts) {
-    (obj as SaltedMerkleTree).salts = options.salts.map(m => {
+    obj.salts = options.salts.map(m => {
       return base64url.encode(m);
     });
   }

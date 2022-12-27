@@ -1,4 +1,4 @@
-import { SaltedMerkleTree } from "../json-representation/types";
+import { MerkleTreeObject } from "../json-representation/types";
 import { objectToSaltGraph } from "./objectToSaltGraph";
 import { encodedAuditPathToSubgraph } from "./encodedAuditPathToSubgraph";
 import { graphToMermaid } from "./graphToMermaid";
@@ -9,7 +9,7 @@ import { defaults } from "./defaults";
 import { wrapForMarkdown } from "./wrapForMarkdown";
 
 export const inclusionProof = (
-  fullTreeObject: SaltedMerkleTree,
+  fullTreeObject: MerkleTreeObject,
   reveal?: number[]
 ) => {
   const graphs = [];

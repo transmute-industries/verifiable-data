@@ -1,12 +1,12 @@
 import base64url from "base64url";
 
-import { SaltedMerkleTree } from "../json-representation/types";
+import { MerkleTreeObject } from "../json-representation/types";
 
 import BinaryMerkleTree from "../binary-merkle-tree";
 import { Autograph } from "./types";
 
 export const fullTreeObjectToFullTreeGraph = (
-  fullTreeObject: SaltedMerkleTree
+  fullTreeObject: MerkleTreeObject
 ): Autograph => {
   const members = fullTreeObject.members.map((_m, i) => {
     if (fullTreeObject.salts) {

@@ -1,10 +1,10 @@
 import { AutographNode, AutographEdge, Autograph } from "./types";
 
-import { SaltedMerkleTree } from "../json-representation/types";
+import { MerkleTreeObject } from "../json-representation/types";
 
 import { makeMermaidSafe } from "./makeMermaidSafe";
 
-const addEdges = (obj: SaltedMerkleTree, graph: Autograph, i: number) => {
+const addEdges = (obj: MerkleTreeObject, graph: Autograph, i: number) => {
   const leafNode = {
     id: obj.leaves[i],
     label: obj.leaves[i],
@@ -41,7 +41,7 @@ const addEdges = (obj: SaltedMerkleTree, graph: Autograph, i: number) => {
     graph.links.push(saltEdge);
   }
 };
-export const objectToSaltGraph = (obj: SaltedMerkleTree, index?: number) => {
+export const objectToSaltGraph = (obj: MerkleTreeObject, index?: number) => {
   const nodes: AutographNode[] = [];
   const links: AutographEdge[] = [];
   let graph: Autograph = { nodes, links };

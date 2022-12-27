@@ -1,6 +1,6 @@
 
 import base64url from "base64url"
-import { MerkleTreeObject, SaltedMerkleTree } from "../json-representation/types"
+import { MerkleTreeObject } from "../json-representation/types"
 import BinaryMerkleTree from "../binary-merkle-tree"
 
 export const urnToObject = (urn: string) => {
@@ -25,8 +25,8 @@ export const urnToObject = (urn: string) => {
     obj.leaves.push(base64url.encode(BinaryMerkleTree.sha256(leaf)))
     obj.members.push(m)
     if(s){
-      (obj as SaltedMerkleTree).salts = (obj as SaltedMerkleTree).salts || [];
-      (obj as SaltedMerkleTree).salts.push(s)
+      (obj as any).salts = (obj as MerkleTreeObject).salts || [];
+      (obj as any).salts.push(s)
     }
   })
   return obj;

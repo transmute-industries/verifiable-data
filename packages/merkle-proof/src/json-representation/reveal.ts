@@ -1,4 +1,4 @@
-import { SaltedMerkleTree } from "./types";
+import { MerkleTreeObject } from "./types";
 
 const filterByIndex = (list: string[], index: number[]) => {
   return list.filter((_v, i) => {
@@ -6,7 +6,7 @@ const filterByIndex = (list: string[], index: number[]) => {
   });
 };
 
-export const reveal = (tree: SaltedMerkleTree, indexes: number[]) => {
+export const reveal = (tree: MerkleTreeObject, indexes: number[]) => {
   const copy = JSON.parse(JSON.stringify(tree));
   copy.paths = filterByIndex(copy.paths, indexes);
   copy.leaves = filterByIndex(copy.leaves, indexes);

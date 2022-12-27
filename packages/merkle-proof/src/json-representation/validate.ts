@@ -1,4 +1,4 @@
-import { SaltedMerkleTree } from "./types";
+import { MerkleTreeObject } from "./types";
 
 import base64url from "base64url";
 import { concatValues } from "../binary-merkle-tree/concatValues";
@@ -14,12 +14,12 @@ const decodeAuditPath = (encodedAuditPath: string) => {
 };
 
 // code smell
-export const validate = (proof: SaltedMerkleTree): boolean => {
+export const validate = (proof: MerkleTreeObject): boolean => {
   if (proof.salts) {
     const saltedMembers = proof.members.map((m, i) => {
       return concatValues([
         base64url.toBuffer(m),
-        base64url.toBuffer(proof.salts[i])
+        base64url.toBuffer((proof as any).salts[i] )
       ]);
     });
     const computedLeaves = saltedMembers.map(m => {
