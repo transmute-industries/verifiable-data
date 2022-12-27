@@ -13,7 +13,6 @@ export interface MerkleTreeObject {
   root: string;
   paths: string[];
   leaves: string[]; // either hash of member, or hash of member + salt.
-  members: string[];
   salts?: string[];
 }
 

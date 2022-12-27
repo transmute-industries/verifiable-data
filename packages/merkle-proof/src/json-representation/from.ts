@@ -42,10 +42,7 @@ export const from = (
   members: Buffer[],
   options: MerkleTreeOptions = { salts: undefined }
 ): MerkleTreeObject => {
-  let saltedMembers = members;
-  // technically not a leaf... get rid of this.
-  // code smell
-  saltedMembers = members.map((m, i) => {
+  const treeMembers = members.map((m, i) => {
     if (options.salts) {
       return concatValues([m, options.salts[i]]);
     } else {
@@ -53,27 +50,23 @@ export const from = (
     }
   });
 
-  const tree = BinaryMerkleTree.computeTree(saltedMembers);
-  const auditPaths = saltedMembers.map(sm =>
-    BinaryMerkleTree.createMerkleAuditPath(sm, tree)
+  const tree = BinaryMerkleTree.computeTree(treeMembers);
+  const auditPaths = treeMembers.map(m =>
+    BinaryMerkleTree.createMerkleAuditPath(m, tree)
   );
   const root = tree[0][0];
   const encodedRoot = base64url.encode(root);
   const encodedAuditPaths = auditPaths
     .map(encodeAuditPath)
     .map(encodedAuditPathToProof);
-  const encodedLeaves = saltedMembers.map(sm => {
-    return base64url.encode(BinaryMerkleTree.sha256(sm));
+  const encodedLeaves = treeMembers.map(m => {
+    return base64url.encode(BinaryMerkleTree.sha256(m));
   });
   const obj: MerkleTreeObject = {
     root: encodedRoot,
     leaves: encodedLeaves,
     paths: encodedAuditPaths,
-    members: members.map(m => {
-      return base64url.encode(m);
-    })
   };
-
   if (options.salts) {
     obj.salts = options.salts.map(m => {
       return base64url.encode(m);
