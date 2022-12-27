@@ -6,8 +6,11 @@ import MerkleMermaid from "../../mermaid-representation";
 it("view a full tree as inclusion proofs", () => {
   const members = ["0", "1", "2", "3", "4", "5", "6", "7"].map(Buffer.from);
   const fullTreeObject = JsonMerkleTree.from(members);
-  const targetMember = members[3]
-  const mermaidView = MerkleMermaid.inclusionProof(fullTreeObject, targetMember);
+  const targetMember = members[3];
+  const mermaidView = MerkleMermaid.inclusionProof(
+    fullTreeObject,
+    targetMember
+  );
   fs.writeFileSync(
     "./src/mermaid-representation/__tests__/inclusion.proof.no-salt.mermaid.md",
     mermaidView

@@ -6,7 +6,7 @@ import JsonMerkleTree from "../../json-representation";
 it("data structure alignment", () => {
   const seed = Buffer.from("hello");
   const members = ["0", "1", "2", "3", "4", "5", "6", "7"].map(Buffer.from);
-  const salts = BinaryMerkleTree.getSaltsForMembers(members, seed)
+  const salts = BinaryMerkleTree.getSaltsForMembers(members, seed);
   const fullTreeObject = JsonMerkleTree.from(members, { salts });
   const fullTreeGraph = MerkleMermaid.fullTreeObjectToFullTreeGraph(
     fullTreeObject

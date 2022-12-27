@@ -2,11 +2,7 @@ import base64url from "base64url";
 import BinaryMerkleTree from "../binary-merkle-tree";
 import { concatValues } from "../binary-merkle-tree/concatValues";
 import { MerkleAuditPath } from "../binary-merkle-tree/types";
-import {
-  MerkleTreeObject,
-  MerkleTreeBranch,
-  MerkleTreeOptions
-} from "./types";
+import { MerkleTreeObject, MerkleTreeBranch, MerkleTreeOptions } from "./types";
 
 const encodeAuditPath = (auditPath: MerkleAuditPath): MerkleTreeBranch[] => {
   return auditPath.map(component => {
@@ -38,8 +34,7 @@ const encodedAuditPathToProof = (auditPath: MerkleTreeBranch[]): string => {
     .join("~");
 };
 
-
-type HashFunction = (data: Buffer) => Buffer
+type HashFunction = (data: Buffer) => Buffer;
 
 export const from = (
   members: Buffer[],
@@ -68,7 +63,7 @@ export const from = (
   const obj: MerkleTreeObject = {
     root: encodedRoot,
     leaves: encodedLeaves,
-    paths: encodedAuditPaths,
+    paths: encodedAuditPaths
   };
   if (options.salts) {
     obj.salts = options.salts.map(m => {

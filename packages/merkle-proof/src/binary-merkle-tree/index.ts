@@ -5,7 +5,7 @@ import { encodeTreeAsGraph } from "./encodeTreeAsGraph";
 import { generateSalt } from "./generateSalt";
 import { concatValues } from "./concatValues";
 import { sha256 } from "./sha256";
-import { getSaltsForMembers } from './getSaltsForMembers'
+import { getSaltsForMembers } from "./getSaltsForMembers";
 
 const BinaryMerkleTree = {
   computeTree,
