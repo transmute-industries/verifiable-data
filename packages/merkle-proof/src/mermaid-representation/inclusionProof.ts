@@ -6,6 +6,7 @@ import { wrapForMarkdown } from "./wrapForMarkdown";
 import { inclusionLeafGraph } from './inclusionLeafGraph';
 
 import { Autograph, AutographEdge } from "./types";
+import BinaryMerkleTree from "../binary-merkle-tree";
 
 const {transmute: {primary, secondary} } = defaults;
 
@@ -108,7 +109,7 @@ export const inclusionProof = (
   targetMember: Buffer,
   targetSalt?: Buffer
 ) => {
-  const leafGraph = inclusionLeafGraph(targetMember, targetSalt)
+  const leafGraph = inclusionLeafGraph({ targetMember, targetSalt, hash: BinaryMerkleTree.sha256})
   const autographOptions = {
     markdown: false,
     style: "transmute",

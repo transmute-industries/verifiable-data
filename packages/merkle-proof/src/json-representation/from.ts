@@ -38,9 +38,13 @@ const encodedAuditPathToProof = (auditPath: MerkleTreeBranch[]): string => {
     .join("~");
 };
 
+
+type HashFunction = (data: Buffer) => Buffer
+
 export const from = (
   members: Buffer[],
-  options: MerkleTreeOptions = { salts: undefined }
+  options: MerkleTreeOptions = { salts: undefined },
+  hash: HashFunction = BinaryMerkleTree.sha256
 ): MerkleTreeObject => {
   const treeMembers = members.map((m, i) => {
     if (options.salts) {
@@ -50,7 +54,7 @@ export const from = (
     }
   });
 
-  const tree = BinaryMerkleTree.computeTree(treeMembers);
+  const tree = BinaryMerkleTree.computeTree(treeMembers, hash);
   const auditPaths = treeMembers.map(m =>
     BinaryMerkleTree.createMerkleAuditPath(m, tree)
   );
@@ -60,7 +64,7 @@ export const from = (
     .map(encodeAuditPath)
     .map(encodedAuditPathToProof);
   const encodedLeaves = treeMembers.map(m => {
-    return base64url.encode(BinaryMerkleTree.sha256(m));
+    return base64url.encode(hash(m));
   });
   const obj: MerkleTreeObject = {
     root: encodedRoot,

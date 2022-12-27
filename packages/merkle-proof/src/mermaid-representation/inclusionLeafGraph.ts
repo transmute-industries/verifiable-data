@@ -5,9 +5,15 @@ import BinaryMerkleTree from "../binary-merkle-tree";
 
 import { makeMermaidSafe } from './makeMermaidSafe'
 
-export const inclusionLeafGraph = (targetMember: Buffer, targetSalt?: Buffer)=>{
-  const g: Autograph = {title: "Merkle Leaf", nodes: [], links: []}
+type LeafGraphArgs = {
+  hash: Function
+  targetMember: Buffer;
+  targetSalt?: Buffer;
+}
 
+export const inclusionLeafGraph = (args: LeafGraphArgs)=>{
+  const { targetMember, targetSalt, hash } = args
+  const g: Autograph = {title: "Merkle Leaf", nodes: [], links: []}
   const memberId = base64url.encode(targetMember).substring(0, 29) + '...'
   const memberNode = {
     id: memberId,
@@ -16,8 +22,7 @@ export const inclusionLeafGraph = (targetMember: Buffer, targetSalt?: Buffer)=>{
   }
   g.nodes.push(memberNode);
   let targetValue = targetMember;
-  let targetHash = BinaryMerkleTree.sha256(targetValue)
-
+  let targetHash = hash(targetValue)
   let saltEdge = undefined;
   if (targetSalt){
     const saltId = base64url.encode(targetSalt);
@@ -28,16 +33,14 @@ export const inclusionLeafGraph = (targetMember: Buffer, targetSalt?: Buffer)=>{
     }
     g.nodes.push(saltNode);
     targetValue = BinaryMerkleTree.concatValues([targetMember, targetSalt])
-    targetHash = BinaryMerkleTree.sha256(targetValue)
+    targetHash = hash(targetValue)
     const leafId = base64url.encode(targetHash)
     saltEdge = {
       source: saltId,
       target: leafId,
       label: 'salt'
     }
-   
   }
-
   const leafId = base64url.encode(targetHash)
   const leafNode = {
     id: leafId,
@@ -54,7 +57,6 @@ export const inclusionLeafGraph = (targetMember: Buffer, targetSalt?: Buffer)=>{
   if (saltEdge){
     g.links.push(saltEdge);
   }
-
   makeMermaidSafe(g);
   return g
 }
