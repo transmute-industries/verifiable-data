@@ -53,7 +53,6 @@ export const from = (
       return m;
     }
   });
-
   const tree = BinaryMerkleTree.computeTree(treeMembers, hash);
   const auditPaths = treeMembers.map(m =>
     BinaryMerkleTree.createMerkleAuditPath(m, tree)

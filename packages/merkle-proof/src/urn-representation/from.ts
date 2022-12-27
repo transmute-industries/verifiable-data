@@ -4,7 +4,7 @@ import JsonMerkleTree from "../json-representation"
 
 import { objectToUrn } from './objectToUrn';
 
-export const basicTree = (members: Buffer[], seed?:Buffer) => {
+export const from = (members: Buffer[], seed?:Buffer) => {
   let opts = undefined
   if (seed){
     const salts = BinaryMerkleTree.getSaltsForMembers(members, seed)
