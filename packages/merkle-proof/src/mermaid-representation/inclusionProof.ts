@@ -1,85 +1,143 @@
 import { MerkleTreeObject } from "../json-representation/types";
-
-import { encodedAuditPathToSubgraph } from "./encodedAuditPathToSubgraph";
 import { graphToMermaid } from "./graphToMermaid";
 import { fullTreeObjectToFullTreeGraph } from "./fullTreeObjectToFullTreeGraph";
-
 import { defaults } from "./defaults";
-
 import { wrapForMarkdown } from "./wrapForMarkdown";
+import { inclusionLeafGraph } from './inclusionLeafGraph';
+
+import { Autograph, AutographEdge } from "./types";
+
+const {transmute: {primary, secondary} } = defaults;
+
+let defaultNodeStyle = `color:${secondary.medium}, stroke:${secondary.medium}, stroke-width: 1.0px`
+let defaultLinkStyle = `color:${secondary.medium}, stroke:${secondary.medium}, stroke-width: 1.0px`
+
+let rootNodeStyle = `color:${primary.white}, fill: ${primary.purple.light}, stroke:${primary.purple.dark}, stroke-width: 2.0px`
+let leafNodeStyle = `color:${primary.white}, fill: ${primary.purple.light}, stroke:${primary.purple.dark}, stroke-width: 2.0px`
+
+let memberNodeStyle = `color:${primary.red}, stroke:${primary.red}, stroke-width: 2.0px`
+let saltNodeStyle = `color:${primary.orange}, stroke:${primary.orange}, stroke-width: 2.0px`
+
+let memberLinkStyle = `color:${primary.red}, stroke:${secondary.light}, stroke-width: 2.0px`
+let saltLinkStyle = `color:${primary.orange}, stroke:${secondary.light}, stroke-width: 2.0px`
+let proofLinkStyle = `color:${primary.orange}, stroke:${secondary.light}, stroke-width: 2.0px`
+let pathNodeStyle = `color:${secondary.light}, stroke:${secondary.light}, stroke-width: 2.0px`
+
+const walkToRoot = (g: Autograph, e: AutographEdge) =>{
+  let nextEdge = e;
+  if (nextEdge){
+    if (e.label === 'proof'){
+      e.linkStyle = proofLinkStyle;
+    } else {
+      e.linkStyle = memberLinkStyle
+    }
+    const node = g.nodes.find((n)=>{
+      return n.id === e.source;
+    })
+    if (node){
+      node.nodeStyle = pathNodeStyle;
+    }
+    const nextEdge = g.links.find((le)=>{
+      return le.source === e.target;
+    })
+    if (nextEdge){
+      walkToRoot(g, nextEdge)
+    }
+  }
+}
+
+const addStylesToGraphs = (graphs: Autograph[] ) =>{
+  let linkCounter = -1;
+  graphs.forEach((g)=>{
+    const leafEdge = g.links.find((le)=>{
+      return le.fromLeaf && g.title === 'Merkle Tree';
+    })
+    if (leafEdge){
+      walkToRoot(g, leafEdge)
+    }
+    g.links = g.links.map((e)=>{
+      linkCounter ++;
+      let linkStyle = defaultLinkStyle;
+      if (e.label === 'member'){
+        linkStyle = memberLinkStyle;
+      }
+      if (e.label === 'salt'){
+        linkStyle = saltLinkStyle;
+      }
+      if (e.linkStyle){
+        linkStyle = e.linkStyle
+      }
+      return {...e, linkStyle: `linkStyle ${linkCounter} ${linkStyle} `}
+    })
+    g.nodes = g.nodes.map((n)=>{
+      let nodeStyle = defaultNodeStyle;
+      if (n.isRoot){
+        nodeStyle = rootNodeStyle
+      }
+      if (n.isLeaf){
+        nodeStyle = leafNodeStyle
+      }
+      if (n.isMember){
+        nodeStyle = memberNodeStyle
+      }
+      if (n.isSalt){
+        nodeStyle = saltNodeStyle
+      }
+      if (n.nodeStyle){
+        nodeStyle = n.nodeStyle
+      }
+      return {...n, nodeStyle: `style ${n.id} ${nodeStyle}`}
+    })
+    
+  })
+}
+
+const computeGraphStyle = (g: Autograph)=>{
+  let style = `\n%% Style for: ${g.title}\n`;
+  g.nodes.map((n)=>{
+    style += `${n.nodeStyle}\n`
+  })
+  g.links.map((e)=>{
+    style += `${e.linkStyle}\n`
+  })
+  return style + '\n'
+}
 
 export const inclusionProof = (
   fullTreeObject: MerkleTreeObject,
-  reveal?: number[]
+  targetMember: Buffer,
+  targetSalt?: Buffer
 ) => {
-  const graphs = [];
-
-  // everything if nothing.
-  reveal =
-    reveal ||
-    fullTreeObject.leaves.map((_m, i) => {
-      return i;
-    });
-
-  let styles = `%% https://transmute.industries \n`;
-
-  let linkCount = 0;
-
-  reveal.forEach(index => {
-    
-    styles += `%% Leaf Styles \n`;
-    
-    const auditPathGraph = encodedAuditPathToSubgraph(
-      fullTreeObject.leaves[index],
-      fullTreeObject.paths[index],
-      fullTreeObject.root
-    );
-    // this subtraph title gets floated if present due to tree including the proof.
-    auditPathGraph.title = "Proof " + index;
-    graphs.push(auditPathGraph);
-    styles += `%% Proof Styles \n`;
-    for (let i = linkCount; i < linkCount + auditPathGraph.links.length; i++) {
-      const e = auditPathGraph.links[i - linkCount];
-      if (e.label === "proof") {
-        styles += `linkStyle ${i} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`;
-      } else {
-        styles += `linkStyle ${i} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`;
-      }
-    }
-    linkCount += auditPathGraph.links.length;
-    auditPathGraph.nodes.forEach(n => {
-      if (!n.isLeaf) {
-        styles += `style ${n.id} color: ${defaults.transmute.secondary.light}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`;
-      }
-    });
-  });
-
+  const leafGraph = inclusionLeafGraph(targetMember, targetSalt)
   const autographOptions = {
     markdown: false,
     style: "transmute",
     linkStyle: defaults.linkStyle,
     nodeStyle: defaults.nodeStyle
   };
-
   const fullTreeGraph = fullTreeObjectToFullTreeGraph(fullTreeObject);
-  fullTreeGraph.title = "Tree";
-  graphs.push(fullTreeGraph);
-
-  styles += `%% Root Style \n`;
-  styles += `style ${fullTreeGraph.nodes[0].id} color: ${defaults.transmute.primary.white}, fill: ${defaults.transmute.primary.purple.light}, stroke: ${defaults.transmute.primary.purple.dark}, stroke-width: 2.0px\n`;
-
   fullTreeGraph.nodes = fullTreeGraph.nodes.map(n => {
-    delete n.isLeaf;
+    if (!leafGraph.nodes.find((ln)=> ln.id == n.id)){
+      delete n.isLeaf;
+    }
     return n;
   });
-
+  fullTreeGraph.links = fullTreeGraph.links.map(e => {
+    if (!leafGraph.links.find((ln)=> ln.target === e.source)){
+      delete e.fromLeaf;
+    }
+    return e;
+  });
+  const graphs = [fullTreeGraph, leafGraph];
+  addStylesToGraphs(graphs)
   const diagrams = graphs
     .map((g, i) => {
       return graphToMermaid(g, { header: i === 0, ...autographOptions } as any);
     })
     .join("");
-
-  const final = diagrams + `\n` + styles;
-
+  const styles = graphs.map((g)=>{
+    return computeGraphStyle(g);
+  }).join("\n");
+  const final = diagrams + `\n` + styles + '\n';
   return wrapForMarkdown(final);
 };

@@ -1,11 +1,10 @@
-import { AutographNode, AutographEdge, AutographOptions } from "./types";
+import { AutographNode, AutographEdge } from "./types";
 
 import { transmute } from "./transmute";
 
 const linkStyle = (
   e: AutographEdge,
-  _i: number,
-  _options: AutographOptions
+
 ) => {
   return `\t\t${e.source} ${e.label ? `-- ${e.label} -->` : `-.->`} ${
     e.target
@@ -14,8 +13,6 @@ const linkStyle = (
 
 const nodeStyle = (
   n: AutographNode,
-  _i: number,
-  _options: AutographOptions
 ) => {
   return `\t\t${n.id}${`("${n.label}")`} \n`;
 };

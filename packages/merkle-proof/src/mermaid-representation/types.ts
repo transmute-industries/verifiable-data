@@ -6,6 +6,8 @@ export type AutographNode = {
   isLeaf?: boolean;
   isSalt?: boolean;
   isMember?: boolean;
+  //
+  nodeStyle?: string
 };
 
 export type AutographEdge = {
@@ -15,6 +17,8 @@ export type AutographEdge = {
   //
   fromLeaf?: boolean;
   toRoot?: boolean;
+  //
+  linkStyle?: string
 };
 
 export type Autograph = {

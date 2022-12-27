@@ -45,6 +45,9 @@ export const graphToMermaid = (
     }
   }
 }%%
+
+%% https://transmute.industries %%
+
 graph LR`
       : ``
   }

@@ -3,6 +3,8 @@
 import { MerkleTreeObject } from "../json-representation/types";
 import { Autograph, AutographNode, AutographEdge } from "./types";
 
+import { makeMermaidSafe } from './makeMermaidSafe'
+
 const getNode = (g: Autograph, n: AutographNode)=>{
   return g.nodes.find((gn)=>{
     return gn.id === n.id
@@ -85,5 +87,6 @@ export const fullTreeObjectToFullTreeGraph = (
       }
     }) 
   })
+  makeMermaidSafe(g)
   return g;
 };
