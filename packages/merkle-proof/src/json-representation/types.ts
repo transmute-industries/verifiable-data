@@ -12,7 +12,7 @@ export type MerkleTreeBranch = LeftBranch | RightBranch;
 export interface MerkleTreeObject {
   root: string;
   paths: string[];
-  leaves: string[];
+  leaves: string[]; // either hash of member, or hash of member + salt.
   members: string[];
   salts?: string[];
 }

@@ -1,14 +1,12 @@
 import fs from "fs";
-import BinaryMerkleTree from "../binary-merkle-tree";
-import MerkleMermaid from "../mermaid-representation";
-import JsonMerkleTree from "../json-representation";
+import BinaryMerkleTree from "../../binary-merkle-tree";
+import MerkleMermaid from "..";
+import JsonMerkleTree from "../../json-representation";
 
-it("data structures match", () => {
+it("data structure alignment", () => {
   const seed = Buffer.from("hello");
   const members = ["0", "1", "2", "3", "4", "5", "6", "7"].map(Buffer.from);
-  const salts = members.map((_m, i) => {
-    return BinaryMerkleTree.generateSalt({ seed, index: i });
-  });
+  const salts = BinaryMerkleTree.getSaltsForMembers(members, seed)
   const fullTreeObject = JsonMerkleTree.from(members, { salts });
   const fullTreeGraph = MerkleMermaid.fullTreeObjectToFullTreeGraph(
     fullTreeObject
@@ -22,15 +20,15 @@ it("data structures match", () => {
   };
   const fullTreeMermaid = MerkleMermaid.graphToMermaid(fullTreeGraph, options);
   fs.writeFileSync(
-    "./examples/full-tree.obj.json",
+    "./src/mermaid-representation/__tests__/full-tree.obj.json",
     JSON.stringify(fullTreeObject, null, 2)
   );
   fs.writeFileSync(
-    "./examples/full-tree.graph.json",
+    "./src/mermaid-representation/__tests__/full-tree.graph.json",
     JSON.stringify(fullTreeGraph, null, 2)
   );
   fs.writeFileSync(
-    "./examples/full-tree.mermaid.md",
+    "./src/mermaid-representation/__tests__/full-tree.mermaid.md",
     fullTreeMermaid
   );
 });
