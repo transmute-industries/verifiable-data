@@ -3,7 +3,7 @@ import base64url from "base64url"
 import { MerkleTreeObject } from "../json-representation/types"
 import BinaryMerkleTree from "../binary-merkle-tree"
 
-export const urnToObject = (urn: string) => {
+export const urnToObject = (urn: string): MerkleTreeObject => {
   const [isUrn, isUrnType, encodedMerkleStructure] = urn.split(':')
   if (isUrn !== 'urn'){
     throw new Error('Invalid URN.')
@@ -12,7 +12,7 @@ export const urnToObject = (urn: string) => {
     throw new Error('Invalid URN Type.')
   }
   const [root, encodedAuditPaths] = encodedMerkleStructure.split('?')
-  let obj: MerkleTreeObject = {root, paths: [], leaves: [], members: []};
+  let obj: any = {root, paths: [], leaves: [], members: [], salts: []};
   encodedAuditPaths.split('&').forEach((mp) => {
     const [sm, p] = mp.split('=');
     const [m, s] = sm.split('.');
@@ -25,9 +25,11 @@ export const urnToObject = (urn: string) => {
     obj.leaves.push(base64url.encode(BinaryMerkleTree.sha256(leaf)))
     obj.members.push(m)
     if(s){
-      (obj as any).salts = (obj as MerkleTreeObject).salts || [];
-      (obj as any).salts.push(s)
+      obj.salts.push(s)
     }
   })
+  if (obj.salts?.length === 0){
+    delete obj.salts
+  }
   return obj;
 }
