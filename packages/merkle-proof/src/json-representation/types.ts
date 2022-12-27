@@ -14,6 +14,7 @@ export interface MerkleTreeObject {
   paths: string[];
   leaves: string[];
   members: string[];
+  salts?: string[];
 }
 
 export interface SaltedMerkleTree extends MerkleTreeObject {
