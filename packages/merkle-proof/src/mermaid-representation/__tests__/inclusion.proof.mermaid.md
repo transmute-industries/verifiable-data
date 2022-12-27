@@ -17,15 +17,6 @@
   }
 }%%
 graph LR
-	subgraph Leaf 0
-		direction LR
-		079efc5120214967a1ece0756f4da94d003c8e510954aa422abb0cb8a9158033("B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM") 
-		5a936ee19a0cf3c70d8cb0006111b7a52f45ec01703e0af8cdc8c6d81ac5850c("WpNu4ZoM88cNjLAAYRG3pS9F7AFwPgr4zcjG2BrFhQw") 
-		30("MA") 
-		30 -- member --> 079efc5120214967a1ece0756f4da94d003c8e510954aa422abb0cb8a9158033
-		5a936ee19a0cf3c70d8cb0006111b7a52f45ec01703e0af8cdc8c6d81ac5850c -- salt --> 079efc5120214967a1ece0756f4da94d003c8e510954aa422abb0cb8a9158033
-	end
-
 	subgraph Proof 0
 		direction LR
 		079efc5120214967a1ece0756f4da94d003c8e510954aa422abb0cb8a9158033("B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM") 
@@ -41,53 +32,48 @@ graph LR
 
 	subgraph Tree
 		direction LR
-		fceed9a6d0e4f8a29104c6f92028492cdbdbb29af53f2a371ac5138dd1296796("_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y") 
-		27f47c52c16b87274efc53020d233a1d897b03270dc3867781300e6110380b54("J_R8UsFrhydO_FMCDSM6HYl7AycNw4Z3gTAOYRA4C1Q") 
-		a10b56baa95879d6907f41da62bb1f7ed31becee86b4c3bc48da53485d702854("oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ") 
-		d73f15b5bb00d48953f48dda500de20c0e2274f8cb52e30d6d414edaa53b02a3("1z8VtbsA1IlT9I3aUA3iDA4idPjLUuMNbUFO2qU7AqM") 
-		797ed61aaf2fb7074855fd8bc79f2548d49119dea6dc6182d2a20a0b30427193("eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM") 
-		7a364071f101dade6c25a6f6dbcf042d0d1a3ee8268d346c77866001a354474f("ejZAcfEB2t5sJab2288ELQ0aPugmjTRsd4ZgAaNUR08") 
-		ca683333e01a34e22227f53f85f3e6703f16d7d8932682a15350fbd702689d7b("ymgzM-AaNOIiJ_U_hfPmcD8W19iTJoKhU1D71wJonXs") 
-		079efc5120214967a1ece0756f4da94d003c8e510954aa422abb0cb8a9158033("B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM") 
-		a5c88226aa9e7c4d2d3111ccbc12f392aa4315a261dd5c283711da6bb4036dfb("pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs") 
-		7b02d027e305e16f507a07fbbc0bfdbdbe7bddd8ddbd4173d98e059819dceca6("ewLQJ-MF4W9Qegf7vAv9vb573djdvUFz2Y4FmBnc7KY") 
-		60cb16a1fe5d7817000966831f9d526803eebdeb69095e16bf49e9b6107d290b("YMsWof5deBcACWaDH51SaAPuvetpCV4Wv0npthB9KQs") 
-		897bf0d2a575776b4c88df3fec1b646e2b9fb3f543cd1e7a0415791adc00deb7("iXvw0qV1d2tMiN8_7Btkbiufs_VDzR56BBV5GtwA3rc") 
-		6427b87b167054c3df756a52beea00badbb550800152f49aeef33b9c0c1ae61e("ZCe4exZwVMPfdWpSvuoAutu1UIABUvSa7vM7nAwa5h4") 
-		52aa23e66a304960579889621250fbf945dfb32302282a9e0a4e77056b2143ae("Uqoj5mowSWBXmIliElD7-UXfsyMCKCqeCk53BWshQ64") 
-		202cb669d7babbb07f72450d18329a9bb36f4589c1cb4fa2c42cf35b8d5ba2eb("ICy2ade6u7B_ckUNGDKam7NvRYnBy0-ixCzzW41bous") 
-		27f47c52c16b87274efc53020d233a1d897b03270dc3867781300e6110380b54 -.-> fceed9a6d0e4f8a29104c6f92028492cdbdbb29af53f2a371ac5138dd1296796
-		a10b56baa95879d6907f41da62bb1f7ed31becee86b4c3bc48da53485d702854 -.-> fceed9a6d0e4f8a29104c6f92028492cdbdbb29af53f2a371ac5138dd1296796
-		d73f15b5bb00d48953f48dda500de20c0e2274f8cb52e30d6d414edaa53b02a3 -.-> 27f47c52c16b87274efc53020d233a1d897b03270dc3867781300e6110380b54
-		797ed61aaf2fb7074855fd8bc79f2548d49119dea6dc6182d2a20a0b30427193 -.-> 27f47c52c16b87274efc53020d233a1d897b03270dc3867781300e6110380b54
-		7a364071f101dade6c25a6f6dbcf042d0d1a3ee8268d346c77866001a354474f -.-> a10b56baa95879d6907f41da62bb1f7ed31becee86b4c3bc48da53485d702854
-		ca683333e01a34e22227f53f85f3e6703f16d7d8932682a15350fbd702689d7b -.-> a10b56baa95879d6907f41da62bb1f7ed31becee86b4c3bc48da53485d702854
-		079efc5120214967a1ece0756f4da94d003c8e510954aa422abb0cb8a9158033 -.-> d73f15b5bb00d48953f48dda500de20c0e2274f8cb52e30d6d414edaa53b02a3
-		a5c88226aa9e7c4d2d3111ccbc12f392aa4315a261dd5c283711da6bb4036dfb -.-> d73f15b5bb00d48953f48dda500de20c0e2274f8cb52e30d6d414edaa53b02a3
-		7b02d027e305e16f507a07fbbc0bfdbdbe7bddd8ddbd4173d98e059819dceca6 -.-> 797ed61aaf2fb7074855fd8bc79f2548d49119dea6dc6182d2a20a0b30427193
-		60cb16a1fe5d7817000966831f9d526803eebdeb69095e16bf49e9b6107d290b -.-> 797ed61aaf2fb7074855fd8bc79f2548d49119dea6dc6182d2a20a0b30427193
-		897bf0d2a575776b4c88df3fec1b646e2b9fb3f543cd1e7a0415791adc00deb7 -.-> 7a364071f101dade6c25a6f6dbcf042d0d1a3ee8268d346c77866001a354474f
-		6427b87b167054c3df756a52beea00badbb550800152f49aeef33b9c0c1ae61e -.-> 7a364071f101dade6c25a6f6dbcf042d0d1a3ee8268d346c77866001a354474f
-		52aa23e66a304960579889621250fbf945dfb32302282a9e0a4e77056b2143ae -.-> ca683333e01a34e22227f53f85f3e6703f16d7d8932682a15350fbd702689d7b
-		202cb669d7babbb07f72450d18329a9bb36f4589c1cb4fa2c42cf35b8d5ba2eb -.-> ca683333e01a34e22227f53f85f3e6703f16d7d8932682a15350fbd702689d7b
+		_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y("_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y") 
+		B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM("B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM") 
+		pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs("pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs") 
+		eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM("eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM") 
+		oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ("oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ") 
+		ewLQJ-MF4W9Qegf7vAv9vb573djdvUFz2Y4FmBnc7KY("ewLQJ-MF4W9Qegf7vAv9vb573djdvUFz2Y4FmBnc7KY") 
+		YMsWof5deBcACWaDH51SaAPuvetpCV4Wv0npthB9KQs("YMsWof5deBcACWaDH51SaAPuvetpCV4Wv0npthB9KQs") 
+		1z8VtbsA1IlT9I3aUA3iDA4idPjLUuMNbUFO2qU7AqM("1z8VtbsA1IlT9I3aUA3iDA4idPjLUuMNbUFO2qU7AqM") 
+		iXvw0qV1d2tMiN8_7Btkbiufs_VDzR56BBV5GtwA3rc("iXvw0qV1d2tMiN8_7Btkbiufs_VDzR56BBV5GtwA3rc") 
+		ZCe4exZwVMPfdWpSvuoAutu1UIABUvSa7vM7nAwa5h4("ZCe4exZwVMPfdWpSvuoAutu1UIABUvSa7vM7nAwa5h4") 
+		ymgzM-AaNOIiJ_U_hfPmcD8W19iTJoKhU1D71wJonXs("ymgzM-AaNOIiJ_U_hfPmcD8W19iTJoKhU1D71wJonXs") 
+		J_R8UsFrhydO_FMCDSM6HYl7AycNw4Z3gTAOYRA4C1Q("J_R8UsFrhydO_FMCDSM6HYl7AycNw4Z3gTAOYRA4C1Q") 
+		Uqoj5mowSWBXmIliElD7-UXfsyMCKCqeCk53BWshQ64("Uqoj5mowSWBXmIliElD7-UXfsyMCKCqeCk53BWshQ64") 
+		ICy2ade6u7B_ckUNGDKam7NvRYnBy0-ixCzzW41bous("ICy2ade6u7B_ckUNGDKam7NvRYnBy0-ixCzzW41bous") 
+		ejZAcfEB2t5sJab2288ELQ0aPugmjTRsd4ZgAaNUR08("ejZAcfEB2t5sJab2288ELQ0aPugmjTRsd4ZgAaNUR08") 
+		B578USAhSWeh7OB1b02pTQA8jlEJVKpCKrsMuKkVgDM -- right --> pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs
+		pciCJqqefE0tMRHMvBLzkqpDFaJh3VwoNxHaa7QDbfs -- right --> eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM
+		eX7WGq8vtwdIVf2Lx58lSNSRGd6m3GGC0qIKCzBCcZM -- right --> oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ
+		oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ -- proof --> _O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y
+		ewLQJ-MF4W9Qegf7vAv9vb573djdvUFz2Y4FmBnc7KY -- right --> YMsWof5deBcACWaDH51SaAPuvetpCV4Wv0npthB9KQs
+		YMsWof5deBcACWaDH51SaAPuvetpCV4Wv0npthB9KQs -- left --> 1z8VtbsA1IlT9I3aUA3iDA4idPjLUuMNbUFO2qU7AqM
+		1z8VtbsA1IlT9I3aUA3iDA4idPjLUuMNbUFO2qU7AqM -- right --> oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ
+		iXvw0qV1d2tMiN8_7Btkbiufs_VDzR56BBV5GtwA3rc -- right --> ZCe4exZwVMPfdWpSvuoAutu1UIABUvSa7vM7nAwa5h4
+		ZCe4exZwVMPfdWpSvuoAutu1UIABUvSa7vM7nAwa5h4 -- right --> ymgzM-AaNOIiJ_U_hfPmcD8W19iTJoKhU1D71wJonXs
+		ymgzM-AaNOIiJ_U_hfPmcD8W19iTJoKhU1D71wJonXs -- left --> J_R8UsFrhydO_FMCDSM6HYl7AycNw4Z3gTAOYRA4C1Q
+		J_R8UsFrhydO_FMCDSM6HYl7AycNw4Z3gTAOYRA4C1Q -- proof --> _O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y
+		Uqoj5mowSWBXmIliElD7-UXfsyMCKCqeCk53BWshQ64 -- right --> ICy2ade6u7B_ckUNGDKam7NvRYnBy0-ixCzzW41bous
+		ICy2ade6u7B_ckUNGDKam7NvRYnBy0-ixCzzW41bous -- left --> ejZAcfEB2t5sJab2288ELQ0aPugmjTRsd4ZgAaNUR08
+		ejZAcfEB2t5sJab2288ELQ0aPugmjTRsd4ZgAaNUR08 -- left --> J_R8UsFrhydO_FMCDSM6HYl7AycNw4Z3gTAOYRA4C1Q
 	end
 
 %% https://transmute.industries 
 %% Leaf Styles 
-style 079efc5120214967a1ece0756f4da94d003c8e510954aa422abb0cb8a9158033 color: #fff, fill: #594aa8, stroke: #27225b, stroke-width: 2.0px
-style 5a936ee19a0cf3c70d8cb0006111b7a52f45ec01703e0af8cdc8c6d81ac5850c color: #fcb373, stroke: #fcb373, stroke-width: 2.0px
-style 30 color: #ff605d, stroke: #ff605d, stroke-width: 2.0px
-linkStyle 0 color: #ff605d, stroke: #8286a3, stroke-width: 2.0px
-linkStyle 1 color: #fcb373, stroke: #8286a3, stroke-width: 2.0px
 %% Proof Styles 
+linkStyle 0 color: #ff605d, stroke: #8286a3, stroke-width: 2.0px
+linkStyle 1 color: #ff605d, stroke: #8286a3, stroke-width: 2.0px
 linkStyle 2 color: #ff605d, stroke: #8286a3, stroke-width: 2.0px
 linkStyle 3 color: #ff605d, stroke: #8286a3, stroke-width: 2.0px
-linkStyle 4 color: #ff605d, stroke: #8286a3, stroke-width: 2.0px
-linkStyle 5 color: #ff605d, stroke: #8286a3, stroke-width: 2.0px
 style a5c88226aa9e7c4d2d3111ccbc12f392aa4315a261dd5c283711da6bb4036dfb color: #8286a3, stroke: #8286a3, stroke-width: 2.0px
 style 797ed61aaf2fb7074855fd8bc79f2548d49119dea6dc6182d2a20a0b30427193 color: #8286a3, stroke: #8286a3, stroke-width: 2.0px
 style a10b56baa95879d6907f41da62bb1f7ed31becee86b4c3bc48da53485d702854 color: #8286a3, stroke: #8286a3, stroke-width: 2.0px
 style fceed9a6d0e4f8a29104c6f92028492cdbdbb29af53f2a371ac5138dd1296796 color: #8286a3, stroke: #8286a3, stroke-width: 2.0px
 %% Root Style 
-style fceed9a6d0e4f8a29104c6f92028492cdbdbb29af53f2a371ac5138dd1296796 color: #fff, fill: #594aa8, stroke: #27225b, stroke-width: 2.0px
+style _O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y color: #fff, fill: #594aa8, stroke: #27225b, stroke-width: 2.0px
 ```

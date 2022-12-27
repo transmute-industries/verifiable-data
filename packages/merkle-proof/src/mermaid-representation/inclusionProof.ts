@@ -1,5 +1,5 @@
 import { MerkleTreeObject } from "../json-representation/types";
-import { objectToSaltGraph } from "./objectToSaltGraph";
+
 import { encodedAuditPathToSubgraph } from "./encodedAuditPathToSubgraph";
 import { graphToMermaid } from "./graphToMermaid";
 import { fullTreeObjectToFullTreeGraph } from "./fullTreeObjectToFullTreeGraph";
@@ -17,7 +17,7 @@ export const inclusionProof = (
   // everything if nothing.
   reveal =
     reveal ||
-    fullTreeObject.members.map((_m, i) => {
+    fullTreeObject.leaves.map((_m, i) => {
       return i;
     });
 
@@ -26,29 +26,9 @@ export const inclusionProof = (
   let linkCount = 0;
 
   reveal.forEach(index => {
-    const leafGraph = objectToSaltGraph(fullTreeObject, index);
-    leafGraph.title = "Leaf " + index;
-    graphs.push(leafGraph);
-
+    
     styles += `%% Leaf Styles \n`;
-    leafGraph.nodes.forEach(n => {
-      if (n.isMember) {
-        styles += `style ${n.id} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.primary.red}, stroke-width: 2.0px\n`;
-      } else if (n.isSalt) {
-        styles += `style ${n.id} color: ${defaults.transmute.primary.orange}, stroke: ${defaults.transmute.primary.orange}, stroke-width: 2.0px\n`;
-      } else if (n.isLeaf) {
-        styles += `style ${n.id} color: ${defaults.transmute.primary.white}, fill: ${defaults.transmute.primary.purple.light}, stroke: ${defaults.transmute.primary.purple.dark}, stroke-width: 2.0px\n`;
-      }
-    });
-    for (let i = 0 + linkCount; i < leafGraph.links.length; i++) {
-      const e = leafGraph.links[i - linkCount];
-      if (e.label === "member") {
-        styles += `linkStyle ${i} color: ${defaults.transmute.primary.red}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`;
-      } else if (e.label === "salt") {
-        styles += `linkStyle ${i} color: ${defaults.transmute.primary.orange}, stroke: ${defaults.transmute.secondary.light}, stroke-width: 2.0px\n`;
-      }
-    }
-    linkCount += leafGraph.links.length;
+    
     const auditPathGraph = encodedAuditPathToSubgraph(
       fullTreeObject.leaves[index],
       fullTreeObject.paths[index],
