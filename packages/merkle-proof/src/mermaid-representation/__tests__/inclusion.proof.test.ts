@@ -11,6 +11,8 @@ it("view a full tree as inclusion proofs", () => {
     return BinaryMerkleTree.generateSalt({ seed, index: i });
   });
   const fullTreeObject = JsonMerkleTree.from(members, { salts });
+  const valid1 = JsonMerkleTree.validate(fullTreeObject);
+  expect(valid1).toBe(true);
   const mermaidView = MerkleMermaid.inclusionProof(fullTreeObject, [0]);
   fs.writeFileSync(
     "./src/mermaid-representation/__tests__/inclusion.proof.mermaid.md",

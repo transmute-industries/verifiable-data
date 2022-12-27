@@ -45,6 +45,7 @@ export const from = (
 ): SaltedMerkleTree => {
   let saltedMembers = members;
   // technically not a leaf... get rid of this.
+  // code smell
   saltedMembers = members.map((m, i) => {
     if (options.salts) {
       return concatValues([m, options.salts[i]]);
@@ -68,12 +69,12 @@ export const from = (
   const obj: MerkleTreeObject = {
     root: encodedRoot,
     leaves: encodedLeaves,
-    paths: encodedAuditPaths
+    paths: encodedAuditPaths,
+    members: members.map(m => {
+      return base64url.encode(m);
+    })
   };
 
-  (obj as SaltedMerkleTree).members = members.map(m => {
-    return base64url.encode(m);
-  });
   if (options.salts) {
     (obj as SaltedMerkleTree).salts = options.salts.map(m => {
       return base64url.encode(m);

@@ -8,14 +8,15 @@ type RightBranch = {
 
 export type MerkleTreeBranch = LeftBranch | RightBranch;
 
+// TODO: fix type
 export interface MerkleTreeObject {
   root: string;
-  leaves: string[];
   paths: string[];
+  leaves: string[];
+  members: string[];
 }
 
 export interface SaltedMerkleTree extends MerkleTreeObject {
-  members: string[];
   salts: string[];
 }
 

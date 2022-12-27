@@ -22,15 +22,15 @@ it("data structures match", () => {
   };
   const fullTreeMermaid = MerkleMermaid.graphToMermaid(fullTreeGraph, options);
   fs.writeFileSync(
-    "./examples/alignment/full-tree.obj.json",
+    "./examples/full-tree.obj.json",
     JSON.stringify(fullTreeObject, null, 2)
   );
   fs.writeFileSync(
-    "./examples/alignment/full-tree.graph.json",
+    "./examples/full-tree.graph.json",
     JSON.stringify(fullTreeGraph, null, 2)
   );
   fs.writeFileSync(
-    "./examples/alignment/full-tree.mermaid.md",
+    "./examples/full-tree.mermaid.md",
     fullTreeMermaid
   );
 });

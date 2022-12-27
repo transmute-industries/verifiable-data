@@ -13,6 +13,7 @@ const decodeAuditPath = (encodedAuditPath: string) => {
   });
 };
 
+// code smell
 export const validate = (proof: SaltedMerkleTree): boolean => {
   if (proof.salts) {
     const saltedMembers = proof.members.map((m, i) => {
@@ -22,13 +23,13 @@ export const validate = (proof: SaltedMerkleTree): boolean => {
       ]);
     });
     const computedLeaves = saltedMembers.map(m => {
-      return base64url.encode(m);
+      return base64url.encode(BinaryMerkleTree.sha256(m));
     });
     const allProofsAreValid = proof.paths
       .map(decodeAuditPath)
       .map((p, i) => {
         return BinaryMerkleTree.validateMerkleAuditPath(
-          saltedMembers[i],
+          BinaryMerkleTree.sha256(saltedMembers[i]),
           p,
           base64url.toBuffer(proof.root)
         );
