@@ -122,16 +122,21 @@ const urn = {
 };
 
 
-type CreateMerkelMermaid = {
-  urn: string
+type CreateMerkleMermaidUrn = {
+  urn: string,
+  value?: Buffer,
+  salt?: Buffer
 }
 
 const mermaid = {
-  urn: {
-    create: ({ urn }: CreateMerkelMermaid) =>{
+  urn: ({ urn, value, salt }: CreateMerkleMermaidUrn) =>{
+    if (value){
+      const obj = MerkleUrn.toObject(urn);
+      return MerkleMermaid.inclusionProof(obj, value, salt)
+    } else {
       const obj = MerkleUrn.toObject(urn);
       const g = MerkleMermaid.fullTreeObjectToFullTreeGraph(obj)
-      return MerkleMermaid.graphToMermaid(g, MerkleMermaid.defaults.mermaidAutographConfig)
+      return MerkleMermaid.graphToMermaid(g, {...MerkleMermaid.defaults.mermaidAutographConfig, markdown: true })
     }
   }
 }

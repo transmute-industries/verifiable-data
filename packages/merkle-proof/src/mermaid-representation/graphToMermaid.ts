@@ -10,6 +10,8 @@ import { wrapForMarkdown } from "./wrapForMarkdown";
 import { transmute } from "./transmute";
 import { defaults } from "./defaults";
 
+const { secondary } = transmute;
+
 export const graphToMermaid = (
   autograph: Autograph,
   options: AutographOptions = {
@@ -25,7 +27,7 @@ export const graphToMermaid = (
     final += options.linkStyle(link, index, options);
   });
   final = final.substring(0, final.length - 1);
-  const content = `${
+  let content = `${
     options.header
       ? `
 %%{
@@ -33,27 +35,25 @@ export const graphToMermaid = (
     'flowchart': { 'curve': 'monotoneX' },
     'theme': 'base',
     'themeVariables': {
-      'primaryColor': '${transmute.secondary.dark}',
-      'primaryTextColor': '${transmute.secondary.medium}',
-      'nodeBorder': '${transmute.secondary.medium}',
-      'edgeLabelBackground': '${transmute.secondary.dark}',
-      'clusterBkg': '${transmute.secondary.dark}',
-      'clusterBorder': '${transmute.secondary.dark}',
-      'lineColor': '${transmute.secondary.medium}',
+      'primaryColor': '${secondary.dark}',
+      'primaryTextColor': '${secondary.medium}',
+      'nodeBorder': '${secondary.medium}',
+      'edgeLabelBackground': '${secondary.dark}',
+      'clusterBkg': '${secondary.dark}',
+      'clusterBorder': '${secondary.dark}',
+      'lineColor': '${secondary.medium}',
       'fontFamily': 'monospace',
       'darkmode': true
     }
   }
 }%%
-%% https://transmute.industries
+%% Support https://transmute.industries
 graph LR`
       : ``
   }
 \tsubgraph ${autograph.title || "&nbsp;"}
 \t\tdirection LR
 ${final}
-\tend
-`;
-
+\tend`;
   return options.markdown ? wrapForMarkdown(content) : content;
 };

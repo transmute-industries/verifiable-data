@@ -95,14 +95,14 @@ const addStylesToGraphs = (graphs: Autograph[]) => {
 };
 
 const computeGraphStyle = (g: Autograph) => {
-  let style = `\n%% Style for: ${g.title}\n`;
+  let style = `%% ${g.title}\n`;
   g.nodes.forEach(n => {
     style += `${n.nodeStyle}\n`;
   });
   g.links.forEach(e => {
     style += `${e.linkStyle}\n`;
   });
-  return style + "\n";
+  return style;
 };
 
 export const inclusionProof = (
@@ -145,7 +145,7 @@ export const inclusionProof = (
     .map(g => {
       return computeGraphStyle(g);
     })
-    .join("\n");
-  const final = diagrams + `\n` + styles + "\n";
+    .join("");
+  const final = diagrams + '\n' + styles;
   return wrapForMarkdown(final);
 };
