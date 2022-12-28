@@ -121,11 +121,27 @@ const urn = {
   },
 };
 
+
+type CreateMerkelMermaid = {
+  urn: string
+}
+
+const mermaid = {
+  urn: {
+    create: ({ urn }: CreateMerkelMermaid) =>{
+      const obj = MerkleUrn.toObject(urn);
+      const g = MerkleMermaid.fullTreeObjectToFullTreeGraph(obj)
+      return MerkleMermaid.graphToMermaid(g, MerkleMermaid.defaults.mermaidAutographConfig)
+    }
+  }
+}
+
 const api = {
   tree,
   object,
   urn,
   salt,
+  mermaid,
   util: {
     BinaryMerkleTree,
     JsonMerkleTree,
