@@ -16,9 +16,7 @@
     }
   }
 }%%
-
-%% https://transmute.industries %%
-
+%% Support https://transmute.industries
 graph LR
 	subgraph Merkle Tree
 		direction LR

@@ -16,9 +16,7 @@
     }
   }
 }%%
-
-%% https://transmute.industries %%
-
+%% Support https://transmute.industries
 graph LR
 	subgraph Merkle Tree
 		direction LR
@@ -52,7 +50,6 @@ graph LR
 		202cb669d7babbb07f72450d18329a9bb36f4589c1cb4fa2c42cf35b8d5ba2eb -- left --> 7a364071f101dade6c25a6f6dbcf042d0d1a3ee8268d346c77866001a354474f
 		7a364071f101dade6c25a6f6dbcf042d0d1a3ee8268d346c77866001a354474f -- left --> 27f47c52c16b87274efc53020d233a1d897b03270dc3867781300e6110380b54
 	end
-
 	subgraph Merkle Leaf
 		direction LR
 		30("MA...") 
@@ -61,9 +58,7 @@ graph LR
 		30 -- member --> 079efc5120214967a1ece0756f4da94d003c8e510954aa422abb0cb8a9158033
 		5a936ee19a0cf3c70d8cb0006111b7a52f45ec01703e0af8cdc8c6d81ac5850c -- salt --> 079efc5120214967a1ece0756f4da94d003c8e510954aa422abb0cb8a9158033
 	end
-
-
-%% Style for: Merkle Tree
+%% Merkle Tree
 style fceed9a6d0e4f8a29104c6f92028492cdbdbb29af53f2a371ac5138dd1296796 color:#fff, fill: #594aa8, stroke:#27225b, stroke-width: 2.0px
 style 079efc5120214967a1ece0756f4da94d003c8e510954aa422abb0cb8a9158033 color:#8286a3, stroke:#8286a3, stroke-width: 2.0px
 style a5c88226aa9e7c4d2d3111ccbc12f392aa4315a261dd5c283711da6bb4036dfb color:#8286a3, stroke:#8286a3, stroke-width: 2.0px
@@ -93,15 +88,10 @@ linkStyle 10 color:#565a7c, stroke:#565a7c, stroke-width: 1.0px
 linkStyle 11 color:#565a7c, stroke:#565a7c, stroke-width: 1.0px 
 linkStyle 12 color:#565a7c, stroke:#565a7c, stroke-width: 1.0px 
 linkStyle 13 color:#565a7c, stroke:#565a7c, stroke-width: 1.0px 
-
-
-
-%% Style for: Merkle Leaf
+%% Merkle Leaf
 style 30 color:#ff605d, stroke:#ff605d, stroke-width: 2.0px
 style 5a936ee19a0cf3c70d8cb0006111b7a52f45ec01703e0af8cdc8c6d81ac5850c color:#fcb373, stroke:#fcb373, stroke-width: 2.0px
 style 079efc5120214967a1ece0756f4da94d003c8e510954aa422abb0cb8a9158033 color:#fff, fill: #594aa8, stroke:#27225b, stroke-width: 2.0px
 linkStyle 14 color:#ff605d, stroke:#8286a3, stroke-width: 2.0px 
 linkStyle 15 color:#fcb373, stroke:#8286a3, stroke-width: 2.0px 
-
-
 ```

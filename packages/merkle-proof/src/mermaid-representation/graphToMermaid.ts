@@ -55,5 +55,5 @@ graph LR`
 \t\tdirection LR
 ${final}
 \tend`;
-  return options.markdown ? wrapForMarkdown(content) : content;
+  return options.markdown ? wrapForMarkdown(content + '\n') : content;
 };
