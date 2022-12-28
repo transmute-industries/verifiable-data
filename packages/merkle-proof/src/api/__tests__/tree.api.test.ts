@@ -17,13 +17,9 @@ describe("merkle tree", () => {
   it("invalid proof", () => {
     expect.assertions(1);
     const member = Buffer.from("8");
-    try {
+    expect(() => {
       merkle.tree.proof.create(tree, member);
-    } catch (e) {
-      expect(e.message).toBe(
-        "Cannot produce proof, the value is not included in the tree."
-      );
-    }
+    }).toThrow("Cannot produce proof, the value is not included in the tree.");
   });
 
   it("non member proof", () => {
