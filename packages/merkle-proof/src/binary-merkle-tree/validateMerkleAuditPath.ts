@@ -2,11 +2,13 @@ import { MerkleAuditPath } from "./types";
 import { sha256 } from "./sha256";
 import { concatValues } from "./concatValues";
 
+import { HashFunction } from './types';
+
 export const validateMerkleAuditPath = (
   targetHash: Buffer,
   auditPath: MerkleAuditPath,
   root: Buffer,
-  hash: Function = sha256
+  hash: HashFunction = sha256
 ): boolean => {
   if (auditPath.length === 0) {
     return targetHash.equals(root);

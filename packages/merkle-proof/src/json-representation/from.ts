@@ -4,6 +4,8 @@ import { concatValues } from "../binary-merkle-tree/concatValues";
 import { MerkleAuditPath } from "../binary-merkle-tree/types";
 import { MerkleTreeObject, MerkleTreeBranch, MerkleTreeOptions } from "./types";
 
+import {  HashFunction } from '../binary-merkle-tree/types'
+
 const encodeAuditPath = (auditPath: MerkleAuditPath): MerkleTreeBranch[] => {
   return auditPath.map(component => {
     const [key] = Object.keys(component);
@@ -34,7 +36,6 @@ const encodedAuditPathToProof = (auditPath: MerkleTreeBranch[]): string => {
     .join("~");
 };
 
-type HashFunction = (data: Buffer) => Buffer;
 
 export const from = (
   members: Buffer[],

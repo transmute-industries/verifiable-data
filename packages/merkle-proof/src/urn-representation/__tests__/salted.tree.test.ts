@@ -1,10 +1,15 @@
 import fs from "fs";
 import MerkleUrn from "..";
+import { getSaltsForMembers } from "../../binary-merkle-tree/getSaltsForMembers";
+
+
+const seed = Buffer.from("hello");
+const members = ["0", "1", "2", "3", "4", "5", "6", "7"].map(Buffer.from);
+const salts = getSaltsForMembers(members, seed)
 
 it("salted merkle tree as urn", () => {
-  const seed = Buffer.from("hello");
-  const members = ["0", "1", "2", "3", "4", "5", "6", "7"].map(Buffer.from);
-  const treeUrn = MerkleUrn.from(members, seed);
+ 
+  const treeUrn = MerkleUrn.from(members, salts);
   const valid1 = MerkleUrn.validate(treeUrn);
   expect(valid1).toBe(true);
 

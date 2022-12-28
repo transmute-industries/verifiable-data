@@ -4,8 +4,6 @@
 npm i @transmute/merkle-proof --save
 ```
 
-
-
 ### Development
 
 ```
