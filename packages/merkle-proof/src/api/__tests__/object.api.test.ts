@@ -15,7 +15,7 @@ describe("merkle object without salt", () => {
         "R.7y0SfeN7lCuq0GFF5UsMYZofIjJ7LrvPvsePVWSv450~R.E0hDr3_I8plQseHft8SXUuD3txG0WO6a48XKIgFm1og~L.xHj-rQyJt5VAY4-ETIgZ2aQoF2OvknLH85aHdrYFI0U",
         "L.SyJ3d9TdH8Ycb4hPSGQdArTRIdP9Moywi1Ux_Kzav4o~R.E0hDr3_I8plQseHft8SXUuD3txG0WO6a48XKIgFm1og~L.xHj-rQyJt5VAY4-ETIgZ2aQoF2OvknLH85aHdrYFI0U",
         "R.eQJpm-Qsio5G-7tFAXJlF-hrIsVqGJ92JabaSQgbJFE~L.qr2YcVOcN72p93v0dEDfWlfCpXNqBDh9HDuS3_76R-Q~L.xHj-rQyJt5VAY4-ETIgZ2aQoF2OvknLH85aHdrYFI0U",
-        "L.5_bAEXdujbfNMwtUF0_Xb30CFrYSOHpf_PuB5vCRloM~L.qr2YcVOcN72p93v0dEDfWlfCpXNqBDh9HDuS3_76R-Q~L.xHj-rQyJt5VAY4-ETIgZ2aQoF2OvknLH85aHdrYFI0U",
+        "L.5_bAEXdujbfNMwtUF0_Xb30CFrYSOHpf_PuB5vCRloM~L.qr2YcVOcN72p93v0dEDfWlfCpXNqBDh9HDuS3_76R-Q~L.xHj-rQyJt5VAY4-ETIgZ2aQoF2OvknLH85aHdrYFI0U"
       ],
       leaves: [
         "X-zrZv_IbzjZUnhsbWlsecLbwjndTpG0ZynXOif7V-k",
@@ -25,8 +25,8 @@ describe("merkle object without salt", () => {
         "SyJ3d9TdH8Ycb4hPSGQdArTRIdP9Moywi1Ux_Kzav4o",
         "7y0SfeN7lCuq0GFF5UsMYZofIjJ7LrvPvsePVWSv450",
         "5_bAEXdujbfNMwtUF0_Xb30CFrYSOHpf_PuB5vCRloM",
-        "eQJpm-Qsio5G-7tFAXJlF-hrIsVqGJ92JabaSQgbJFE",
-      ],
+        "eQJpm-Qsio5G-7tFAXJlF-hrIsVqGJ92JabaSQgbJFE"
+      ]
     });
     const valid = merkle.object.validate({ proof });
     expect(valid).toBe(true);
@@ -35,14 +35,14 @@ describe("merkle object without salt", () => {
     const fullTreeProof = merkle.object.create({ members });
     const proof = merkle.object.reveal({
       proof: fullTreeProof,
-      reveal: [3],
+      reveal: [3]
     });
     expect(proof).toEqual({
       root: "O4KMT0tIxdTLVWKkdOyeL9jVVG-uQOkHMu9jWJLkJyA",
       paths: [
-        "L.1HNeOiZeFu7gP1lxi5tdAwGcB9i2xR-Q2jpmbuwTqzU~L.ubEKG8d9KiQdEgMk2387gbLttn646c8Cr5yV0wMprvU~R.AwLJb0Wrvq2yOHgzGpukBgeL0L1dwgLBAq97mYYknwE",
+        "L.1HNeOiZeFu7gP1lxi5tdAwGcB9i2xR-Q2jpmbuwTqzU~L.ubEKG8d9KiQdEgMk2387gbLttn646c8Cr5yV0wMprvU~R.AwLJb0Wrvq2yOHgzGpukBgeL0L1dwgLBAq97mYYknwE"
       ],
-      leaves: ["TgdAhWK-24tgzgXB3s_jrRa3IjCWfeAfZAt-Rym0n84"],
+      leaves: ["TgdAhWK-24tgzgXB3s_jrRa3IjCWfeAfZAt-Rym0n84"]
     });
     const valid = merkle.object.validate({ proof });
     expect(valid).toBe(true);

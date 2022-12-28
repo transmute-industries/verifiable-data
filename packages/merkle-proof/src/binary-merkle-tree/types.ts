@@ -10,5 +10,4 @@ export type Sibling = {
 
 export type MerkleAuditPath = Array<Sibling>;
 
-
 export type HashFunction = (data: Buffer) => Buffer;

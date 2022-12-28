@@ -17,12 +17,18 @@ describe("merkle urn with salt", () => {
     const fullTreeUrn = merkle.urn.create({ members, salts });
     const proof = merkle.urn.reveal({
       urn: fullTreeUrn,
-      reveal: [3],
+      reveal: [3]
     });
-    expect(proof).toBe(`urn:merkle:_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y?YMsWof5deBcACWaDH51SaAPuvetpCV4Wv0npthB9KQs.R-pwzwiHK9tK-tNDKwHZY6x9Fl9rV1zXLvR0mPRFmpA=L.ewLQJ-MF4W9Qegf7vAv9vb573djdvUFz2Y4FmBnc7KY~L.1z8VtbsA1IlT9I3aUA3iDA4idPjLUuMNbUFO2qU7AqM~R.oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ`);
+    expect(proof).toBe(
+      `urn:merkle:_O7ZptDk-KKRBMb5IChJLNvbspr1Pyo3GsUTjdEpZ5Y?YMsWof5deBcACWaDH51SaAPuvetpCV4Wv0npthB9KQs.R-pwzwiHK9tK-tNDKwHZY6x9Fl9rV1zXLvR0mPRFmpA=L.ewLQJ-MF4W9Qegf7vAv9vb573djdvUFz2Y4FmBnc7KY~L.1z8VtbsA1IlT9I3aUA3iDA4idPjLUuMNbUFO2qU7AqM~R.oQtWuqlYedaQf0HaYrsfftMb7O6GtMO8SNpTSF1wKFQ`
+    );
     const valid = merkle.urn.validate({ urn: proof });
     expect(valid).toBe(true);
-    const verified = merkle.urn.verify({ urn: proof, value: members[3], salt: salts[3] });
+    const verified = merkle.urn.verify({
+      urn: proof,
+      value: members[3],
+      salt: salts[3]
+    });
     expect(verified).toBe(true);
   });
 });

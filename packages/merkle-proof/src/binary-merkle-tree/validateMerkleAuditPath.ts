@@ -2,7 +2,7 @@ import { MerkleAuditPath } from "./types";
 import { sha256 } from "./sha256";
 import { concatValues } from "./concatValues";
 
-import { HashFunction } from './types';
+import { HashFunction } from "./types";
 
 export const validateMerkleAuditPath = (
   targetHash: Buffer,

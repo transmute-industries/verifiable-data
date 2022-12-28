@@ -10,9 +10,8 @@ import { MerkleTreeObject } from "../json-representation/types";
 const salt = {
   from: (members: Buffer[], seed: Buffer) => {
     return BinaryMerkleTree.getSaltsForMembers(members, seed);
-  },
+  }
 };
-
 
 const tree = {
   from: (members: Buffer[]) => {
@@ -46,10 +45,9 @@ const tree = {
         root,
         hash
       );
-    },
-  },
+    }
+  }
 };
-
 
 type CreateMerkleObject = { members: Buffer[]; salts?: Buffer[] };
 type RevealMerkleObject = {
@@ -81,25 +79,23 @@ const object = {
     );
     const isTargetHashInProof = proof.leaves.includes(targetHash);
     return isTargetHashInProof && JsonMerkleTree.validate(proof);
-  },
+  }
 };
 
-
 type ValidateMerkleUrn = {
-  urn: string
-}
+  urn: string;
+};
 
 type RevealMerkleUrn = {
   urn: string;
-  reveal: number[]
-}
-
+  reveal: number[];
+};
 
 type VerifyMerkleUrn = {
   urn: string;
   value: Buffer;
-  salt?: Buffer
-}
+  salt?: Buffer;
+};
 
 const urn = {
   create: ({ members, salts }: CreateMerkleObject) => {
@@ -109,7 +105,7 @@ const urn = {
     return MerkleUrn.reveal(urn, reveal);
   },
   validate: ({ urn }: ValidateMerkleUrn) => {
-    return MerkleUrn.validate(urn)
+    return MerkleUrn.validate(urn);
   },
   verify: ({ urn, value, salt }: VerifyMerkleUrn) => {
     const targetHash = base64url.encode(
@@ -118,42 +114,43 @@ const urn = {
     const obj = MerkleUrn.toObject(urn);
     const isTargetHashInProof = obj.leaves.includes(targetHash);
     return isTargetHashInProof && MerkleUrn.validate(urn);
-  },
+  }
 };
 
-
 type CreateMerkleMermaidUrn = {
-  urn: string,
-  value?: Buffer,
-  salt?: Buffer
-}
+  urn: string;
+  value?: Buffer;
+  salt?: Buffer;
+};
 
 type CreateMerkleMermaidObject = {
-  proof: MerkleTreeObject,
-  value?: Buffer,
-  salt?: Buffer
-}
+  proof: MerkleTreeObject;
+  value?: Buffer;
+  salt?: Buffer;
+};
 
-
-const merkleMermaid = ({ proof, value, salt }: CreateMerkleMermaidObject) =>{
-  if (value){
-    return MerkleMermaid.inclusionProof(proof, value, salt)
+const merkleMermaid = ({ proof, value, salt }: CreateMerkleMermaidObject) => {
+  if (value) {
+    return MerkleMermaid.inclusionProof(proof, value, salt);
   } else {
-    const g = MerkleMermaid.fullTreeObjectToFullTreeGraph(proof)
-    return MerkleMermaid.graphToMermaid(g, {...MerkleMermaid.defaults.mermaidAutographConfig, markdown: true })
+    const g = MerkleMermaid.fullTreeObjectToFullTreeGraph(proof);
+    return MerkleMermaid.graphToMermaid(g, {
+      ...MerkleMermaid.defaults.mermaidAutographConfig,
+      markdown: true
+    });
   }
-}
+};
 
 const mermaid = {
-  urn: ({ urn, value, salt }: CreateMerkleMermaidUrn) =>{
+  urn: ({ urn, value, salt }: CreateMerkleMermaidUrn) => {
     const obj = MerkleUrn.toObject(urn);
-    if (value){
-      return MerkleMermaid.inclusionProof(obj, value, salt)
-    } 
-    return merkleMermaid({proof: obj,value, salt})
+    if (value) {
+      return MerkleMermaid.inclusionProof(obj, value, salt);
+    }
+    return merkleMermaid({ proof: obj, value, salt });
   },
   object: merkleMermaid
-}
+};
 
 const api = {
   tree,
@@ -164,8 +161,8 @@ const api = {
   util: {
     BinaryMerkleTree,
     JsonMerkleTree,
-    MerkleMermaid,
-  },
+    MerkleMermaid
+  }
 };
 
 export default api;

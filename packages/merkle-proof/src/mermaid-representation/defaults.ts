@@ -12,12 +12,17 @@ const nodeStyle = (n: AutographNode) => {
   return `\t\t${n.id}${`("${n.label}")`} \n`;
 };
 
-const mermaidAutographConfig: any = { 
+const mermaidAutographConfig: any = {
   header: true,
   markdown: false,
   style: "transmute",
   linkStyle: linkStyle,
   nodeStyle: nodeStyle
-}
+};
 
-export const defaults = { transmute, linkStyle, nodeStyle, mermaidAutographConfig };
+export const defaults = {
+  transmute,
+  linkStyle,
+  nodeStyle,
+  mermaidAutographConfig
+};

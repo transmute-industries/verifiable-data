@@ -1,4 +1,3 @@
-
 import JsonMerkleTree from "../json-representation";
 
 import { objectToUrn } from "./objectToUrn";

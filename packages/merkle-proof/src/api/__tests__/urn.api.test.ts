@@ -15,9 +15,11 @@ describe("merkle urn without salt", () => {
     const fullTreeUrn = merkle.urn.create({ members });
     const proof = merkle.urn.reveal({
       urn: fullTreeUrn,
-      reveal: [3],
+      reveal: [3]
     });
-    expect(proof).toBe(`urn:merkle:O4KMT0tIxdTLVWKkdOyeL9jVVG-uQOkHMu9jWJLkJyA?TgdAhWK-24tgzgXB3s_jrRa3IjCWfeAfZAt-Rym0n84=L.1HNeOiZeFu7gP1lxi5tdAwGcB9i2xR-Q2jpmbuwTqzU~L.ubEKG8d9KiQdEgMk2387gbLttn646c8Cr5yV0wMprvU~R.AwLJb0Wrvq2yOHgzGpukBgeL0L1dwgLBAq97mYYknwE`);
+    expect(proof).toBe(
+      `urn:merkle:O4KMT0tIxdTLVWKkdOyeL9jVVG-uQOkHMu9jWJLkJyA?TgdAhWK-24tgzgXB3s_jrRa3IjCWfeAfZAt-Rym0n84=L.1HNeOiZeFu7gP1lxi5tdAwGcB9i2xR-Q2jpmbuwTqzU~L.ubEKG8d9KiQdEgMk2387gbLttn646c8Cr5yV0wMprvU~R.AwLJb0Wrvq2yOHgzGpukBgeL0L1dwgLBAq97mYYknwE`
+    );
     const valid = merkle.urn.validate({ urn: proof });
     expect(valid).toBe(true);
     const verified = merkle.urn.verify({ urn: proof, value: members[3] });

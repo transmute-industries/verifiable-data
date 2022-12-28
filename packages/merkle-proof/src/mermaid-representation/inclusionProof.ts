@@ -146,6 +146,6 @@ export const inclusionProof = (
       return computeGraphStyle(g);
     })
     .join("");
-  const final = diagrams + '\n' + styles;
+  const final = diagrams + "\n" + styles;
   return wrapForMarkdown(final);
 };
