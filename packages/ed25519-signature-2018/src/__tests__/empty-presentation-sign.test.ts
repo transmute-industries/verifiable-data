@@ -9,19 +9,16 @@ let proof: any;
 
 describe("create and verify proof", () => {
   it("import key", async () => {
-    //
     keyPair = await Ed25519VerificationKey2018.from(rawKeyJson);
     expect(keyPair.controller).toBe(rawKeyJson.controller);
   });
   it("define suite", async () => {
-    //
     suite = new Ed25519Signature2018({
       key: keyPair,
     });
     expect(suite.verificationMethod).toBe(rawKeyJson.id);
   });
   it("sign and verify empty presentation", async () => {
-    //
     const presentation = {
       "@context": ["https://www.w3.org/2018/credentials/v1"],
       type: ["VerifiablePresentation"],
@@ -38,11 +35,9 @@ describe("create and verify proof", () => {
         },
       },
       documentLoader,
-      // expansionMap,
       compactProof: false,
     });
     expect(proof).toBeDefined();
-    //
     const result = await suite.verifyProof({
       proof: expectedProof,
       document: credential,
@@ -57,7 +52,6 @@ describe("create and verify proof", () => {
         },
       },
       documentLoader,
-      // expansionMap,
       compactProof: false,
     });
     expect((expectedProof as any)["@context"]).toBeFalsy();
@@ -65,7 +59,6 @@ describe("create and verify proof", () => {
   });
 
   it("sign and verify present with empty credentials", async () => {
-    //
     const presentation = {
       "@context": ["https://www.w3.org/2018/credentials/v1"],
       type: ["VerifiablePresentation"],
@@ -83,7 +76,6 @@ describe("create and verify proof", () => {
         },
       },
       documentLoader,
-      // expansionMap,
       compactProof: false,
     });
     expect(proof).toBeDefined();
@@ -101,7 +93,6 @@ describe("create and verify proof", () => {
         },
       },
       documentLoader,
-      // expansionMap,
       compactProof: false,
     });
     expect((expectedProof as any)["@context"]).toBeFalsy();
