@@ -39,7 +39,7 @@ export const createVcPayload = async (
     sub: subject,
     vc: credential,
     jti: credential.id,
-    nbf: moment(credential.issuanceDate).unix(),
+    nbf: moment(credential.issuanceDate).unix()
   };
   if (credential.expirationDate) {
     payload.exp = moment(credential.expirationDate).unix();
