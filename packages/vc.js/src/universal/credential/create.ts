@@ -7,7 +7,7 @@ export const create = async (
   options: CreateCredentialOptions
 ): Promise<CreateCredentialResult> => {
   const result: CreateCredentialResult = {
-    items: []
+    items: [],
   };
 
   if (!options.format) {
@@ -19,7 +19,7 @@ export const create = async (
       await ld.createVerifiableCredential({
         credential: options.credential,
         suite: options.suite,
-        documentLoader: options.documentLoader
+        documentLoader: options.documentLoader,
       })
     );
   }
@@ -39,7 +39,7 @@ export const create = async (
         detached: false,
         header: {
           kid: key.id
-        }
+        },
       }
     );
     const signer = k2.signer();

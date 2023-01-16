@@ -15,10 +15,10 @@ export const getVerifierForJwt = async (jwt: string, options: any) => {
 
   const verificationMethod = await suite.getVerificationMethod({
     proof: {
-      verificationMethod: header.kid
+      verificationMethod: header.kid,
     },
     documentLoader: options.documentLoader,
-    instance: true // need this to get the class instance
+    instance: true, // need this to get the class instance
   });
 
   if (!verificationMethod || !verificationMethod.useJwa) {
@@ -26,11 +26,13 @@ export const getVerifierForJwt = async (jwt: string, options: any) => {
       'Transmute requires "suite.getVerificationMethod" to return a key instance with member useJwa.'
     );
   }
-
+  if (suite.key?.alg) {
+    verificationMethod.alg = suite.key.alg;
+  }
   const k2 = await JsonWebKey.from(
     await verificationMethod.export({ type: "JsonWebKey2020" }),
     {
-      detached: false
+      detached: false,
     }
   );
 
