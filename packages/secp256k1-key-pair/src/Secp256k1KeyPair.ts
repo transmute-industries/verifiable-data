@@ -42,11 +42,14 @@ export class Secp256k1KeyPair implements LdKeyPairInstance {
   public controller: string;
   public publicKey: Uint8Array;
   public privateKey?: Uint8Array;
+  public alg?: string;
 
   static generate = async ({
     secureRandom,
+    alg,
   }: {
     secureRandom: () => Uint8Array;
+    alg?: string;
   }) => {
     const { publicKey, privateKey } = await _generate(secureRandom);
     const fingerprint = getMultibaseFingerprintFromPublicKeyBytes(publicKey);
@@ -59,6 +62,7 @@ export class Secp256k1KeyPair implements LdKeyPairInstance {
       controller: controller,
       publicKey,
       privateKey,
+      alg,
     });
   };
 
@@ -69,13 +73,17 @@ export class Secp256k1KeyPair implements LdKeyPairInstance {
       | EcdsaSecp256k1VerificationKey2020
   ) => {
     const { publicKey, privateKey } = importableTypes[k.type](k as any);
-    return new Secp256k1KeyPair({
+    const secp256k1KeyPair = new Secp256k1KeyPair({
       id: k.id,
       type: k.type,
       controller: k.controller,
       publicKey,
       privateKey,
     });
+    if ((k as any).publicKeyJwk?.alg) {
+      secp256k1KeyPair.alg = (k as any).publicKeyJwk.alg;
+    }
+    return secp256k1KeyPair;
   };
 
   static async fromFingerprint({ fingerprint }: { fingerprint: string }) {
@@ -112,12 +120,14 @@ export class Secp256k1KeyPair implements LdKeyPairInstance {
     controller: string;
     publicKey: Uint8Array;
     privateKey?: Uint8Array;
+    alg?: string;
   }) {
     this.id = opts.id;
     this.type = opts.type || 'JsonWebKey2020';
     this.controller = opts.controller;
     this.publicKey = opts.publicKey;
     this.privateKey = opts.privateKey;
+    this.alg = opts.alg;
   }
 
   async fingerprint() {
@@ -176,7 +186,8 @@ export class Secp256k1KeyPair implements LdKeyPairInstance {
         this.id,
         this.controller,
         this.publicKey,
-        options.privateKey ? this.privateKey : undefined
+        options.privateKey ? this.privateKey : undefined,
+        this.alg
       );
     }
     throw new Error('Unsupported export options: ' + JSON.stringify(options));
