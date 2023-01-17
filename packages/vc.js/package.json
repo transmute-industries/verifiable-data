@@ -41,7 +41,6 @@
     "@transmute/ed25519-signature-2018": "^0.7.0-unstable.77",
     "@transmute/jose-ld": "^0.7.0-unstable.77",
     "@transmute/revocation-list-context": "^0.7.0-unstable.77",
-    "@transmute/secp256k1-key-pair": "^0.7.0-unstable.77",
     "@transmute/security-context": "^0.7.0-unstable.77",
     "jose": "^3.14.0",
     "jsonld-signatures": "^9.2.1",
