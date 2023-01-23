@@ -64,7 +64,7 @@
     "@transmute/secp256k1-key-pair": "^0.7.0-unstable.79",
     "@transmute/security-context": "^0.7.0-unstable.79",
     "@transmute/web-crypto-key-pair": "^0.7.0-unstable.79",
-    "jsonld": "^5.2.0"
+    "@transmute/jsonld": "0.0.2"
   },
   "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
 }

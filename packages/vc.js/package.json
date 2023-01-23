@@ -51,9 +51,9 @@
   "dependencies": {
     "@transmute/did-key-ed25519": "^0.3.0-unstable.5",
     "@transmute/json-web-signature": "^0.7.0-unstable.79",
+    "@transmute/jsonld": "0.0.2",
     "@transmute/jsonld-schema": "^0.7.0-unstable.79",
     "@transmute/linked-data-proof": "^0.7.0-unstable.79",
-    "jsonld": "^5.2.0",
     "moment": "^2.29.1"
   }
 }

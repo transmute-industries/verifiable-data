@@ -43,7 +43,7 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.2",
-    "jsonld": "^3.3.0",
+    "@transmute/jsonld": "0.0.2",
     "size-limit": "^4.9.2",
     "ts-jest": "^26.5.0",
     "tsdx": "^0.14.1",
