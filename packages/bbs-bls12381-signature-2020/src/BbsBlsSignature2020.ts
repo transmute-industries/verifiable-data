@@ -1,4 +1,4 @@
-import jsonld from "jsonld";
+import jsonld from "@transmute/jsonld";
 
 import { Bls12381G2KeyPair } from "@transmute/bls12381-key-pair";
 

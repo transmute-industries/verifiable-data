@@ -1,4 +1,4 @@
-import jsonld from "jsonld";
+import jsonld from "@transmute/jsonld";
 import { randomBytes } from "@stablelib/random";
 import {
   DeriveProofOptions,

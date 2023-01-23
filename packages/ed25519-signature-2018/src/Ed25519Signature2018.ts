@@ -1,4 +1,4 @@
-import jsonld from "jsonld";
+import jsonld from "@transmute/jsonld";
 import crypto from "crypto";
 import * as sec from "@transmute/security-context";
 import * as cred from "@transmute/credentials-context";

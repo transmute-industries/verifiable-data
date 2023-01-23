@@ -14,14 +14,14 @@ describe("create and verify proof", () => {
   });
   it("define suite", async () => {
     suite = new Ed25519Signature2018({
-      key: keyPair,
+      key: keyPair
     });
     expect(suite.verificationMethod).toBe(rawKeyJson.id);
   });
   it("sign and verify empty presentation", async () => {
     const presentation = {
       "@context": ["https://www.w3.org/2018/credentials/v1"],
-      type: ["VerifiablePresentation"],
+      type: ["VerifiablePresentation"]
     };
 
     proof = await suite.createProof({
@@ -32,10 +32,10 @@ describe("create and verify proof", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        },
+        }
       },
       documentLoader,
-      compactProof: false,
+      compactProof: false
     });
     expect(proof).toBeDefined();
     const result = await suite.verifyProof({
@@ -49,10 +49,10 @@ describe("create and verify proof", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        },
+        }
       },
       documentLoader,
-      compactProof: false,
+      compactProof: false
     });
     expect((expectedProof as any)["@context"]).toBeFalsy();
     expect(result.verified).toBeTruthy();
@@ -62,7 +62,7 @@ describe("create and verify proof", () => {
     const presentation = {
       "@context": ["https://www.w3.org/2018/credentials/v1"],
       type: ["VerifiablePresentation"],
-      verifiableCredential: [],
+      verifiableCredential: []
     };
 
     proof = await suite.createProof({
@@ -73,10 +73,10 @@ describe("create and verify proof", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        },
+        }
       },
       documentLoader,
-      compactProof: false,
+      compactProof: false
     });
     expect(proof).toBeDefined();
     const result = await suite.verifyProof({
@@ -90,10 +90,10 @@ describe("create and verify proof", () => {
         update: (proof: any) => {
           proof.proofPurpose = "assertionMethod";
           return proof;
-        },
+        }
       },
       documentLoader,
-      compactProof: false,
+      compactProof: false
     });
     expect((expectedProof as any)["@context"]).toBeFalsy();
     expect(result.verified).toBeTruthy();

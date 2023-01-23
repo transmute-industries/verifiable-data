@@ -1,4 +1,4 @@
-import jsonld from 'jsonld';
+import jsonld from "@transmute/jsonld"; 'jsonld';
 import CheckResult from './CheckResult';
 
 import Ajv from 'ajv';

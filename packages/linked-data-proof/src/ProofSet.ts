@@ -1,4 +1,4 @@
-import jsonld from "jsonld";
+import jsonld from "@transmute/jsonld";
 import { serializeError } from "serialize-error";
 
 import strictExpansionMap from "./strictExpansionMap";

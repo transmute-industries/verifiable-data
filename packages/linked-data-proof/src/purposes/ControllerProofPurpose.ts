@@ -1,6 +1,6 @@
 import { ProofPurpose } from "./ProofPurpose";
 import { IPurposeValidateOptions } from "../types";
-import jsonld from "jsonld";
+import jsonld from "@transmute/jsonld";
 
 export class ControllerProofPurpose extends ProofPurpose {
   public controller: any;

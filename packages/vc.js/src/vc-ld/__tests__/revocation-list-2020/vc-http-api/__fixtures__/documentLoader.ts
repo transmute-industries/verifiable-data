@@ -2,7 +2,7 @@ import { contexts } from "./contexts";
 import controller from "./controller.json";
 import revocationList from "./revocationList.json";
 
-// import jsonld from 'jsonld';
+// import jsonld from "@transmute/jsonld"; 'jsonld';
 
 const contextResolver = async (iri: string) => {
   if (contexts[iri]) {

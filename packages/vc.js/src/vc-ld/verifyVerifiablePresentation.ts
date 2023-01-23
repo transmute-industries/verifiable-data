@@ -1,5 +1,5 @@
 import * as ldp from "@transmute/linked-data-proof";
-// import jsonld from "jsonld";
+// import jsonld from "@transmute/jsonld";
 import { checkPresentation } from "../checkPresentation";
 import { PresentationVerification } from "../types/PresentationVerification";
 import { verifyVerifiableCredential } from "./verifyVerifiableCredential";

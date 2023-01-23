@@ -1,4 +1,4 @@
-import jsonld from 'jsonld';
+import jsonld from "@transmute/jsonld"; 'jsonld';
 import { TextDecoder, stringToUint8Array } from '../util';
 import * as hl from '../index';
 import { Hashlink } from '../Hashlink';

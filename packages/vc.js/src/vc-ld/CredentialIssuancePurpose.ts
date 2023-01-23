@@ -1,5 +1,5 @@
 import * as ldp from "@transmute/linked-data-proof";
-// import jsonld from "jsonld";
+// import jsonld from "@transmute/jsonld";
 
 export const { AssertionProofPurpose } = ldp.purposes;
 

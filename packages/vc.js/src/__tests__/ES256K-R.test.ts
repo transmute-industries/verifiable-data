@@ -11,26 +11,26 @@ describe("create and verify verifiable credentials", () => {
   it("create verifiable credential", async () => {
     suite = await new JsonWebSignature({
       key: await JsonWebKey.from(jwk as any, { detached: true }),
-      date: new Date(),
+      date: new Date()
     });
     const issuerDid = suite.key?.controller;
     const {
-      items: [vcJwt],
+      items: [vcJwt]
     } = await vcjs.verifiable.credential.create({
       credential: {
         "@context": ["https://www.w3.org/2018/credentials/v1"],
         type: ["VerifiableCredential"],
         issuer: {
-          id: issuerDid!,
+          id: issuerDid!
         },
         issuanceDate: isoStringNoMS(new Date()),
         credentialSubject: {
-          id: issuerDid,
-        },
+          id: issuerDid
+        }
       },
       format: ["vc-jwt"],
       suite,
-      documentLoader: documentLoader as any,
+      documentLoader: documentLoader as any
     });
     const [encodedHeader] = vcJwt.split(".");
     const header = JSON.parse(
@@ -45,7 +45,7 @@ describe("create and verify verifiable credentials", () => {
       credential: verifiableCredential,
       format: ["vc-jwt"],
       documentLoader,
-      suite,
+      suite
     });
     expect(result.verified).toBeTruthy();
   });
