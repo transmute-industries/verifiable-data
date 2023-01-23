@@ -22,6 +22,7 @@
   ],
   "issuer": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
   "credentialSubject": {
+    "id": "urn:uuid:2cb13e3f-c3dd-4cf9-b7e2-a7378fc88173",
     "type": ["MillTestReport"],
     "manufacturer": {
       "type": ["Organization"],
@@ -64,7 +65,7 @@
             "type": ["Observation"],
             "property": {
               "type": ["MechanicalProperty"],
-              "identifier": "ISO 1352",
+              "identifier": "urn:uuid:2cb13e3f-c3dd-4cf9-b7e2-a7378fc88173",
               "name": "Torque-controlled fatigue testing",
               "description": "ISO 1352:2011 specifies the conditions for performing torsional, constant-amplitude, nominally elastic stress fatigue tests on metallic specimens without deliberately introducing stress concentrations. The tests are carried out at ambient temperature (ideally at between 10 °C and 35 °C) in air by applying a pure couple to the specimen about its longitudinal axis."
             },
