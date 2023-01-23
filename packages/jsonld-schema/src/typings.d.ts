@@ -1,2 +1,2 @@
-declare module 'jsonld';
+declare module '@transmute/jsonld';
 declare module 'js-yaml';

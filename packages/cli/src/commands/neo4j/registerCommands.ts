@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import jsonld from "@transmute/jsonld"; 'jsonld';
+import jsonld from "@transmute/jsonld";
 import { documentLoader } from './documentLoader';
 import { getDriver } from './getDriver';
 

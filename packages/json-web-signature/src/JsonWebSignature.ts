@@ -1,4 +1,4 @@
-import jsonld from "@transmute/jsonld"; 'jsonld';
+import jsonld from "@transmute/jsonld";
 
 import { subtle } from '@transmute/web-crypto-key-pair';
 import { JsonWebKey } from './JsonWebKey';
