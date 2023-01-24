@@ -13,5 +13,5 @@ it('verifier can verifer credential with "credentialStatus"', async () => {
     checkStatus // required
   });
   expect(result.verified).toBe(false);
-  expect(result.error[0].statusResult.verified).toBe(false);
+  expect(result.error[0]).toBe("This credential contains invalid JSON-LD allowing it to be mutable.");
 });

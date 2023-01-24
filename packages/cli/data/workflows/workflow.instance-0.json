@@ -740,27 +740,27 @@
               "seed": 6,
               "history": [
                 {
-                  "id": "StartEvent_0",
+                  "id": "urn:uuid:15442486-0878-440c-9db1-a7006c25a39f#StartEvent_0",
                   "name": "Start"
                 },
                 {
-                  "id": "Task_0",
+                  "id": "urn:uuid:25442486-0878-440c-9db1-a7006c25a39f#Task_0",
                   "name": "Order Received in China"
                 },
                 {
-                  "id": "Task_1",
+                  "id": "urn:uuid:35442486-0878-440c-9db1-a7006c25a39f#Task_1",
                   "name": "Product Manufactured in China"
                 },
                 {
-                  "id": "Task_2",
+                  "id": "urn:uuid:45442486-0878-440c-9db1-a7006c25a39f#Task_2",
                   "name": "Product Shipped to Denmark"
                 },
                 {
-                  "id": "Task_3",
+                  "id": "urn:uuid:55442486-0878-440c-9db1-a7006c25a39f#Task_3",
                   "name": "Product Shipped to United States"
                 },
                 {
-                  "id": "Task_4",
+                  "id": "urn:uuid:65442486-0878-440c-9db1-a7006c25a39f#Task_4",
                   "name": "US Customs Approval"
                 }
               ]

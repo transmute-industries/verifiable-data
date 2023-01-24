@@ -37,6 +37,9 @@ export const verify = async (
         });
       }
       if (res && res.results[0] && !res.results[0].verified) {
+        if (res.results[0].error, res.results[0].error.message.indexOf('Invalid JSON-LD') >= 0) {
+          result.error.push("This credential contains invalid JSON-LD allowing it to be mutable.")
+        }
         result.error.push({ proofResult: res.results[0].verified });
       }
       if (res.error) {

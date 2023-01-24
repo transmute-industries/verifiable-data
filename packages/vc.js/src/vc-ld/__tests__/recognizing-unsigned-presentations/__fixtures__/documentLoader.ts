@@ -1,7 +1,7 @@
 import { contexts } from "./contexts";
 import controller from "./controller.json";
 
-// import jsonld from "@transmute/jsonld";
+
 
 const contextResolver = async (iri: string) => {
   if (contexts[iri]) {

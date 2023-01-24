@@ -2,7 +2,7 @@ import { contexts } from "./contexts";
 import controller from "./controller.json";
 import * as ed25519 from "@transmute/did-key-ed25519";
 
-// import jsonld from "@transmute/jsonld";
+
 
 const contextResolver = async (iri: string) => {
   if (contexts[iri]) {
