@@ -1,6 +1,5 @@
 import * as ldp from "@transmute/linked-data-proof";
 
-
 export const { AssertionProofPurpose } = ldp.purposes;
 
 export class CredentialIssuancePurpose extends AssertionProofPurpose {

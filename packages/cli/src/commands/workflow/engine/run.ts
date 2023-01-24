@@ -39,6 +39,7 @@ export const run = (
     });
     engine.on('end', (execution: any) => {
       execution.environment.output.path.pop();
+
       const result = {
         input: variables,
         output: execution.environment.output,

@@ -64,12 +64,14 @@ export const variables = {
 };
 
 export const generateECommerceFlow = () => {
-  const def = workflow.definition.create({ id: workflow.definition.id() });
+  const def = workflow.definition.create({ id: `urn:uuid:${workflow.definition.id()}` });
 
-  def.addStart({ id: 'StartEvent_0', name: 'Start' });
+  const startId = `urn:uuid:${workflow.definition.id()}#StartEvent_0`
+  def.addStart({ id: startId, name: 'Start' });
 
+  const task0Id = `urn:uuid:${workflow.definition.id()}#Task_0`
   def.addTask({
-    id: 'Task_0',
+    id: task0Id,
     name: 'Order Received in China',
     task: async ({ output, services, variables }: WorkflowEnvironment) => {
       // services.console.log('product ordered from China.');
@@ -83,6 +85,7 @@ export const generateECommerceFlow = () => {
       const vc1 = await manufacturer.credential.generate({
         type: 'CertifiedPurchaseOrder',
         subject: {
+          id: `urn:uuid${workflow.definition.id()}`,
           manufacturer: variables.manufacturer,
           product: variables.product,
         },
@@ -96,14 +99,15 @@ export const generateECommerceFlow = () => {
     },
     edges: [
       {
-        source: 'StartEvent_0',
+        source: startId,
         name: 'Import Started',
       },
     ],
   });
 
+  const task1Id = `urn:uuid:${workflow.definition.id()}#Task_1`
   def.addTask({
-    id: 'Task_1',
+    id: task1Id,
     name: 'Product Manufactured in China',
     task: async ({ output, variables }: WorkflowEnvironment) => {
       // services.console.log('product manufactured in China.');
@@ -111,18 +115,21 @@ export const generateECommerceFlow = () => {
       const vc1 = await manufacturer.credential.generate({
         type: 'CertifiedOrigin',
         subject: {
+          id: `urn:uuid${workflow.definition.id()}`,
           ...variables.product,
         },
       });
       const vc2 = await manufacturer.credential.generate({
         type: 'CertifiedCommercialInvoice',
         subject: {
+          id: `urn:uuid${workflow.definition.id()}`,
           ...variables.product,
         },
       });
       const vc3 = await manufacturer.credential.generate({
         type: 'CertifiedPackingList',
         subject: {
+          id: `urn:uuid${workflow.definition.id()}`,
           ...variables.product,
         },
       });
@@ -135,14 +142,15 @@ export const generateECommerceFlow = () => {
     },
     edges: [
       {
-        source: 'Task_0',
+        source: task0Id,
         name: 'Fill Order',
       },
     ],
   });
 
+  const task2Id = `urn:uuid:${workflow.definition.id()}#Task_2`
   def.addTask({
-    id: 'Task_2',
+    id: task2Id,
     name: 'Product Shipped to Denmark',
     task: async ({ output, services, variables }: WorkflowEnvironment) => {
       // services.console.log('product shipped Denmark.');
@@ -154,6 +162,7 @@ export const generateECommerceFlow = () => {
       const vc1 = await oceanCarrier.credential.generate({
         type: 'CertifiedBillOfLading',
         subject: {
+          id: `urn:uuid${workflow.definition.id()}`,
           ...variables.product,
         },
       });
@@ -166,14 +175,15 @@ export const generateECommerceFlow = () => {
     },
     edges: [
       {
-        source: 'Task_1',
+        source: task1Id,
         name: 'Ocean Transport',
       },
     ],
   });
 
+  const task3Id = `urn:uuid:${workflow.definition.id()}#Task_3`
   def.addTask({
-    id: 'Task_3',
+    id: task3Id,
     name: 'Product Shipped to United States',
     task: async ({ output, services, variables }: WorkflowEnvironment) => {
       // services.console.log('product shipped to US.');
@@ -192,6 +202,7 @@ export const generateECommerceFlow = () => {
       const vc1 = await distributor.credential.generate({
         type: 'CertifiedUSImportDeclaration',
         subject: {
+          id: `urn:uuid${workflow.definition.id()}`,
           ...variables.product,
         },
       });
@@ -199,6 +210,7 @@ export const generateECommerceFlow = () => {
       const vc2 = await distributor.credential.generate({
         type: 'CertifiedCommercialInvoice',
         subject: {
+          id: `urn:uuid${workflow.definition.id()}`,
           ...variables.product,
         },
       });
@@ -210,6 +222,7 @@ export const generateECommerceFlow = () => {
       const vc3 = await airCarrier.credential.generate({
         type: 'CertifiedAirWaybill',
         subject: {
+          id: `urn:uuid${workflow.definition.id()}`,
           ...variables.product,
         },
       });
@@ -223,14 +236,15 @@ export const generateECommerceFlow = () => {
     },
     edges: [
       {
-        source: 'Task_2',
+        source: task2Id,
         name: 'Air Transport',
       },
     ],
   });
 
+  const task4Id = `urn:uuid:${workflow.definition.id()}#Task_4`
   def.addTask({
-    id: 'Task_4',
+    id: task4Id,
     name: 'US Customs Approval',
     task: async ({ output, services, variables }: WorkflowEnvironment) => {
       // services.console.log('product import approved.');
@@ -247,6 +261,7 @@ export const generateECommerceFlow = () => {
       const vc1 = await customs.credential.generate({
         type: 'CertifiedImportAproval',
         subject: {
+          id: `urn:uuid${workflow.definition.id()}`,
           ...variables.product,
         },
       });
@@ -259,14 +274,15 @@ export const generateECommerceFlow = () => {
     },
     edges: [
       {
-        source: 'Task_3',
+        source: task3Id,
         name: 'Process US Customs Entry',
       },
     ],
   });
 
+  const task5Id = `urn:uuid:${workflow.definition.id()}#Task_5`
   def.addTask({
-    id: 'Task_5',
+    id: task5Id,
     name: 'Product Sold in US',
     task: async ({ output, services, variables }: WorkflowEnvironment) => {
       // services.console.log('product sold.');
@@ -283,6 +299,7 @@ export const generateECommerceFlow = () => {
       const vc1 = await importer.credential.generate({
         type: 'CertifiedProductHistory',
         subject: {
+          id: `urn:uuid${workflow.definition.id()}`,
           ...variables.product,
           history: traceabilityPath,
         },
@@ -296,18 +313,19 @@ export const generateECommerceFlow = () => {
     },
     edges: [
       {
-        source: 'Task_4',
+        source: task4Id,
         name: 'Ship to Importer Of Record',
       },
     ],
   });
 
+  const endId = `urn:uuid:${workflow.definition.id()}#EndEvent_0`
   def.addStop({
-    id: 'EndEvent_0',
+    id: endId,
     name: 'End',
     edges: [
       {
-        source: 'Task_5',
+        source: task5Id,
         name: 'Import Completed',
       },
     ],
