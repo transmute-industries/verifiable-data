@@ -49,6 +49,6 @@
     "@mattrglobal/bbs-signatures": "^0.6.0",
     "@stablelib/random": "^1.0.1",
     "@transmute/bls12381-key-pair": "^0.7.0-unstable.79",
-    "jsonld": "^5.2.0"
+    "@transmute/jsonld": "0.0.4"
   }
 }

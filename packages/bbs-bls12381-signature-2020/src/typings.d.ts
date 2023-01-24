@@ -1,1 +1,1 @@
-declare module "jsonld";
+declare module "@transmute/jsonld";

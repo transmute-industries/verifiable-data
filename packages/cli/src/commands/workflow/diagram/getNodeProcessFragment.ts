@@ -1,5 +1,5 @@
 export const getNodeProcessFragment = (c: any, g: any) => {
-  const childType = `${c.id}`.split('_')[0];
+  const childType = c.id.indexOf('#') >= 0 ? `${c.id}`.split('#')[1].split('_')[0] : `${c.id}`.split('_')[0];
 
   const outboundLinks = g.links.filter((link: any) => {
     return link.source === c.id;

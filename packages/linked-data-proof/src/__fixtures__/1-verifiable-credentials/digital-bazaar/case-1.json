@@ -25,6 +25,7 @@
   ],
   "issuer": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
   "credentialSubject": {
+    "id": "urn:uuid:2cb13e3f-c3dd-4cf9-b7e2-a7378fc88173",
     "type": [
       "MillTestReport"
     ],
@@ -167,6 +168,6 @@
     "created": "2010-01-01T19:23:24Z",
     "verificationMethod": "did:key:z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk#z6MktWjP95fMqCMrfNULcdszFeTVUCE1zcgz3Hv5bVAisHgk",
     "proofPurpose": "assertionMethod",
-    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..M5DWqdH00x4l_b-I9UnG-3vFpizdiploi77tlUe2-iw8Eg5mRMpVUWEwZZ7duNIOk4waXXvonCSJz2kMgjkZDQ"
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..YQolSqkoJSA0_dRDGwsqMAqaFkSSle1hv-UdQ2sUMw3F8Ig3MzkbehYhyZPG1pZfNyXK3HHWy1UP_YB42sX7AQ"
   }
 }

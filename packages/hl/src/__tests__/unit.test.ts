@@ -1,4 +1,4 @@
-import jsonld from 'jsonld';
+import jsonld from '@transmute/jsonld';
 import { TextDecoder, stringToUint8Array } from '../util';
 import * as hl from '../index';
 import { Hashlink } from '../Hashlink';
@@ -30,7 +30,7 @@ class Urdna2015 {
   async encode(input: any) {
     const inputJsonld = JSON.parse(new TextDecoder().decode(input));
     return stringToUint8Array(
-      await jsonld.canonize(inputJsonld, { format: 'application/n-quads' })
+      await jsonld.safeCanonize(inputJsonld, { format: 'application/n-quads' })
     );
   }
 }

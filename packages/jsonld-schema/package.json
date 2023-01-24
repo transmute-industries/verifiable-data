@@ -60,7 +60,7 @@
   "dependencies": {
     "ajv": "^8.6.1",
     "genson-js": "0.0.5",
-    "jsonld": "^5.2.0"
+    "@transmute/jsonld": "0.0.4"
   },
   "gitHead": "37f52c102233963d1369862e104df87dd4c5d063"
 }

@@ -1,4 +1,4 @@
-import jsonld from "jsonld";
+import jsonld from "@transmute/jsonld";
 
 import { Bls12381G2KeyPair } from "@transmute/bls12381-key-pair";
 
@@ -69,7 +69,7 @@ export class BbsBlsSignature2020 {
     input: any,
     { documentLoader, expansionMap, skipExpansion }: any
   ) {
-    return jsonld.canonize(input, {
+    return jsonld.safeCanonize(input, {
       algorithm: "URDNA2015",
       format: "application/n-quads",
       documentLoader,

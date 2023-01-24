@@ -1,4 +1,4 @@
-import jsonld from "jsonld";
+import jsonld from "@transmute/jsonld";
 import crypto from "crypto";
 import * as sec from "@transmute/security-context";
 import * as cred from "@transmute/credentials-context";
@@ -79,7 +79,7 @@ export class Ed25519Signature2018 {
     input: any,
     { documentLoader, expansionMap, skipExpansion }: any
   ) {
-    return jsonld.canonize(input, {
+    return jsonld.safeCanonize(input, {
       algorithm: "URDNA2015",
       format: "application/n-quads",
       documentLoader,
