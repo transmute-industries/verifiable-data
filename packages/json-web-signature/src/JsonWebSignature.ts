@@ -1,4 +1,4 @@
-import jsonld from "@transmute/jsonld";
+import jsonld from '@transmute/jsonld';
 
 import { subtle } from '@transmute/web-crypto-key-pair';
 import { JsonWebKey } from './JsonWebKey';
@@ -50,7 +50,7 @@ export class JsonWebSignature {
     input: any,
     { documentLoader, expansionMap, skipExpansion }: any
   ) {
-    return jsonld.canonize(input, {
+    return jsonld.safeCanonize(input, {
       algorithm: 'URDNA2015',
       format: 'application/n-quads',
       documentLoader,

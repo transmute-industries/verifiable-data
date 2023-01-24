@@ -210,7 +210,7 @@ export class BbsBlsSignatureProof2020 {
 
   async canonize(input: any, options: CanonizeOptions): Promise<string> {
     const { documentLoader, expansionMap, skipExpansion } = options;
-    return jsonld.canonize(input, {
+    return jsonld.safeCanonize(input, {
       algorithm: "URDNA2015",
       format: "application/n-quads",
       documentLoader,
