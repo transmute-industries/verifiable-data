@@ -20,7 +20,7 @@ Verifiable Data is the library that powers [W3C Decentralized Identifiers](https
   - [jws 2020](./packages/json-web-signature)
 - [credential suites](#credential-suites)
   - [revocation list 2020](./packages/vc-status-rl-2020)
-- [command line interface](./packages/cli)
+- [command line interface](https://github.com/transmute-industries/transmute)
 - [hashlink](./packages/hl)
 - [compressable bitstring](./packages/compressable-bitstring)
 - [did-web](./packages/did-web)
