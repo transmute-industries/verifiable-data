@@ -12,7 +12,8 @@ export const toJsonWebKey2020 = (
   id: string,
   controller: string,
   publicKey: Uint8Array,
-  privateKey?: Uint8Array
+  privateKey?: Uint8Array,
+  alg?: string
 ) => {
   // assume 0x04
   const expandedPublicKey = secp256k1.publicKeyConvert(
@@ -31,6 +32,7 @@ export const toJsonWebKey2020 = (
   const publicKeyJwk = {
     kty: 'EC',
     crv: 'secp256k1',
+    alg,
     x: base64url.encode(Buffer.from(x, 'hex')),
     y: base64url.encode(Buffer.from(y, 'hex')),
   };

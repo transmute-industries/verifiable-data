@@ -1,4 +1,4 @@
-import jsonld from "jsonld";
+import jsonld from "@transmute/jsonld";
 import { check } from "@transmute/jsonld-schema";
 
 import { checkDate } from "./checkDate";

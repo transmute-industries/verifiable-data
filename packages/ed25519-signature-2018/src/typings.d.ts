@@ -1,4 +1,4 @@
-declare module "jsonld";
+declare module "@transmute/jsonld";
 declare module "vc-js";
 declare module "canonicalize";
 declare module "json-pointer";

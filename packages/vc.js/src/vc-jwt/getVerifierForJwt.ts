@@ -26,7 +26,9 @@ export const getVerifierForJwt = async (jwt: string, options: any) => {
       'Transmute requires "suite.getVerificationMethod" to return a key instance with member useJwa.'
     );
   }
-
+  if (suite.key?.alg) {
+    verificationMethod.alg = suite.key.alg;
+  }
   const k2 = await JsonWebKey.from(
     await verificationMethod.export({ type: "JsonWebKey2020" }),
     {

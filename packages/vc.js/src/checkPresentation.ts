@@ -1,4 +1,4 @@
-import jsonld from "jsonld";
+import jsonld from "@transmute/jsonld";
 // import constants from './constants';
 
 import { checkCredential } from "./checkCredential";

@@ -1,4 +1,4 @@
-import jsonld from "jsonld";
+import jsonld from "@transmute/jsonld";
 import crypto from "crypto";
 import * as sec from "@transmute/security-context";
 import * as cred from "@transmute/credentials-context";
@@ -79,7 +79,7 @@ export class Ed25519Signature2018 {
     input: any,
     { documentLoader, expansionMap, skipExpansion }: any
   ) {
-    return jsonld.canonize(input, {
+    return jsonld.safeCanonize(input, {
       algorithm: "URDNA2015",
       format: "application/n-quads",
       documentLoader,
@@ -175,36 +175,9 @@ export class Ed25519Signature2018 {
       date = str.substr(0, str.length - 5) + "Z";
     }
 
-    const source = document.verifiableCredential || document;
-    const credentials = Array.isArray(source) ? source : [source];
-
-    // Add check to see if date matches standard
-    credentials.forEach((credential: VerifiableCredential) => {
-      if (typeof credential.issuanceDate !== "string") {
-        throw new Error(
-          [
-            "The vc-data-model specification expects the issuanceDate property to be a xsd:dateTime(https://www.w3.org/TR/xmlschema-2/#dateTime)",
-            "Original input: " + JSON.stringify(document.issuanceDate),
-            "https://www.w3.org/TR/vc-data-model/#issuance-date"
-          ].join("\n")
-        );
-      }
-    });
-
     // add API overrides
     if (date) {
       proof.created = date;
-
-      if (this.originalDate && this.originalDate !== date) {
-        console.warn(
-          [
-            "The proof.created is of type xsd:dateTime(https://www.w3.org/TR/xmlschema-2/#dateTime), this is different from the input provided",
-            "Original Input: " + JSON.stringify(this.originalDate),
-            "Current Proof.created value: " + date,
-            "Please provide a conforming XML date string with format YYYY-MM-DDTHH:mm:ssZ to avoid seeing this message"
-          ].join("\n")
-        );
-      }
     }
 
     // `verificationMethod` is for newer suites, `creator` for legacy

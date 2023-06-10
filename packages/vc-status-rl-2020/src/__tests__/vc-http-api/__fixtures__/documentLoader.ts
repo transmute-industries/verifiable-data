@@ -2,8 +2,6 @@ import { contexts } from './contexts';
 import controller from './controller.json';
 import revocationList from './revocationList.json';
 
-// import jsonld from 'jsonld';
-
 const contextResolver = async (iri: string) => {
   if (contexts[iri]) {
     return { document: contexts[iri] };

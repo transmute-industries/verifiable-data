@@ -1,7 +1,8 @@
-import jsonld from 'jsonld';
+import jsonld from '@transmute/jsonld';
 import CheckResult from './CheckResult';
 
 import Ajv from 'ajv';
+
 const ajv = new Ajv();
 
 const check = async ({
