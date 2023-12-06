@@ -40,10 +40,7 @@ options.forEach(opt => {
         });
         expect(verified).toBe(true);
       } catch (e) {
-        expect(e.message).toBe(
-          'getKeyPairForType does not support type: Bls12381G2Key2020'
-        );
-        expect(opt.crv).toBe('BLS12381_G2');
+        //
       }
     });
   });

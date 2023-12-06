@@ -83,10 +83,6 @@ const getVerifier = async (k: any, options = { detached: true }) => {
     if (crv === 'P-521') {
       return JWS.createVerifier(k.verifier('Ecdsa'), 'ES512', options);
     }
-
-    if (crv === 'BLS12381_G2') {
-      throw new Error('BLS12381_G2 has no registered JWA');
-    }
   }
 
   throw new Error(
@@ -110,9 +106,6 @@ const getSigner = async (k: any, options = { detached: true }) => {
       } else {
         return JWS.createSigner(k.signer('Ecdsa'), 'ES256K', options);
       }
-    }
-    if (crv === 'BLS12381_G2') {
-      throw new Error('BLS12381_G2 has no registered JWA');
     }
     if (crv === 'P-256') {
       return JWS.createSigner(k.signer('Ecdsa'), 'ES256', options);

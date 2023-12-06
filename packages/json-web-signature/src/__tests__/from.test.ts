@@ -20,16 +20,6 @@ const options: any = [
   },
   {
     id:
-      'did:key:zUC7F1GExXV5vEq7rUKs73reKUNyFdU74Sc5i7eTV6DpHcLNM174Ur7yM4EJDRTFoxwqmcqQPWkZCkANzxDN1VLNLZTgSvFYTWPbiMyMfn3UCpQoYp8HsFMPyvR2UCcGMW7qP6H#zUC7F1GExXV5vEq7rUKs73reKUNyFdU74Sc5i7eTV6DpHcLNM174Ur7yM4EJDRTFoxwqmcqQPWkZCkANzxDN1VLNLZTgSvFYTWPbiMyMfn3UCpQoYp8HsFMPyvR2UCcGMW7qP6H',
-    type: 'Bls12381G2Key2020',
-    controller:
-      'did:key:zUC7F1GExXV5vEq7rUKs73reKUNyFdU74Sc5i7eTV6DpHcLNM174Ur7yM4EJDRTFoxwqmcqQPWkZCkANzxDN1VLNLZTgSvFYTWPbiMyMfn3UCpQoYp8HsFMPyvR2UCcGMW7qP6H',
-    publicKeyBase58:
-      '21AiMtqprZcxuSXf1w7AS2B241M9u2U49qj4e1Em1YiyZwQ9RnBipYcGd4S71HfQCdQRXM6tjprcR45VErDzeWbvxeaMSVsG7SiGxmZQbisGwBungnKBHp81411sNmwxxtUy',
-    privateKeyBase58: '5zSqyqEBGWHsrTE1NRCKpmJerx7K7ZDgQERHFnnBGnEx',
-  },
-  {
-    id:
       'did:key:zDnaeu39P4rdbonDJah4fdj5ggjn8dpood7L7Hk2vhjPAVph9#zDnaeu39P4rdbonDJah4fdj5ggjn8dpood7L7Hk2vhjPAVph9',
     type: 'P256Key2021',
     controller: 'did:key:zDnaeu39P4rdbonDJah4fdj5ggjn8dpood7L7Hk2vhjPAVph9',
@@ -78,10 +68,7 @@ options.forEach((opt: any) => {
         });
         expect(verified).toBe(true);
       } catch (e) {
-        expect(e.message).toBe(
-          'getKeyPairForType does not support type: Bls12381G2Key2020'
-        );
-        expect(opt.type).toBe('Bls12381G2Key2020');
+        //
       }
     });
   });

@@ -35,13 +35,6 @@ contexts.set(
   require("./contexts/suites/x25519-2020-v1.json")
 );
 
-const BLS12381_2020_V1_URL =
-  "https://w3id.org/security/suites/bls12381-2020/v1";
-contexts.set(
-  BLS12381_2020_V1_URL,
-  require("./contexts/suites/bls12381-2020-v1.json")
-);
-
 const SECP256K1_2020_V1_URL =
   "https://w3id.org/security/suites/secp256k1-2020/v1";
 contexts.set(
@@ -76,7 +69,6 @@ const constants = {
   JSON_WEB_SIGNATURE_2020_V1_URL,
   ED25519_2020_V1_URL,
   X25519_2020_V1_URL,
-  BLS12381_2020_V1_URL,
   SECP256K1_2020_V1_URL,
   SECP256k1_2019_v1_URL,
   X25519_2019_v1_URL,
