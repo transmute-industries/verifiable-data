@@ -56,9 +56,7 @@ export class ProofSet {
     });
 
     delete proof["@context"];
-    // this is required here, for cases where the suite
-    // still requires / uses sec-v2... like bbs+
-    proof.type = proof.type.replace("sec:", "");
+
     jsonld.addValue(document, proofProperty, proof);
 
     return document;
@@ -93,16 +91,10 @@ export class ProofSet {
       throw new Error("No matching proofs found in the given document.");
     }
 
-    const secV2Locked = ["BbsBlsSignatureProof2020"];
     // TODO: consider in-place editing to optimize
     const context = document["@context"];
     proofSet = proofSet.map((proof: any) => ({
-      // this is required because of...
-      // https://github.com/mattrglobal/jsonld-signatures-bbs/blob/master/src/BbsBlsSignatureProof2020.ts#L32
-      // A seperate implementation is probably advisable.
-      "@context": secV2Locked.includes(proof.type)
-        ? ["https://w3id.org/security/v2"]
-        : context,
+      "@context": context,
       ...proof
     }));
 
@@ -136,12 +128,9 @@ export class ProofSet {
         matches.map(async (proof: any) => {
           for (const s of suites) {
             // Previously we used s.matchProof
-            // since issues were reported here:
-            // https://github.com/digitalbazaar/jsonld-signatures/issues/143
-            // https://github.com/mattrglobal/jsonld-signatures-bbs/issues/139
             // we think matchProof should be a simply string comparison here...
             // and no support for the "expanded" proofs should be provided...
-            const matchFound = s.type.replace("sec:", "") === proof.type;
+            const matchFound = s.type === proof.type;
 
             if (matchFound) {
               return s

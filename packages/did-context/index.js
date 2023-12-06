@@ -24,11 +24,6 @@ contexts.set(
 );
 
 contexts.set(
-  constants.DID_CONTEXT_TRANSMUTE_BLS12381_2020_V1_URL,
-  require("./contexts/bls12381-2020-v1.json")
-);
-
-contexts.set(
   constants.DID_CONTEXT_TRANSMUTE_ED25519_2020_V1_URL,
   require("./contexts/ed25519-2020-v1.json")
 );

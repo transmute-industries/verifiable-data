@@ -41,13 +41,6 @@ export const documentLoader: DocumentLoader = async (iri: string) => {
     };
   }
 
-  if (iri.startsWith('https://w3id.org/security/bbs/v1')) {
-    return {
-      documentUrl: iri,
-      document: require('./contexts/bbs-v1.json'),
-    };
-  }
-
   if (iri.startsWith('https://w3id.org/vaccination/v1')) {
     return {
       documentUrl: iri,

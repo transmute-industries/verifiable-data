@@ -26,11 +26,6 @@ export default {
   // https://www.w3.org/ns/did/v1
   [didContexts.constants.DID_CONTEXT_V1_URL]: didContexts.contexts.get(
     didContexts.constants.DID_CONTEXT_V1_URL
-  ),
-  // https://ns.did.ai/suites/bls12381-2020/v1
-  [didContexts.constants
-    .DID_CONTEXT_TRANSMUTE_BLS12381_2020_V1_URL]: didContexts.contexts.get(
-    didContexts.constants.DID_CONTEXT_TRANSMUTE_BLS12381_2020_V1_URL
-  ),
+  )
 };
 ```
